@@ -1,0 +1,25 @@
+.headerArea{
+    padding: 12px 0;
+    /* position: absolute;
+    top: 0;
+    z-index: 1;
+    width: 100%; */
+}
+.navbar-toggler{
+    background-color: #fff !important;
+}
+.headerArea .navbar-brand{ 
+    width: 175px;
+}
+.headerArea .navbar-brand img{ 
+    width: 100%;
+}
+.navbar-nav .nav-item .nav-link{
+    color:#fff;
+    font-size: 14px;
+    text-transform: uppercase;
+    font-weight: 500;
+}
+.navbar-nav .nav-item .nav-link.active{
+    color:#f9b638;
+}

@@ -1,0 +1,83 @@
+.banner-area {
+    width: 100%;
+    height: 350px;
+    position: relative;
+    overflow: hidden;
+}
+
+.banner-area::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    background: #403a3e;
+    /* fallback for old browsers */
+    background: -webkit-linear-gradient(to top, #030b4fe6, #ffffff94);
+    /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to top, #030b4fe6, #ffffff94);
+}
+
+.banner-area .pic-area {
+    width: 100%;
+    height: 400px;
+}
+
+.banner-area .pic-area .img {
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+}
+
+.banner-area .info-area {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    max-width: 700px;
+    padding: 25px;
+    margin: 0 auto;
+    z-index: 9;
+    text-align: center;
+}
+
+.banner-area .info-area h2 {
+    font-size: 28px;
+    line-height: 36px;
+    font-weight: 700;
+    color: #fff;
+}
+
+.banner-area .info-area p {
+    font-size: 16px;
+    line-height: 22px;
+    font-weight: 400;
+    color: #fff;
+
+}
+
+.banner-area .info-area ul {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    color: #fff;
+
+}
+
+.banner-area .info-area ul li {
+    margin-right: 5px;
+    font-size: 14px;
+    font-weight: 400;
+    color: #fff;
+}
+
+.banner-area .info-area ul li.linkarea {
+    color: blue;
+}
+
+@media(max-width:768px) {
+    .banner-area .info-area {
+        width: 100%;
+    }
+}
