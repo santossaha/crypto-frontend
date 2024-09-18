@@ -16,29 +16,19 @@ import e5 from "./assets/images/e-5.jpg";
 // import e9 from "./assets/images/e-9.jpg";
 // import e10 from "./assets/images/e-10.jpg";
 
-
 import Eye from "./assets/images/eye.svg";
 import Ellipse1 from "./assets/images/Ellipse-1.png";
 
-
-
-
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import Slider from './components/slider/page';
+import Slider from "./components/slider/page";
 import { Button } from "bootstrap";
 import Link from "next/link";
-import Header from './components/header/page';
-import Footer from './components/footer/page';
-
-
 
 const page = () => {
   return (
     <div>
-      <Header />
       <div className="bannerArea">
-        <div className="area1"></div>
         <div className="container">
           <div className="priceSlider py-2">
             <Slider />
@@ -150,40 +140,107 @@ const page = () => {
                   <Image className="img" src={Ellipse1} alt="elp" />
                 </div>
                 <h3>Welcome You In The Crypto World</h3>
-                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                  Veritatis natus labore quia suscipit nobis et laudantium maxime
-                  neque voluptate voluptas. Alias ex quod obcaecati earum. Veniam
-                  natus nam dignissimos eligendi iste, optio quia dolorum cum nihil asperiores.
-                  dolores amet dolorem. Tenetur beatae quae labore suscipit nulla fuga
-                  nesciunt.</p>
+                <p>
+                  Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                  Veritatis natus labore quia suscipit nobis et laudantium
+                  maxime neque voluptate voluptas. Alias ex quod obcaecati
+                  earum. Veniam natus nam dignissimos eligendi iste, optio quia
+                  dolorum cum nihil asperiores. dolores amet dolorem. Tenetur
+                  beatae quae labore suscipit nulla fuga nesciunt.
+                </p>
                 <ul>
                   <li>
                     <span>
-                      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-check-circle"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
-                        <polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="24"
+                        height="24"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        class="feather feather-check-circle"
+                      >
+                        <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+                        <polyline points="22 4 12 14.01 9 11.01"></polyline>
+                      </svg>
                     </span>
-                    Bitcoins rise: digital gold in the making.</li>
-                  <li><span>
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-check-circle"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
-                      <polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
-                  </span>Ethereums smart contracts: coding the future.</li>
-                  <li><span>
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-check-circle"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
-                      <polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
-                  </span>Altcoins surge, diversify your digital portfolio.</li>
-                  <li><span>
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-check-circle"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
-                      <polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
-                  </span>NFTs: making digital art collectible.</li>
+                    Bitcoins rise: digital gold in the making.
+                  </li>
+                  <li>
+                    <span>
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="24"
+                        height="24"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        class="feather feather-check-circle"
+                      >
+                        <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+                        <polyline points="22 4 12 14.01 9 11.01"></polyline>
+                      </svg>
+                    </span>
+                    Ethereums smart contracts: coding the future.
+                  </li>
+                  <li>
+                    <span>
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="24"
+                        height="24"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        class="feather feather-check-circle"
+                      >
+                        <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+                        <polyline points="22 4 12 14.01 9 11.01"></polyline>
+                      </svg>
+                    </span>
+                    Altcoins surge, diversify your digital portfolio.
+                  </li>
+                  <li>
+                    <span>
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="24"
+                        height="24"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        class="feather feather-check-circle"
+                      >
+                        <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+                        <polyline points="22 4 12 14.01 9 11.01"></polyline>
+                      </svg>
+                    </span>
+                    NFTs: making digital art collectible.
+                  </li>
                 </ul>
               </div>
             </div>
             <div className="col-md-6 col-lg-5">
-              <div className="aboutPic">
+              <div
+                className="aboutPic"
+                data-aos="fade-up-right"
+                data-aos-duration="1000"
+              >
                 <span className="topBox"></span>
                 <Image className="img" src={p1} alt="slider1" />
                 <span className="bottomBox"></span>
-
               </div>
             </div>
           </div>
@@ -197,7 +254,9 @@ const page = () => {
                 <div className="subHeadline">
                   <h3>Latest News</h3>
                   <p>
-                    <Link className="btn" href="/">View All</Link>
+                    <Link className="btn" href="/">
+                      View All
+                    </Link>
                   </p>
                 </div>
                 <div className="row">
@@ -207,14 +266,29 @@ const page = () => {
                         <Image className="img" src={p1} alt="slider1" />
                       </div>
                       <div className="cardInfo">
-                        <p>March 20, 2024<span> <Image className="img" src={Eye} alt="eye" /> 120 View</span></p>
-                        <h4>Bitcoins wild ride: soaring highs and gut-wrenching lows.</h4>
-                        <h5>Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-                          Dolor fuga culpa optio laboriosam dolores voluptate vitae itaque
-                          nihil illum accusantium.</h5>
                         <p>
-                          <Link className="btn" href="/">Read More</Link>
-                        </p>                       </div>
+                          March 20, 2024
+                          <span>
+                            {" "}
+                            <Image className="img" src={Eye} alt="eye" /> 120
+                            View
+                          </span>
+                        </p>
+                        <h4>
+                          Bitcoins wild ride: soaring highs and gut-wrenching
+                          lows.
+                        </h4>
+                        <h5>
+                          Lorem ipsum dolor sit amet, consectetur adipisicing
+                          elit. Dolor fuga culpa optio laboriosam dolores
+                          voluptate vitae itaque nihil illum accusantium.
+                        </h5>
+                        <p>
+                          <Link className="btn" href="/blog">
+                            Read More
+                          </Link>
+                        </p>{" "}
+                      </div>
                     </div>
                   </div>
                   <div className="col-md-12 col-lg-4">
@@ -223,13 +297,27 @@ const page = () => {
                         <Image className="img" src={e1} alt="event" />
                       </div>
                       <div className="cardInfo">
-                        <p>March 20, 2024<span> <Image className="img" src={Eye} alt="eye" /> 120 View</span></p>
-                        <h4>Bitcoins wild ride: soaring highs and gut-wrenching lows.</h4>
-                        <h5>Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-                          Dolor fuga culpa optio laboriosam dolores voluptate vitae itaque
-                          nihil illum accusantium.</h5>
                         <p>
-                          <Link className="btn" href="/">Read More</Link>
+                          March 20, 2024
+                          <span>
+                            {" "}
+                            <Image className="img" src={Eye} alt="eye" /> 120
+                            View
+                          </span>
+                        </p>
+                        <h4>
+                          Bitcoins wild ride: soaring highs and gut-wrenching
+                          lows.
+                        </h4>
+                        <h5>
+                          Lorem ipsum dolor sit amet, consectetur adipisicing
+                          elit. Dolor fuga culpa optio laboriosam dolores
+                          voluptate vitae itaque nihil illum accusantium.
+                        </h5>
+                        <p>
+                          <Link className="btn" href="/blog">
+                            Read More
+                          </Link>
                         </p>
                       </div>
                     </div>
@@ -240,13 +328,27 @@ const page = () => {
                         <Image className="img" src={e2} alt="event" />
                       </div>
                       <div className="cardInfo">
-                        <p>March 20, 2024<span> <Image className="img" src={Eye} alt="eye" /> 120 View</span></p>
-                        <h4>Bitcoins wild ride: soaring highs and gut-wrenching lows.</h4>
-                        <h5>Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-                          Dolor fuga culpa optio laboriosam dolores voluptate vitae itaque
-                          nihil illum accusantium.</h5>
                         <p>
-                          <Link className="btn" href="/">Read More</Link>
+                          March 20, 2024
+                          <span>
+                            {" "}
+                            <Image className="img" src={Eye} alt="eye" /> 120
+                            View
+                          </span>
+                        </p>
+                        <h4>
+                          Bitcoins wild ride: soaring highs and gut-wrenching
+                          lows.
+                        </h4>
+                        <h5>
+                          Lorem ipsum dolor sit amet, consectetur adipisicing
+                          elit. Dolor fuga culpa optio laboriosam dolores
+                          voluptate vitae itaque nihil illum accusantium.
+                        </h5>
+                        <p>
+                          <Link className="btn" href="/blog">
+                            Read More
+                          </Link>
                         </p>
                       </div>
                     </div>
@@ -257,13 +359,27 @@ const page = () => {
                         <Image className="img" src={e3} alt="event" />
                       </div>
                       <div className="cardInfo">
-                        <p>March 20, 2024<span> <Image className="img" src={Eye} alt="eye" /> 120 View</span></p>
-                        <h4>Bitcoins wild ride: soaring highs and gut-wrenching lows.</h4>
-                        <h5>Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-                          Dolor fuga culpa optio laboriosam dolores voluptate vitae itaque
-                          nihil illum accusantium.</h5>
                         <p>
-                          <Link className="btn" href="/">Read More</Link>
+                          March 20, 2024
+                          <span>
+                            {" "}
+                            <Image className="img" src={Eye} alt="eye" /> 120
+                            View
+                          </span>
+                        </p>
+                        <h4>
+                          Bitcoins wild ride: soaring highs and gut-wrenching
+                          lows.
+                        </h4>
+                        <h5>
+                          Lorem ipsum dolor sit amet, consectetur adipisicing
+                          elit. Dolor fuga culpa optio laboriosam dolores
+                          voluptate vitae itaque nihil illum accusantium.
+                        </h5>
+                        <p>
+                          <Link className="btn" href="/blog">
+                            Read More
+                          </Link>
                         </p>
                       </div>
                     </div>
@@ -274,14 +390,29 @@ const page = () => {
                         <Image className="img" src={e4} alt="event" />
                       </div>
                       <div className="cardInfo">
-                        <p>March 20, 2024<span> <Image className="img" src={Eye} alt="eye" /> 120 View</span></p>
-                        <h4>Bitcoins wild ride: soaring highs and gut-wrenching lows.</h4>
-                        <h5>Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-                          Dolor fuga culpa optio laboriosam dolores voluptate vitae itaque
-                          nihil illum accusantium.</h5>
                         <p>
-                          <Link className="btn" href="/">Read More</Link>
-                        </p>                       </div>
+                          March 20, 2024
+                          <span>
+                            {" "}
+                            <Image className="img" src={Eye} alt="eye" /> 120
+                            View
+                          </span>
+                        </p>
+                        <h4>
+                          Bitcoins wild ride: soaring highs and gut-wrenching
+                          lows.
+                        </h4>
+                        <h5>
+                          Lorem ipsum dolor sit amet, consectetur adipisicing
+                          elit. Dolor fuga culpa optio laboriosam dolores
+                          voluptate vitae itaque nihil illum accusantium.
+                        </h5>
+                        <p>
+                          <Link className="btn" href="/blog">
+                            Read More
+                          </Link>
+                        </p>{" "}
+                      </div>
                     </div>
                   </div>
                   <div className="col-md-12 col-lg-4">
@@ -290,13 +421,27 @@ const page = () => {
                         <Image className="img" src={e5} alt="event" />
                       </div>
                       <div className="cardInfo">
-                        <p>March 20, 2024<span> <Image className="img" src={Eye} alt="eye" /> 120 View</span></p>
-                        <h4>Bitcoins wild ride: soaring highs and gut-wrenching lows.</h4>
-                        <h5>Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-                          Dolor fuga culpa optio laboriosam dolores voluptate vitae itaque
-                          nihil illum accusantium.</h5>
                         <p>
-                          <Link className="btn" href="/">Read More</Link>
+                          March 20, 2024
+                          <span>
+                            {" "}
+                            <Image className="img" src={Eye} alt="eye" /> 120
+                            View
+                          </span>
+                        </p>
+                        <h4>
+                          Bitcoins wild ride: soaring highs and gut-wrenching
+                          lows.
+                        </h4>
+                        <h5>
+                          Lorem ipsum dolor sit amet, consectetur adipisicing
+                          elit. Dolor fuga culpa optio laboriosam dolores
+                          voluptate vitae itaque nihil illum accusantium.
+                        </h5>
+                        <p>
+                          <Link className="btn" href="/blog">
+                            Read More
+                          </Link>
                         </p>
                       </div>
                     </div>
@@ -313,12 +458,36 @@ const page = () => {
                   <div className="group-section">
                     <h4>Catagories</h4>
                     <ul>
-                      <li><Link className="linkbtn active" href="/">All Post</Link></li>
-                      <li><Link className="linkbtn" href="/">News</Link></li>
-                      <li><Link className="linkbtn" href="/">Latest News</Link></li>
-                      <li><Link className="linkbtn" href="/">Top News</Link></li>
-                      <li><Link className="linkbtn" href="/">New News</Link></li>
-                      <li><Link className="linkbtn" href="/">Old News</Link></li>
+                      <li>
+                        <Link className="linkbtn active" href="/">
+                          All Post
+                        </Link>
+                      </li>
+                      <li>
+                        <Link className="linkbtn" href="/">
+                          News
+                        </Link>
+                      </li>
+                      <li>
+                        <Link className="linkbtn" href="/">
+                          Latest News
+                        </Link>
+                      </li>
+                      <li>
+                        <Link className="linkbtn" href="/">
+                          Top News
+                        </Link>
+                      </li>
+                      <li>
+                        <Link className="linkbtn" href="/">
+                          New News
+                        </Link>
+                      </li>
+                      <li>
+                        <Link className="linkbtn" href="/">
+                          Old News
+                        </Link>
+                      </li>
                     </ul>
                   </div>
                   <div className="blog-list">
@@ -370,27 +539,36 @@ const page = () => {
                           </div>
                         </Link>
                       </li>
-
                     </ul>
                   </div>
                   <div className="group-photo">
                     <h4>Catagories</h4>
                     <ul>
-                      <li><Link className="picarea" href="/">
-                        <Image className="img" src={e1} alt="slider2" />
-                      </Link></li>
-                      <li><Link className="picarea" href="/">
-                        <Image className="img" src={e2} alt="slider2" />
-                      </Link></li>
-                      <li><Link className="picarea" href="/">
-                        <Image className="img" src={e3} alt="slider2" />
-                      </Link></li>
-                      <li><Link className="picarea" href="/">
-                        <Image className="img" src={e4} alt="slider2" />
-                      </Link></li>
-                      <li><Link className="picarea" href="/">
-                        <Image className="img" src={e5} alt="slider2" />
-                      </Link></li>
+                      <li>
+                        <Link className="picarea" href="/">
+                          <Image className="img" src={e1} alt="slider2" />
+                        </Link>
+                      </li>
+                      <li>
+                        <Link className="picarea" href="/">
+                          <Image className="img" src={e2} alt="slider2" />
+                        </Link>
+                      </li>
+                      <li>
+                        <Link className="picarea" href="/">
+                          <Image className="img" src={e3} alt="slider2" />
+                        </Link>
+                      </li>
+                      <li>
+                        <Link className="picarea" href="/">
+                          <Image className="img" src={e4} alt="slider2" />
+                        </Link>
+                      </li>
+                      <li>
+                        <Link className="picarea" href="/">
+                          <Image className="img" src={e5} alt="slider2" />
+                        </Link>
+                      </li>
                     </ul>
                   </div>
                 </div>
@@ -399,7 +577,6 @@ const page = () => {
           </div>
         </div>
       </section>
-      <Footer />
     </div>
   );
 };

@@ -12,7 +12,6 @@ footer::after{
     footer .info-area{
     position: relative;
     z-index: 1;
-    margin-bottom: 25px;
 }
     footer .info-area .logo-area{
         width: 175px;

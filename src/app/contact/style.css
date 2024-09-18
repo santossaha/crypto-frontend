@@ -1,0 +1,55 @@
+.contact-section{
+    max-width: 1000px;
+    margin: 50px auto;
+    background: #fff;
+    border-radius: 12px;
+    overflow: hidden;
+}
+.contact-section .contact-info{
+    background: #0B2DDC;
+    padding: 25px;
+}
+.contact-section .contact-info h3{
+    text-align: center;
+    font-size: 24px;
+    font-weight: 600;
+    color: #fff;
+}
+.contact-section .contact-info .imgarea{
+    max-width: 200px;
+    margin: 35px auto 25px;
+}
+.contact-section .contact-info .imgarea .img{
+}
+
+.contact-section .info-group{
+    margin-bottom: 25px;
+}
+.contact-section .info-group p{
+    font-size: 15px;
+    line-height: 20px;
+    font-weight: 600;
+    color: #FFD600;
+    margin-bottom: 8px;
+}
+.contact-section .info-group h6{
+    display: flex;
+    flex-direction: row;
+    color: #fff;
+}
+.contact-section .info-group h6 span{
+}
+.contact-section .info-group h6 span .img{width: 20px;margin-right: 10px;}
+.contact-section form{padding:25px;}
+.contact-section form h3{
+     text-align: center;
+    font-size: 24px;
+    font-weight: 600;
+    color: #000;
+}
+.contact-section .form-group{
+    margin-bottom: 15px;
+}
+.contact-section .form-group label{margin-bottom:7px;}
+.contact-section .form-group .form-control{font-size:14px;}
+.contact-section .form-group .form-control:focus{ box-shadow: none !important;}
