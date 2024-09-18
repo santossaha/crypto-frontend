@@ -1,0 +1,107 @@
+.detail-info-main{
+    background: #fff;
+    margin: 75px 0;
+    padding: 25px;
+}
+.detail-info-main .headarea{
+    background: #fff;
+    margin-bottom: 40px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    border-bottom: 1px solid #ff9800;
+}
+.detail-info-main .headarea .area1{
+}
+.detail-info-main .headarea h4{
+    color: #030b4f;
+    font-size: 20px;
+    font-weight: 700;
+    padding-bottom: 8px;
+}
+.detail-info-main .headarea h5{
+    color: #000;
+    font-size: 16px;
+    margin-bottom: 25px;
+}
+.detail-info-main .headarea p{
+    color: #000;
+    font-weight: 500;
+    background: #f8f3ea;
+    display: inline-block;
+    padding: 8px 15px;
+    border-radius: 5px;
+    font-size: 14px;
+}
+.detail-info-main .headarea .area2{}
+.detail-info-main .headarea .area2 .btn{background: #030b4f;color: #fff;}
+.detail-info-main .headarea .area2 span{
+    position: relative;
+    top: -2px;
+}
+
+.detail-info-main .about-area{color: #fff;margin-bottom: 50px;}
+.detail-info-main h4{
+    position: relative;
+    padding-bottom: 7px;
+    font-size: 20px;
+    font-weight: 700;
+    padding-bottom: 5px;
+}
+.detail-info-main .about-area h4{
+    position: relative;
+    color: #000;
+}
+.detail-info-main h4::after{
+    position: absolute;
+    content: "";
+    bottom: 0px;
+    left: 0;
+    height: 2px;
+    width: 80px;
+    background: #FF9800;
+    border-radius: 6px;
+}
+.detail-info-main .about-area h5{
+    color: #000;
+}
+.detail-info-main .about-area p{
+    margin-bottom: 5px;
+    color: #000;
+}
+.detail-info-main .formbox{
+}
+.detail-info-main .formbox h4{
+    color: #000;
+    margin-bottom: 35px;
+}
+.detail-info-main .formbox .userarea{
+    display: flex;
+    flex-direction: row;
+}
+.detail-info-main .formbox .userarea .picArea{
+    width: 50px;
+    height: 50px;
+}
+.detail-info-main .formbox .userarea .picArea .img{
+    border-radius: 50%;
+}
+
+.detail-info-main .formbox .form-group{
+    margin-left: 20px;
+    width: 100%;
+    flex: 1 1;
+}
+.detail-info-main .formbox .form-group .form-control{margin-bottom: 15px;}
+.detail-info-main .formbox .form-group .btn{
+    background: #ff9800;
+    color: #fff;
+    width: 120px;
+}
+
+@media(max-width:767px){
+    .detail-info-main .headarea {
+        flex-direction: column;
+        padding-bottom: 20px;
+    }
+}

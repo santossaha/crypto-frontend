@@ -1,0 +1,55 @@
+.eventMain{
+    background: #fff;
+    padding: 50px 0;
+}
+.eventMain .subHeadline{
+    text-align: center;
+    margin: 0 auto 30px;
+    max-width: 700px;
+}
+.eventMain .subHeadline h3{ font-weight: 700;}
+.eventMain .subHeadline p{}
+
+.eventMain .searchArea{}
+.eventMain .searchArea form{text-align:center;}
+.eventMain .searchArea .form-group{
+    margin-bottom: 15px;
+}
+.eventMain .searchArea .form-group .form-control{}
+.eventMain .searchArea .form-group .form-control:focus{ box-shadow: none !important;}
+
+.eventMain .searchArea .btn-area{}
+.eventMain .searchArea .btn-area .btn{}
+
+.eventTable{
+    border: 1px solid #ece6e6;
+    border-radius: 6px;
+    padding-bottom: 20px;
+}
+.eventTable .table{
+}
+.eventTable .table tr th{
+    background: #e4e5ff;
+} 
+.eventTable .table td{
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 20px;
+    color:#000;
+}
+.eventTable .table td.gr-area{
+}
+.eventTable .table td span{width: 20px;height: 20px;display: inline-block;margin-right: 10px;float: left;}
+.eventTable .table td span .img{
+}
+.eventTable .table td p{
+    margin-bottom: 0;
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 20px;
+    color:#000;
+    float: left;
+}
+.eventTable .table .view-area{text-align:center;}
+.eventTable .table .view-area .icon{width: 40px;border-radius: 6px;background-color: #e4e5ff;text-align: center;padding: 4px 5px;cursor: pointer;}
+.eventTable .table .view-area .icon .img{width: 18px;}

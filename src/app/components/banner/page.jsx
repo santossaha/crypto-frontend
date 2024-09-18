@@ -5,13 +5,13 @@ import Link from 'next/link';
 import './style.css';
 
 const page = () => {
-    return (
-        <div className="banner-area">
-            <div className="pic-area">
-                <Image className="img" src={p1} alt="detail picture" />
-            </div>
-        </div>
-    )
+  return (
+    <div className="banner-area">
+    <div className="pic-area">
+    <Image className="img" src={p1} alt="detail picture"/>
+    </div>
+  </div>
+  )
 }
 
 export default page;

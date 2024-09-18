@@ -1,53 +1,109 @@
 import Link from 'next/link';
 import React from 'react';
-import Logo from "../../assets/images/logo.png";
+import { IconChevronDown } from '@tabler/icons-react';
+import Logo from '../../assets/images/logo.png';
 import Image from 'next/image';
-import "../../home.css";
-import '../../components/header/style.css';
-import '../../components/footer/style.css';
-import '../../components/slider/style.css';
-import '../../frontend.css';
 
-const page = () => {
+const Page = () => {
   return (
-    <div>
-      <div className='headerArea'>
-        <div className="container d-flex align-items-center">
-          <nav className="navbar navbar-expand-lg d-flex flex-grow-1 p-0">
-            <Link className="navbar-brand p-0" href="/">
-              <Image className="img" src={Logo} alt="logo" />
-            </Link>
-            <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
-              <span className="navbar-toggler-icon"></span>
-            </button>
-            <div className="collapse navbar-collapse justify-content-center" id="navbarNavDropdown">
-              <ul className="navbar-nav">
-                <li className="nav-item px-md-2">
-                  <Link className="nav-link active" aria-current="page" href="/">Home</Link>
-                </li>
-                <li className="nav-item px-md-2">
-                  <Link className="nav-link" href="./about">About</Link>
-                </li>
-                <li className="nav-item px-md-2">
-                  <Link className="nav-link" href="/content">Content</Link>
-                </li>
-                <li className="nav-item px-md-2">
-                  <Link className="nav-link" href="/service">Airdrop</Link>
-                </li>
-                <li className="nav-item px-md-2">
-                  <Link className="nav-link" href="/contact">Contact</Link>
-                </li>
-
-              </ul>
-            </div>
-          </nav>
-          <div className="linkArea ms-3">
-            <button className='btn btn-primary m-0 py-2 px-4 text-small'>Login</button>
+    <div className='headerArea'>
+      <div className="container d-flex align-items-center">
+        <nav className="navbar navbar-expand-lg d-flex flex-grow-1 p-0">
+          <Link className="navbar-brand p-0" href="/">
+            <Image className="img" src={Logo} alt="logo" />
+          </Link>
+          <button
+            className="navbar-toggler"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#navbarNavDropdown"
+            aria-controls="navbarNavDropdown"
+            aria-expanded="false"
+            aria-label="Toggle navigation"
+          >
+            <span className="navbar-toggler-icon"></span>
+          </button>
+          <div className="collapse navbar-collapse justify-content-center" id="navbarNavDropdown">
+            <ul className="navbar-nav">
+              <li className="nav-item px-md-2">
+                <Link className="nav-link active" aria-current="page" href="/">Home</Link>
+              </li>
+              <li className="nav-item px-md-2">
+                <Link className="nav-link" href="/event">Event</Link>
+              </li>
+              <li className="nav-item px-md-2">
+               <div className="nav-link mega"><span>Services <IconChevronDown stroke={1} />
+               <div className="megamenu-area">
+                <div className="menu-group">
+                  <div className="menu-item">
+                    <h5>Crypto News</h5>
+                    <ul>
+                      <li><Link className="nav-link" href="/">News item 1</Link></li>
+                      <li><Link className="nav-link" href="/">News item 2</Link></li>
+                      <li><Link className="nav-link" href="/">News item 3</Link></li>
+                      <li><Link className="nav-link" href="/">News item 4</Link></li>
+                      <li><Link className="nav-link" href="/">News item 5</Link></li>
+                      <li><Link className="nav-link" href="/">News item 6</Link></li>
+                    </ul>
+                  </div>
+                  <div className="menu-item">
+                    <h5>Crypto News</h5>
+                    <ul>
+                      <li><Link className="nav-link" href="/">News item 7</Link></li>
+                      <li><Link className="nav-link" href="/">News item 8</Link></li>
+                      <li><Link className="nav-link" href="/">News item 9</Link></li>
+                      <li><Link className="nav-link" href="/">News item 10</Link></li>
+                      <li><Link className="nav-link" href="/">News item 11</Link></li>
+                      <li><Link className="nav-link" href="/">News item 12</Link></li>
+                    </ul>
+                  </div>
+                  <div className="menu-item">
+                    <h5>Crypto News</h5>
+                    <ul>
+                      <li><Link className="nav-link" href="/">News item 13</Link></li>
+                      <li><Link className="nav-link" href="/">News item 14</Link></li>
+                      <li><Link className="nav-link" href="/">News item 15</Link></li>
+                      <li><Link className="nav-link" href="/">News item 16</Link></li>
+                      <li><Link className="nav-link" href="/">News item 17</Link></li>
+                      <li><Link className="nav-link" href="/">News item 18</Link></li>
+                    </ul>
+                  </div>
+                  <div className="menu-item">
+                    <h5>Crypto News</h5>
+                    <ul>
+                      <li><Link className="nav-link" href="/">News item 19</Link></li>
+                      <li><Link className="nav-link" href="/">News item 20</Link></li>
+                      <li><Link className="nav-link" href="/">News item 21</Link></li>
+                      <li><Link className="nav-link" href="/">News item 22</Link></li>
+                      <li><Link className="nav-link" href="/">News item 23</Link></li>
+                      <li><Link className="nav-link" href="/">News item 24</Link></li>
+                    </ul>
+                  </div>
+                </div>
+               </div>
+               </span>
+               </div>
+              </li>
+              <li className="nav-item px-md-2">
+                <Link className="nav-link" href="/blog">Blog</Link>
+              </li>
+              <li className="nav-item px-md-2">
+                <Link className="nav-link" href="/ico">ICO</Link>
+              </li>
+              <li className="nav-item px-md-2">
+                <Link className="nav-link" href="/contact">Contact</Link>
+              </li>
+            </ul>
           </div>
+          <div className="linkArea ms-3">
+          <Link href="/login">
+            <button className='btn btn-primary m-0 py-2 px-4 text-small'>Login</button>
+          </Link>
         </div>
+        </nav>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default page
+export default Page;
