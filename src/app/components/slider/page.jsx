@@ -1,5 +1,5 @@
 import React from "react";
-
+import Slider from "react-slick";
 import Image from "next/image";
 import p1 from "../../assets/images/p-3.png";
 import p2 from "../../assets/images/icon-ticker-2.svg";
