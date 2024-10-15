@@ -2,10 +2,10 @@ import { Inter } from "next/font/google";
 import Script from "next/script";
 import Header from "./components/header/page";
 import Footer from "./components/footer/page";
+import Head from "next/head"; 
 
 import "./components/header/style.css";
-import "./components/slider/style.css";
-
+// import "./components/slider/style.css";
 import "./globals.css";
 import "./home.css";
 import "./components/footer/style.css";
@@ -21,11 +21,24 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <Script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" />{" "}
-      <Script />
-      <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
-      <Script src="https://unpkg.com/aos@next/dist/aos.js"></Script>
+      <Head>
+        <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+        <link
+          rel="stylesheet"
+          href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css"
+        />
+      </Head>
       <body>
+        {/* Include Bootstrap JS and AOS script */}
+        <Script
+          src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js"
+          strategy="afterInteractive"
+        />
+        <Script
+          src="https://unpkg.com/aos@next/dist/aos.js"
+          strategy="afterInteractive"
+        ></Script>
+
         <Header />
         {children}
         <Footer />

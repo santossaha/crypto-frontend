@@ -23,10 +23,11 @@ import Ellipse1 from "./assets/images/Ellipse-1.png";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import Link from "next/link";
+import Categories from "./components/categories/page";
 
-const Slider = dynamic(() => import("./components/slider/page"), {
-  ssr: false,
-});
+// const Slider = dynamic(() => import("./components/slider/page"), {
+//   ssr: false,
+// });
 
 const page = () => {
   return (
@@ -34,7 +35,7 @@ const page = () => {
       <div className="bannerArea">
         <div className="container">
           <div className="priceSlider py-2">
-            <Slider />
+            {/* <Slider /> */}
           </div>
           <div className="postSlider">
             <div className="row">
@@ -164,7 +165,7 @@ const page = () => {
                         stroke-width="2"
                         stroke-linecap="round"
                         stroke-linejoin="round"
-                        class="feather feather-check-circle"
+                        className="feather feather-check-circle"
                       >
                         <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
                         <polyline points="22 4 12 14.01 9 11.01"></polyline>
@@ -184,7 +185,7 @@ const page = () => {
                         stroke-width="2"
                         stroke-linecap="round"
                         stroke-linejoin="round"
-                        class="feather feather-check-circle"
+                        className="feather feather-check-circle"
                       >
                         <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
                         <polyline points="22 4 12 14.01 9 11.01"></polyline>
@@ -204,7 +205,7 @@ const page = () => {
                         stroke-width="2"
                         stroke-linecap="round"
                         stroke-linejoin="round"
-                        class="feather feather-check-circle"
+                        className="feather feather-check-circle"
                       >
                         <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
                         <polyline points="22 4 12 14.01 9 11.01"></polyline>
@@ -224,7 +225,7 @@ const page = () => {
                         stroke-width="2"
                         stroke-linecap="round"
                         stroke-linejoin="round"
-                        class="feather feather-check-circle"
+                        className="feather feather-check-circle"
                       >
                         <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
                         <polyline points="22 4 12 14.01 9 11.01"></polyline>
@@ -457,124 +458,7 @@ const page = () => {
                 <div className="subHeadline">
                   <h3>Latest News</h3>
                 </div>
-                <div className="category-group-area">
-                  <div className="group-section">
-                    <h4>Catagories</h4>
-                    <ul>
-                      <li>
-                        <Link className="linkbtn active" href="/">
-                          All Post
-                        </Link>
-                      </li>
-                      <li>
-                        <Link className="linkbtn" href="/">
-                          News
-                        </Link>
-                      </li>
-                      <li>
-                        <Link className="linkbtn" href="/">
-                          Latest News
-                        </Link>
-                      </li>
-                      <li>
-                        <Link className="linkbtn" href="/">
-                          Top News
-                        </Link>
-                      </li>
-                      <li>
-                        <Link className="linkbtn" href="/">
-                          New News
-                        </Link>
-                      </li>
-                      <li>
-                        <Link className="linkbtn" href="/">
-                          Old News
-                        </Link>
-                      </li>
-                    </ul>
-                  </div>
-                  <div className="blog-list">
-                    <ul>
-                      <li>
-                        <Link className="postitem" href="/">
-                          <div className="picarea">
-                            <Image className="img" src={p1} alt="slider1" />
-                          </div>
-                          <div className="postinfo">
-                            <h5>Bitcoin rally: a digital gold rush.</h5>
-                            <p>March 12, 2024</p>
-                          </div>
-                        </Link>
-                      </li>
-
-                      <li>
-                        <Link className="postitem" href="/">
-                          <div className="picarea">
-                            <Image className="img" src={p1} alt="slider1" />
-                          </div>
-                          <div className="postinfo">
-                            <h5>Bitcoin rally: a digital gold rush.</h5>
-                            <p>March 12, 2024</p>
-                          </div>
-                        </Link>
-                      </li>
-
-                      <li>
-                        <Link className="postitem" href="/">
-                          <div className="picarea">
-                            <Image className="img" src={p1} alt="slider1" />
-                          </div>
-                          <div className="postinfo">
-                            <h5>Bitcoin rally: a digital gold rush.</h5>
-                            <p>March 12, 2024</p>
-                          </div>
-                        </Link>
-                      </li>
-
-                      <li>
-                        <Link className="postitem" href="/">
-                          <div className="picarea">
-                            <Image className="img" src={p1} alt="slider1" />
-                          </div>
-                          <div className="postinfo">
-                            <h5>Bitcoin rally: a digital gold rush.</h5>
-                            <p>March 12, 2024</p>
-                          </div>
-                        </Link>
-                      </li>
-                    </ul>
-                  </div>
-                  <div className="group-photo">
-                    <h4>Catagories</h4>
-                    <ul>
-                      <li>
-                        <Link className="picarea" href="/">
-                          <Image className="img" src={e1} alt="slider2" />
-                        </Link>
-                      </li>
-                      <li>
-                        <Link className="picarea" href="/">
-                          <Image className="img" src={e2} alt="slider2" />
-                        </Link>
-                      </li>
-                      <li>
-                        <Link className="picarea" href="/">
-                          <Image className="img" src={e3} alt="slider2" />
-                        </Link>
-                      </li>
-                      <li>
-                        <Link className="picarea" href="/">
-                          <Image className="img" src={e4} alt="slider2" />
-                        </Link>
-                      </li>
-                      <li>
-                        <Link className="picarea" href="/">
-                          <Image className="img" src={e5} alt="slider2" />
-                        </Link>
-                      </li>
-                    </ul>
-                  </div>
-                </div>
+                <Categories />
               </div>
             </div>
           </div>
