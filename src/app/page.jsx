@@ -1,5 +1,6 @@
 "use client";
 import React from "react";
+import dynamic from "next/dynamic";
 import Image from "next/image";
 import p1 from "./assets/images/p-1.jpg";
 import p2 from "./assets/images/p-2.jpg";
@@ -21,9 +22,11 @@ import Ellipse1 from "./assets/images/Ellipse-1.png";
 
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import Slider from "./components/slider/page";
-import { Button } from "bootstrap";
 import Link from "next/link";
+
+const Slider = dynamic(() => import("./components/slider/page"), {
+  ssr: false,
+});
 
 const page = () => {
   return (
