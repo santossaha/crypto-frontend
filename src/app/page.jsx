@@ -180,15 +180,9 @@ const page = () => {
                         viewBox="0 0 24 24"
                         fill="none"
                         stroke="currentColor"
-<<<<<<< HEAD
-                        stroke-width="2"
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-=======
                         strokeWidth="2"
                         strokeLinecap="round"
                         strokeLinejoin="round"
->>>>>>> b06de3850dc91b1ef1a85073782f076f1bd77da4
                         className="feather feather-check-circle"
                       >
                         <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
@@ -206,15 +200,9 @@ const page = () => {
                         viewBox="0 0 24 24"
                         fill="none"
                         stroke="currentColor"
-<<<<<<< HEAD
-                        stroke-width="2"
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-=======
                         strokeWidth="2"
                         strokeLinecap="round"
                         strokeLinejoin="round"
->>>>>>> b06de3850dc91b1ef1a85073782f076f1bd77da4
                         className="feather feather-check-circle"
                       >
                         <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
@@ -232,15 +220,9 @@ const page = () => {
                         viewBox="0 0 24 24"
                         fill="none"
                         stroke="currentColor"
-<<<<<<< HEAD
-                        stroke-width="2"
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-=======
                         strokeWidth="2"
                         strokeLinecap="round"
                         strokeLinejoin="round"
->>>>>>> b06de3850dc91b1ef1a85073782f076f1bd77da4
                         className="feather feather-check-circle"
                       >
                         <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
