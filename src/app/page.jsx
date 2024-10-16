@@ -34,9 +34,7 @@ const page = () => {
     <div>
       <div className="bannerArea">
         <div className="container">
-          <div className="priceSlider py-2">
-            {/* <Slider /> */}
-          </div>
+          <div className="priceSlider py-2">{/* <Slider /> */}</div>
           <div className="postSlider">
             <div className="row">
               <div className="col-md-12 col-lg-3">
@@ -162,9 +160,9 @@ const page = () => {
                         viewBox="0 0 24 24"
                         fill="none"
                         stroke="currentColor"
-                        stroke-width="2"
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
+                        strokeWidth="2"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
                         className="feather feather-check-circle"
                       >
                         <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
@@ -182,16 +180,16 @@ const page = () => {
                         viewBox="0 0 24 24"
                         fill="none"
                         stroke="currentColor"
-                        stroke-width="2"
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
+                        strokeWidth="2"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
                         className="feather feather-check-circle"
                       >
                         <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
                         <polyline points="22 4 12 14.01 9 11.01"></polyline>
                       </svg>
                     </span>
-                    Ethereums smart contracts: coding the future.
+                    Ethereum's smart contracts: coding the future.
                   </li>
                   <li>
                     <span>
@@ -202,9 +200,9 @@ const page = () => {
                         viewBox="0 0 24 24"
                         fill="none"
                         stroke="currentColor"
-                        stroke-width="2"
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
+                        strokeWidth="2"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
                         className="feather feather-check-circle"
                       >
                         <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
@@ -222,9 +220,9 @@ const page = () => {
                         viewBox="0 0 24 24"
                         fill="none"
                         stroke="currentColor"
-                        stroke-width="2"
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
+                        strokeWidth="2"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
                         className="feather feather-check-circle"
                       >
                         <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
