@@ -1,5 +1,6 @@
 "use client";
 import React from "react";
+import dynamic from "next/dynamic";
 import Image from "next/image";
 import p1 from "./assets/images/p-1.jpg";
 import p2 from "./assets/images/p-2.jpg";
@@ -16,29 +17,24 @@ import e5 from "./assets/images/e-5.jpg";
 // import e9 from "./assets/images/e-9.jpg";
 // import e10 from "./assets/images/e-10.jpg";
 
-
 import Eye from "./assets/images/eye.svg";
 import Ellipse1 from "./assets/images/Ellipse-1.png";
 
-
-
-
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import  Slider from './components/slider/page';
-import { Button } from "bootstrap";
 import Link from "next/link";
+import Categories from "./components/categories/page";
 
-
+// const Slider = dynamic(() => import("./components/slider/page"), {
+//   ssr: false,
+// });
 
 const page = () => {
   return (
     <div>
       <div className="bannerArea">
         <div className="container">
-          <div className="priceSlider py-2">
-          <Slider/>
-          </div>
+          <div className="priceSlider py-2">{/* <Slider /> */}</div>
           <div className="postSlider">
             <div className="row">
               <div className="col-md-12 col-lg-3">
@@ -138,258 +134,329 @@ const page = () => {
       </div>
       <section className="aboutArea">
         <div className="container">
-      <div className="row">
-        <div className="col-md-6 col-lg-7">
-          <div className="infoArea">
-            <h1>About Us</h1>
-            <div className="backshapeIcon">
-            <Image className="img" src={Ellipse1} alt="elp" />
+          <div className="row">
+            <div className="col-md-6 col-lg-7">
+              <div className="infoArea">
+                <h1>About Us</h1>
+                <div className="backshapeIcon">
+                  <Image className="img" src={Ellipse1} alt="elp" />
+                </div>
+                <h3>Welcome You In The Crypto World</h3>
+                <p>
+                  Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                  Veritatis natus labore quia suscipit nobis et laudantium
+                  maxime neque voluptate voluptas. Alias ex quod obcaecati
+                  earum. Veniam natus nam dignissimos eligendi iste, optio quia
+                  dolorum cum nihil asperiores. dolores amet dolorem. Tenetur
+                  beatae quae labore suscipit nulla fuga nesciunt.
+                </p>
+                <ul>
+                  <li>
+                    <span>
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="24"
+                        height="24"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        strokeWidth="2"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        className="feather feather-check-circle"
+                      >
+                        <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+                        <polyline points="22 4 12 14.01 9 11.01"></polyline>
+                      </svg>
+                    </span>
+                    Bitcoins rise: digital gold in the making.
+                  </li>
+                  <li>
+                    <span>
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="24"
+                        height="24"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        strokeWidth="2"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        className="feather feather-check-circle"
+                      >
+                        <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+                        <polyline points="22 4 12 14.01 9 11.01"></polyline>
+                      </svg>
+                    </span>
+                    Ethereums smart contracts: coding the future.
+                  </li>
+                  <li>
+                    <span>
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="24"
+                        height="24"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        strokeWidth="2"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        className="feather feather-check-circle"
+                      >
+                        <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+                        <polyline points="22 4 12 14.01 9 11.01"></polyline>
+                      </svg>
+                    </span>
+                    Altcoins surge, diversify your digital portfolio.
+                  </li>
+                  <li>
+                    <span>
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="24"
+                        height="24"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        strokeWidth="2"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        className="feather feather-check-circle"
+                      >
+                        <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+                        <polyline points="22 4 12 14.01 9 11.01"></polyline>
+                      </svg>
+                    </span>
+                    NFTs: making digital art collectible.
+                  </li>
+                </ul>
+              </div>
             </div>
-            <h3>Welcome You In The Crypto World</h3>
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. 
-              Veritatis natus labore quia suscipit nobis et laudantium maxime 
-              neque voluptate voluptas. Alias ex quod obcaecati earum. Veniam 
-              natus nam dignissimos eligendi iste, optio quia dolorum cum nihil asperiores. 
-               dolores amet dolorem. Tenetur beatae quae labore suscipit nulla fuga 
-               nesciunt.</p>
-               <ul>
-                <li>
-                  <span>
-                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-check-circle"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
-                  <polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
-                  </span>
-                  Bitcoins rise: digital gold in the making.</li>
-                <li><span>
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-check-circle"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
-                  <polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
-                  </span>Ethereums smart contracts: coding the future.</li>
-                <li><span>
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-check-circle"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
-                  <polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
-                  </span>Altcoins surge, diversify your digital portfolio.</li>
-                <li><span>
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-check-circle"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
-                  <polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
-                  </span>NFTs: making digital art collectible.</li>
-               </ul>
+            <div className="col-md-6 col-lg-5">
+              <div
+                className="aboutPic"
+                data-aos="fade-up-right"
+                data-aos-duration="1000"
+              >
+                <span className="topBox"></span>
+                <Image className="img" src={p1} alt="slider1" />
+                <span className="bottomBox"></span>
+              </div>
+            </div>
           </div>
         </div>
-        <div className="col-md-6 col-lg-5">
-          <div className="aboutPic">
-            <span className="topBox"></span>
-          <Image className="img" src={p1} alt="slider1" />
-          <span className="bottomBox"></span>
-
-          </div>
-        </div>
-      </div>
-      </div>
       </section>
       <section className="newsGroup">
         <div className="container">
           <div className="row">
-            <div className="col-md-12 col-lg-9">
+            <div className="col-md-6 col-lg-9">
               <div className="newsCard">
                 <div className="subHeadline">
                   <h3>Latest News</h3>
                   <p>
-                          <Link className="btn" href="/">View All</Link>
-                        </p>  
+                    <Link className="btn" href="/">
+                      View All
+                    </Link>
+                  </p>
                 </div>
                 <div className="row">
                   <div className="col-md-12 col-lg-4">
                     <div className="cardBox">
                       <div className="picArea">
-                      <Image className="img" src={p1} alt="slider1" />
+                        <Image className="img" src={p1} alt="slider1" />
                       </div>
                       <div className="cardInfo">
-                       <p>March 20, 2024<span> <Image className="img" src={Eye} alt="eye" /> 120 View</span></p>
-                      <h4>Bitcoins wild ride: soaring highs and gut-wrenching lows.</h4>
-                      <h5>Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-                         Dolor fuga culpa optio laboriosam dolores voluptate vitae itaque
-                          nihil illum accusantium.</h5>
-                          <p>
-                          <Link className="btn" href="/">Read More</Link>
-                        </p>                       </div>
-                    </div>
-                  </div>
-                  <div className="col-md-12 col-lg-4">
-                    <div className="cardBox">
-                      <div className="picArea">
-                      <Image className="img" src={e1} alt="event" />
-                      </div>
-                      <div className="cardInfo">
-                       <p>March 20, 2024<span> <Image className="img" src={Eye} alt="eye" /> 120 View</span></p>
-                      <h4>Bitcoins wild ride: soaring highs and gut-wrenching lows.</h4>
-                      <h5>Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-                         Dolor fuga culpa optio laboriosam dolores voluptate vitae itaque
-                          nihil illum accusantium.</h5>
                         <p>
-                          <Link className="btn" href="/">Read More</Link>
-                        </p>  
+                          March 20, 2024
+                          <span>
+                            {" "}
+                            <Image className="img" src={Eye} alt="eye" /> 120
+                            View
+                          </span>
+                        </p>
+                        <h4>
+                          Bitcoins wild ride: soaring highs and gut-wrenching
+                          lows.
+                        </h4>
+                        <h5>
+                          Lorem ipsum dolor sit amet, consectetur adipisicing
+                          elit. Dolor fuga culpa optio laboriosam dolores
+                          voluptate vitae itaque nihil illum accusantium.
+                        </h5>
+                        <p>
+                          <Link className="btn" href="/blog">
+                            Read More
+                          </Link>
+                        </p>{" "}
                       </div>
                     </div>
                   </div>
                   <div className="col-md-12 col-lg-4">
                     <div className="cardBox">
                       <div className="picArea">
-                      <Image className="img" src={e2} alt="event" />
+                        <Image className="img" src={e1} alt="event" />
                       </div>
                       <div className="cardInfo">
-                       <p>March 20, 2024<span> <Image className="img" src={Eye} alt="eye" /> 120 View</span></p>
-                      <h4>Bitcoins wild ride: soaring highs and gut-wrenching lows.</h4>
-                      <h5>Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-                         Dolor fuga culpa optio laboriosam dolores voluptate vitae itaque
-                          nihil illum accusantium.</h5>
-                          <p>
-                          <Link className="btn" href="/">Read More</Link>
-                        </p> 
-                        </div>
+                        <p>
+                          March 20, 2024
+                          <span>
+                            {" "}
+                            <Image className="img" src={Eye} alt="eye" /> 120
+                            View
+                          </span>
+                        </p>
+                        <h4>
+                          Bitcoins wild ride: soaring highs and gut-wrenching
+                          lows.
+                        </h4>
+                        <h5>
+                          Lorem ipsum dolor sit amet, consectetur adipisicing
+                          elit. Dolor fuga culpa optio laboriosam dolores
+                          voluptate vitae itaque nihil illum accusantium.
+                        </h5>
+                        <p>
+                          <Link className="btn" href="/blog">
+                            Read More
+                          </Link>
+                        </p>
+                      </div>
                     </div>
                   </div>
                   <div className="col-md-12 col-lg-4">
                     <div className="cardBox">
                       <div className="picArea">
-                      <Image className="img" src={e3} alt="event" />
+                        <Image className="img" src={e2} alt="event" />
                       </div>
                       <div className="cardInfo">
-                       <p>March 20, 2024<span> <Image className="img" src={Eye} alt="eye" /> 120 View</span></p>
-                      <h4>Bitcoins wild ride: soaring highs and gut-wrenching lows.</h4>
-                      <h5>Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-                         Dolor fuga culpa optio laboriosam dolores voluptate vitae itaque
-                          nihil illum accusantium.</h5>
-                          <p>
-                          <Link className="btn" href="/">Read More</Link>
-                        </p> 
-                        </div>
+                        <p>
+                          March 20, 2024
+                          <span>
+                            {" "}
+                            <Image className="img" src={Eye} alt="eye" /> 120
+                            View
+                          </span>
+                        </p>
+                        <h4>
+                          Bitcoins wild ride: soaring highs and gut-wrenching
+                          lows.
+                        </h4>
+                        <h5>
+                          Lorem ipsum dolor sit amet, consectetur adipisicing
+                          elit. Dolor fuga culpa optio laboriosam dolores
+                          voluptate vitae itaque nihil illum accusantium.
+                        </h5>
+                        <p>
+                          <Link className="btn" href="/blog">
+                            Read More
+                          </Link>
+                        </p>
+                      </div>
                     </div>
                   </div>
                   <div className="col-md-12 col-lg-4">
                     <div className="cardBox">
                       <div className="picArea">
-                      <Image className="img" src={e4} alt="event" />
+                        <Image className="img" src={e3} alt="event" />
                       </div>
                       <div className="cardInfo">
-                       <p>March 20, 2024<span> <Image className="img" src={Eye} alt="eye" /> 120 View</span></p>
-                      <h4>Bitcoins wild ride: soaring highs and gut-wrenching lows.</h4>
-                      <h5>Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-                         Dolor fuga culpa optio laboriosam dolores voluptate vitae itaque
-                          nihil illum accusantium.</h5>
-                          <p>
-                          <Link className="btn" href="/">Read More</Link>
-                        </p>                       </div>
+                        <p>
+                          March 20, 2024
+                          <span>
+                            {" "}
+                            <Image className="img" src={Eye} alt="eye" /> 120
+                            View
+                          </span>
+                        </p>
+                        <h4>
+                          Bitcoins wild ride: soaring highs and gut-wrenching
+                          lows.
+                        </h4>
+                        <h5>
+                          Lorem ipsum dolor sit amet, consectetur adipisicing
+                          elit. Dolor fuga culpa optio laboriosam dolores
+                          voluptate vitae itaque nihil illum accusantium.
+                        </h5>
+                        <p>
+                          <Link className="btn" href="/blog">
+                            Read More
+                          </Link>
+                        </p>
+                      </div>
                     </div>
                   </div>
                   <div className="col-md-12 col-lg-4">
                     <div className="cardBox">
                       <div className="picArea">
-                      <Image className="img" src={e5} alt="event" />
+                        <Image className="img" src={e4} alt="event" />
                       </div>
                       <div className="cardInfo">
-                       <p>March 20, 2024<span> <Image className="img" src={Eye} alt="eye" /> 120 View</span></p>
-                      <h4>Bitcoins wild ride: soaring highs and gut-wrenching lows.</h4>
-                      <h5>Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-                         Dolor fuga culpa optio laboriosam dolores voluptate vitae itaque
-                          nihil illum accusantium.</h5>
-                          <p>
-                          <Link className="btn" href="/">Read More</Link>
-                        </p> 
-                        </div>
+                        <p>
+                          March 20, 2024
+                          <span>
+                            {" "}
+                            <Image className="img" src={Eye} alt="eye" /> 120
+                            View
+                          </span>
+                        </p>
+                        <h4>
+                          Bitcoins wild ride: soaring highs and gut-wrenching
+                          lows.
+                        </h4>
+                        <h5>
+                          Lorem ipsum dolor sit amet, consectetur adipisicing
+                          elit. Dolor fuga culpa optio laboriosam dolores
+                          voluptate vitae itaque nihil illum accusantium.
+                        </h5>
+                        <p>
+                          <Link className="btn" href="/blog">
+                            Read More
+                          </Link>
+                        </p>{" "}
+                      </div>
+                    </div>
+                  </div>
+                  <div className="col-md-12 col-lg-4">
+                    <div className="cardBox">
+                      <div className="picArea">
+                        <Image className="img" src={e5} alt="event" />
+                      </div>
+                      <div className="cardInfo">
+                        <p>
+                          March 20, 2024
+                          <span>
+                            {" "}
+                            <Image className="img" src={Eye} alt="eye" /> 120
+                            View
+                          </span>
+                        </p>
+                        <h4>
+                          Bitcoins wild ride: soaring highs and gut-wrenching
+                          lows.
+                        </h4>
+                        <h5>
+                          Lorem ipsum dolor sit amet, consectetur adipisicing
+                          elit. Dolor fuga culpa optio laboriosam dolores
+                          voluptate vitae itaque nihil illum accusantium.
+                        </h5>
+                        <p>
+                          <Link className="btn" href="/blog">
+                            Read More
+                          </Link>
+                        </p>
+                      </div>
                     </div>
                   </div>
                 </div>
               </div>
             </div>
-            <div className="col-md-12 col-lg-3">
+            <div className="col-md-6 col-lg-3">
               <div className="category-group">
-              <div className="subHeadline">
+                <div className="subHeadline">
                   <h3>Latest News</h3>
                 </div>
-                <div className="category-group-area">
-                <div className="group-section">
-                    <h4>Catagories</h4>
-                    <ul>
-                      <li><Link className="linkbtn active" href="/">All Post</Link></li>
-                      <li><Link className="linkbtn" href="/">News</Link></li>
-                      <li><Link className="linkbtn" href="/">Latest News</Link></li>
-                      <li><Link className="linkbtn" href="/">Top News</Link></li>
-                      <li><Link className="linkbtn" href="/">New News</Link></li>
-                      <li><Link className="linkbtn" href="/">Old News</Link></li>
-                    </ul>
-                  </div>  
-                  <div className="blog-list">
-                    <ul>
-                      <li>
-                      <Link className="postitem" href="/">
-                      <div className="picarea">
-                      <Image className="img" src={p1} alt="slider1" />
-                      </div>
-                      <div className="postinfo">
-                       <h5>Bitcoin rally: a digital gold rush.</h5>
-                       <p>March 12, 2024</p>
-                      </div>
-                      </Link>
-                      </li>
-
-                      <li>
-                      <Link className="postitem" href="/">
-                      <div className="picarea">
-                      <Image className="img" src={p1} alt="slider1" />
-                      </div>
-                      <div className="postinfo">
-                       <h5>Bitcoin rally: a digital gold rush.</h5>
-                       <p>March 12, 2024</p>
-                      </div>
-                      </Link>
-                      </li>
-
-                      <li>
-                      <Link className="postitem" href="/">
-                      <div className="picarea">
-                      <Image className="img" src={p1} alt="slider1" />
-                      </div>
-                      <div className="postinfo">
-                       <h5>Bitcoin rally: a digital gold rush.</h5>
-                       <p>March 12, 2024</p>
-                      </div>
-                      </Link>
-                      </li>
-
-                      <li>
-                      <Link className="postitem" href="/">
-                      <div className="picarea">
-                      <Image className="img" src={p1} alt="slider1" />
-                      </div>
-                      <div className="postinfo">
-                       <h5>Bitcoin rally: a digital gold rush.</h5>
-                       <p>March 12, 2024</p>
-                      </div>
-                      </Link>
-                      </li>
-                      
-                    </ul>
-                  </div>
-                  <div className="group-photo">
-                    <h4>Catagories</h4>
-                    <ul>
-                      <li><Link className="picarea" href="/">
-                      <Image className="img" src={e1} alt="slider2" />
-                      </Link></li>
-                      <li><Link className="picarea" href="/">
-                      <Image className="img" src={e2} alt="slider2" />
-                      </Link></li>
-                      <li><Link className="picarea" href="/">
-                      <Image className="img" src={e3} alt="slider2" />
-                      </Link></li>
-                      <li><Link className="picarea" href="/">
-                      <Image className="img" src={e4} alt="slider2" />
-                      </Link></li>
-                      <li><Link className="picarea" href="/">
-                      <Image className="img" src={e5} alt="slider2" />
-                      </Link></li>
-                    </ul>
-                    </div>
-                    </div>
+                <Categories />
               </div>
             </div>
           </div>
