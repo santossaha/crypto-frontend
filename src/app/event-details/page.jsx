@@ -68,15 +68,9 @@ const page = () => {
                       viewBox="0 0 24 24"
                       fill="none"
                       stroke="currentColor"
-<<<<<<< HEAD
-                      stroke-width="2"
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-=======
                       strokeWidth="2"
                       strokeLinecap="round"
                       strokeLinejoin="round"
->>>>>>> b06de3850dc91b1ef1a85073782f076f1bd77da4
                       class="feather feather-plus-circle"
                     >
                       <circle cx="12" cy="12" r="10"></circle>
