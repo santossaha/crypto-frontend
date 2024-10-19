@@ -2,9 +2,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
-import axios from "axios";
 
-// Sample images. Replace these with your actual image imports or props.
 import p1 from "../../assets/images/p-1.jpg";
 import p2 from "../../assets/images/e-1.jpg";
 import p3 from "../../assets/images/e-2.jpg";
@@ -13,6 +11,7 @@ import e2 from "../../assets/images/e-2.jpg";
 import e3 from "../../assets/images/e-3.jpg";
 import e4 from "../../assets/images/e-4.jpg";
 import e5 from "../../assets/images/e-5.jpg";
+import axiosInstance from "@/app/Helper/Helper";
 
 const Categories = () => {
   const [categories, setCategories] = useState([]);
@@ -21,12 +20,10 @@ const Categories = () => {
   useEffect(() => {
     const fetchCategories = async () => {
       try {
-        const response = await axios.get(
-          "http://13.233.93.31/new-crypto-blog/public/api/get-categories"
-        );
+        const response = await axiosInstance.get("/get-categories");
 
         if (response.data.status === "success") {
-          setCategories(response.data[0]);
+          setCategories(response.data[0]); 
         }
       } catch (error) {
         console.error("Error fetching categories:", error);
