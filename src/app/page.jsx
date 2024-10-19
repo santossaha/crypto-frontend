@@ -189,7 +189,7 @@ const page = () => {
                         <polyline points="22 4 12 14.01 9 11.01"></polyline>
                       </svg>
                     </span>
-                    Ethereums smart contracts: coding the future.
+                    Ethereum's smart contracts: coding the future.
                   </li>
                   <li>
                     <span>
