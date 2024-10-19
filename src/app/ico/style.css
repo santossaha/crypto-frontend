@@ -40,7 +40,10 @@
 .eventTable .table td.gr-area{
 }
 .eventTable .table td span{width: 20px;height: 20px;display: inline-block;margin-right: 10px;float: left;}
-.eventTable .table td span .img{
+.eventTable .table td span .Image{
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
 }
 .eventTable .table td p{
     margin-bottom: 0;

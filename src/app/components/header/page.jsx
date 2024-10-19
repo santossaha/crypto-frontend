@@ -46,18 +46,26 @@ const Page = () => {
               </li>
               <li className="nav-item px-md-2">
                 <Link
-                  className={`nav-link ${isActive("/about") ? "active" : ""}`}
-                  href="/about"
+                  className={`nav-link ${isActive("/event") ? "active" : ""}`}
+                  href="/event"
                 >
-                  About
+                  Event
                 </Link>
               </li>
               <li className="nav-item px-md-2">
                 <Link
-                  className={`nav-link ${isActive("/content") ? "active" : ""}`}
-                  href="/content"
+                  className={`nav-link ${isActive("/service") ? "active" : ""}`}
+                  href="/"
                 >
-                  Content
+                  Service
+                </Link>
+              </li>
+              <li className="nav-item px-md-2">
+                <Link
+                  className={`nav-link ${isActive("/ico") ? "active" : ""}`}
+                  href="/ico"
+                >
+                  ICO
                 </Link>
               </li>
               <li className="nav-item px-md-2">
@@ -70,14 +78,6 @@ const Page = () => {
               </li>
               <li className="nav-item px-md-2">
                 <Link
-                  className={`nav-link ${isActive("/contact") ? "active" : ""}`}
-                  href="/contact"
-                >
-                  Contact
-                </Link>
-              </li>
-              <li className="nav-item px-md-2">
-                <Link
                   className={`nav-link ${isActive("/blog") ? "active" : ""}`}
                   href="/blog"
                 >
@@ -86,12 +86,10 @@ const Page = () => {
               </li>
               <li className="nav-item px-md-2">
                 <Link
-                  className={`nav-link ${
-                    isActive("/blog/blog-details") ? "active" : ""
-                  }`}
-                  href="/blog/blog-details"
+                  className={`nav-link ${isActive("/contact") ? "active" : ""}`}
+                  href="/contact"
                 >
-                  Blog Details
+                  Contact
                 </Link>
               </li>
             </ul>

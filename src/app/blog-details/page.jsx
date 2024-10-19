@@ -76,7 +76,7 @@ There are many variations of passages of Lorem Ipsum available, but the majority
                   <h3>Latest News</h3>
                   </div>
                    <div className="post-area">
-                    <Link href="/" className="postcard">
+                    <Link href="/blog-details" className="postcard">
                             <div className="info-area">
                                 <h6><span>DIGITAL MARKETING</span>March 20, 2024</h6>
                                 <h4>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Pariatur, optio tenetur alias nesciunt sint dolor?</h4>
@@ -85,7 +85,7 @@ There are many variations of passages of Lorem Ipsum available, but the majority
                             <Image className="img" src={p1} alt="detail picture"/>
                             </div>
                     </Link>
-                    <Link href="/"  className="postcard">
+                    <Link href="/blog-details"  className="postcard">
                             <div className="info-area">
                                 <h6><span>DIGITAL MARKETING</span>March 20, 2024</h6>
                                 <h4>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Pariatur, optio tenetur alias nesciunt sint dolor?</h4>
@@ -94,7 +94,7 @@ There are many variations of passages of Lorem Ipsum available, but the majority
                             <Image className="img" src={e4} alt="detail picture"/>
                             </div>
                     </Link>
-                    <Link href="/" className="postcard">
+                    <Link href="/blog-details" className="postcard">
                             <div className="info-area">
                                 <h6><span>DIGITAL MARKETING</span>March 20, 2024</h6>
                                 <h4>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Pariatur, optio tenetur alias nesciunt sint dolor?</h4>
@@ -103,7 +103,7 @@ There are many variations of passages of Lorem Ipsum available, but the majority
                             <Image className="img" src={e3} alt="detail picture"/>
                             </div>
                     </Link>
-                    <Link href="/" className="postcard">
+                    <Link href="/blog-details" className="postcard">
                             <div className="info-area">
                                 <h6><span>DIGITAL MARKETING</span>March 20, 2024</h6>
                                 <h4>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Pariatur, optio tenetur alias nesciunt sint dolor?</h4>
@@ -112,7 +112,7 @@ There are many variations of passages of Lorem Ipsum available, but the majority
                             <Image className="img" src={e1} alt="detail picture"/>
                             </div>
                     </Link>
-                    <Link href="/" className="postcard">
+                    <Link href="/blog-details" className="postcard">
                             <div className="info-area">
                                 <h6><span>DIGITAL MARKETING</span>March 20, 2024</h6>
                                 <h4>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Pariatur, optio tenetur alias nesciunt sint dolor?</h4>
@@ -129,7 +129,7 @@ There are many variations of passages of Lorem Ipsum available, but the majority
                 <div className="subHeadline">
                   <h3>Latest News</h3>
                   <p>
-                          <Link className="btn" href="/">View All</Link>
+                          <Link className="btn" href="/blog">View All</Link>
                         </p>  
                 </div>
                 <div className="row">
@@ -145,7 +145,7 @@ There are many variations of passages of Lorem Ipsum available, but the majority
                          Dolor fuga culpa optio laboriosam dolores voluptate vitae itaque
                           nihil illum accusantium.</h5>
                           <p>
-                          <Link className="btn" href="/">Read More</Link>
+                          <Link className="btn" href="/blog-details">Read More</Link>
                         </p>                       </div>
                     </div>
                   </div>
@@ -161,7 +161,7 @@ There are many variations of passages of Lorem Ipsum available, but the majority
                          Dolor fuga culpa optio laboriosam dolores voluptate vitae itaque
                           nihil illum accusantium.</h5>
                         <p>
-                          <Link className="btn" href="/">Read More</Link>
+                          <Link className="btn" href="/blog-details">Read More</Link>
                         </p>  
                       </div>
                     </div>
@@ -178,7 +178,7 @@ There are many variations of passages of Lorem Ipsum available, but the majority
                          Dolor fuga culpa optio laboriosam dolores voluptate vitae itaque
                           nihil illum accusantium.</h5>
                           <p>
-                          <Link className="btn" href="/">Read More</Link>
+                          <Link className="btn" href="/blog-details">Read More</Link>
                         </p> 
                         </div>
                     </div>
@@ -195,7 +195,7 @@ There are many variations of passages of Lorem Ipsum available, but the majority
                          Dolor fuga culpa optio laboriosam dolores voluptate vitae itaque
                           nihil illum accusantium.</h5>
                           <p>
-                          <Link className="btn" href="/">Read More</Link>
+                          <Link className="btn" href="/blog-details">Read More</Link>
                         </p> 
                         </div>
                     </div>
