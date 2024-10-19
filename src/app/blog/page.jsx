@@ -57,7 +57,7 @@ const blog = () => {
             </li>
             <li>/</li>
             <li>
-              <Link href="/blog">Blog</Link>
+            Blog
             </li>
           </ul>
         </div>
@@ -131,7 +131,7 @@ const blog = () => {
                       itaque nihil illum accusantium.
                     </h5>
                     <p>
-                      <Link className="btn" href="/blog/blog-details">
+                      <Link className="btn" href="/blog-details">
                         Read More
                       </Link>
                     </p>{" "}
@@ -200,7 +200,7 @@ const blog = () => {
             <div className="post-area">
               <div className="row">
                 <div className="col-md-6">
-                  <Link href="/" className="postcard">
+                  <Link href="/blog-details" className="postcard">
                     <div className="info-area">
                       <h6>
                         <span>DIGITAL MARKETING</span>March 20, 2024
@@ -216,7 +216,7 @@ const blog = () => {
                   </Link>
                 </div>
                 <div className="col-md-6">
-                  <Link href="/" className="postcard">
+                  <Link href="/blog-details" className="postcard">
                     <div className="info-area">
                       <h6>
                         <span>DIGITAL MARKETING</span>March 20, 2024
@@ -232,7 +232,7 @@ const blog = () => {
                   </Link>
                 </div>
                 <div className="col-md-6">
-                  <Link href="/" className="postcard">
+                  <Link href="/blog-details" className="postcard">
                     <div className="info-area">
                       <h6>
                         <span>DIGITAL MARKETING</span>March 20, 2024
@@ -248,7 +248,7 @@ const blog = () => {
                   </Link>
                 </div>
                 <div className="col-md-6">
-                  <Link href="/" className="postcard">
+                  <Link href="/blog-details" className="postcard">
                     <div className="info-area">
                       <h6>
                         <span>DIGITAL MARKETING</span>March 20, 2024
