@@ -15,7 +15,7 @@ export default function SimpleSlider() {
     infinite: true,
     autoplay: true,
     autoplaySpeed: 0,
-    speed: 1000,
+    speed: 500,
     slidesToShow: 6,
     slidesToScroll: 1,
     responsive: [
@@ -56,7 +56,7 @@ export default function SimpleSlider() {
   };
 
   useEffect(() => {
-    // Fetch trending coins data from CoinGecko API
+    
     const fetchTrendingCoins = async () => {
       try {
         const response = await axios.get(
@@ -65,9 +65,9 @@ export default function SimpleSlider() {
         const coins = response.data.coins.map((coin) => ({
           imgSrc: coin.item.thumb,
           title: coin.item.name,
-          price: `$${coin.item.price_btc.toFixed(8)}`, // Using BTC price for this example
-          value: coin.item.market_cap_rank, // Market Cap rank as a placeholder value
-          isDown: Math.random() >= 0.5, // Randomly set to down/up for example purposes
+          price: `$${coin.item.price_btc.toFixed(8)}`, 
+          value: coin.item.market_cap_rank, 
+          isDown: Math.random() >= 0.5, 
         }));
         setSliderData(coins);
       } catch (error) {
