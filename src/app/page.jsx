@@ -25,16 +25,18 @@ import "slick-carousel/slick/slick-theme.css";
 import Link from "next/link";
 import Categories from "./components/categories/page";
 
-// const Slider = dynamic(() => import("./components/slider/page"), {
-//   ssr: false,
-// });
+const Slider = dynamic(() => import("./components/slider/SimpleSlider"), {
+  ssr: false,
+});
 
 const page = () => {
   return (
     <div>
       <div className="bannerArea">
         <div className="container">
-          <div className="priceSlider py-2">{/* <Slider /> */}</div>
+          <div className="priceSlider py-2">
+            <Slider />
+          </div>
           <div className="postSlider">
             <div className="row">
               <div className="col-md-12 col-lg-3">
@@ -189,7 +191,7 @@ const page = () => {
                         <polyline points="22 4 12 14.01 9 11.01"></polyline>
                       </svg>
                     </span>
-                    Ethereums smart contracts: coding the future.
+                    Ethereum&apos;s smart contracts: coding the future.
                   </li>
                   <li>
                     <span>

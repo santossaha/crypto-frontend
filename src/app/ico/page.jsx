@@ -10,19 +10,18 @@ const page = () => {
   return (
     <div>
       <div className="banner-section">
-        <banner>
-          <div className="info-area">
-            <h2>ICO / IDO</h2>
-            <ul>
-              <li>
-                <link href="/" className="linkarea" />
-                Home
-              </li>
-              <li>/</li>
-              <li>ICO / IDO</li>
-            </ul>
-          </div>
-        </banner>
+        <Banner />
+        <div className="info-area">
+          <h2>ICO / IDO</h2>
+          <ul>
+            <li>
+              <Link href="/" className="linkarea" />
+              Home
+            </li>
+            <li>/</li>
+            <li>ICO / IDO</li>
+          </ul>
+        </div>
       </div>
       <div className="eventMain">
         <div className="container">
@@ -72,10 +71,12 @@ const page = () => {
                     </div>
                   </div>
                 </div>
+
                 <div className="col-md-2 col-lg-2">
-                  <div className="btn-area mb-3">
-                    <Link href="/" className="btn btn-primary w-100" />
-                    Search
+                  <div className="btn-area mb-20">
+                    <Link href="/" className="btn btn-primary w-100">
+                      Search
+                    </Link>
                   </div>
                 </div>
               </div>
@@ -102,7 +103,7 @@ const page = () => {
                         {" "}
                         <span>
                           {" "}
-                          <Image className="Image" src="{p1}" alt="" />
+                          <Image src={p1} alt="Event" width={20} height={20} />
                         </span>
                         <p>RaysX</p>
                       </td>
@@ -120,7 +121,12 @@ const page = () => {
                           data-bs-target="#exampleModal"
                         >
                           <div className="icon">
-                            <Image className="Image" src="{e1}" alt="" />
+                            <Image
+                              src={e1}
+                              alt="Edit Icon"
+                              width={24}
+                              height={24}
+                            />
                           </div>
                         </div>
                       </td>
@@ -130,7 +136,7 @@ const page = () => {
                         {" "}
                         <span>
                           {" "}
-                          <Image className="Image" src="{p1}" alt="" />
+                          <Image src={p1} alt="Event" width={20} height={20} />
                         </span>
                         <p>RaysX</p>
                       </td>
@@ -148,7 +154,12 @@ const page = () => {
                           data-bs-target="#exampleModal"
                         >
                           <div className="icon">
-                            <Image className="Image" src="{e1}" alt="" />
+                            <Image
+                              src={e1}
+                              alt="Edit Icon"
+                              width={24}
+                              height={24}
+                            />
                           </div>
                         </div>
                       </td>
@@ -158,7 +169,7 @@ const page = () => {
                         {" "}
                         <span>
                           {" "}
-                          <Image className="Image" src="{p1}" alt="" />
+                          <Image src={p1} alt="Event" width={20} height={20} />
                         </span>
                         <p>RaysX</p>
                       </td>
@@ -176,7 +187,12 @@ const page = () => {
                           data-bs-target="#exampleModal"
                         >
                           <div className="icon">
-                            <Image className="Image" src="{e1}" alt="" />
+                            <Image
+                              src={e1}
+                              alt="Edit Icon"
+                              width={24}
+                              height={24}
+                            />
                           </div>
                         </div>
                       </td>
@@ -186,7 +202,7 @@ const page = () => {
                         {" "}
                         <span>
                           {" "}
-                          <Image className="Image" src="{p1}" alt="" />
+                          <Image src={p1} alt="Event" width={20} height={20} />
                         </span>
                         <p>RaysX</p>
                       </td>
@@ -204,7 +220,12 @@ const page = () => {
                           data-bs-target="#exampleModal"
                         >
                           <div className="icon">
-                            <Image className="Image" src="{e1}" alt="" />
+                            <Image
+                              src={e1}
+                              alt="Edit Icon"
+                              width={24}
+                              height={24}
+                            />
                           </div>
                         </div>
                       </td>
@@ -214,7 +235,7 @@ const page = () => {
                         {" "}
                         <span>
                           {" "}
-                          <Image className="Image" src="{p1}" alt="" />
+                          <Image src={p1} alt="Event" width={20} height={20} />
                         </span>
                         <p>RaysX</p>
                       </td>
@@ -232,7 +253,12 @@ const page = () => {
                           data-bs-target="#exampleModal"
                         >
                           <div className="icon">
-                            <Image className="Image" src="{e1}" alt="" />
+                            <Image
+                              src={e1}
+                              alt="Edit Icon"
+                              width={24}
+                              height={24}
+                            />
                           </div>
                         </div>
                       </td>
@@ -242,7 +268,7 @@ const page = () => {
                         {" "}
                         <span>
                           {" "}
-                          <Image className="Image" src="{p1}" alt="" />
+                          <Image src={p1} alt="Event" width={20} height={20} />
                         </span>
                         <p>RaysX</p>
                       </td>
@@ -260,7 +286,12 @@ const page = () => {
                           data-bs-target="#exampleModal"
                         >
                           <div className="icon">
-                            <Image className="Image" src="{e1}" alt="" />
+                            <Image
+                              src={e1}
+                              alt="Edit Icon"
+                              width={24}
+                              height={24}
+                            />
                           </div>
                         </div>
                       </td>

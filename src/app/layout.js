@@ -2,7 +2,7 @@ import { Inter } from "next/font/google";
 import Script from "next/script";
 import Header from "./components/header/page";
 import Footer from "./components/footer/page";
-import Head from "next/head"; 
+import Head from "next/head";
 
 import "./components/header/style.css";
 // import "./components/slider/style.css";
@@ -24,8 +24,10 @@ export default function RootLayout({ children }) {
       <Head>
         <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
         <link
+          href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css"
           rel="stylesheet"
-          href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css"
+          integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65"
+          crossorigin="anonymous"
         />
       </Head>
       <body>

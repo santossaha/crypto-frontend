@@ -5,7 +5,7 @@ import Banner from "../components/banner/page";
 import l1 from "../assets/images/link.svg";
 import "./style.css";
 import Image from "next/image";
-import axios from "axios";
+import axiosInstance from "../Helper/Helper";
 
 const page = () => {
   // eslint-disable-next-line react-hooks/rules-of-hooks
@@ -17,9 +17,7 @@ const page = () => {
   useEffect(() => {
     const fetchEvents = async () => {
       try {
-        const response = await axios.get(
-          "http://13.233.93.31/new-crypto-blog/public/api/get-events"
-        );
+        const response = await axiosInstance.get("/get-events");
         setEvents(response.data[0]);
       } catch (error) {
         console.error("Error fetching events:", error);
@@ -38,8 +36,8 @@ const page = () => {
           <h2>Welcome to our Event</h2>
           <p>
             Lorem Ipsum is simply dummy text of the printing and typesetting
-            industry. Lorem Ipsum has been the industrys standard dummy text
-            ever since
+            industry. Lorem Ipsum has been the industry&apos;s standard dummy
+            text ever since
           </p>
           <ul>
             <li>

@@ -1,7 +1,6 @@
 import React from "react";
 import Banner from "../components/banner/page";
 import p1 from "../assets/images/man.jpg";
-
 import "./style.css";
 import Link from "next/link";
 import Image from "next/image";
@@ -59,7 +58,7 @@ const page = () => {
                 </p>
               </div>
               <div className="area2">
-                <Link href="/" className="btn">
+                <Link href="/event-form" className="btn">
                   <span className="me-1">
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
