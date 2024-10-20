@@ -112,9 +112,7 @@
 .blog_detail_sec .newsCard .cardBox .cardInfo .btn:hover{
   color: #0456bb;
 }
-.blog_detail_sec .section-1{
 
-}
 .blog_detail_sec .section-1 .details-area{
 
 background: #fff;
@@ -124,9 +122,6 @@ padding: 25px;
 border-radius: 10px;
 
 margin-bottom: 35px;
-}
-.blog_detail_sec .section-1 .details-area .pic-area{
-
 }
 .blog_detail_sec .section-1 .details-area .pic-area .img{
 
@@ -162,10 +157,7 @@ margin-bottom: 25px;
     line-height: 20px;
     margin-bottom: 10px;
 }
-.newpostarea{}
-.newpostarea .subHeadline{}
 .newpostarea .subHeadline h3{font-size: 28px;line-height: 34px;color: #fff;font-weight: 500;margin-bottom: 10px;}
-.newpostarea .post-area{}
 .newpostarea .post-area .postcard{display: flex;flex-direction: row;background: #fff;padding: 15px 10px;border-radius: 6px; margin-bottom: 15px;}
 
 .newpostarea .post-area .postcard .pic-area{ 
