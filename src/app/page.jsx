@@ -25,7 +25,7 @@ import "slick-carousel/slick/slick-theme.css";
 import Link from "next/link";
 import Categories from "./components/categories/page";
 
-const Slider = dynamic(() => import("./components/slider/page"), {
+const Slider = dynamic(() => import("./components/slider/SimpleSlider"), {
   ssr: false,
 });
 
