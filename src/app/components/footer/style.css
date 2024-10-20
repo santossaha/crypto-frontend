@@ -25,7 +25,7 @@ footer::after{
     line-height: 26px;
     text-transform: uppercase;
     }
-    footer .info-area .logo-area img{}
+   
     footer .info-area .textform{
         display: flex;
         margin-bottom: 10px;
@@ -42,7 +42,7 @@ footer::after{
     footer .info-area p{
         color: #fff;
     }
-    footer .info-area .mediaIcon{}
+    
 footer .info-area .mediaIcon ul{display: flex;flex-direction: row;}
     footer .info-area .mediaIcon li{
     width: 24px;
