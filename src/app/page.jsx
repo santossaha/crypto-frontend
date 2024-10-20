@@ -26,6 +26,10 @@ import Link from "next/link";
 import Categories from "./components/categories/page";
 // import CoinSlider from "./components/coinslider/coinslider"
 
+
+
+
+
 // const Slider = dynamic(() => import("./components/slider/page"), {
 //   ssr: false,
 // });
@@ -193,7 +197,7 @@ const page = () => {
                         <polyline points="22 4 12 14.01 9 11.01"></polyline>
                       </svg>
                     </span>
-                    Ethereum's smart contracts: coding the future.
+                    Ethereums smart contracts: coding the future.
                   </li>
                   <li>
                     <span>
