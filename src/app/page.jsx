@@ -24,6 +24,7 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import Link from "next/link";
 import Categories from "./components/categories/page";
+import CoinSlider from "./components/coinslider/coinslider"
 
 const Slider = dynamic(() => import("./components/slider/SimpleSlider"), {
   ssr: false,
@@ -133,6 +134,9 @@ const page = () => {
             </div>
           </div>
         </div>
+      </div>
+      <div className="container my-3">
+      <CoinSlider/>
       </div>
       <section className="aboutArea">
         <div className="container">

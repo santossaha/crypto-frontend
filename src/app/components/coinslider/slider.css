@@ -27,7 +27,18 @@
     color: #000;
     margin-bottom: 0;
 }
-.priceBox .infoArea p span{color:rgb(6, 172, 6);}
+.priceBox .infoArea p span{color:#06ac06;}
 .priceBox .infoArea svg{margin-right: 3px;}
 .priceBox .infoArea p span.down{color:#ff0101;}
 .priceBox .infoArea p span.down svg{transform: rotate(180deg);}
+/* ------- */
+.custom_img_type1{
+    width:15px;
+    margin: 0 3px 0 6px;
+    position: relative;
+    top: 1px;
+}
+.custom_img_type1 .img{
+    width:100%;
+    height: auto;
+}
