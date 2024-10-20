@@ -57,7 +57,7 @@ const Categories = () => {
         <div className="blog-list">
           <ul>
             <li>
-              <Link className="postitem" href="/">
+              <Link className="postitem" href="/blog-details">
                 <div className="picarea">
                   <Image
                     className="img"
@@ -75,7 +75,7 @@ const Categories = () => {
             </li>
 
             <li>
-              <Link className="postitem" href="/">
+              <Link className="postitem" href="/blog-details">
                 <div className="picarea">
                   <Image
                     className="img"
@@ -93,7 +93,7 @@ const Categories = () => {
             </li>
 
             <li>
-              <Link className="postitem" href="/">
+              <Link className="postitem" href="/blog-details">
                 <div className="picarea">
                   <Image
                     className="img"
@@ -111,7 +111,7 @@ const Categories = () => {
             </li>
 
             <li>
-              <Link className="postitem" href="/">
+              <Link className="postitem" href="/blog-details">
                 <div className="picarea">
                   <Image
                     className="img"

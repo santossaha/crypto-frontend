@@ -134,6 +134,9 @@ const page = () => {
           </div>
         </div>
       </div>
+      <div className="container my-3">
+      {/* <CoinSlider/> */}
+      </div>
       <section className="aboutArea">
         <div className="container">
           <div className="row">
@@ -258,7 +261,7 @@ const page = () => {
                 <div className="subHeadline">
                   <h3>Latest News</h3>
                   <p>
-                    <Link className="btn" href="/">
+                    <Link className="btn" href="/blog">
                       View All
                     </Link>
                   </p>
@@ -288,7 +291,7 @@ const page = () => {
                           voluptate vitae itaque nihil illum accusantium.
                         </h5>
                         <p>
-                          <Link className="btn" href="/blog">
+                          <Link className="btn" href="/blog-details">
                             Read More
                           </Link>
                         </p>{" "}
@@ -319,7 +322,7 @@ const page = () => {
                           voluptate vitae itaque nihil illum accusantium.
                         </h5>
                         <p>
-                          <Link className="btn" href="/blog">
+                          <Link className="btn" href="/blog-details">
                             Read More
                           </Link>
                         </p>
@@ -350,7 +353,7 @@ const page = () => {
                           voluptate vitae itaque nihil illum accusantium.
                         </h5>
                         <p>
-                          <Link className="btn" href="/blog">
+                          <Link className="btn" href="/blog-details">
                             Read More
                           </Link>
                         </p>
@@ -381,7 +384,7 @@ const page = () => {
                           voluptate vitae itaque nihil illum accusantium.
                         </h5>
                         <p>
-                          <Link className="btn" href="/blog">
+                          <Link className="btn" href="/blog-details">
                             Read More
                           </Link>
                         </p>
@@ -412,7 +415,7 @@ const page = () => {
                           voluptate vitae itaque nihil illum accusantium.
                         </h5>
                         <p>
-                          <Link className="btn" href="/blog">
+                          <Link className="btn" href="/blog-details">
                             Read More
                           </Link>
                         </p>{" "}
@@ -443,7 +446,7 @@ const page = () => {
                           voluptate vitae itaque nihil illum accusantium.
                         </h5>
                         <p>
-                          <Link className="btn" href="/blog">
+                          <Link className="btn" href="/blog-details">
                             Read More
                           </Link>
                         </p>

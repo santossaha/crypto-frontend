@@ -1,5 +1,5 @@
 .postSlider1 .carousel-item {
-    height: 350px;
+    height: 250px;
     position: relative;
 }
 
@@ -84,6 +84,6 @@
 }
 
 .postSlider1 .carousel-item {
-    height: 350px !important;
+    height: 250px !important;
     position: relative !important;
 }
