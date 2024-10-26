@@ -16,7 +16,7 @@ import Banner from "../components/banner/page";
 import "./style.css";
 import Categories from "../components/categories/page";
 
-const blog = () => {
+const Blog = () => {
   // eslint-disable-next-line react-hooks/rules-of-hooks
   const [blogs, setBlogs] = useState([]);
 
@@ -288,4 +288,4 @@ const blog = () => {
   );
 };
 
-export default blog;
+export default Blog;
