@@ -15,7 +15,7 @@ export default function SimpleSlider() {
     infinite: true,
     autoplay: true,
     autoplaySpeed: 0,
-    speed: 500,
+    speed: 1500,
     slidesToShow: 6,
     slidesToScroll: 1,
     responsive: [
@@ -90,7 +90,7 @@ export default function SimpleSlider() {
               <div className="infoArea">
                 <h5>{item.title}</h5>
                 <p>
-                  {item.price}{" "}
+                  ${item.price}{" "}
                   <span className={`upValue ${item.isDown ? "down" : ""}`}>
                     {item.isDown ? "▼" : "▲"} {item.value}
                   </span>

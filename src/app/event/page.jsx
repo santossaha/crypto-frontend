@@ -7,13 +7,12 @@ import "./style.css";
 import Image from "next/image";
 import axiosInstance from "../Helper/Helper";
 
-const page = () => {
-  // eslint-disable-next-line react-hooks/rules-of-hooks
+const Page = () => {
   const [events, setEvents] = useState([]);
-  // eslint-disable-next-line react-hooks/rules-of-hooks
-  const [loading, setLoading] = useState(true);
 
-  // eslint-disable-next-line react-hooks/rules-of-hooks
+  const [loading, setLoading] = useState(true);
+  const [eventType, setEventType] = useState("Upcoming");
+  const [location, setLocation] = useState("India");
   useEffect(() => {
     const fetchEvents = async () => {
       try {
@@ -76,27 +75,27 @@ const page = () => {
                 <div className="col-md-2 col-lg-2">
                   <div className="form-group">
                     <select
-                      class="form-select form-control"
-                      aria-label="Default select example"
+                      className="form-select form-control"
+                      value={eventType}
+                      onChange={(e) => setEventType(e.target.value)}
                     >
-                      <option selected>Upcomming</option>
-                      <option value="1">Previous</option>
-                      <option value="2">Trending</option>
+                      <option value="Upcoming">Upcoming</option>
+                      <option value="Previous">Previous</option>
+                      <option value="Trending">Trending</option>
                     </select>
                   </div>
                 </div>
                 <div className="col-md-2 col-lg-2">
                   <div className="form-group">
-                    <div className="form-group">
-                      <select
-                        class="form-select form-control"
-                        aria-label="Default select example"
-                      >
-                        <option selected>India</option>
-                        <option value="1">USA</option>
-                        <option value="2">UK</option>
-                      </select>
-                    </div>
+                    <select
+                      className="form-select form-control"
+                      value={location}
+                      onChange={(e) => setLocation(e.target.value)}
+                    >
+                      <option value="India">India</option>
+                      <option value="USA">USA</option>
+                      <option value="UK">UK</option>
+                    </select>
                   </div>
                 </div>
                 <div className="col-md-2 col-lg-2">
@@ -110,7 +109,7 @@ const page = () => {
             </form>
             <div className="eventTable">
               <div className="table-responsive">
-                <table class="table">
+                <table className="table">
                   <thead>
                     <tr>
                       <th scope="col">Date</th>
@@ -163,26 +162,29 @@ const page = () => {
                     )}
                   </tbody>
                 </table>
-                <nav aria-label="..." class="d-flex justify-content-end me-3">
-                  <ul class="pagination">
-                    <li class="page-item disabled">
-                      <span class="page-link">Previous</span>
+                <nav
+                  aria-label="..."
+                  className="d-flex justify-content-end me-3"
+                >
+                  <ul className="pagination">
+                    <li className="P-item disabled">
+                      <span className="page-link">Previous</span>
                     </li>
-                    <li class="page-item active">
-                      <a class="page-link" href="#">
+                    <li className="page-item active">
+                      <a className="page-link" href="#">
                         1
                       </a>
                     </li>
-                    <li class="page-item" aria-current="page">
-                      <span class="page-link">2</span>
+                    <li className="page-item" aria-current="page">
+                      <span className="page-link">2</span>
                     </li>
-                    <li class="page-item">
-                      <a class="page-link" href="#">
+                    <li className="page-item">
+                      <a className="page-link" href="#">
                         3
                       </a>
                     </li>
-                    <li class="page-item">
-                      <a class="page-link" href="#">
+                    <li className="page-item">
+                      <a className="page-link" href="#">
                         Next
                       </a>
                     </li>
@@ -195,35 +197,35 @@ const page = () => {
       </div>
       {/* modal */}
       <div
-        class="modal fade"
+        className="modal fade"
         id="exampleModal"
         tabIndex="-1"
         aria-labelledby="exampleModalLabel"
         aria-hidden="true"
       >
-        <div class="modal-dialog">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h5 class="modal-title" id="exampleModalLabel">
+        <div className="modal-dialog">
+          <div className="modal-content">
+            <div className="modal-header">
+              <h5 className="modal-title" id="exampleModalLabel">
                 Modal title
               </h5>
               <button
                 type="button"
-                class="btn-close"
+                className="btn-close"
                 data-bs-dismiss="modal"
                 aria-label="Close"
               ></button>
             </div>
-            <div class="modal-body">...</div>
-            <div class="modal-footer">
+            <div className="modal-body">...</div>
+            <div className="modal-footer">
               <button
                 type="button"
-                class="btn btn-secondary"
+                className="btn btn-secondary"
                 data-bs-dismiss="modal"
               >
                 Close
               </button>
-              <button type="button" class="btn btn-primary">
+              <button type="button" className="btn btn-primary">
                 Save changes
               </button>
             </div>
@@ -234,4 +236,4 @@ const page = () => {
   );
 };
 
-export default page;
+export default Page;

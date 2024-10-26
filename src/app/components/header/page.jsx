@@ -123,11 +123,11 @@ const Page = () => {
           </div>
 
           {/* Login Button */}
-          <div className="linkArea ms-3">
+          {/* <div className="linkArea ms-3">
             <Link href="/login">
               <button className="btn btn-primary m-0 py-2 px-4 text-small">Login</button>
             </Link>
-          </div>
+          </div> */}
         </nav>
       </div>
     </div>

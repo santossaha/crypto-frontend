@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import dynamic from "next/dynamic";
 import Image from "next/image";
 import p1 from "./assets/images/p-1.jpg";
@@ -29,13 +29,33 @@ const Slider = dynamic(() => import("./components/slider/SimpleSlider"), {
   ssr: false,
 });
 
-const page = () => {
+const Page = () => {
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    // Simulate a data fetching or processing delay
+    const timer = setTimeout(() => {
+      setLoading(false);
+    }, 2000); // Adjust the time as necessary
+
+    return () => clearTimeout(timer); // Cleanup on unmount
+  }, []);
+
   return (
     <div>
       <div className="bannerArea">
         <div className="container">
           <div className="priceSlider py-2">
-            <Slider />
+            {" "}
+            {loading ? (
+              <div
+                style={{ textAlign: "center", fontSize: "24px", color: "white" }}
+              >
+                Loading...
+              </div>
+            ) : (
+              <Slider />
+            )}
           </div>
           <div className="postSlider">
             <div className="row">
@@ -134,6 +154,7 @@ const page = () => {
           </div>
         </div>
       </div>
+
       <section className="aboutArea">
         <div className="container">
           <div className="row">
@@ -468,4 +489,4 @@ const page = () => {
   );
 };
 
-export default page;
+export default Page;

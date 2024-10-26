@@ -1,12 +1,14 @@
+"use client";
 import Link from "next/link";
-import React from "react";
+import React, { useState } from "react";
 import Banner from "../components/banner/page";
 import p1 from "../assets/images/e-1.jpg";
 import e1 from "../assets/images/edit.svg";
 import "./style.css";
 import Image from "next/image";
 
-const page = () => {
+const Page = () => {
+  const [eventType, setEventType] = useState("Upcoming");
   return (
     <div>
       <div className="banner-section">
@@ -49,26 +51,26 @@ const page = () => {
                   <div className="form-group">
                     <select
                       className="form-select form-control"
-                      aria-label="Default select example"
+                      value={eventType}
+                      onChange={(e) => setEventType(e.target.value)}
                     >
-                      <option selected="">Upcoming</option>
-                      <option value={1}>Previous</option>
-                      <option value={2}>Trending</option>
+                      <option value="Upcoming">Upcoming</option>
+                      <option value="Previous">Previous</option>
+                      <option value="Trending">Trending</option>
                     </select>
                   </div>
                 </div>
                 <div className="col-md-2 col-lg-2">
                   <div className="form-group">
-                    <div className="form-group">
-                      <select
-                        className="form-select form-control"
-                        aria-label="Default select example"
-                      >
-                        <option selected="">ICO / IDO</option>
-                        <option value={1}>ICO / IDO</option>
-                        <option value={2}>ICO / IDO</option>
-                      </select>
-                    </div>
+                    <select
+                      className="form-select form-control"
+                      aria-label="Default select example"
+                      defaultValue="" 
+                    >
+                      <option value="">ICO / IDO</option>
+                      <option value={1}>ICO / IDO 1</option>
+                      <option value={2}>ICO / IDO 2</option>
+                    </select>
                   </div>
                 </div>
 
@@ -335,4 +337,4 @@ const page = () => {
   );
 };
 
-export default page;
+export default Page;
