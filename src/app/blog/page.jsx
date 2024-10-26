@@ -21,23 +21,39 @@ const blog = () => {
   const [blogs, setBlogs] = useState([]);
 
   // eslint-disable-next-line react-hooks/rules-of-hooks
+  // useEffect(() => {
+  //   const fetchBlogs = async () => {
+  //     try {
+  //       const response = await fetch(
+  //         "http://13.233.93.31/new-crypto-blog/public/api/get-blogs"
+  //       );
+  //       const data = await response.json();
+  //       if (data.status === "success") {
+  //         setBlogs(data[0]); // Access the blogs array
+  //       }
+  //     } catch (error) {
+  //       console.error("Error fetching blogs:", error);
+  //     }
+  //   };
+
+  //   fetchBlogs();
+  // }, []);
+
   useEffect(() => {
     const fetchBlogs = async () => {
       try {
-        const response = await fetch(
-          "http://13.233.93.31/new-crypto-blog/public/api/get-blogs"
-        );
+        const response = await fetch(`/api/proxy?endpoint=get-blogs`);
         const data = await response.json();
         if (data.status === "success") {
-          setBlogs(data[0]); // Access the blogs array
+          setBlogs(data[0]);
         }
       } catch (error) {
         console.error("Error fetching blogs:", error);
       }
     };
-
     fetchBlogs();
   }, []);
+  
   return (
     <div>
       <div className="banner-section">
