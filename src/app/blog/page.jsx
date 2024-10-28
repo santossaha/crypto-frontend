@@ -15,45 +15,29 @@ import Eye from "../assets/images/eye.svg";
 import Banner from "../components/banner/page";
 import "./style.css";
 import Categories from "../components/categories/page";
+import axiosInstance from "../Helper/Helper";
 
-const Blog = () => {
+const blog = () => {
   // eslint-disable-next-line react-hooks/rules-of-hooks
   const [blogs, setBlogs] = useState([]);
 
   // eslint-disable-next-line react-hooks/rules-of-hooks
-  // useEffect(() => {
-  //   const fetchBlogs = async () => {
-  //     try {
-  //       const response = await fetch(
-  //         "http://13.233.93.31/new-crypto-blog/public/api/get-blogs"
-  //       );
-  //       const data = await response.json();
-  //       if (data.status === "success") {
-  //         setBlogs(data[0]); // Access the blogs array
-  //       }
-  //     } catch (error) {
-  //       console.error("Error fetching blogs:", error);
-  //     }
-  //   };
-
-  //   fetchBlogs();
-  // }, []);
-
   useEffect(() => {
     const fetchBlogs = async () => {
       try {
-        const response = await fetch(`/api/proxy?endpoint=get-blogs`);
-        const data = await response.json();
-        if (data.status === "success") {
-          setBlogs(data[0]);
+        const response = await axiosInstance(
+          "/get-blogs"
+        );
+        if (response.data.status === "success") {
+          setBlogs(response.data[0]); 
         }
       } catch (error) {
         console.error("Error fetching blogs:", error);
       }
     };
+
     fetchBlogs();
   }, []);
-  
   return (
     <div>
       <div className="banner-section">
@@ -72,9 +56,7 @@ const Blog = () => {
               </Link>
             </li>
             <li>/</li>
-            <li>
-            Blog
-            </li>
+            <li>Blog</li>
           </ul>
         </div>
       </div>
@@ -288,4 +270,4 @@ const Blog = () => {
   );
 };
 
-export default Blog;
+export default blog;

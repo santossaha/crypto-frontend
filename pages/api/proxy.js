@@ -1,5 +1,5 @@
 export default async function handler(req, res) {
-    const { endpoint } = req.query; // capture the endpoint dynamically from query params
+    const { endpoint } = req.query; 
     const apiUrl = `${process.env.NEXT_PUBLIC_API_ROOT}/${endpoint}`;
   
     try {

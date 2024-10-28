@@ -9,6 +9,7 @@ import e4 from "../../assets/images/e-4.jpg";
 import Eye from "../../assets/images/eye.svg";
 import Banner from "../../components/banner/page";
 import "./style.css";
+import NewsGroup from "@/app/components/newsGroup/page";
 
 const page = () => {
   return (
@@ -172,134 +173,7 @@ const page = () => {
               </div>
             </div>
           </div>
-          <div className="newsCard">
-            <div className="subHeadline">
-              <h3>Latest News</h3>
-              <p>
-                <Link className="btn" href="/">
-                  View All
-                </Link>
-              </p>
-            </div>
-            <div className="row">
-              <div className="col-md-4 col-lg-3">
-                <div className="cardBox">
-                  <div className="picArea">
-                    <Image className="img" src={p1} alt="slider1" />
-                  </div>
-                  <div className="cardInfo">
-                    <p>
-                      March 20, 2024
-                      <span>
-                        {" "}
-                        <Image className="img" src={Eye} alt="eye" /> 120 View
-                      </span>
-                    </p>
-                    <h4>
-                      Bitcoins wild ride: soaring highs and gut-wrenching lows.
-                    </h4>
-                    <h5>
-                      Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-                      Dolor fuga culpa optio laboriosam dolores voluptate vitae
-                      itaque nihil illum accusantium.
-                    </h5>
-                    <p>
-                      <Link className="btn" href="/">
-                        Read More
-                      </Link>
-                    </p>{" "}
-                  </div>
-                </div>
-              </div>
-              <div className="col-md-4 col-lg-3">
-                <div className="cardBox">
-                  <div className="picArea">
-                    <Image className="img" src={e1} alt="event" />
-                  </div>
-                  <div className="cardInfo">
-                    <p>
-                      March 20, 2024
-                      <span>
-                        {" "}
-                        <Image className="img" src={Eye} alt="eye" /> 120 View
-                      </span>
-                    </p>
-                    <h4>
-                      Bitcoins wild ride: soaring highs and gut-wrenching lows.
-                    </h4>
-                    <h5>
-                      Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-                      Dolor fuga culpa optio laboriosam dolores voluptate vitae
-                      itaque nihil illum accusantium.
-                    </h5>
-                    <p>
-                      <Link className="btn" href="/">
-                        Read More
-                      </Link>
-                    </p>
-                  </div>
-                </div>
-              </div>
-              <div className="col-md-4 col-lg-3">
-                <div className="cardBox">
-                  <div className="picArea">
-                    <Image className="img" src={e2} alt="event" />
-                  </div>
-                  <div className="cardInfo">
-                    <p>
-                      March 20, 2024
-                      <span>
-                        {" "}
-                        <Image className="img" src={Eye} alt="eye" /> 120 View
-                      </span>
-                    </p>
-                    <h4>
-                      Bitcoins wild ride: soaring highs and gut-wrenching lows.
-                    </h4>
-                    <h5>
-                      Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-                      Dolor fuga culpa optio laboriosam dolores voluptate vitae
-                      itaque nihil illum accusantium.
-                    </h5>
-                    <p>
-                      <Link className="btn" href="/">
-                        Read More
-                      </Link>
-                    </p>
-                  </div>
-                </div>
-              </div>
-              <div className="col-md-4 col-lg-3">
-                <div className="cardBox">
-                  <div className="picArea">
-                    <Image className="img" src={e3} alt="event" />
-                  </div>
-                  <div className="cardInfo">
-                    <p>
-                      March 20, 2024
-                      <span>
-                        {" "}
-                        <Image className="img" src={Eye} alt="eye" /> 120 View
-                      </span>
-                    </p>
-                    <h4>
-                      Bitcoins wild ride: soaring highs and gut-wrenching lows.
-                    </h4>
-                    <h5>
-                      Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-                      Dolor fuga culpa optio laboriosam dolores voluptate vitae
-                      itaque nihil illum accusantium.
-                    </h5>
-                    <p>
-                      <Link className="btn" href="/">
-                        Read More
-                      </Link>
-                    </p>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
+        <NewsGroup/>
         </div>
       </div>
     </>
