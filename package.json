@@ -1,5 +1,6 @@
 {
   "name": "crypto-web",
+  "homepage": "https://crypto-frontend-new.vercel.app/",
   "version": "0.1.0",
   "private": true,
   "scripts": {

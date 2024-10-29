@@ -6,11 +6,12 @@ import p1 from "./assets/images/p-1.jpg";
 import p2 from "./assets/images/p-2.jpg";
 import p3 from "./assets/images/p-4.jpg";
 import p5 from "./assets/images/p-5.jpg";
-import Ellipse1 from "./assets/images/Ellipse-1.png";
 
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import NewsGroup from "./components/newsGroup/page";
+import AboutSection from "./components/aboutUs/page";
+import axiosInstance from "./Helper/Helper";
 
 const Slider = dynamic(() => import("./components/slider/SimpleSlider"), {
   ssr: false,
@@ -18,11 +19,26 @@ const Slider = dynamic(() => import("./components/slider/SimpleSlider"), {
 
 const Page = () => {
   const [loading, setLoading] = useState(true);
+  const [bannerImage, setBannerImage] = useState(null);
 
+  useEffect(() => {
+    const fetchBannerImage = async () => {
+      try {
+        const response = await axiosInstance("/get-adds");
+        if (response.data.status === "success") {
+          setBannerImage(response.data.data);
+        }
+      } catch (error) {
+        console.error("Error fetching banner image:", error);
+      }
+    };
+
+    fetchBannerImage();
+  }, []);
   useEffect(() => {
     const timer = setTimeout(() => {
       setLoading(false);
-    }, 2000); 
+    }, 2000);
 
     return () => clearTimeout(timer);
   }, []);
@@ -137,7 +153,17 @@ const Page = () => {
               </div>
               <div className="col-md-12 col-lg-6">
                 <div className="postBanner1">
-                  <Image className="img" src={p5} alt="banner-1" />
+                  {bannerImage ? (
+                    <Image
+                      className="img"
+                      src={bannerImage}
+                      alt="banner-1"
+                      width={500}
+                      height={300}
+                    />
+                  ) : (
+                    <p>Error: No image available</p> 
+                  )}
                 </div>
               </div>
             </div>
@@ -145,122 +171,7 @@ const Page = () => {
         </div>
       </div>
 
-      <section className="aboutArea">
-        <div className="container">
-          <div className="row">
-            <div className="col-md-6 col-lg-7">
-              <div className="infoArea">
-                <h1>About Us</h1>
-                <div className="backshapeIcon">
-                  <Image className="img" src={Ellipse1} alt="elp" />
-                </div>
-                <h3>Welcome You In The Crypto World</h3>
-                <p>
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                  Veritatis natus labore quia suscipit nobis et laudantium
-                  maxime neque voluptate voluptas. Alias ex quod obcaecati
-                  earum. Veniam natus nam dignissimos eligendi iste, optio quia
-                  dolorum cum nihil asperiores. dolores amet dolorem. Tenetur
-                  beatae quae labore suscipit nulla fuga nesciunt.
-                </p>
-                <ul>
-                  <li>
-                    <span>
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        width="24"
-                        height="24"
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        stroke="currentColor"
-                        strokeWidth="2"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        className="feather feather-check-circle"
-                      >
-                        <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
-                        <polyline points="22 4 12 14.01 9 11.01"></polyline>
-                      </svg>
-                    </span>
-                    Bitcoins rise: digital gold in the making.
-                  </li>
-                  <li>
-                    <span>
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        width="24"
-                        height="24"
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        stroke="currentColor"
-                        strokeWidth="2"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        className="feather feather-check-circle"
-                      >
-                        <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
-                        <polyline points="22 4 12 14.01 9 11.01"></polyline>
-                      </svg>
-                    </span>
-                    Ethereum&apos;s smart contracts: coding the future.
-                  </li>
-                  <li>
-                    <span>
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        width="24"
-                        height="24"
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        stroke="currentColor"
-                        strokeWidth="2"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        className="feather feather-check-circle"
-                      >
-                        <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
-                        <polyline points="22 4 12 14.01 9 11.01"></polyline>
-                      </svg>
-                    </span>
-                    Altcoins surge, diversify your digital portfolio.
-                  </li>
-                  <li>
-                    <span>
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        width="24"
-                        height="24"
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        stroke="currentColor"
-                        strokeWidth="2"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        className="feather feather-check-circle"
-                      >
-                        <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
-                        <polyline points="22 4 12 14.01 9 11.01"></polyline>
-                      </svg>
-                    </span>
-                    NFTs: making digital art collectible.
-                  </li>
-                </ul>
-              </div>
-            </div>
-            <div className="col-md-6 col-lg-5">
-              <div
-                className="aboutPic"
-                data-aos="fade-up-right"
-                data-aos-duration="1000"
-              >
-                <span className="topBox"></span>
-                <Image className="img" src={p1} alt="slider1" />
-                <span className="bottomBox"></span>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
+      <AboutSection />
       <NewsGroup />
     </div>
   );
