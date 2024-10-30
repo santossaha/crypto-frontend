@@ -1,0 +1,98 @@
+.eventMain{
+    background: #fff;
+    padding: 50px 0;
+}
+.eventMain .subHeadline{
+    text-align: center;
+    margin: 0 auto 30px;
+    max-width: 700px;
+}
+.eventMain .subHeadline h3{ font-weight: 700;}
+.eventMain .searchArea form{text-align:center;}
+.eventMain .searchArea .form-group{
+ margin-bottom: 15px;
+}
+.eventMain .searchArea .form-group .form-control:focus{ box-shadow: none !important;}
+.eventTable{
+    border: 1px solid #ece6e6;
+    border-radius: 6px;
+    padding-bottom: 20px;
+}
+.eventTable .table tr th{
+    background: #e4e5ff;
+} 
+.eventTable .table td{
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 20px;
+    color:#000;
+}
+.eventTable .table td.gr-area span{
+    width: 35px;
+    height: 25px;
+    display: inline-block;
+    margin-right: 10px;
+    float: left;
+    border-radius: 3px;
+    overflow: hidden;
+    position: relative;
+    top: 5px;
+}
+.eventTable .table td p{
+    margin-bottom: 0;
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 20px;
+    color:#000;
+    float: left;
+}
+.eventTable .table .view-area{
+    margin: 0 auto;
+    width: 40px;
+}
+.eventTable .table .view-area .icon{width: 40px;border-radius: 6px;background-color: #e4e5ff;text-align: center;padding: 4px 5px;cursor: pointer;}
+.eventTable .table .view-area .icon .img{width: 18px;}
+
+.eventTable .gr-area .info{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+.eventTable .gr-area .info .area-1{
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    width: 120px;
+}
+.eventTable .gr-area .info .area-1 p{}
+.eventTable .gr-area .info .area-1 h6{
+    font-size: 12px;
+    color: #898686;
+    margin-top: 2px;
+}
+.eventTable .gr-area .info .btn{
+    background: #ff0000;
+    font-size: 12px;
+    color: #fff;
+    font-weight: 600;
+    padding: 2px 10px;
+    border-radius: 4px;
+    height: fit-content;
+}
+.eventTable .table .votebtn{
+    border: 1px solid #c4c4c4;
+    color: #6a6a6a;
+    padding: 5px 10px;
+    border-radius: 20px;
+    transition: 0.5s ease;
+}
+.eventTable .table .votebtn:hover{
+    border: 1px solid #030b4f;
+    color: #fff;
+    background-color: #030b4f;
+}
+.eventTable .table .votebtn span{
+    position: relative;
+    top: -2px;
+    margin-right: 3px;
+}
