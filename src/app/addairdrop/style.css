@@ -24,3 +24,10 @@
 .airdrop-form-item .airdrop-form-area .shortinfo.area2{
     margin-bottom: 15px;
 }
+.airdrop-form-item .airdrop-form-area .row{
+    background: #050e5a;
+    padding: 15px;
+    margin-bottom: 15px;
+    border-radius: 10px;
+    border: 1px solid #323232;
+}

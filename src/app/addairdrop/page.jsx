@@ -244,7 +244,7 @@ const addairdrop = () => {
                 </div>
               </div>
               <div className="button-area">
-                <ul className='d-flex gap-2 justify-end'>
+                <ul className='d-flex gap-3 justify-end'>
                   <li><button type="button" class="btn btn-primary">Next</button></li>
                   <li><button type="button" class="btn btn-light">Cancel</button></li>
                 </ul>
