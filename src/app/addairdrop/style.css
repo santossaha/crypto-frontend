@@ -1,0 +1,33 @@
+.airdrop-form-item{
+    padding: 75px 0;
+}
+.airdrop-form-item .airdrop-form-area{}
+.airdrop-form-item .airdrop-form-area .shortinfo{
+    margin-bottom: 35px;
+}
+.airdrop-form-item .airdrop-form-area .shortinfo h3{
+    color: #fff;
+}
+.airdrop-form-item .airdrop-form-area .shortinfo p{
+    color: #fff;
+}
+.airdrop-form-item .airdrop-form-area .form-group{
+    margin-bottom: 30px;
+}
+.airdrop-form-item .airdrop-form-area .form-group label{
+    color: #fff;
+    margin-bottom: 6px;
+}
+.airdrop-form-item .airdrop-form-area .form-group .form-control{
+   
+}
+.airdrop-form-item .airdrop-form-area .shortinfo.area2{
+    margin-bottom: 15px;
+}
+.airdrop-form-item .airdrop-form-area .row{
+    background: #050e5a;
+    padding: 15px;
+    margin-bottom: 15px;
+    border-radius: 10px;
+    border: 1px solid #323232;
+}

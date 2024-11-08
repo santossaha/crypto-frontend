@@ -50,6 +50,11 @@ const Page = () => {
                 </Link>
               </li>
               <li className="nav-item px-md-2">
+                <Link className={`nav-link ${isActive("/airdrop") ? "active" : ""}`} href="/airdrop">
+                  Airdrop
+                </Link>
+              </li>
+              <li className="nav-item px-md-2">
                 <div className="nav-link mega">
                   <span>
                     Services <IconChevronDown stroke={1} />
