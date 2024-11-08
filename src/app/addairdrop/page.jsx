@@ -3,6 +3,8 @@ import React from 'react'
 import Banner from "../components/banner/page";
 import './style.css';
 
+
+
 const addairdrop = () => {
   return (
     <div>
