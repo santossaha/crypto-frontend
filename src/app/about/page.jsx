@@ -1,12 +1,10 @@
-import Link from 'next/link'
 import React from 'react'
+import AboutSection from '../components/aboutUs/page'
 
 const page = () => {
   return (
     <div>
-      <div className="container text-center">
-      <h2 className='p-5'>About Page</h2>
-      </div>
+      <AboutSection />
     </div>
   )
 }

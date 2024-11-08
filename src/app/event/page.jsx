@@ -16,7 +16,7 @@ const Page = () => {
   useEffect(() => {
     const fetchEvents = async () => {
       try {
-        const response = await axiosInstance.get("/get-events");
+        const response = await axiosInstance("/get-events");
         setEvents(response.data[0]);
       } catch (error) {
         console.error("Error fetching events:", error);

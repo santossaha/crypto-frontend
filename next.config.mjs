@@ -14,7 +14,7 @@ const nextConfig = {
   },
 
   env: {
-    API_URL: process.env.API_URL, // Assuming API_URL is still needed
+    API_URL: process.env.API_URL, 
   },
 
   reactStrictMode: false,

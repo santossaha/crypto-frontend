@@ -17,19 +17,18 @@ import "./style.css";
 import Categories from "../components/categories/page";
 import axiosInstance from "../Helper/Helper";
 
-const blog = () => {
-  // eslint-disable-next-line react-hooks/rules-of-hooks
+const Blog = () => {
   const [blogs, setBlogs] = useState([]);
 
-  // eslint-disable-next-line react-hooks/rules-of-hooks
+  const [currentPage, setCurrentPage] = useState(1);
+  const blogsPerPage = 6;
+
   useEffect(() => {
     const fetchBlogs = async () => {
       try {
-        const response = await axiosInstance(
-          "/get-blogs"
-        );
+        const response = await axiosInstance("/get-blogs");
         if (response.data.status === "success") {
-          setBlogs(response.data[0]); 
+          setBlogs(response.data[0]);
         }
       } catch (error) {
         console.error("Error fetching blogs:", error);
@@ -38,6 +37,20 @@ const blog = () => {
 
     fetchBlogs();
   }, []);
+
+  const totalPages = Math.ceil(blogs.length / blogsPerPage);
+  const currentBlogs = blogs.slice(
+    (currentPage - 1) * blogsPerPage,
+    currentPage * blogsPerPage
+  );
+
+  const handleNextPage = () => {
+    setCurrentPage((prevPage) => Math.min(prevPage + 1, totalPages));
+  };
+
+  const handlePreviousPage = () => {
+    setCurrentPage((prevPage) => Math.max(prevPage - 1, 1));
+  };
   return (
     <div>
       <div className="banner-section">
@@ -145,7 +158,7 @@ const blog = () => {
                   <h3>New Post</h3>
                 </div>
                 <div className="row">
-                  {blogs.map((blog) => (
+                  {currentBlogs.map((blog) => (
                     <div key={blog.id} className="col-md-12 col-lg-4">
                       <div className="cardBox">
                         <div className="picArea">
@@ -182,6 +195,56 @@ const blog = () => {
                   ))}
                 </div>
               </div>
+              <nav
+                aria-label="..."
+                className="d-flex justify-content-end me-3 mb-5"
+              >
+                <ul className="pagination">
+                  <li
+                    className={`page-item ${
+                      currentPage === 1 ? "disabled" : ""
+                    }`}
+                  >
+                    <button
+                      className="page-link"
+                      onClick={handlePreviousPage}
+                      disabled={currentPage === 1}
+                    >
+                      Previous
+                    </button>
+                  </li>
+
+                  {[...Array(totalPages)].map((_, index) => (
+                    <li
+                      key={index}
+                      className={`page-item ${
+                        currentPage === index + 1 ? "active" : ""
+                      }`}
+                    >
+                      <button
+                        className="page-link"
+                        onClick={() => setCurrentPage(index + 1)}
+                      >
+                        {index + 1}
+                      </button>
+                    </li>
+                  ))}
+
+                  <li
+                    className={`page-item ${
+                      currentPage === totalPages ? "disabled" : ""
+                    }`}
+                  >
+                    <button
+                      className="page-link"
+                      onClick={handleNextPage}
+                      disabled={currentPage === totalPages}
+                    >
+                      Next
+                    </button>
+                  </li>
+                </ul>
+              </nav>
             </div>
             <div className="col-md-6 col-lg-3">
               <Categories />
@@ -270,4 +333,4 @@ const blog = () => {
   );
 };
 
-export default blog;
+export default Blog;

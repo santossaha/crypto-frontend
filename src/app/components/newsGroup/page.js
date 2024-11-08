@@ -9,11 +9,13 @@ import Eye from "../../assets/images/eye.svg";
 const NewsGroup = () => {
   const [news, setNews] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [currentPage, setCurrentPage] = useState(1);
+  const newsPerPage = 6; 
 
   useEffect(() => {
     const fetchLatestNews = async () => {
       try {
-        const response = await axiosInstance.get("/latest-news");
+        const response = await axiosInstance("/latest-news");
         if (response.data.status === "success") {
           setNews(response.data.data);
         } else {
@@ -31,6 +33,20 @@ const NewsGroup = () => {
 
   if (loading) return <p>Loading news...</p>;
 
+  const totalPages = Math.ceil(news.length / newsPerPage);
+  const currentNews = news.slice(
+    (currentPage - 1) * newsPerPage,
+    currentPage * newsPerPage
+  );
+
+  const handleNextPage = () => {
+    setCurrentPage((prevPage) => Math.min(prevPage + 1, totalPages));
+  };
+
+  const handlePreviousPage = () => {
+    setCurrentPage((prevPage) => Math.max(prevPage - 1, 1));
+  };
+
   return (
     <section className="newsGroup">
       <div className="container">
@@ -47,7 +63,7 @@ const NewsGroup = () => {
                 </p>
               </div>
               <div className="row">
-                {news.map((newsItem) => (
+                {currentNews.map((newsItem) => (
                   <div className="col-md-12 col-lg-4" key={newsItem.id}>
                     <div className="cardBox">
                       <div className="picArea">
@@ -87,6 +103,54 @@ const NewsGroup = () => {
                   </div>
                 ))}
               </div>
+              {/* Pagination */}
+              <nav aria-label="..." className="d-flex justify-content-end me-3 mb-5">
+                <ul className="pagination">
+                  <li
+                    className={`page-item ${
+                      currentPage === 1 ? "disabled" : ""
+                    }`}
+                  >
+                    <button
+                      className="page-link"
+                      onClick={handlePreviousPage}
+                      disabled={currentPage === 1}
+                    >
+                      Previous
+                    </button>
+                  </li>
+
+                  {[...Array(totalPages)].map((_, index) => (
+                    <li
+                      key={index}
+                      className={`page-item ${
+                        currentPage === index + 1 ? "active" : ""
+                      }`}
+                    >
+                      <button
+                        className="page-link"
+                        onClick={() => setCurrentPage(index + 1)}
+                      >
+                        {index + 1}
+                      </button>
+                    </li>
+                  ))}
+
+                  <li
+                    className={`page-item ${
+                      currentPage === totalPages ? "disabled" : ""
+                    }`}
+                  >
+                    <button
+                      className="page-link"
+                      onClick={handleNextPage}
+                      disabled={currentPage === totalPages}
+                    >
+                      Next
+                    </button>
+                  </li>
+                </ul>
+              </nav>
             </div>
           </div>
 

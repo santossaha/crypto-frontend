@@ -20,7 +20,7 @@ const Categories = () => {
   useEffect(() => {
     const fetchCategories = async () => {
       try {
-        const response = await axiosInstance.get("/get-categories");
+        const response = await axiosInstance("/get-categories");
 
         if (response.data.status === "success") {
           setCategories(response.data[0]); 
