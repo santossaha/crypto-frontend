@@ -1,16 +1,31 @@
 "use client";
 import Link from "next/link";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { IconChevronDown } from "@tabler/icons-react";
 import Image from "next/image";
 import Logo from "../../assets/images/logo.png";
 import { usePathname } from "next/navigation";
+import axiosInstance from "@/app/Helper/Helper";
 
 const Page = () => {
-  const pathname = usePathname(); 
+  const pathname = usePathname();
 
   const isActive = (linkPath) => pathname === linkPath;
 
+  const [getCategories, SetGetCategories] = useState([]);
+
+  useEffect(() => {
+    const fetchGetCategories = async () => {
+      try {
+        const response = await axiosInstance("/get-services");
+        SetGetCategories(response.data?.data);
+      } catch (error) {
+        console.error("Error fetching events:", error);
+      }
+    };
+
+    fetchGetCategories();
+  }, []);
   return (
     <div className="headerArea">
       <div className="container d-flex align-items-center">
@@ -40,17 +55,26 @@ const Page = () => {
           >
             <ul className="navbar-nav">
               <li className="nav-item px-md-2">
-                <Link className={`nav-link ${isActive("/") ? "active" : ""}`} href="/">
+                <Link
+                  className={`nav-link ${isActive("/") ? "active" : ""}`}
+                  href="/"
+                >
                   Home
                 </Link>
               </li>
               <li className="nav-item px-md-2">
-                <Link className={`nav-link ${isActive("/event") ? "active" : ""}`} href="/event">
+                <Link
+                  className={`nav-link ${isActive("/event") ? "active" : ""}`}
+                  href="/event"
+                >
                   Event
                 </Link>
               </li>
               <li className="nav-item px-md-2">
-                <Link className={`nav-link ${isActive("/airdrop") ? "active" : ""}`} href="/airdrop">
+                <Link
+                  className={`nav-link ${isActive("/airdrop") ? "active" : ""}`}
+                  href="/airdrop"
+                >
                   Airdrop
                 </Link>
               </li>
@@ -60,67 +84,49 @@ const Page = () => {
                     Services <IconChevronDown stroke={1} />
                     <div className="megamenu-area">
                       <div className="menu-group">
-                        <div className="menu-item">
-                          <h5>Crypto News</h5>
-                          <ul>
-                            <li><Link className="nav-link" href="/">News item 1</Link></li>
-                            <li><Link className="nav-link" href="/">News item 2</Link></li>
-                            <li><Link className="nav-link" href="/">News item 3</Link></li>
-                            <li><Link className="nav-link" href="/">News item 4</Link></li>
-                            <li><Link className="nav-link" href="/">News item 5</Link></li>
-                            <li><Link className="nav-link" href="/">News item 6</Link></li>
-                          </ul>
-                        </div>
-                        <div className="menu-item">
-                          <h5>Crypto News</h5>
-                          <ul>
-                            <li><Link className="nav-link" href="/">News item 7</Link></li>
-                            <li><Link className="nav-link" href="/">News item 8</Link></li>
-                            <li><Link className="nav-link" href="/">News item 9</Link></li>
-                            <li><Link className="nav-link" href="/">News item 10</Link></li>
-                            <li><Link className="nav-link" href="/">News item 11</Link></li>
-                            <li><Link className="nav-link" href="/">News item 12</Link></li>
-                          </ul>
-                        </div>
-                        <div className="menu-item">
-                          <h5>Crypto News</h5>
-                          <ul>
-                            <li><Link className="nav-link" href="/">News item 13</Link></li>
-                            <li><Link className="nav-link" href="/">News item 14</Link></li>
-                            <li><Link className="nav-link" href="/">News item 15</Link></li>
-                            <li><Link className="nav-link" href="/">News item 16</Link></li>
-                            <li><Link className="nav-link" href="/">News item 17</Link></li>
-                            <li><Link className="nav-link" href="/">News item 18</Link></li>
-                          </ul>
-                        </div>
-                        <div className="menu-item">
-                          <h5>Crypto News</h5>
-                          <ul>
-                            <li><Link className="nav-link" href="/">News item 19</Link></li>
-                            <li><Link className="nav-link" href="/">News item 20</Link></li>
-                            <li><Link className="nav-link" href="/">News item 21</Link></li>
-                            <li><Link className="nav-link" href="/">News item 22</Link></li>
-                            <li><Link className="nav-link" href="/">News item 23</Link></li>
-                            <li><Link className="nav-link" href="/">News item 24</Link></li>
-                          </ul>
-                        </div>
+                        {getCategories.map((group) => (
+                          <div className="menu-item" key={group.id}>
+                            <h5>{group.type}</h5>
+                            <ul>
+                              {group.categories.map((category) => (
+                                <li key={category.id}>
+                                  <Link
+                                    className="nav-link"
+                                    href={`/${category.type}/${category.slug}`}
+                                  >
+                                    {category.name}
+                                  </Link>
+                                </li>
+                              ))}
+                            </ul>
+                          </div>
+                        ))}
                       </div>
                     </div>
                   </span>
                 </div>
               </li>
               <li className="nav-item px-md-2">
-                <Link className={`nav-link ${isActive("/blog") ? "active" : ""}`} href="/blog">
+                <Link
+                  className={`nav-link ${isActive("/blog") ? "active" : ""}`}
+                  href="/blog"
+                >
                   Blog
                 </Link>
               </li>
               <li className="nav-item px-md-2">
-                <Link className={`nav-link ${isActive("/ico") ? "active" : ""}`} href="/ico">
+                <Link
+                  className={`nav-link ${isActive("/ico") ? "active" : ""}`}
+                  href="/ico"
+                >
                   ICO
                 </Link>
               </li>
               <li className="nav-item px-md-2">
-                <Link className={`nav-link ${isActive("/contact") ? "active" : ""}`} href="/contact">
+                <Link
+                  className={`nav-link ${isActive("/contact") ? "active" : ""}`}
+                  href="/contact"
+                >
                   Contact
                 </Link>
               </li>
