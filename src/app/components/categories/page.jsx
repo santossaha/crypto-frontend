@@ -20,10 +20,9 @@ const Categories = () => {
   useEffect(() => {
     const fetchCategories = async () => {
       try {
-        const response = await axiosInstance("/get-categories");
-
+        const response = await axiosInstance("/latest-news-category");
         if (response.data.status === "success") {
-          setCategories(response.data[0]); 
+          setCategories(response.data.data); 
         }
       } catch (error) {
         console.error("Error fetching categories:", error);

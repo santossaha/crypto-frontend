@@ -16,6 +16,7 @@ import Banner from "../components/banner/page";
 import "./style.css";
 import Categories from "../components/categories/page";
 import axiosInstance from "../Helper/Helper";
+import RecentView from "../components/recentView/page";
 
 const Blog = () => {
   const [blogs, setBlogs] = useState([]);
@@ -252,83 +253,7 @@ const Blog = () => {
           </div>
         </div>
       </section>
-      <div>
-        <div className="newpostarea">
-          <div className="container">
-            <div className="subHeadline">
-              <h3>Recent View</h3>
-            </div>
-            <div className="post-area">
-              <div className="row">
-                <div className="col-md-6">
-                  <Link href="/blog-details" className="postcard">
-                    <div className="info-area">
-                      <h6>
-                        <span>DIGITAL MARKETING</span>March 20, 2024
-                      </h6>
-                      <h4>
-                        Lorem ipsum dolor sit amet, consectetur adipisicing
-                        elit. Pariatur, optio tenetur alias nesciunt sint dolor?
-                      </h4>
-                    </div>
-                    <div className="pic-area">
-                      <Image className="img" src={p1} alt="detail picture" />
-                    </div>
-                  </Link>
-                </div>
-                <div className="col-md-6">
-                  <Link href="/blog-details" className="postcard">
-                    <div className="info-area">
-                      <h6>
-                        <span>DIGITAL MARKETING</span>March 20, 2024
-                      </h6>
-                      <h4>
-                        Lorem ipsum dolor sit amet, consectetur adipisicing
-                        elit. Pariatur, optio tenetur alias nesciunt sint dolor?
-                      </h4>
-                    </div>
-                    <div className="pic-area">
-                      <Image className="img" src={e4} alt="detail picture" />
-                    </div>
-                  </Link>
-                </div>
-                <div className="col-md-6">
-                  <Link href="/blog-details" className="postcard">
-                    <div className="info-area">
-                      <h6>
-                        <span>DIGITAL MARKETING</span>March 20, 2024
-                      </h6>
-                      <h4>
-                        Lorem ipsum dolor sit amet, consectetur adipisicing
-                        elit. Pariatur, optio tenetur alias nesciunt sint dolor?
-                      </h4>
-                    </div>
-                    <div className="pic-area">
-                      <Image className="img" src={e3} alt="detail picture" />
-                    </div>
-                  </Link>
-                </div>
-                <div className="col-md-6">
-                  <Link href="/blog-details" className="postcard">
-                    <div className="info-area">
-                      <h6>
-                        <span>DIGITAL MARKETING</span>March 20, 2024
-                      </h6>
-                      <h4>
-                        Lorem ipsum dolor sit amet, consectetur adipisicing
-                        elit. Pariatur, optio tenetur alias nesciunt sint dolor?
-                      </h4>
-                    </div>
-                    <div className="pic-area">
-                      <Image className="img" src={e1} alt="detail picture" />
-                    </div>
-                  </Link>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
+      <RecentView />
     </div>
   );
 };

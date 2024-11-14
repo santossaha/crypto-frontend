@@ -7,6 +7,7 @@ import Logo from "../../assets/images/logo.png";
 import { usePathname } from "next/navigation";
 import axiosInstance from "@/app/Helper/Helper";
 
+
 const Page = () => {
   const pathname = usePathname();
 
