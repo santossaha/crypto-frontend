@@ -15,7 +15,9 @@ const NewsGroup = () => {
   useEffect(() => {
     const fetchLatestNews = async () => {
       try {
+       
         const response = await axiosInstance("/latest-news");
+        
         if (response.data.status === "success") {
           setNews(response.data.data);
         } else {
@@ -23,6 +25,7 @@ const NewsGroup = () => {
         }
       } catch (error) {
         console.error("Error fetching news:", error);
+        console.log('response:-');
       } finally {
         setLoading(false);
       }
