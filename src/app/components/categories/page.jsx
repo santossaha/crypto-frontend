@@ -22,7 +22,7 @@ const Categories = () => {
       try {
         const response = await axiosInstance("/latest-news-category");
         if (response.data.status === "success") {
-          setCategories(response.data.data); 
+          setCategories(response.data.data);
         }
       } catch (error) {
         console.error("Error fetching categories:", error);
@@ -46,7 +46,7 @@ const Categories = () => {
           <ul>
             {categories.map((category) => (
               <li key={category.id}>
-                <Link className="linkbtn" href="/">
+                <Link className="linkbtn" href={`/${category.slug}`} prefetch>
                   {category.name}
                 </Link>
               </li>

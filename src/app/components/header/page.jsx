@@ -93,7 +93,7 @@ const Page = () => {
                                 <li key={category.id}>
                                   <Link
                                     className="nav-link"
-                                    href={`/${category.type}/${category.slug}`}
+                                    href="#"
                                   >
                                     {category.name}
                                   </Link>
