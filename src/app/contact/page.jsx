@@ -23,13 +23,13 @@ const Contact = () => {
   const [errors, setErrors] = useState({});
   const [statusMessage, setStatusMessage] = useState("");
 
-
   const validateForm = () => {
     const newErrors = {};
 
-  
-    if (!formData.first_name.trim()) newErrors.first_name = "First name is required.";
-    if (!formData.last_name.trim()) newErrors.last_name = "Last name is required.";
+    if (!formData.first_name.trim())
+      newErrors.first_name = "First name is required.";
+    if (!formData.last_name.trim())
+      newErrors.last_name = "Last name is required.";
     if (!formData.phone_number.trim()) {
       newErrors.phone_number = "Phone number is required.";
     } else if (!/^\d{10}$/.test(formData.phone_number)) {
@@ -63,15 +63,15 @@ const Contact = () => {
     try {
       const response = await axiosInstance.post("/save-contact-us", formData);
       if (response.data.status === "success") {
-        setStatusMessage(response.data.message); 
+        setStatusMessage(response.data.message);
         setFormData({
           first_name: "",
           last_name: "",
           phone_number: "",
           email: "",
           address: "",
-        }); 
-        setErrors({}); 
+        });
+        setErrors({});
       } else {
         setStatusMessage("An error occurred. Please try again.");
       }
@@ -157,7 +157,9 @@ const Contact = () => {
                     value={formData.first_name}
                     onChange={handleChange}
                   />
-                  {errors.first_name && <small className="text-danger">{errors.first_name}</small>}
+                  {errors.first_name && (
+                    <small className="text-danger">{errors.first_name}</small>
+                  )}
                 </div>
                 <div className="form-group">
                   <label htmlFor="last_name">Last Name</label>
@@ -169,7 +171,9 @@ const Contact = () => {
                     value={formData.last_name}
                     onChange={handleChange}
                   />
-                  {errors.last_name && <small className="text-danger">{errors.last_name}</small>}
+                  {errors.last_name && (
+                    <small className="text-danger">{errors.last_name}</small>
+                  )}
                 </div>
                 <div className="form-group">
                   <label htmlFor="phone_number">Phone Number</label>
@@ -180,8 +184,11 @@ const Contact = () => {
                     name="phone_number"
                     value={formData.phone_number}
                     onChange={handleChange}
+                    maxlength={10}
                   />
-                  {errors.phone_number && <small className="text-danger">{errors.phone_number}</small>}
+                  {errors.phone_number && (
+                    <small className="text-danger">{errors.phone_number}</small>
+                  )}
                 </div>
                 <div className="form-group">
                   <label htmlFor="email">Email Id</label>
@@ -193,7 +200,9 @@ const Contact = () => {
                     value={formData.email}
                     onChange={handleChange}
                   />
-                  {errors.email && <small className="text-danger">{errors.email}</small>}
+                  {errors.email && (
+                    <small className="text-danger">{errors.email}</small>
+                  )}
                 </div>
                 <div className="form-group">
                   <label htmlFor="address">Address</label>
@@ -205,7 +214,9 @@ const Contact = () => {
                     onChange={handleChange}
                     cols="3"
                   ></textarea>
-                  {errors.address && <small className="text-danger">{errors.address}</small>}
+                  {errors.address && (
+                    <small className="text-danger">{errors.address}</small>
+                  )}
                 </div>
                 <div className="btn-area my-3">
                   <button type="submit" className="btn btn-primary">
