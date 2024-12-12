@@ -8,7 +8,7 @@ import { usePathname } from "next/navigation";
 import axiosInstance from "@/app/Helper/Helper";
 
 
-const Page = () => {
+const Header = () => {
   const pathname = usePathname();
 
   const isActive = (linkPath) => pathname === linkPath;
@@ -146,4 +146,4 @@ const Page = () => {
   );
 };
 
-export default Page;
+export default Header;

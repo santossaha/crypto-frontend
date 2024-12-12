@@ -6,17 +6,13 @@ import React, { useEffect, useState } from "react";
 import p1 from "../assets/images/p-1.jpg";
 import p2 from "../assets/images/e-1.jpg";
 import p3 from "../assets/images/e-2.jpg";
-import e1 from "../assets/images/e-1.jpg";
-import e2 from "../assets/images/e-2.jpg";
-import e3 from "../assets/images/e-3.jpg";
-import e4 from "../assets/images/e-4.jpg";
-import e5 from "../assets/images/e-5.jpg";
 import Eye from "../assets/images/eye.svg";
 import Banner from "../components/banner/page";
 import "./style.css";
 import Categories from "../components/categories/page";
 import axiosInstance from "../Helper/Helper";
 import RecentView from "../components/recentView/page";
+import NewsCard from "../components/NewsCard/page";
 
 const Blog = () => {
   const [blogs, setBlogs] = useState([]);
@@ -154,98 +150,14 @@ const Blog = () => {
           </div>
           <div className="row">
             <div className="col-md-6 col-lg-9">
-              <div className="newsCard">
-                <div className="subHeadline">
-                  <h3>New Post</h3>
-                </div>
-                <div className="row">
-                  {currentBlogs.map((blog) => (
-                    <div key={blog.id} className="col-md-12 col-lg-4">
-                      <div className="cardBox">
-                        <div className="picArea">
-                          <Image
-                            className="img"
-                            src={blog.image}
-                            alt={blog.title}
-                            width={500}
-                            height={300}
-                          />
-                        </div>
-                        <div className="cardInfo">
-                          <p>
-                            {new Date().toLocaleDateString()}{" "}
-                            <span>
-                              <Image className="img" src={Eye} alt="eye" /> 120
-                              View
-                            </span>
-                          </p>
-                          <h4>{blog.title}</h4>
-                          <h5
-                            dangerouslySetInnerHTML={{
-                              __html: blog.short_description,
-                            }}
-                          />
-                          <p>
-                            <Link className="btn" href={`/blog/${blog.slug}`}>
-                              Read More
-                            </Link>
-                          </p>
-                        </div>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              </div>
-              <nav
-                aria-label="..."
-                className="d-flex justify-content-end me-3 mb-5"
-              >
-                <ul className="pagination">
-                  <li
-                    className={`page-item ${
-                      currentPage === 1 ? "disabled" : ""
-                    }`}
-                  >
-                    <button
-                      className="page-link"
-                      onClick={handlePreviousPage}
-                      disabled={currentPage === 1}
-                    >
-                      Previous
-                    </button>
-                  </li>
-
-                  {[...Array(totalPages)].map((_, index) => (
-                    <li
-                      key={index}
-                      className={`page-item ${
-                        currentPage === index + 1 ? "active" : ""
-                      }`}
-                    >
-                      <button
-                        className="page-link"
-                        onClick={() => setCurrentPage(index + 1)}
-                      >
-                        {index + 1}
-                      </button>
-                    </li>
-                  ))}
-
-                  <li
-                    className={`page-item ${
-                      currentPage === totalPages ? "disabled" : ""
-                    }`}
-                  >
-                    <button
-                      className="page-link"
-                      onClick={handleNextPage}
-                      disabled={currentPage === totalPages}
-                    >
-                      Next
-                    </button>
-                  </li>
-                </ul>
-              </nav>
+              <NewsCard
+                blogs={currentBlogs}
+                currentPage={currentPage}
+                totalPages={totalPages}
+                onPreviousPage={handlePreviousPage}
+                onNextPage={handleNextPage}
+                onPageSelect={setCurrentPage}
+              />
             </div>
             <div className="col-md-6 col-lg-3">
               <Categories />
