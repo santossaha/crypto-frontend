@@ -66,7 +66,7 @@ const NewsGroup = () => {
                 </p>
               </div>
               <div className="row">
-                {currentNews.map((newsItem) => (
+                {currentNews?.map((newsItem) => (
                   <div className="col-md-12 col-lg-4" key={newsItem.id}>
                     <div className="cardBox">
                       <div className="picArea">

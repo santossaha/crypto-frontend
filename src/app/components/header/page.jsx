@@ -85,11 +85,11 @@ const Header = () => {
                     Services <IconChevronDown stroke={1} />
                     <div className="megamenu-area">
                       <div className="menu-group">
-                        {getCategories.map((group) => (
+                        {getCategories?.map((group) => (
                           <div className="menu-item" key={group.id}>
                             <h5>{group.type}</h5>
                             <ul>
-                              {group.categories.map((category) => (
+                              {group.categories?.map((category) => (
                                 <li key={category.id}>
                                   <Link
                                     className="nav-link"

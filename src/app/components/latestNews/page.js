@@ -33,7 +33,7 @@ const LatestNews = () => {
           <h3>Latest News</h3>
         </div>
         <div className="post-area">
-          {news.map((item) => (
+          {news?.map((item) => (
             <Link
               href={`/news/${item.slug}`}
               key={item.id}

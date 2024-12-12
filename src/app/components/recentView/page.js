@@ -54,7 +54,7 @@ const RecentView = () => {
           </div>
           <div className="post-area">
             <div className="row">
-              {recentViews.map((view) => (
+              {recentViews?.map((view) => (
                 <div className="col-md-6" key={view.id}>
                   <Link
                     href={`/blog-details/${view.slug}`}

@@ -63,7 +63,7 @@ const CategoriesPage = ({ params }) => {
                   <h3>New Post</h3>
                 </div>
                 <div className="row">
-                  {blogs.map((blog) => (
+                  {blogs?.map((blog) => (
                     <div key={blog.id} className="col-md-6 col-lg-4">
                       <div className="cardBox">
                         <div className="picArea">

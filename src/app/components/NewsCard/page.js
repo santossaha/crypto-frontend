@@ -13,14 +13,14 @@ const NewsCard = ({
   onPageSelect,
 }) => {
   const currentBlogs = blogs;
-
+  console.log(currentBlogs);
   return (
     <div className="newsCard">
       <div className="subHeadline">
         <h3>New Post</h3>
       </div>
       <div className="row">
-        {currentBlogs.map((blog) => (
+        {currentBlogs?.map((blog) => (
           <div key={blog.id} className="col-md-12 col-lg-4">
             <div className="cardBox">
               <div className="picArea">

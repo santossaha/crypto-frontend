@@ -126,7 +126,7 @@ const Page = () => {
                         </td>
                       </tr>
                     ) : (
-                      events.map((event) => (
+                      events?.map((event) => (
                         <tr key={event.id}>
                           <td className="text-warning">
                             {new Date(event.start_date).toLocaleDateString()} -

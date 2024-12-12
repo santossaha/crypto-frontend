@@ -44,7 +44,7 @@ const Categories = () => {
         <div className="group-section">
           <h4>Categories</h4>
           <ul>
-            {categories.map((category) => (
+            {categories?.map((category) => (
               <li key={category.id}>
                 <Link className="linkbtn" href={`/${category.slug}`} prefetch>
                   {category.name}

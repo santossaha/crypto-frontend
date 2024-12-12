@@ -81,7 +81,7 @@ export default function SimpleSlider() {
   return (
     <Slider {...settings}>
       {sliderData.length > 0 ? (
-        sliderData.map((item, index) => (
+        sliderData?.map((item, index) => (
           <div key={index}>
             <div className="priceBox mx-1">
               <div className="picArea">
