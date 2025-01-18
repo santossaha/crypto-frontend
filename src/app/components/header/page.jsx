@@ -7,7 +7,6 @@ import Logo from "../../assets/images/logo.png";
 import { usePathname } from "next/navigation";
 import axiosInstance from "@/app/Helper/Helper";
 
-
 const Header = () => {
   const pathname = usePathname();
 
@@ -93,7 +92,7 @@ const Header = () => {
                                 <li key={category.id}>
                                   <Link
                                     className="nav-link"
-                                    href="#"
+                                    href={`/service-details/${category.slug}`}
                                   >
                                     {category.name}
                                   </Link>

@@ -64,8 +64,8 @@ export default function SimpleSlider() {
         );
         const coins = response.data.coins.map((coin) => ({
           imgSrc: coin.item.thumb,
-          title: coin.item.name,
-          price: `$${coin.item.price_btc.toFixed(8)}`, 
+          title: coin.item.name.split(" ")[0],
+          price: `$${coin.item.price_btc.toFixed(3)}`, 
           value: coin.item.market_cap_rank, 
           isDown: Math.random() >= 0.5, 
         }));

@@ -9,7 +9,6 @@ import axiosInstance from "../Helper/Helper";
 
 const Page = () => {
   const [events, setEvents] = useState([]);
-
   const [loading, setLoading] = useState(true);
   const [eventType, setEventType] = useState("Upcoming");
   const [location, setLocation] = useState("India");
@@ -26,7 +25,9 @@ const Page = () => {
     };
 
     fetchEvents();
-  }, []);
+  }, [
+
+  ]);
   return (
     <div>
       <div className="banner-section">
