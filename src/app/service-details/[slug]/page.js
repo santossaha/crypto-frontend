@@ -6,9 +6,9 @@ import { useEffect, useState } from "react";
 import { useParams } from "next/navigation";
 import axiosInstance from "@/app/Helper/Helper";
 import Eye from "../../assets/images/eye.svg";
-import "./style.css";
+
 const ServiceDetails = () => {
-  const { slug } = useParams(); // Get slug from the URL
+  const { slug } = useParams(); 
   const [serviceDetails, setServiceDetails] = useState([]);
   const [loading, setLoading] = useState(true);
   const [currentPage, setCurrentPage] = useState(1);
@@ -55,102 +55,113 @@ const ServiceDetails = () => {
       <div className="container">
         <div className="row">
           <div className="service-details-page">
-            <div className="subHeadline">
-              <h3>Service Details: {slug}</h3>
-            </div>
-            <div className="row">
-              {serviceDetails.length > 0 ? (
-                serviceDetails.map((service) => (
-                  <div key={service.id} className="col-md-12 col-lg-4">
-                    <div className="cardBox">
-                      <div className="picArea">
-                        <Image
-                          className="img"
-                          src={service.image}
-                          alt={service.title}
-                          width={500}
-                          height={300}
-                        />
-                      </div>
-                      <div className="cardInfo">
-                        <p>
-                          {new Date(service.created_at).toLocaleDateString()}{" "}
-                          <span>
+            <div className="col-md-6 col-lg-9">
+              <div className="newsCard">
+                <div className="subHeadline">
+                  <h3>Service Details: {slug}</h3>
+                </div>
+                <div className="row">
+                  {serviceDetails.length > 0 ? (
+                    serviceDetails.map((service) => (
+                      <div key={service.id} className="col-md-12 col-lg-4">
+                        <div className="cardBox">
+                          <div className="picArea">
                             <Image
-                              className="eye-icon"
-                              src={Eye}
-                              alt="eye"
-                              width={16}
-                              height={16}
-                            />{" "}
-                            120 Views
-                          </span>
-                        </p>
-                        <h4>{service.title}</h4>
-                        <h5
-                          dangerouslySetInnerHTML={{
-                            __html: service.short_description,
-                          }}
-                        />
-                        <p>
-                          <Link className="read-more" href={`/blog/${service.slug}`}>
-                            Read More
-                          </Link>
-                        </p>
+                              className="img"
+                              src={service.image}
+                              alt={service.title}
+                              width={500}
+                              height={300}
+                            />
+                          </div>
+                          <div className="cardInfo">
+                            <p>
+                              {new Date(
+                                service.created_at
+                              ).toLocaleDateString()}{" "}
+                              <span>
+                                <Image
+                                  className="eye-icon"
+                                  src={Eye}
+                                  alt="eye"
+                                  width={16}
+                                  height={16}
+                                />{" "}
+                                120 Views
+                              </span>
+                            </p>
+                            <h4>{service.title}</h4>
+                            <h5
+                              dangerouslySetInnerHTML={{
+                                __html: service.short_description,
+                              }}
+                            />
+                            <p>
+                              <Link
+                                className="read-more"
+                                href={`/blog/${service.slug}`}
+                              >
+                                Read More
+                              </Link>
+                            </p>
+                          </div>
+                        </div>
                       </div>
-                    </div>
-                  </div>
-                ))
-              ) : (
-                <p>No services found for this category.</p>
-              )}
-            </div>
-            <nav
-              aria-label="..."
-              className="d-flex justify-content-end me-3 mb-5"
-            >
-              <ul className="pagination">
-                <li
-                  className={`page-item ${currentPage === 1 ? "disabled" : ""}`}
+                    ))
+                  ) : (
+                    <p>No services found for this category.</p>
+                  )}
+                </div>
+                <nav
+                  aria-label="..."
+                  className="d-flex justify-content-end me-3 mb-5"
                 >
-                  <button
-                    className="page-link"
-                    onClick={handlePreviousPage}
-                    disabled={currentPage === 1}
-                  >
-                    Previous
-                  </button>
-                </li>
-                {[...Array(totalPages)].map((_, index) => (
-                  <li
-                    key={index}
-                    className={`page-item ${
-                      currentPage === index + 1 ? "active" : ""
-                    }`}
-                  >
-                    <button
-                      className="page-link"
-                      onClick={() => handlePageSelect(index + 1)}
+                  <ul className="pagination">
+                    <li
+                      className={`page-item ${
+                        currentPage === 1 ? "disabled" : ""
+                      }`}
                     >
-                      {index + 1}
-                    </button>
-                  </li>
-                ))}
-                <li
-                  className={`page-item ${
-                    currentPage === totalPages ? "disabled" : ""
-                  }`}
-                >
-                  <button
-                    className="page-link"
-                    onClick={handleNextPage}
-                    disabled={currentPage === totalPages}
-                  >
-                    Next
-                  </button>
-                </li>
-              </ul>
-            </nav>
+                      <button
+                        className="page-link"
+                        onClick={handlePreviousPage}
+                        disabled={currentPage === 1}
+                      >
+                        Previous
+                      </button>
+                    </li>
+                    {[...Array(totalPages)].map((_, index) => (
+                      <li
+                        key={index}
+                        className={`page-item ${
+                          currentPage === index + 1 ? "active" : ""
+                        }`}
+                      >
+                        <button
+                          className="page-link"
+                          onClick={() => handlePageSelect(index + 1)}
+                        >
+                          {index + 1}
+                        </button>
+                      </li>
+                    ))}
+                    <li
+                      className={`page-item ${
+                        currentPage === totalPages ? "disabled" : ""
+                      }`}
+                    >
+                      <button
+                        className="page-link"
+                        onClick={handleNextPage}
+                        disabled={currentPage === totalPages}
+                      >
+                        Next
+                      </button>
+                    </li>
+                  </ul>
+                </nav>
+              </div>
+            </div>
           </div>
         </div>
       </div>
