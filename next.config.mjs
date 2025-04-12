@@ -10,6 +10,10 @@ const nextConfig = {
         protocol: "http",
         hostname: "13.233.93.31",
       },
+      {
+        protocol: "http",
+        hostname: "crypto-blog.test",
+      },
     ],
   },
 

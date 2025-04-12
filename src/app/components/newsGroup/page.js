@@ -5,17 +5,17 @@ import Link from "next/link";
 import Categories from "../categories/page";
 import axiosInstance from "@/app/Helper/Helper";
 import Eye from "../../assets/images/eye.svg";
+import SkeletonCard from "../skeleton/SkeletonCard";
 
 const NewsGroup = () => {
   const [news, setNews] = useState([]);
   const [loading, setLoading] = useState(true);
   const [currentPage, setCurrentPage] = useState(1);
-  const newsPerPage = 6; 
+  const newsPerPage = 6;
 
   useEffect(() => {
     const fetchLatestNews = async () => {
       try {
-       
         const response = await axiosInstance("/latest-news");
         
         if (response.data.status === "success") {
@@ -25,7 +25,6 @@ const NewsGroup = () => {
         }
       } catch (error) {
         console.error("Error fetching news:", error);
-        console.log('response:-');
       } finally {
         setLoading(false);
       }
@@ -33,8 +32,6 @@ const NewsGroup = () => {
 
     fetchLatestNews();
   }, []);
-
-  if (loading) return <p>Loading news...</p>;
 
   const totalPages = Math.ceil(news.length / newsPerPage);
   const currentNews = news.slice(
@@ -66,94 +63,104 @@ const NewsGroup = () => {
                 </p>
               </div>
               <div className="row">
-                {currentNews.map((newsItem) => (
-                  <div className="col-md-12 col-lg-4" key={newsItem.id}>
-                    <div className="cardBox">
-                      <div className="picArea">
-                        <Image
-                          className="img"
-                          src={newsItem.image}
-                          alt={newsItem.title}
-                          width={300}
-                          height={200}
-                          objectFit="cover"
-                        />
-                      </div>
-                      <div className="cardInfo">
-                        <p>
-                          {new Date(newsItem.created_at).toLocaleDateString()}
-                          <span>
-                            {" "}
-                            <Image
-                              className="img"
-                              src={Eye}
-                              alt="eye"
-                              width={16}
-                              height={16}
-                            />{" "}
-                            120 Views
-                          </span>
-                        </p>
-                        <h4>{newsItem.title}</h4>
-                        <h5>{newsItem.short_description}</h5>
-                        <p>
-                          <Link className="btn" href={`/blog/${newsItem.slug}`}>
-                            Read More
-                          </Link>
-                        </p>
+                {loading ? (
+                  // Show skeleton loaders while loading
+                  Array.from({ length: newsPerPage }).map((_, index) => (
+                    <SkeletonCard key={index} />
+                  ))
+                ) : (
+                  // Show actual news cards when data is loaded
+                  currentNews.map((newsItem) => (
+                    <div className="col-md-12 col-lg-4" key={newsItem.id}>
+                      <div className="cardBox">
+                        <div className="picArea">
+                          <Image
+                            className="img"
+                            src={newsItem.image}
+                            alt={newsItem.title}
+                            width={300}
+                            height={200}
+                            objectFit="cover"
+                          />
+                        </div>
+                        <div className="cardInfo">
+                          <p>
+                            {new Date(newsItem.created_at).toLocaleDateString()}
+                            <span>
+                              {" "}
+                              <Image
+                                className="img"
+                                src={Eye}
+                                alt="eye"
+                                width={16}
+                                height={16}
+                              />{" "}
+                              120 Views
+                            </span>
+                          </p>
+                          <h4>{newsItem.title}</h4>
+                          <h5>{newsItem.short_description}</h5>
+                          <p>
+                            <Link className="btn" href={`/blog/${newsItem.slug}`}>
+                              Read More
+                            </Link>
+                          </p>
+                        </div>
                       </div>
                     </div>
-                  </div>
-                ))}
+                  ))
+                )}
               </div>
               {/* Pagination */}
-              <nav aria-label="..." className="d-flex justify-content-end me-3 mb-5">
-                <ul className="pagination">
-                  <li
-                    className={`page-item ${
-                      currentPage === 1 ? "disabled" : ""
-                    }`}
-                  >
-                    <button
-                      className="page-link"
-                      onClick={handlePreviousPage}
-                      disabled={currentPage === 1}
-                    >
-                      Previous
-                    </button>
-                  </li>
-
-                  {[...Array(totalPages)].map((_, index) => (
+              {!loading && (
+                <nav aria-label="..." className="d-flex justify-content-end me-3 mb-5">
+                  <ul className="pagination">
                     <li
-                      key={index}
                       className={`page-item ${
-                        currentPage === index + 1 ? "active" : ""
+                        currentPage === 1 ? "disabled" : ""
                       }`}
                     >
                       <button
                         className="page-link"
-                        onClick={() => setCurrentPage(index + 1)}
+                        onClick={handlePreviousPage}
+                        disabled={currentPage === 1}
                       >
-                        {index + 1}
+                        Previous
                       </button>
                     </li>
-                  ))}
 
-                  <li
-                    className={`page-item ${
-                      currentPage === totalPages ? "disabled" : ""
-                    }`}
-                  >
-                    <button
-                      className="page-link"
-                      onClick={handleNextPage}
-                      disabled={currentPage === totalPages}
+                    {[...Array(totalPages)].map((_, index) => (
+                      <li
+                        key={index}
+                        className={`page-item ${
+                          currentPage === index + 1 ? "active" : ""
+                        }`}
+                      >
+                        <button
+                          className="page-link"
+                          onClick={() => setCurrentPage(index + 1)}
+                        >
+                          {index + 1}
+                        </button>
+                      </li>
+                    ))}
+
+                    <li
+                      className={`page-item ${
+                        currentPage === totalPages ? "disabled" : ""
+                      }`}
                     >
-                      Next
-                    </button>
-                  </li>
-                </ul>
-              </nav>
+                      <button
+                        className="page-link"
+                        onClick={handleNextPage}
+                        disabled={currentPage === totalPages}
+                      >
+                        Next
+                      </button>
+                    </li>
+                  </ul>
+                </nav>
+              )}
             </div>
           </div>
 
