@@ -1,0 +1,54 @@
+.cardBox {
+  background: #ffffff;
+  border-radius: 12px;
+  overflow: hidden;
+  margin-bottom: 24px;
+  cursor: pointer;
+  position: relative;
+  z-index: 1;
+}
+
+.cardBox:hover {
+  z-index: 2;
+}
+
+.picArea {
+  position: relative;
+  overflow: hidden;
+}
+
+.picArea img {
+  transition: transform 0.3s ease;
+}
+
+.cardBox:hover .picArea img {
+  transform: scale(1.05);
+}
+
+.cardInfo {
+  padding: 16px;
+}
+
+.cardInfo h4 {
+  margin: 12px 0;
+  transition: color 0.3s ease;
+}
+
+.cardBox:hover .cardInfo h4 {
+  color: #007bff;
+}
+
+.btn {
+  display: inline-block;
+  padding: 8px 16px;
+  background-color: #007bff;
+  color: white;
+  border-radius: 4px;
+  text-decoration: none;
+  transition: all 0.3s ease;
+}
+
+.btn:hover {
+  background-color: #0056b3;
+  transform: translateY(-2px);
+} 

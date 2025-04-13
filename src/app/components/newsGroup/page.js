@@ -6,6 +6,7 @@ import Categories from "../categories/page";
 import axiosInstance from "@/app/Helper/Helper";
 import Eye from "../../assets/images/eye.svg";
 import SkeletonCard from "../skeleton/SkeletonCard";
+import { motion } from "framer-motion";
 
 const NewsGroup = () => {
   const [news, setNews] = useState([]);
@@ -72,7 +73,16 @@ const NewsGroup = () => {
                   // Show actual news cards when data is loaded
                   currentNews.map((newsItem) => (
                     <div className="col-md-12 col-lg-4" key={newsItem.id}>
-                      <div className="cardBox">
+                      <motion.div
+                        className="cardBox"
+                        whileHover={{ 
+                          scale: 1.02,
+                          boxShadow: "0 8px 16px rgba(0, 0, 0, 0.1)",
+                          transition: { duration: 0.3 }
+                        }}
+                        initial={{ scale: 1, boxShadow: "0 2px 8px rgba(0, 0, 0, 0.1)" }}
+                        transition={{ duration: 0.3 }}
+                      >
                         <div className="picArea">
                           <Image
                             className="img"
@@ -106,7 +116,7 @@ const NewsGroup = () => {
                             </Link>
                           </p>
                         </div>
-                      </div>
+                      </motion.div>
                     </div>
                   ))
                 )}
