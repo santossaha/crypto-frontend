@@ -65,12 +65,12 @@ const NewsGroup = () => {
               </div>
               <div className="row">
                 {loading ? (
-                  // Show skeleton loaders while loading
+                  // Show skeleton loaders while loading....
                   Array.from({ length: newsPerPage }).map((_, index) => (
                     <SkeletonCard key={index} />
                   ))
                 ) : (
-                  // Show actual news cards when data is loaded
+                  // Show actual news cards when data is loaded....
                   currentNews.map((newsItem) => (
                     <div className="col-md-12 col-lg-4" key={newsItem.id}>
                       <motion.div
