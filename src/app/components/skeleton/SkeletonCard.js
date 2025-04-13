@@ -1,45 +1,70 @@
 "use client";
 import React from "react";
 import { motion } from "framer-motion";
+import styles from "./SkeletonCard.module.css";
 
 const SkeletonCard = () => {
   return (
     <div className="col-md-12 col-lg-4">
-      <div className="cardBox">
+      <div className={styles.cardBox}>
+        {/* Image placeholder */}
         <motion.div
-          className="picArea skeleton"
+          className={styles.imageSkeleton}
           initial={{ opacity: 0.5 }}
           animate={{ opacity: 1 }}
-          transition={{ duration: 1, repeat: Infinity, repeatType: "reverse" }}
+          transition={{ duration: 1.5, repeat: Infinity, repeatType: "reverse" }}
         />
-        <div className="cardInfo">
-          <motion.div
-            className="skeleton-text"
+        
+        <div className={styles.contentWrapper}>
+          {/* Date and views section */}
+          <div className={styles.metaInfo}>
+            <motion.div 
+              className={styles.skeletonText}
+              style={{ width: "40%" }}
+              initial={{ opacity: 0.5 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 1.5, repeat: Infinity, repeatType: "reverse" }}
+            />
+            <motion.div 
+              className={styles.skeletonText}
+              style={{ width: "30%" }}
+              initial={{ opacity: 0.5 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 1.5, repeat: Infinity, repeatType: "reverse" }}
+            />
+          </div>
+
+          {/* Title */}
+          <motion.div 
+            className={styles.skeletonText}
+            style={{ height: "28px", width: "90%" }}
             initial={{ opacity: 0.5 }}
             animate={{ opacity: 1 }}
-            transition={{ duration: 1, repeat: Infinity, repeatType: "reverse" }}
-            style={{ height: "20px", width: "60%", marginBottom: "10px" }}
+            transition={{ duration: 1.5, repeat: Infinity, repeatType: "reverse" }}
           />
-          <motion.div
-            className="skeleton-text"
+
+          {/* Description */}
+          <motion.div 
+            className={styles.skeletonText}
+            style={{ height: "16px", width: "100%", marginTop: "8px" }}
             initial={{ opacity: 0.5 }}
             animate={{ opacity: 1 }}
-            transition={{ duration: 1, repeat: Infinity, repeatType: "reverse" }}
-            style={{ height: "24px", width: "80%", marginBottom: "10px" }}
+            transition={{ duration: 1.5, repeat: Infinity, repeatType: "reverse" }}
           />
-          <motion.div
-            className="skeleton-text"
+          <motion.div 
+            className={styles.skeletonText}
+            style={{ height: "16px", width: "80%", marginTop: "4px" }}
             initial={{ opacity: 0.5 }}
             animate={{ opacity: 1 }}
-            transition={{ duration: 1, repeat: Infinity, repeatType: "reverse" }}
-            style={{ height: "16px", width: "90%", marginBottom: "10px" }}
+            transition={{ duration: 1.5, repeat: Infinity, repeatType: "reverse" }}
           />
-          <motion.div
-            className="skeleton-text"
+
+          {/* Read More button */}
+          <motion.div 
+            className={styles.buttonSkeleton}
             initial={{ opacity: 0.5 }}
             animate={{ opacity: 1 }}
-            transition={{ duration: 1, repeat: Infinity, repeatType: "reverse" }}
-            style={{ height: "16px", width: "40%", marginBottom: "10px" }}
+            transition={{ duration: 1.5, repeat: Infinity, repeatType: "reverse" }}
           />
         </div>
       </div>
