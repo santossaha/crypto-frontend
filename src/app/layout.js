@@ -31,6 +31,12 @@ export default function RootLayout({ children }) {
         />
       </Head>
       <body>
+        <div className="box">
+          <div className="wave -one"></div>
+          <div className="wave -two"></div>
+          <div className="wave -three"></div>
+        </div>
+        
         {/* Include Bootstrap JS and AOS script */}
         <Script
           src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js"
