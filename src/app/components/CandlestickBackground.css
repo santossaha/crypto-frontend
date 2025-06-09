@@ -1,0 +1,68 @@
+.candlestick-bg-chart {
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100vw;
+  height: 400px;
+  z-index: 0;
+  opacity: 0.35;
+  pointer-events: none;
+  background: transparent;
+}
+
+.candlestick-bg-grid {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100vw;
+  height: 100%;
+  z-index: 1;
+}
+.candlestick-bg-gridline {
+  position: absolute;
+  left: 0;
+  width: 100vw;
+  height: 1px;
+  background: rgba(255,255,255,0.13);
+}
+
+.candlestick-bg-track {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  height: 100%;
+  width: 100vw;
+  display: flex;
+  align-items: flex-end;
+  background: transparent;
+  z-index: 2;
+}
+
+.candle-bg {
+  position: absolute;
+  bottom: 0;
+  border-radius: 6px;
+  width: 60px;
+  transition: height 0.5s, bottom 0.5s;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.candle-bg.green {
+  background: linear-gradient(180deg, rgba(127,255,127,0.35) 60%, rgba(31,165,31,0.35) 100%);
+  border: 1.5px solid rgba(31,165,31,0.25);
+}
+.candle-bg.red {
+  background: linear-gradient(180deg, rgba(255,127,127,0.35) 60%, rgba(165,31,31,0.35) 100%);
+  border: 1.5px solid rgba(165,31,31,0.25);
+}
+
+.wick-bg {
+  position: absolute;
+  width: 5px;
+  background: rgba(255,255,255,0.25);
+  left: 50%;
+  border-radius: 2px;
+  z-index: 3;
+} 
