@@ -4,15 +4,51 @@ import { motion } from "framer-motion";
 import styles from "./SkeletonCard.module.css";
 
 const SkeletonCard = () => {
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.1
+      }
+    }
+  };
+
+  const itemVariants = {
+    hidden: { opacity: 0.5, x: -20 },
+    visible: {
+      opacity: 1,
+      x: 0,
+      transition: {
+        duration: 0.8,
+        repeat: Infinity,
+        repeatType: "reverse",
+        ease: "easeInOut"
+      }
+    }
+  };
+
   return (
-    <div className="col-md-12 col-lg-4">
-      <div className={styles.cardBox}>
+    <motion.div 
+      className="col-md-12 col-lg-4"
+      variants={containerVariants}
+      initial="hidden"
+      animate="visible"
+    >
+      <motion.div 
+        className={styles.cardBox}
+        whileHover={{ 
+          scale: 1.02,
+          boxShadow: "0 8px 16px rgba(0, 0, 0, 0.1)",
+          transition: { duration: 0.3 }
+        }}
+        initial={{ scale: 1, boxShadow: "0 2px 8px rgba(0, 0, 0, 0.1)" }}
+        transition={{ duration: 0.3 }}
+      >
         {/* Image placeholder */}
         <motion.div
           className={styles.imageSkeleton}
-          initial={{ opacity: 0.5 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 1.5, repeat: Infinity, repeatType: "reverse" }}
+          variants={itemVariants}
         />
         
         <div className={styles.contentWrapper}>
@@ -21,16 +57,12 @@ const SkeletonCard = () => {
             <motion.div 
               className={styles.skeletonText}
               style={{ width: "40%" }}
-              initial={{ opacity: 0.5 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 1.5, repeat: Infinity, repeatType: "reverse" }}
+              variants={itemVariants}
             />
             <motion.div 
               className={styles.skeletonText}
               style={{ width: "30%" }}
-              initial={{ opacity: 0.5 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 1.5, repeat: Infinity, repeatType: "reverse" }}
+              variants={itemVariants}
             />
           </div>
 
@@ -38,37 +70,29 @@ const SkeletonCard = () => {
           <motion.div 
             className={styles.skeletonText}
             style={{ height: "28px", width: "90%" }}
-            initial={{ opacity: 0.5 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 1.5, repeat: Infinity, repeatType: "reverse" }}
+            variants={itemVariants}
           />
 
           {/* Description */}
           <motion.div 
             className={styles.skeletonText}
             style={{ height: "16px", width: "100%", marginTop: "8px" }}
-            initial={{ opacity: 0.5 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 1.5, repeat: Infinity, repeatType: "reverse" }}
+            variants={itemVariants}
           />
           <motion.div 
             className={styles.skeletonText}
             style={{ height: "16px", width: "80%", marginTop: "4px" }}
-            initial={{ opacity: 0.5 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 1.5, repeat: Infinity, repeatType: "reverse" }}
+            variants={itemVariants}
           />
 
           {/* Read More button */}
           <motion.div 
             className={styles.buttonSkeleton}
-            initial={{ opacity: 0.5 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 1.5, repeat: Infinity, repeatType: "reverse" }}
+            variants={itemVariants}
           />
         </div>
-      </div>
-    </div>
+      </motion.div>
+    </motion.div>
   );
 };
 

@@ -6,6 +6,8 @@ import { useEffect, useState } from "react";
 import { useParams } from "next/navigation";
 import axiosInstance from "@/app/Helper/Helper";
 import Eye from "../../assets/images/eye.svg";
+import SkeletonCard from "@/app/components/skeleton/SkeletonCard";
+import { motion } from "framer-motion";
 
 const ServiceDetails = () => {
   const { slug } = useParams(); 
@@ -48,7 +50,30 @@ const ServiceDetails = () => {
     setCurrentPage(page);
   };
 
-  if (loading) return <p>Loading...</p>;
+  if (loading) {
+    return (
+      <section className="newsGroup">
+        <div className="container">
+          <div className="row">
+            <div className="service-details-page">
+              <div className="col-md-6 col-lg-9">
+                <div className="newsCard">
+                  <div className="subHeadline">
+                    <h3>Service Details: {slug}</h3>
+                  </div>
+                  <div className="row">
+                    {Array.from({ length: 6 }).map((_, index) => (
+                      <SkeletonCard key={index} />
+                    ))}
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    );
+  }
 
   return (
     <section className="newsGroup">
@@ -64,7 +89,16 @@ const ServiceDetails = () => {
                   {serviceDetails.length > 0 ? (
                     serviceDetails.map((service) => (
                       <div key={service.id} className="col-md-12 col-lg-4">
-                        <div className="cardBox">
+                        <motion.div
+                          className="cardBox"
+                          whileHover={{ 
+                            scale: 1.02,
+                            boxShadow: "0 8px 16px rgba(0, 0, 0, 0.1)",
+                            transition: { duration: 0.3 }
+                          }}
+                          initial={{ scale: 1, boxShadow: "0 2px 8px rgba(0, 0, 0, 0.1)" }}
+                          transition={{ duration: 0.3 }}
+                        >
                           <div className="picArea">
                             <Image
                               className="img"
@@ -72,6 +106,8 @@ const ServiceDetails = () => {
                               alt={service.title}
                               width={500}
                               height={300}
+                              style={{ objectFit: 'cover' }}
+                              priority
                             />
                           </div>
                           <div className="cardInfo">
@@ -105,7 +141,7 @@ const ServiceDetails = () => {
                               </Link>
                             </p>
                           </div>
-                        </div>
+                        </motion.div>
                       </div>
                     ))
                   ) : (

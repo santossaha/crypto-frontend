@@ -40,6 +40,7 @@ export default function RootLayout({ children }) {
           src="https://unpkg.com/aos@next/dist/aos.js"
           strategy="afterInteractive"
         ></Script>
+        
 
         <Header />
         {children}

@@ -13,41 +13,30 @@ import Categories from "../components/categories/page";
 import axiosInstance from "../Helper/Helper";
 import RecentView from "../components/recentView/page";
 import NewsCard from "../components/NewsCard/page";
+import SkeletonCard from "../components/skeleton/SkeletonCard";
 
 const Blog = () => {
-  const [blogs, setBlogs] = useState([]);
-
-  const [currentPage, setCurrentPage] = useState(1);
-  const blogsPerPage = 6;
+  const [initialBlogs, setInitialBlogs] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    const fetchBlogs = async () => {
+    const fetchInitialBlogs = async () => {
       try {
-        const response = await axiosInstance("/get-blogs");
+        setIsLoading(true);
+        const response = await axiosInstance("/get-blogs?page=1");
         if (response.data.status === "success") {
-          setBlogs(response.data[0]);
+          setInitialBlogs(response.data[0]);
         }
       } catch (error) {
         console.error("Error fetching blogs:", error);
+      } finally {
+        setIsLoading(false);
       }
     };
 
-    fetchBlogs();
+    fetchInitialBlogs();
   }, []);
 
-  const totalPages = Math.ceil(blogs.length / blogsPerPage);
-  const currentBlogs = blogs.slice(
-    (currentPage - 1) * blogsPerPage,
-    currentPage * blogsPerPage
-  );
-
-  const handleNextPage = () => {
-    setCurrentPage((prevPage) => Math.min(prevPage + 1, totalPages));
-  };
-
-  const handlePreviousPage = () => {
-    setCurrentPage((prevPage) => Math.max(prevPage - 1, 1));
-  };
   return (
     <div>
       <div className="banner-section">
@@ -150,14 +139,15 @@ const Blog = () => {
           </div>
           <div className="row">
             <div className="col-md-6 col-lg-9">
-              <NewsCard
-                blogs={currentBlogs}
-                currentPage={currentPage}
-                totalPages={totalPages}
-                onPreviousPage={handlePreviousPage}
-                onNextPage={handleNextPage}
-                onPageSelect={setCurrentPage}
-              />
+              {isLoading ? (
+                <div className="row">
+                  {Array.from({ length: 3 }).map((_, index) => (
+                    <SkeletonCard key={index} />
+                  ))}
+                </div>
+              ) : (
+              <NewsCard initialBlogs={initialBlogs} />
+              )}
             </div>
             <div className="col-md-6 col-lg-3">
               <Categories />
