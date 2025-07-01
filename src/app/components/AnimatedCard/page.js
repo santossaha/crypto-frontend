@@ -5,6 +5,8 @@ import { motion } from "framer-motion";
 import Eye from "../../assets/images/eye.svg";
 
 const AnimatedCard = ({ item, index }) => {
+  if (!item) return null;
+
   const cardVariants = {
     hidden: { 
       opacity: 0,
@@ -27,7 +29,6 @@ const AnimatedCard = ({ item, index }) => {
     <motion.div
       className="col-md-12 col-lg-4"
       variants={cardVariants}
-      initial="hidden"
       animate="visible"
       whileHover={{ 
         scale: 1.02,
@@ -41,8 +42,8 @@ const AnimatedCard = ({ item, index }) => {
         <div className="picArea">
           <Image
             className="img"
-            src={item.image}
-            alt={item.title}
+            src={item.image || "/default-image.png"}
+            alt={item.title || "No title"}
             width={500}
             height={300}
           />
