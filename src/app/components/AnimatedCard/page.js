@@ -4,6 +4,8 @@ import Link from "next/link";
 import { motion } from "framer-motion";
 import Eye from "../../assets/images/eye.svg";
 
+
+
 const AnimatedCard = ({ item, index }) => {
   if (!item) return null;
 
