@@ -56,16 +56,22 @@ const SplideAutoScroll = () => {
   if (!allLoaded) {
     return (
       <div style={{ width: "100%", maxWidth: 800, height: 320, margin: "0 auto", display: "flex", alignItems: "center", justifyContent: "center" }}>
-        <div
-          style={{
-            width: "90%",
-            height: "100%",
-            borderRadius: 12,
-            background: "linear-gradient(90deg, #e0e0e0 25%, #f5f5f5 50%, #e0e0e0 75%)",
-            backgroundSize: "200% 100%",
-            animation: "skeleton-loading 1.2s infinite linear",
-          }}
-        />
+        <div style={{ display: "flex", gap: "20px", width: "100%", justifyContent: "center" }}>
+          {[...Array(3)].map((_, idx) => (
+            <div
+              key={idx}
+              style={{
+                width: "30%",
+                height: "320px",
+                borderRadius: 12,
+                background: "linear-gradient(90deg, #e0e0e0 25%, #f5f5f5 50%, #e0e0e0 75%)",
+                backgroundSize: "200% 100%",
+                animation: "skeleton-loading 1.2s infinite linear",
+                flexShrink: 0,
+              }}
+            />
+          ))}
+        </div>
         <style>{`
           @keyframes skeleton-loading {
             0% { background-position: 200% 0; }

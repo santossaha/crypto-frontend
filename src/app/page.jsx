@@ -58,7 +58,7 @@ const Page = () => {
                   color: "white",
                 }}
               >
-                Loading...
+               
               </div>
             ) : (
               <Slider />
@@ -69,8 +69,8 @@ const Page = () => {
               <div className="col-md-12 col-lg-8">
                <SplideAutoScroll/>
               </div>
-              
-              <div className="col-md-12 col-lg-6">
+
+              <div className="col-md-12 col-lg-8">
                 <div className="postBanner1">
                   {bannerImage ? (
                     <Image
