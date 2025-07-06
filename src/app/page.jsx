@@ -12,6 +12,7 @@ import "slick-carousel/slick/slick-theme.css";
 import NewsGroup from "./components/newsGroup/page";
 import AboutSection from "./components/aboutUs/page";
 import axiosInstance from "./Helper/Helper";
+import SplideAutoScroll from "./components/slider/SplideAutoScroll";
 
 const Slider = dynamic(() => import("./components/slider/SimpleSlider"), {
   ssr: false,
@@ -65,92 +66,10 @@ const Page = () => {
           </div>
           <div className="postSlider">
             <div className="row">
-              <div className="col-md-12 col-lg-3">
-                <div className="postSlider1 area1">
-                  <div
-                    id="carouselExampleIndicators"
-                    className="carousel slide"
-                    data-bs-ride="true"
-                  >
-                    <div className="carousel-indicators">
-                      <button
-                        type="button"
-                        data-bs-target="#carouselExampleIndicators"
-                        data-bs-slide-to="0"
-                        className="active"
-                        aria-current="true"
-                        aria-label="Slide 1"
-                      ></button>
-                      <button
-                        type="button"
-                        data-bs-target="#carouselExampleIndicators"
-                        data-bs-slide-to="1"
-                        aria-label="Slide 2"
-                      ></button>
-                      <button
-                        type="button"
-                        data-bs-target="#carouselExampleIndicators"
-                        data-bs-slide-to="2"
-                        aria-label="Slide 3"
-                      ></button>
-                    </div>
-                    <div className="carousel-inner">
-                      <div className="carousel-item active">
-                        <Image className="img" src={p1} alt="slider1" />
-                      </div>
-                      <div className="carousel-item">
-                        <Image className="img" src={p2} alt="slider2" />
-                      </div>
-                      <div className="carousel-item">
-                        <Image className="img" src={p3} alt="slider3" />
-                      </div>
-                    </div>
-                  </div>
-                </div>
+              <div className="col-md-12 col-lg-8">
+               <SplideAutoScroll/>
               </div>
-              <div className="col-md-12 col-lg-3">
-                <div className="postSlider1">
-                  <div
-                    id="carouselExampleIndicators2"
-                    className="carousel slide"
-                    data-bs-ride="true"
-                  >
-                    <div className="carousel-indicators">
-                      <button
-                        type="button"
-                        data-bs-target="#carouselExampleIndicators2"
-                        data-bs-slide-to="0"
-                        className="active"
-                        aria-current="true"
-                        aria-label="Slide 1"
-                      ></button>
-                      <button
-                        type="button"
-                        data-bs-target="#carouselExampleIndicators2"
-                        data-bs-slide-to="1"
-                        aria-label="Slide 2"
-                      ></button>
-                      <button
-                        type="button"
-                        data-bs-target="#carouselExampleIndicators2"
-                        data-bs-slide-to="2"
-                        aria-label="Slide 3"
-                      ></button>
-                    </div>
-                    <div className="carousel-inner">
-                      <div className="carousel-item active">
-                        <Image className="img" src={p3} alt="slider4" />
-                      </div>
-                      <div className="carousel-item">
-                        <Image className="img" src={p2} alt="slider5" />
-                      </div>
-                      <div className="carousel-item">
-                        <Image className="img" src={p1} alt="slider6" />
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
+              
               <div className="col-md-12 col-lg-6">
                 <div className="postBanner1">
                   {bannerImage ? (
@@ -158,7 +77,7 @@ const Page = () => {
                       className="img"
                       src={bannerImage}
                       alt="banner-1"
-                      width={500}
+                      width={800}
                       height={300}
                     />
                   ) : (
