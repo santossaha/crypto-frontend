@@ -1,0 +1,25 @@
+.skeletonContainer {
+  width: 100%;
+  max-width: 800px;
+  height: 320px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.skeletonRow {
+  display: flex;
+  gap: 20px;
+  width: 100%;
+  justify-content: center;
+}
+
+.skeletonCard {
+  width: 30%;
+  height: 320px;
+  border-radius: 12px;
+  overflow: hidden;
+  flex-shrink: 0;
+  background: #fff;
+} 

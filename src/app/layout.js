@@ -6,13 +6,12 @@ import Head from "next/head";
 import CandlestickBackground from "./components/CandlestickBackground";
 
 import "./components/header/style.css";
-// import "./components/slider/style.css";
+;
 import "./globals.css";
 import "./home.css";
 import "./components/footer/style.css";
 import "bootstrap/dist/css/bootstrap.css";
-// import "owl.carousel/dist/assets/owl.carousel.css";
-// import "owl.carousel/dist/assets/owl.theme.default.css";
+
 
 export const metadata = {
   title: "Crypto News",

@@ -2,10 +2,7 @@
 import React, { useEffect, useState } from "react";
 import dynamic from "next/dynamic";
 import Image from "next/image";
-import p1 from "./assets/images/p-1.jpg";
-import p2 from "./assets/images/p-2.jpg";
-import p3 from "./assets/images/p-4.jpg";
-import p5 from "./assets/images/p-5.jpg";
+
 
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
@@ -13,6 +10,9 @@ import NewsGroup from "./components/newsGroup/page";
 import AboutSection from "./components/aboutUs/page";
 import axiosInstance from "./Helper/Helper";
 import SplideAutoScroll from "./components/slider/SplideAutoScroll";
+import Skeleton from "react-loading-skeleton";
+import "react-loading-skeleton/dist/skeleton.css"
+
 
 const Slider = dynamic(() => import("./components/slider/SimpleSlider"), {
   ssr: false,
@@ -48,18 +48,30 @@ const Page = () => {
     <div>
       <div className="bannerArea">
         <div className="container">
-          <div className="priceSlider py-2">
-            {" "}
+          <div className="priceSlider py-2"
+            style={loading ? { display: "flex", alignItems: "center" } : undefined}
+          >
             {loading ? (
-              <div
-                style={{
-                  textAlign: "center",
-                  fontSize: "24px",
-                  color: "white",
-                }}
-              >
-               
-              </div>
+              Array.from({ length: 6 }).map((_, idx) => (
+                <div
+                  key={idx}
+                  style={{
+                    width: 220,
+                    height: 50,
+                    borderRadius: 40,
+                    margin: "0 12px",
+                    overflow: "hidden",
+                    background: "#fff",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    boxShadow: "0 2px 8px rgba(0,0,0,0.08)",
+                    border: "1px solid #e0e0e0",
+                  }}
+                >
+                  <Skeleton height={32} width={160} borderRadius={20} />
+                </div>
+              ))
             ) : (
               <Slider />
             )}
@@ -70,7 +82,7 @@ const Page = () => {
                <SplideAutoScroll/>
               </div>
 
-              <div className="col-md-12 col-lg-8">
+              <div className="col-md-12 col-lg-4">
                 <div className="postBanner1">
                   {bannerImage ? (
                     <Image
@@ -81,7 +93,7 @@ const Page = () => {
                       height={300}
                     />
                   ) : (
-                    <p>Error: No image available</p> 
+                    <Skeleton width={800} height={500} borderRadius={12} />
                   )}
                 </div>
               </div>

@@ -6,6 +6,9 @@ import p2 from "../../assets/images/p-2.jpg";
 import p3 from "../../assets/images/p-4.jpg";
 import p5 from "../../assets/images/p-5.jpg";
 import "@splidejs/splide/dist/css/splide.min.css";
+import Skeleton from "react-loading-skeleton";
+import "react-loading-skeleton/dist/skeleton.css";
+import styles from "./SplideAutoScroll.module.css";
 
 const images = [p1, p2, p3, p5];
 
@@ -55,29 +58,14 @@ const SplideAutoScroll = () => {
 
   if (!allLoaded) {
     return (
-      <div style={{ width: "100%", maxWidth: 800, height: 320, margin: "0 auto", display: "flex", alignItems: "center", justifyContent: "center" }}>
-        <div style={{ display: "flex", gap: "20px", width: "100%", justifyContent: "center" }}>
+      <div className={styles.skeletonContainer}>
+        <div className={styles.skeletonRow}>
           {[...Array(3)].map((_, idx) => (
-            <div
-              key={idx}
-              style={{
-                width: "30%",
-                height: "320px",
-                borderRadius: 12,
-                background: "linear-gradient(90deg, #e0e0e0 25%, #f5f5f5 50%, #e0e0e0 75%)",
-                backgroundSize: "200% 100%",
-                animation: "skeleton-loading 1.2s infinite linear",
-                flexShrink: 0,
-              }}
-            />
+            <div key={idx} className={styles.skeletonCard}>
+              <Skeleton height={320} width="100%" borderRadius={12} />
+            </div>
           ))}
         </div>
-        <style>{`
-          @keyframes skeleton-loading {
-            0% { background-position: 200% 0; }
-            100% { background-position: -200% 0; }
-          }
-        `}</style>
       </div>
     );
   }

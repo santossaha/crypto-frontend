@@ -100,7 +100,7 @@ export default function SimpleSlider() {
           </div>
         ))
       ) : (
-        <p>Loading...</p>
+        <></>
       )}
     </Slider>
   );
