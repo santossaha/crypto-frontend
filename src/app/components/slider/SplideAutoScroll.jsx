@@ -1,46 +1,37 @@
 import React, { useEffect, useRef, useState } from "react";
 import Splide from "@splidejs/splide";
 import { AutoScroll } from "@splidejs/splide-extension-auto-scroll";
-import p1 from "../../assets/images/p-1.jpg";
-import p2 from "../../assets/images/p-2.jpg";
-import p3 from "../../assets/images/p-4.jpg";
-import p5 from "../../assets/images/p-5.jpg";
+import axiosInstance from "../../Helper/Helper";
 import "@splidejs/splide/dist/css/splide.min.css";
 import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
 import styles from "./SplideAutoScroll.module.css";
 
-const images = [p1, p2, p3, p5];
-
 const SplideAutoScroll = () => {
   const splideRef = useRef(null);
-  const [allLoaded, setAllLoaded] = useState(false);
+  const [sliderImages, setSliderImages] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    // Preload all images
-    let loadedCount = 0;
-    const total = images.length;
-    const imgArr = images.map((img) => {
-      const image = new window.Image();
-      image.src = img.src;
-      image.onload = () => {
-        loadedCount++;
-        if (loadedCount === total) setAllLoaded(true);
-      };
-      image.onerror = () => {
-        loadedCount++;
-        if (loadedCount === total) setAllLoaded(true);
-      };
-      return image;
-    });
-    // Cleanup
-    return () => {
-      imgArr.forEach((img) => { img.onload = null; img.onerror = null; });
+    const fetchSliderImages = async () => {
+      try {
+        const response = await axiosInstance("/get-sliders");
+        // Expecting response.data.data to be an array of image URLs
+        if (response.data.status === "success") {
+          const data = response.data.data;
+          setSliderImages(Array.isArray(data) ? data : [data]);
+        }
+      } catch (error) {
+        console.error("Error fetching slider images:", error);
+      } finally {
+        setLoading(false);
+      }
     };
+    fetchSliderImages();
   }, []);
 
   useEffect(() => {
-    if (allLoaded && splideRef.current) {
+    if (!loading && sliderImages.length > 0 && splideRef.current) {
       const splide = new Splide(splideRef.current, {
         type: "loop",
         drag: "free",
@@ -54,9 +45,9 @@ const SplideAutoScroll = () => {
       splide.mount({ AutoScroll });
       return () => splide.destroy();
     }
-  }, [allLoaded]);
+  }, [loading, sliderImages]);
 
-  if (!allLoaded) {
+  if (loading) {
     return (
       <div className={styles.skeletonContainer}>
         <div className={styles.skeletonRow}>
@@ -70,11 +61,15 @@ const SplideAutoScroll = () => {
     );
   }
 
+  // if (sliderImages.length === 0) {
+  //   return <div>No images found.</div>;
+  // }
+
   return (
     <div className="splide" ref={splideRef}>
       <div className="splide__track">
         <ul className="splide__list">
-          {images.concat(images).map((img, idx) => (
+          {sliderImages.concat(sliderImages).map((img, idx) => (
             <li className="splide__slide" key={idx}>
               <div 
                 className="slide-inner" 
@@ -89,7 +84,7 @@ const SplideAutoScroll = () => {
                 }}
               >
                 <img 
-                  src={img.src} 
+                  src={img.image} 
                   alt={`slide-${idx}`} 
                   style={{ 
                     width: "90%", 

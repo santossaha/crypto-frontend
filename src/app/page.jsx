@@ -23,9 +23,11 @@ const Page = () => {
   const [bannerImage, setBannerImage] = useState(null);
 
   useEffect(() => {
+   
     const fetchBannerImage = async () => {
       try {
-        const response = await axiosInstance("/get-adds");
+        const response = await axiosInstance("/get-sliders");
+        
         if (response.data.status === "success") {
           setBannerImage(response.data.data);
         }
@@ -35,6 +37,7 @@ const Page = () => {
     };
 
     fetchBannerImage();
+    
   }, []);
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -43,6 +46,7 @@ const Page = () => {
 
     return () => clearTimeout(timer);
   }, []);
+
 
   return (
     <div>
@@ -87,7 +91,7 @@ const Page = () => {
                   {bannerImage ? (
                     <Image
                       className="img"
-                      src={bannerImage}
+                      src={bannerImage[0].image}
                       alt="banner-1"
                       width={800}
                       height={300}
