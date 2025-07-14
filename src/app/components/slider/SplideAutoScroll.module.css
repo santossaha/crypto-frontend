@@ -22,4 +22,78 @@
   overflow: hidden;
   flex-shrink: 0;
   background: #fff;
+}
+
+/* Responsive styles for slider images */
+.splide__slide .slide-inner {
+  width: 100%;
+  height: 320px;
+  overflow: hidden;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.splide__slide .slide-inner img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 12px;
+  display: block;
+  margin: 0 auto;
+}
+
+.responsive-slide-inner {
+  width: 100%;
+  aspect-ratio: 16/6;
+  min-height: 100px;
+  max-height: 320px;
+  overflow: hidden;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #fff;
+}
+
+.responsive-slide-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 12px;
+  display: block;
+  margin: 0 auto;
+}
+
+@media (max-width: 991px) {
+  .splide__slide .slide-inner,
+  .skeletonCard {
+    height: 200px;
+  }
+  .responsive-slide-inner {
+    aspect-ratio: 16/7;
+    max-height: 200px;
+  }
+}
+@media (max-width: 600px) {
+  .splide__slide .slide-inner,
+  .skeletonCard {
+    height: 120px;
+    min-height: 100px;
+  }
+  .splide__slide .slide-inner img {
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+  }
+  .responsive-slide-inner {
+    aspect-ratio: 16/10;
+    max-height: 120px;
+    min-height: 80px;
+  }
+  .responsive-slide-img {
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+  }
 } 

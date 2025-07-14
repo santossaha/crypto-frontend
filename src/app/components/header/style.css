@@ -90,16 +90,19 @@
     .megamenu-area {
         width: 150px;
         padding: 15px;
+        left: 0;
+        right: 0;
+        z-index: 9999;
     }
     .megamenu-area .menu-group{
         width: 100%;
         max-height: 250px;
         overflow: auto;
+        flex-direction: column;
     }
     .megamenu-area .menu-group .menu-item{
         width: 100%;
         margin-bottom: 15px;
-        
     }
     .linkArea{
         position: absolute;
@@ -108,8 +111,50 @@
     }
     .navbar-toggler {
         background-color: #fff !important;
-        right: 100px;
+        right: 10px;
         position: relative;
         top: 1px;
+        z-index: 10001;
+    }
+    .navbar-collapse {
+        background: #222;
+        width: 100vw;
+        left: 0;
+        right: 0;
+        position: absolute;
+        top: 60px;
+        z-index: 10000;
+        padding: 20px 0 10px 0;
+        border-radius: 0 0 12px 12px;
+    }
+    .navbar-nav {
+        flex-direction: column !important;
+        width: 100%;
+        align-items: flex-start !important;
+        padding-left: 20px;
+    }
+    .navbar-nav .nav-item {
+        width: 100%;
+        margin-bottom: 10px;
+    }
+    .navbar-nav .nav-item .nav-link {
+        color: #fff;
+        font-size: 16px;
+        padding: 10px 0;
+        width: 100%;
+        text-align: left;
+    }
+}
+@media (max-width: 600px) {
+    .headerArea .navbar-brand {
+        width: 120px;
+    }
+    .navbar-collapse {
+        top: 50px;
+        padding: 15px 0 8px 0;
+    }
+    .navbar-nav .nav-item .nav-link {
+        font-size: 15px;
+        padding: 8px 0;
     }
 }
