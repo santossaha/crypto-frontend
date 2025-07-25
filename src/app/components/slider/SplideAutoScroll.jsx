@@ -71,31 +71,33 @@ const SplideAutoScroll = () => {
         <ul className="splide__list">
           {sliderImages.concat(sliderImages).map((img, idx) => (
             <li className="splide__slide" key={idx}>
-              <div 
-                className="slide-inner" 
-                style={{ 
-                  width: "100%", 
-                  height: "320px", 
-                  overflow: "hidden", 
-                  borderRadius: 12, 
-                  display: "flex", 
-                  alignItems: "center", 
-                  justifyContent: "center" 
-                }}
-              >
-                <img 
-                  src={img.image} 
-                  alt={`slide-${idx}`} 
+              <a href={img.url} target="_blank" rel="noopener noreferrer" style={{ width: "100%", display: "block" }}>
+                <div 
+                  className="slide-inner" 
                   style={{ 
-                    width: "90%", 
-                    height: "100%", 
-                    objectFit: "cover", 
+                    width: "100%", 
+                    height: "320px", 
+                    overflow: "hidden", 
                     borderRadius: 12, 
-                    display: "block", 
-                    margin: "0 auto" 
-                  }} 
-                />
-              </div>
+                    display: "flex", 
+                    alignItems: "center", 
+                    justifyContent: "center" 
+                  }}
+                >
+                  <img 
+                    src={img.image} 
+                    alt={`slide-${idx}`} 
+                    style={{ 
+                      width: "90%", 
+                      height: "100%", 
+                      objectFit: "cover", 
+                      borderRadius: 12, 
+                      display: "block", 
+                      margin: "0 auto" 
+                    }} 
+                  />
+                </div>
+              </a>
             </li>
           ))}
         </ul>
