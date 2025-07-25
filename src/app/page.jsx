@@ -12,6 +12,7 @@ import axiosInstance from "./Helper/Helper";
 import SplideAutoScroll from "./components/slider/SplideAutoScroll";
 import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css"
+import HomeSections from "./components/HomeSections";
 
 
 const Slider = dynamic(() => import("./components/slider/SimpleSlider"), {
@@ -107,7 +108,8 @@ const Page = () => {
       </div>
 
       <AboutSection />
-      <NewsGroup />
+      <HomeSections />
+      {/* <NewsGroup /> */}
     </div>
   );
 };

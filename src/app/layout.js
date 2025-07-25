@@ -3,7 +3,7 @@ import Script from "next/script";
 import Header from "./components/header/page";
 import Footer from "./components/footer/page";
 import Head from "next/head";
-import CandlestickBackground from "./components/CandlestickBackground";
+//import CandlestickBackground from "./components/CandlestickBackground";
 
 import "./components/header/style.css";
 ;
@@ -30,7 +30,7 @@ export default function RootLayout({ children }) {
         />
       </Head>
       <body>
-        <CandlestickBackground />
+        {/* <CandlestickBackground /> */}
         <div className="box">
           <div className="wave -one"></div>
           <div className="wave -two"></div>
