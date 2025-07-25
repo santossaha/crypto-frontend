@@ -20,7 +20,9 @@ const Section = ({ title, items, loading, categories, color, animationClass, typ
     <div className={styles.cardGrid}>
       {loading
         ? Array.from({ length: 6 }).map((_, idx) => (
-            <div key={idx} className={styles.card}><Skeleton height={120} /></div>
+            <div key={idx} className={styles.skeletonCard}>
+              <div className={styles.skeletonShimmer}></div>
+            </div>
           ))
         : items.map((item, idx) => {
             // Determine detail page path
@@ -30,10 +32,13 @@ const Section = ({ title, items, loading, categories, color, animationClass, typ
             else if (type === "event") detailPath = `/event/${item.id || item.slug}`;
             // Description field
             let desc = item.short_description || item.description || item.content;
+            // Date formatting
+            let date = item.created_at || item.date || item.publishedAt;
+            let formattedDate = date ? new Date(date).toLocaleDateString(undefined, { year: 'numeric', month: 'long', day: 'numeric' }) : "";
             return (
-              <Link href={detailPath} key={item.id || idx} className={styles.card} style={{ textDecoration: "none" }}>
+              <div key={item.id || idx} className={styles.card} style={{ textDecoration: "none" }}>
                 {item.image && (
-                  <div style={{ width: "100%", height: 120, marginBottom: 10, borderRadius: 10, overflow: "hidden", background: "#f0f0f0" }}>
+                  <div style={{ width: "100%", height: 160, marginBottom: 0, borderTopLeftRadius: 16, borderTopRightRadius: 16, overflow: "hidden", background: "#f0f0f0" }}>
                     <img
                       src={item.image}
                       alt={item.title}
@@ -41,10 +46,17 @@ const Section = ({ title, items, loading, categories, color, animationClass, typ
                     />
                   </div>
                 )}
-                <h4>{item.title}</h4>
-                <p>{truncateWords(desc, 10)}</p>
-                <span className={styles.date}>{item.created_at || item.date || item.publishedAt}</span>
-              </Link>
+                <div className={styles.cardInfo}>
+                  <div className={styles.cardDateViews}>
+                    <span>{formattedDate}</span>
+                    <span>120 Views</span>
+                  </div>
+                  <div className={styles.cardTitle}>{item.title}</div>
+                  <Link href={detailPath} className={styles.cardReadMore} style={{ textDecoration: "none" }}>
+                    Read More &gt;
+                  </Link>
+                </div>
+              </div>
             );
           })}
     </div>
