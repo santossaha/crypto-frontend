@@ -8,6 +8,7 @@ import axiosInstance from "@/app/Helper/Helper";
 import Eye from "../../assets/images/eye.svg";
 import SkeletonCard from "@/app/components/skeleton/SkeletonCard";
 import { motion } from "framer-motion";
+import { formatImageUrl } from "../../Helper/imageUtils";
 
 const ServiceDetails = () => {
   const { slug } = useParams(); 
@@ -102,7 +103,7 @@ const ServiceDetails = () => {
                           <div className="picArea">
                             <Image
                               className="img"
-                              src={service.image}
+                              src={formatImageUrl(service.image)}
                               alt={service.title}
                               width={500}
                               height={300}

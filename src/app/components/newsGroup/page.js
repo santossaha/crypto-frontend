@@ -7,6 +7,7 @@ import axiosInstance from "@/app/Helper/Helper";
 import Eye from "../../assets/images/eye.svg";
 import SkeletonCard from "../skeleton/SkeletonCard";
 import { motion } from "framer-motion";
+import { formatImageUrl } from "../../Helper/imageUtils";
 
 const NewsGroup = () => {
   const [news, setNews] = useState([]);
@@ -86,7 +87,7 @@ const NewsGroup = () => {
                         <div className="picArea">
                           <Image
                             className="img"
-                            src={newsItem.image}
+                            src={formatImageUrl(newsItem.image)}
                             alt={newsItem.title}
                             width={300}
                             height={200}

@@ -4,6 +4,7 @@ import Link from "next/link";
 import axiosInstance from "@/app/Helper/Helper";
 import { useEffect, useState } from "react";
 import Head from "next/head";
+import { formatImageUrl } from "../../Helper/imageUtils";
 
 const RecentView = () => {
   const [recentViews, setRecentViews] = useState([]);
@@ -71,7 +72,7 @@ const RecentView = () => {
                     <div className="pic-area">
                       <Image
                         className="img"
-                        src={view.image}
+                        src={formatImageUrl(view.image)}
                         alt={view.title}
                         width={500}
                         height={300}

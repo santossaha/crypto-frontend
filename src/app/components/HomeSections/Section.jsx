@@ -1,6 +1,8 @@
 import React from "react";
 import Link from "next/link";
+import Image from "next/image";
 import styles from "./HomeSections.module.css";
+import { formatImageUrl } from "../../Helper/imageUtils";
 
 function truncateWords(text, numWords) {
   if (!text) return "";
@@ -39,9 +41,11 @@ const Section = ({ title, items, loading, categories, color, animationClass, typ
                 <div key={item.id || idx} className={styles.card} style={{ textDecoration: "none" }}>
                   {item.image && (
                     <div style={{ width: "100%", height: 160, marginBottom: 0, borderTopLeftRadius: 16, borderTopRightRadius: 16, overflow: "hidden", background: "#f0f0f0" }}>
-                      <img
-                        src={item.image}
+                      <Image
+                        src={formatImageUrl(item.image)}
                         alt={item.title}
+                        width={400}
+                        height={160}
                         style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }}
                       />
                     </div>

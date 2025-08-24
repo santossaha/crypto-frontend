@@ -6,6 +6,7 @@ import "@splidejs/splide/dist/css/splide.min.css";
 import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
 import styles from "./SplideAutoScroll.module.css";
+import { formatImageUrl } from "../../Helper/imageUtils";
 
 const SplideAutoScroll = () => {
   const splideRef = useRef(null);
@@ -85,7 +86,7 @@ const SplideAutoScroll = () => {
                   }}
                 >
                   <img 
-                    src={img.image} 
+                    src={formatImageUrl(img.image)} 
                     alt={`slide-${idx}`} 
                     style={{ 
                       width: "90%", 

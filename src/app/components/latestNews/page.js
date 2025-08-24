@@ -4,6 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import axiosInstance from "@/app/Helper/Helper";
+import { formatImageUrl } from "../../Helper/imageUtils";
 
 const fetchLatestNews = async () => {
   try {
@@ -50,7 +51,7 @@ const LatestNews = () => {
               <div className="pic-area">
                 <Image
                   className="img"
-                  src={item.image}
+                  src={formatImageUrl(item.image)}
                   alt={item.title}
                   width={200}
                   height={120}

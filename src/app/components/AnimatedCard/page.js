@@ -3,6 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { motion } from "framer-motion";
 import Eye from "../../assets/images/eye.svg";
+import { formatImageUrl } from "../../Helper/imageUtils";
 
 const AnimatedCard = ({ item, index }) => {
   if (!item) return null;
@@ -42,7 +43,7 @@ const AnimatedCard = ({ item, index }) => {
         <div className="picArea">
           <Image
             className="img"
-            src={item.image || "/default-image.png"}
+            src={formatImageUrl(item.image)}
             alt={item.title || "No title"}
             width={500}
             height={300}

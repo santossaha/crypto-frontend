@@ -4,6 +4,7 @@ import Image from "next/image";
 import React, { useEffect, useState } from "react";
 import Ellipse1 from "../../assets/images/Ellipse-1.png";
 import axiosInstance from "@/app/Helper/Helper";
+import { formatImageUrl } from "../../Helper/imageUtils";
 
 const AboutSection = () => {
   const [aboutData, setAboutData] = useState(null);
@@ -54,7 +55,7 @@ const AboutSection = () => {
               <span className="topBox"></span>
               <Image
                 className="img"
-                src={aboutData.image}
+                src={formatImageUrl(aboutData.image)}
                 alt="About Us"
                 width={500}
                 height={300}

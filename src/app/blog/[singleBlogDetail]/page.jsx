@@ -12,6 +12,7 @@ import "./style.css";
 import NewsGroup from "@/app/components/newsGroup/page";
 import axiosInstance from "@/app/Helper/Helper";
 import LatestNews from "@/app/components/latestNews/page";
+import { formatImageUrl } from "../../Helper/imageUtils";
 
 async function getBlogDetails(slug) {
   try {
@@ -59,7 +60,7 @@ const SingleBlogDetail = async ({ params }) => {
                   <div className="pic-area">
                     <Image
                       className="img"
-                      src={blogDetails.image}
+                      src={formatImageUrl(blogDetails.image)}
                       alt="Blog detail picture"
                       width={800}
                       height={400}

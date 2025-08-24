@@ -6,6 +6,7 @@ import Image from "next/image";
 import Link from "next/link";
 import Eye from "../assets/images/eye.svg";
 import axiosInstance from "../Helper/Helper";
+import { formatImageUrl } from "../Helper/imageUtils";
 
 const CategoriesPage = ({ params }) => {
   const { categories: slug } = params;
@@ -69,7 +70,7 @@ const CategoriesPage = ({ params }) => {
                         <div className="picArea">
                           <Image
                             className="img"
-                            src={blog.image}
+                            src={formatImageUrl(blog.image)}
                             alt={blog.title}
                             width={500}
                             height={300}

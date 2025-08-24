@@ -6,6 +6,7 @@ import l1 from "../assets/images/link.svg";
 import "./style.css";
 import Image from "next/image";
 import axiosInstance from "../Helper/Helper";
+import { formatImageUrl } from "../Helper/imageUtils";
 
 const Page = () => {
   const [events, setEvents] = useState([]);
@@ -138,7 +139,7 @@ const Page = () => {
                             <span>
                               <Image
                                 className="img"
-                                src={event.image}
+                                src={formatImageUrl(event.image)}
                                 alt={event.title}
                                 width={50}
                                 height={50}
