@@ -5,14 +5,18 @@
   overflow: hidden;
   margin-bottom: 24px;
   transition: transform 0.2s ease-in-out;
+  /* subtle entrance */
+  animation: pop .6s cubic-bezier(.2,.9,.3,1);
 }
 
 .imageSkeleton {
   background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
   background-size: 200% 100%;
-  animation: shimmer 2s infinite;
+  animation: shimmer 1.6s infinite linear, pulse 2.6s infinite ease-in-out;
   height: 200px;
   width: 100%;
+  border-bottom: 1px solid rgba(0,0,0,0.04);
+  position: relative;
 }
 
 .contentWrapper {
@@ -26,21 +30,22 @@
 }
 
 .skeletonText {
-  background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+  background: linear-gradient(90deg, #f5f5f7 20%, #e9eef6 50%, #f5f5f7 80%);
   background-size: 200% 100%;
-  animation: shimmer 2s infinite;
-  border-radius: 4px;
+  animation: shimmer 1.6s infinite linear, pulse 3s infinite ease-in-out;
+  border-radius: 6px;
   height: 16px;
 }
 
 .buttonSkeleton {
-  background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+  background: linear-gradient(90deg,#f0f0f0 20%, #e6f2ff 45%, #f0f0f0 80%);
   background-size: 200% 100%;
-  animation: shimmer 2s infinite;
-  border-radius: 6px;
-  height: 36px;
-  width: 120px;
+  animation: shimmer 1.6s infinite linear;
+  border-radius: 8px;
+  height: 40px;
+  width: 140px;
   margin-top: 16px;
+  box-shadow: 0 6px 18px rgba(152,80,238,0.06);
 }
 
 @keyframes shimmer {
@@ -51,3 +56,32 @@
     background-position: 200% 0;
   }
 } 
+
+@keyframes pop {
+  0% { transform: translateY(6px) scale(.995); opacity: 0; }
+  60% { transform: translateY(0) scale(1.01); opacity: 1; }
+  100% { transform: translateY(0) scale(1); }
+}
+
+@keyframes pulse {
+  0% { opacity: 1; filter: brightness(1); }
+  50% { opacity: 0.86; filter: brightness(0.98); }
+  100% { opacity: 1; filter: brightness(1); }
+}
+
+/* small accent flash that runs once to draw attention */
+.cardBox::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(90deg, rgba(152,80,238,0.06), rgba(253,183,72,0.06));
+  opacity: 0;
+  animation: flash 1.6s ease forwards;
+}
+
+@keyframes flash {
+  0% { opacity: 0; transform: translateX(-30%); }
+  50% { opacity: 1; transform: translateX(0%); }
+  100% { opacity: 0; transform: translateX(30%); }
+}

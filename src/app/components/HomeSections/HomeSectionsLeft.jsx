@@ -2,10 +2,9 @@ import React from "react";
 import NewsSection from "./NewsSection";
 import BlogSection from "./BlogSection";
 import EventSection from "./EventSection";
-import styles from "./HomeSections.module.css";
 
 const HomeSectionsLeft = ({ news, blogs, events, loading, categories }) => (
-  <div className={styles.sectionsLeft}>
+  <div className="space-y-8">
     <NewsSection 
       news={news} 
       loading={loading} 

@@ -8,11 +8,14 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import NewsGroup from "./components/newsGroup/page";
 import AboutSection from "./components/aboutUs/page";
+import HeroSection from "./components/hero/HeroSection";
+import CryptoSlider from "./components/CryptoSlider/CryptoSlider";
 import axiosInstance from "./Helper/Helper";
 import SplideAutoScroll from "./components/slider/SplideAutoScroll";
 import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css"
 import HomeSections from "./components/HomeSections";
+import BannerSection from "./components/✅ BannerSection";
 
 
 const Slider = dynamic(() => import("./components/slider/SimpleSlider"), {
@@ -50,60 +53,45 @@ const Page = () => {
 
 
   return (
-    <div>
+    <div className="min-h-screen bg-gradient-to-r from-[#1b1740] via-[#221a57] to-[#071129] text-gray-800">
+      {/* Hero inserted directly after header */}
+      <HeroSection />
+      {/* Crypto ticker / slider placed after hero */}
+      <div className="container mx-auto px-4 mt-8">
+        <div className="bg-gradient-to-r from-[#1b1740] via-[#221a57] to-[#071129] text-white rounded-xl px-4 py-3">
+          <CryptoSlider />
+        </div>
+      </div>
       <div className="bannerArea">
-        <div className="container">
-          <div className="priceSlider py-2"
-            style={loading ? { display: "flex", alignItems: "center" } : undefined}
-          >
-            {loading ? (
-              Array.from({ length: 6 }).map((_, idx) => (
-                <div
-                  key={idx}
-                  style={{
-                    width: 220,
-                    height: 50,
-                    borderRadius: 40,
-                    margin: "0 12px",
-                    overflow: "hidden",
-                    background: "#fff",
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "center",
-                    boxShadow: "0 2px 8px rgba(0,0,0,0.08)",
-                    border: "1px solid #e0e0e0",
-                  }}
-                >
-                  <Skeleton height={32} width={160} borderRadius={20} />
-                </div>
-              ))
-            ) : (
-              <Slider />
-            )}
-          </div>
-          <div className="postSlider">
-            <div className="row">
-              <div className="col-md-12 col-lg-8">
+        <div className="container mx-auto px-4">
+          <BannerSection />
+          {/* <div className="priceSlider py-4 flex items-center overflow-x-auto gap-4">
+            <Slider />
+          </div> */}
+
+          {/* <div className="postSlider mt-8">
+            <div className="flex flex-col lg:flex-row gap-6">
+              <div className="w-full lg:w-2/3">
                <SplideAutoScroll/>
               </div>
 
-              <div className="col-md-12 col-lg-4">
-                <div className="postBanner1">
+              <div className="w-full lg:w-1/3 flex justify-center lg:justify-end">
+                <div className="postBanner1 w-full max-w-md lg:mr-8">
                   {bannerImage ? (
                     <Image
-                      className="img"
+                      className="rounded-lg shadow-lg"
                       src={bannerImage}
                       alt="banner-1"
                       width={800}
                       height={300}
                     />
                   ) : (
-                    <Skeleton width={800} height={500} borderRadius={12} />
+                    <Skeleton width={800} height={300} borderRadius={12} />
                   )}
                 </div>
               </div>
             </div>
-          </div>
+          </div> */}
         </div>
       </div>
 
