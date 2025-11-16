@@ -25,10 +25,11 @@ const Section = ({ title, items, loading, categories, color, animationClass, typ
             ))
           : items.map((item, idx) => {
               // Determine detail page path
+              console.log(item, 'item');
               let detailPath = "/";
-              if (type === "news") detailPath = `/news/${item.id || item.slug}`;
-              else if (type === "blog") detailPath = `/blog/${item.id || item.slug}`;
-              else if (type === "event") detailPath = `/event/${item.id || item.slug}`;
+              if (type === "news") detailPath = `/news/${item.slug}`;
+              else if (type === "blog") detailPath = `/blog/${item.slug}`;
+              else if (type === "event") detailPath = `/event/${item.slug}`;
               
               // Description field
               let desc = item.short_description || item.description || item.content;
