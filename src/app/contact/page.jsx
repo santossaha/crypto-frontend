@@ -2,14 +2,14 @@
 import Link from "next/link";
 import React, { useState } from "react";
 import axiosInstance from "../Helper/Helper";
-import Banner from "../components/banner/page";
+import HeroSection from "../components/hero/HeroSection";
+import Image from "next/image";
+import { IconPhoneCall, IconMail, IconMapPin } from "@tabler/icons-react";
+
 import p1 from "../assets/images/contacticon.svg";
 import e1 from "../assets/images/call-calling.svg";
 import e2 from "../assets/images/mail-1.svg";
 import e3 from "../assets/images/map.svg";
-
-import "./style.css";
-import Image from "next/image";
 
 const Contact = () => {
   const [formData, setFormData] = useState({
@@ -33,14 +33,14 @@ const Contact = () => {
     if (!formData.phone_number.trim()) {
       newErrors.phone_number = "Phone number is required.";
     } else if (!/^\d{10}$/.test(formData.phone_number)) {
-      newErrors.phone_number = "Phone number must be 10 digits.";
+      newErrors.phone_number = "Phone must be 10 digits.";
     }
     if (!formData.email.trim()) {
       newErrors.email = "Email is required.";
     } else if (!/\S+@\S+\.\S+/.test(formData.email)) {
-      newErrors.email = "Invalid email format.";
+      newErrors.email = "Invalid email.";
     }
-    if (!formData.address.trim()) newErrors.address = "Address is required.";
+    if (!formData.address.trim()) newErrors.address = "Message is required.";
 
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
@@ -48,22 +48,20 @@ const Contact = () => {
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setFormData((prevData) => ({
-      ...prevData,
+    setFormData((prev) => ({
+      ...prev,
       [name]: value,
     }));
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (!validateForm()) {
-      return;
-    }
+    if (!validateForm()) return;
 
     try {
       const response = await axiosInstance.post("/save-contact-us", formData);
       if (response.data.status === "success") {
-        setStatusMessage(response.data.message);
+        setStatusMessage("Thank you! We received your message.");
         setFormData({
           first_name: "",
           last_name: "",
@@ -71,164 +69,169 @@ const Contact = () => {
           email: "",
           address: "",
         });
-        setErrors({});
       } else {
-        setStatusMessage("An error occurred. Please try again.");
+        setStatusMessage("Error occurred, try again.");
       }
     } catch (error) {
-      console.error("Error submitting contact form:", error);
-      setStatusMessage("Failed to send. Please try again later.");
+      setStatusMessage("Failed to send message.");
     }
   };
 
   return (
     <div>
-      <div className="banner-section">
-        <Banner />
-        <div className="info-area">
-          <h2>Contact</h2>
-          <ul>
-            <li>
-              <Link href="/" className="linkarea">
-                Home
-              </Link>
-            </li>
-            <li>/</li>
-            <li>Contact</li>
-          </ul>
-        </div>
+      {/* HERO SECTION */}
+      <HeroSection
+        title="Get In Touch"
+        subtitle="We’re here to help you with any questions or support needs."
+      >
+        <ul className="flex items-center justify-center gap-2 text-white/80 text-sm">
+          <li>
+            <Link href="/" className="text-violet-200 font-semibold hover:text-violet-300">Home</Link>
+          </li>
+          <li className="text-violet-200">/</li>
+          <li className="text-white font-bold">Contact</li>
+        </ul>
+      </HeroSection>
+
+      {/* CONTACT SECTION */}
+      <div className="max-w-6xl mx-auto px-4 py-16 ">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 bg-white p-10 rounded-2xl shadow-xl border border-gray-100">
+
+         {/* LEFT INFO BOX */}
+<div>
+  <h3 className="text-2xl font-semibold mb-3">Contact Information</h3>
+  <p className="text-gray-500 text-sm mb-6">
+    Got a question? We’d love to hear from you!
+  </p>
+
+  <ul className="space-y-6">
+
+    {/* Phone */}
+    <li className="flex items-start gap-4">
+      <div className="p-3 bg-violet-100 rounded-xl">
+        <IconPhoneCall size={26} className="text-[#9850ee]" />
       </div>
-      <div className="container">
-        <div className="contact-section">
-          <div className="row">
-            <div className="col-md-6 col-lg-5">
-              <div className="contact-info">
-                <h3>Contact Us</h3>
-                <div className="imgarea">
-                  <Image src={p1} alt="" className="img" />
-                </div>
-                <ul>
-                  <li>
-                    <div className="info-group">
-                      <p>General Inquiries</p>
-                      <h6>
-                        <span>
-                          <Image src={e1} alt="" className="img" />
-                        </span>
-                        1800 419 20001
-                      </h6>
-                    </div>
-                  </li>
-                  <li>
-                    <div className="info-group">
-                      <p>Mail Id</p>
-                      <h6>
-                        <span>
-                          <Image src={e2} alt="" className="img" />
-                        </span>
-                        demo@gmail.in
-                      </h6>
-                    </div>
-                  </li>
-                  <li>
-                    <div className="info-group">
-                      <p>Address</p>
-                      <h6>
-                        <span>
-                          <Image src={e3} alt="" className="img" />
-                        </span>
-                        Demo street, New town, 24, Kolkata
-                      </h6>
-                    </div>
-                  </li>
-                </ul>
-              </div>
-            </div>
-            <div className="col-md-6 col-lg-7">
-              <form onSubmit={handleSubmit}>
-                <h3>Contact info</h3>
-                <div className="form-group">
-                  <label htmlFor="first_name">First Name</label>
+      <div>
+        <p className="text-gray-800 text-sm font-semibold">Call Us</p>
+        <h6 className="text-gray-600 text-lg">1800 419 20001</h6>
+      </div>
+    </li>
+
+    {/* Email */}
+    <li className="flex items-start gap-4">
+      <div className="p-3 bg-violet-100 rounded-xl">
+        <IconMail size={26} className="text-[#9850ee]" />
+      </div>
+      <div>
+        <p className="text-gray-800 text-sm font-semibold">Email Us</p>
+        <h6 className="text-gray-600 text-lg">demo@gmail.in</h6>
+      </div>
+    </li>
+
+    {/* Address */}
+    <li className="flex items-start gap-4">
+      <div className="p-3 bg-violet-100 rounded-xl">
+        <IconMapPin size={26} className="text-[#9850ee]" />
+      </div>
+      <div>
+        <p className="text-gray-800 text-sm font-semibold">Address</p>
+        <h6 className="text-gray-600 text-lg">
+          Demo Street, New Town, Kolkata
+        </h6>
+      </div>
+    </li>
+
+  </ul>
+</div>
+
+
+          {/* RIGHT FORM BOX */}
+          <div className="bg-white p-10 rounded-2xl  border border-gray-100">
+            <h3 className="text-2xl font-semibold text-gray-800 mb-5">
+              Send a Message
+            </h3>
+
+            <form onSubmit={handleSubmit} className="space-y-5">
+
+              {/* Name Row */}
+              <div className="grid grid-cols-2 gap-4">
+                <div>
+                  <label className="text-gray-600 block mb-1">First Name</label>
                   <input
                     type="text"
-                    className="form-control"
-                    placeholder="Enter first name"
                     name="first_name"
                     value={formData.first_name}
                     onChange={handleChange}
+                    placeholder="John"
+                    className="w-full bg-gray-50 border border-gray-300 px-4 py-2 rounded-lg focus:border-teal-400 outline-none"
                   />
-                  {errors.first_name && (
-                    <small className="text-danger">{errors.first_name}</small>
-                  )}
                 </div>
-                <div className="form-group">
-                  <label htmlFor="last_name">Last Name</label>
+                <div>
+                  <label className="text-gray-600 block mb-1">Last Name</label>
                   <input
                     type="text"
-                    className="form-control"
-                    placeholder="Enter last name"
                     name="last_name"
                     value={formData.last_name}
                     onChange={handleChange}
+                    placeholder="Doe"
+                    className="w-full bg-gray-50 border border-gray-300 px-4 py-2 rounded-lg focus:border-teal-400 outline-none"
                   />
-                  {errors.last_name && (
-                    <small className="text-danger">{errors.last_name}</small>
-                  )}
                 </div>
-                <div className="form-group">
-                  <label htmlFor="phone_number">Phone Number</label>
+              </div>
+
+              {/* Phone + Email Row */}
+              <div className="grid grid-cols-2 gap-4">
+                <div>
+                  <label className="text-gray-600 block mb-1">Phone</label>
                   <input
                     type="text"
-                    className="form-control"
-                    placeholder="Enter phone number"
                     name="phone_number"
                     value={formData.phone_number}
                     onChange={handleChange}
-                    maxlength={10}
+                    maxLength={10}
+                    placeholder="9876543210"
+                    className="w-full bg-gray-50 border border-gray-300 px-4 py-2 rounded-lg focus:border-teal-400 outline-none"
                   />
-                  {errors.phone_number && (
-                    <small className="text-danger">{errors.phone_number}</small>
-                  )}
                 </div>
-                <div className="form-group">
-                  <label htmlFor="email">Email Id</label>
+                <div>
+                  <label className="text-gray-600 block mb-1">Email</label>
                   <input
                     type="email"
-                    className="form-control"
-                    placeholder="Enter email"
                     name="email"
                     value={formData.email}
                     onChange={handleChange}
+                    placeholder="email@example.com"
+                    className="w-full bg-gray-50 border border-gray-300 px-4 py-2 rounded-lg focus:border-teal-400 outline-none"
                   />
-                  {errors.email && (
-                    <small className="text-danger">{errors.email}</small>
-                  )}
                 </div>
-                <div className="form-group">
-                  <label htmlFor="address">Address</label>
-                  <textarea
-                    className="form-control"
-                    placeholder="Write your address"
-                    name="address"
-                    value={formData.address}
-                    onChange={handleChange}
-                    cols="3"
-                  ></textarea>
-                  {errors.address && (
-                    <small className="text-danger">{errors.address}</small>
-                  )}
-                </div>
-                <div className="btn-area my-3">
-                  <button type="submit" className="btn btn-primary">
-                    Submit
-                  </button>
-                </div>
-                {statusMessage && (
-                  <div className="alert alert-info">{statusMessage}</div>
-                )}
-              </form>
-            </div>
+              </div>
+
+              {/* Message */}
+              <div>
+                <label className="text-gray-600 block mb-1">Message</label>
+                <textarea
+                  name="address"
+                  value={formData.address}
+                  onChange={handleChange}
+                  placeholder="Write here..."
+                  rows={4}
+                  className="w-full bg-gray-50 border border-gray-300 px-4 py-2 rounded-lg focus:border-teal-400 outline-none"
+                ></textarea>
+              </div>
+
+              {/* Button */}
+              <button className="common-btn w-full">
+                Send Message
+              </button>
+
+              {statusMessage && (
+                <p className="text-center text-teal-500 font-medium mt-2">
+                  {statusMessage}
+                </p>
+              )}
+            </form>
           </div>
+
         </div>
       </div>
     </div>

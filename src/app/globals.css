@@ -53,3 +53,34 @@ a {
 .banner-section {
   position: relative;
 }
+.common-btn-page{
+  
+  padding: 8px 15px;
+  border-radius: 5px;
+  background:transparent;
+  color: #000;
+  border: 1px solid#ccc;
+}
+.common-btn{
+  padding: 8px 20px;
+  border-radius: 5px;
+  background:linear-gradient(90deg,#9850ee 0%, #fdb748 100%);
+  color: #fff;
+  transition: all 0.8s ease-in-out;
+}
+.common-btn:hover{
+  background:linear-gradient(90deg,#fdb748 0%, #9850ee 100%);
+}
+.reset-btn{
+  transition: all 0.8s ease-in-out;
+  padding: 8px 20px;
+  border-radius: 5px;
+  background-color: transparent;
+  background:#ccc;
+  color: #555;
+}
+.reset-btn:hover{
+  background-color: transparent;
+  border: 1px solid #ccc;
+  color: #000;
+}

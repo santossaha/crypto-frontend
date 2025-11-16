@@ -7,13 +7,15 @@ import p1 from "../assets/images/p-1.jpg";
 import p2 from "../assets/images/e-1.jpg";
 import p3 from "../assets/images/e-2.jpg";
 import Eye from "../assets/images/eye.svg";
-import Banner from "../components/banner/page";
+
+import "react-loading-skeleton/dist/skeleton.css"
 import "./style.css";
 import Categories from "../components/categories/page";
 import axiosInstance from "../Helper/Helper";
 import RecentView from "../components/recentView/page";
 import NewsCard from "../components/NewsCard/page";
 import SkeletonCard from "../components/skeleton/SkeletonCard";
+import HeroSection from "../components/hero/HeroSection";
 
 const Blog = () => {
   const [initialBlogs, setInitialBlogs] = useState([]);
@@ -39,26 +41,17 @@ const Blog = () => {
 
   return (
     <div>
-      <div className="banner-section">
-        <Banner />
-        <div className="info-area">
-          <h2>Welcome to our Blog</h2>
-          <p>
-            Lorem Ipsum is simply dummy text of the printing and typesetting
-            industry. Lorem Ipsum has been the industrys standard dummy text
-            ever since
-          </p>
-          <ul>
-            <li>
-              <Link href="/" className="linkarea">
-                Home
-              </Link>
-            </li>
-            <li>/</li>
-            <li>Blog</li>
-          </ul>
-        </div>
-      </div>
+      <HeroSection title="Welcome to our Blog" subtitle="Lorem Ipsum is simply dummy text of the printing and typesetting">
+       
+
+           <ul className="flex items-center justify-center gap-2 text-white/80 text-sm">
+          <li>
+            <Link href="/" className="text-violet-200 font-semibold hover:text-violet-300">Home</Link>
+          </li>
+          <li className="text-violet-200">/</li>
+          <li className="text-white font-bold">Blog</li>
+        </ul>
+      </HeroSection>
       <section className="newsGroup mt-50">
         <div className="container">
           <div className="row">

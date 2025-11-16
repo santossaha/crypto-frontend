@@ -1,347 +1,188 @@
-import React from 'react';
-import Banner from "../components/banner/page";
+"use client";
+
+import React, { useState } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import p1 from "../assets/images/e-1.jpg";
 import l1 from "../assets/images/link.svg";
 import { IconThumbUp } from '@tabler/icons-react';
-import "./style.css";
-import Image from 'next/image';
+import HeroSection from '../components/hero/HeroSection';
+
+const Airdrop = () => {
+
+  // Dummy data (7 rows)
+  const fullData = Array(25).fill({
+    name: "NetworkSoileum Network",
+    symbol: "$SOIL",
+    type: "Token",
+    winners: 100,
+    qty: "5,000.00",
+    ends: "1 week",
+    tasks: 2
+  });
+
+  // Pagination states
+  const [currentPage, setCurrentPage] = useState(1);
+  const rowsPerPage = 5;
+
+  // Calculate sliced data
+  const lastIndex = currentPage * rowsPerPage;
+  const firstIndex = lastIndex - rowsPerPage;
+  const currentRows = fullData.slice(firstIndex, lastIndex);
+
+  const totalPages = Math.ceil(fullData.length / rowsPerPage);
+
+  // Pagination handlers
+  const goToPage = (num) => setCurrentPage(num);
+  const nextPage = () => currentPage < totalPages && setCurrentPage(currentPage + 1);
+  const prevPage = () => currentPage > 1 && setCurrentPage(currentPage - 1);
 
 
-
-const airdrop = () => {
   return (
     <>
-       <div className="banner-section">
-      <Banner/>
-      <div className="info-area">
-      <h2>Airdrop</h2>
-      <p>
-      Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since
-      </p>
-      <ul>
-        <li><Link href="/" className='linkarea'>Home</Link></li>
-        <li>/</li>
-        <li>Airdrop</li>
-      </ul>
-    </div>
-      </div>
-      <div className="eventMain">
-        <div className="container">
-          <div className="subHeadline">
-            <h3>Crypto Ongoing Airdrop</h3>
-            <p>Participate in coin airdrops right on Coin Gabbar, see our full coin airdrop calendar.</p>
+      {/* HERO SECTION */}
+      <HeroSection
+        title="Airdrop"
+        subtitle="Lorem Ipsum is simply dummy text of the printing and typesetting industry."
+      >
+        <ul className="flex items-center justify-center gap-2 text-sm">
+          <li>
+            <Link href="/" className="text-violet-200 hover:text-white hover:underline font-semibold">
+              Home
+            </Link>
+          </li>
+          <li className="text-violet-200">/</li>
+          <li className="text-white font-bold">Airdrop</li>
+        </ul>
+      </HeroSection>
+
+      {/* MAIN WRAPPER */}
+      <div className="py-12">
+        <div className="container mx-auto px-4">
+
+          {/* Heading */}
+          <div className="mb-6">
+            <h3 className="text-2xl font-bold text-gray-100">Crypto Ongoing Airdrop</h3>
+            <p className="text-gray-300 mt-1">
+              Participate in coin airdrops right on Coin Gabbar, see our full coin airdrop calendar.
+            </p>
           </div>
-          <div className="searchArea">
-            <form action="">
-              <div className="row">
-                <div className="col-md-3 col-lg-3">
-                  <div className="form-group">
-                    <input type="text" className='form-control' placeholder='Search' />
-                  </div>
-                </div>
-                <div className="col-md-2 col-lg-2">
-                  <div className="form-group">
-                    <select class="form-select form-control" aria-label="Default select example">
-                      <option selected>Upcomming</option>
-                      <option value="1">Previous</option>
-                      <option value="2">Trending</option>
-                    </select>
-                  </div>
-                </div>
-                <div className="col-md-2 col-lg-2">
-                  <div className="form-group">
-                    <select class="form-select form-control" aria-label="Default select example">
-                      <option selected>Airdrop Type</option>
-                      <option value="1">Airdrop</option>
-                      <option value="2">NFTs</option>
-                    </select>
-                  </div>
-                </div>
-                <div className="col-md-2 col-lg-2">
-                  <div className="form-group">
-                    <select class="form-select form-control" aria-label="Default select example">
-                      <option selected>Select Platform</option>
-                      <option value="1">Android</option>
-                      <option value="2">Giveaway</option>
-                    </select>
-                  </div>
-                </div>
-                <div className="col-md-3 col-lg-3">
-                  <div className="d-flex btn-area mb-20 gap-2">
-                    <Link href="/" className='btn btn-primary w-100'>
-                      Search
-                    </Link>
-                    <Link href="/" className='btn btn-primary w-100'>
-                      Reset
-                    </Link>
-                  </div>
-                </div>
-              </div>
-            </form>
-            <div className="eventTable">
-              <div className="table-responsive">
-              <table class="table table-bordered">
-                <thead>
+
+          {/* FILTER + TABLE */}
+          <div className="bg-white p-6 rounded-2xl shadow-lg border border-gray-200">
+
+            {/* TABLE */}
+            <div className="mt-8 overflow-x-auto">
+              <table className="min-w-full border border-gray-200 rounded-lg overflow-hidden">
+                <thead className="bg-gray-100 text-gray-700">
                   <tr>
-                    <th scope="col">Name</th>
-                    <th scope="col">Type</th>
-                    <th scope="col">Upvote</th>
-                    <th scope="col">Winners</th>
-                    <th scope="col">Qty</th>
-                    <th scope="col">Ends In</th>
-                    <th scope="col">No. of Task</th>
-                    <th scope="col" className='text-center'>Status</th>
+                    <th className="p-3 text-left font-semibold">Name</th>
+                    <th className="p-3">Type</th>
+                    <th className="p-3">Upvote</th>
+                    <th className="p-3">Winners</th>
+                    <th className="p-3">Qty</th>
+                    <th className="p-3">Ends In</th>
+                    <th className="p-3">Tasks</th>
+                    <th className="p-3 text-center">Status</th>
                   </tr>
                 </thead>
+
                 <tbody>
-                  <tr>
-                    <td className='gr-area'>
-                      <Link href='/airdropitem'>
-                      <span> <Image className="img" src={p1} alt="" /></span>
-                      <div className="info">
-                        <div className="area-1">
-                        <p>NetworkSoileum Network </p>
-                        <h6>$SOIL</h6>
-                        </div>
-                        <p className="btn">
-                          Featured
-                        </p>
-                      </div>
-                      </Link></td>
-                    <td>Token</td>
-                    <td><Link href="/" className="votebtn"><span>
-                    <IconThumbUp stroke={2} width="16" height="16" />
-                      </span>Upvote</Link></td>
-                    <td>100</td>
-                    <td>5,000.00</td>
-                    <td>1 week</td>
-                    <td>2</td>
+                  {currentRows.map((item, idx) => (
+                    <tr key={idx} className="border-t hover:bg-gray-50 transition">
+                      <td className="p-3">
+                        <Link href="/airdropitem" className="flex items-center gap-3">
+                          <Image src={p1} alt="" className="w-12 h-12 rounded-lg" />
+                          <div>
+                            <p className="text-gray-800 font-medium">{item.name}</p>
+                            <h6 className="text-purple-600 font-bold">{item.symbol}</h6>
+                            <span className="inline-block mt-1 px-2 py-0.5 text-xs bg-purple-100 text-purple-700 rounded">
+                              Featured
+                            </span>
+                          </div>
+                        </Link>
+                      </td>
 
-                    <td>
-                      <div className="view-area" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                        <div className='icon'>
-                          <Image className="img" src={l1} alt="" />
-                        </div>
-                      </div>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td className='gr-area'>
-                      <Link href='/airdropitem'>
-                      <span> <Image className="img" src={p1} alt="" /></span>
-                      <div className="info">
-                        <div className="area-1">
-                        <p>NetworkSoileum Network 123 </p>
-                        <h6>$SOIL</h6>
-                        </div>
-                        <p className="btn">
-                          Featured
-                        </p>
-                      </div>
-                      </Link></td>
-                    <td>Token</td>
-                    <td><Link href="/" className="votebtn"><span>
-                    <IconThumbUp stroke={2} width="16" height="16" />
-                      </span>Upvote</Link></td>
-                    <td>100</td>
-                    <td>5,000.00</td>
-                    <td>1 week</td>
-                    <td>2</td>
+                      <td className="text-center">{item.type}</td>
 
-                    <td>
-                      <div className="view-area" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                        <div className='icon'>
-                          <Image className="img" src={l1} alt="" />
-                        </div>
-                      </div>
-                    </td>
-                  </tr>
+                      <td>
+                        <Link href="/" className="flex items-center gap-1 text-purple-600 hover:text-purple-800 font-medium">
+                          <IconThumbUp stroke={2} width={16} />
+                          Upvote
+                        </Link>
+                      </td>
 
-                  <tr>
-                    <td className='gr-area'>
-                      <Link href='/airdropitem'>
-                      <span> <Image className="img" src={p1} alt="" /></span>
-                      <div className="info">
-                        <div className="area-1">
-                        <p>NetworkSoileum Network </p>
-                        <h6>$SOIL</h6>
-                        </div>
-                        <p className="btn">
-                          Featured
-                        </p>
-                      </div>
-                      </Link></td>
-                    <td>Token</td>
-                    <td><Link href="/" className="votebtn"><span>
-                    <IconThumbUp stroke={2} width="16" height="16" />
-                      </span>Upvote</Link></td>
-                    <td>100</td>
-                    <td>5,000.00</td>
-                    <td>1 week</td>
-                    <td>2</td>
+                      <td className="text-center">{item.winners}</td>
+                      <td className="text-center">{item.qty}</td>
+                      <td className="text-center">{item.ends}</td>
+                      <td className="text-center">{item.tasks}</td>
 
-                    <td>
-                      <div className="view-area" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                        <div className='icon'>
-                          <Image className="img" src={l1} alt="" />
+                      <td className="text-center">
+                        <div className="inline-block cursor-pointer bg-gray-200 p-2 rounded-lg hover:bg-gray-300">
+                          <Image src={l1} alt="view" className="w-5 h-5" />
                         </div>
-                      </div>
-                    </td>
-                  </tr>
-
-                  <tr>
-                    <td className='gr-area'>
-                      <Link href='/airdropitem'>
-                      <span> <Image className="img" src={p1} alt="" /></span>
-                      <div className="info">
-                        <div className="area-1">
-                        <p>NetworkSoileum Network </p>
-                        <h6>$SOIL</h6>
-                        </div>
-                        <p className="btn">
-                          Featured
-                        </p>
-                      </div>
-                      </Link></td>
-                    <td>Token</td>
-                    <td><Link href="/" className="votebtn"><span>
-                    <IconThumbUp stroke={2} width="16" height="16" />
-                      </span>Upvote</Link></td>
-                    <td>100</td>
-                    <td>5,000.00</td>
-                    <td>1 week</td>
-                    <td>2</td>
-
-                    <td>
-                      <div className="view-area" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                        <div className='icon'>
-                          <Image className="img" src={l1} alt="" />
-                        </div>
-                      </div>
-                    </td>
-                  </tr>
-
-                  <tr>
-                    <td className='gr-area'>
-                      <Link href='/airdropitem'>
-                      <span> <Image className="img" src={p1} alt="" /></span>
-                      <div className="info">
-                        <div className="area-1">
-                        <p>NetworkSoileum Network </p>
-                        <h6>$SOIL</h6>
-                        </div>
-                        <p className="btn">
-                          Featured
-                        </p>
-                      </div>
-                      </Link></td>
-                    <td>Token</td>
-                    <td><Link href="/" className="votebtn"><span>
-                    <IconThumbUp stroke={2} width="16" height="16" />
-                      </span>Upvote</Link></td>
-                    <td>100</td>
-                    <td>5,000.00</td>
-                    <td>1 week</td>
-                    <td>2</td>
-
-                    <td>
-                      <div className="view-area" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                        <div className='icon'>
-                          <Image className="img" src={l1} alt="" />
-                        </div>
-                      </div>
-                    </td>
-                  </tr>
-
-                  <tr>
-                    <td className='gr-area'>
-                      <Link href='/airdropitem'>
-                      <span> <Image className="img" src={p1} alt="" /></span>
-                      <div className="info">
-                        <div className="area-1">
-                        <p>NetworkSoileum Network </p>
-                        <h6>$SOIL</h6>
-                        </div>
-                        <p className="btn">
-                          Featured
-                        </p>
-                      </div>
-                      </Link></td>
-                    <td>Token</td>
-                    <td><Link href="/" className="votebtn"><span>
-                    <IconThumbUp stroke={2} width="16" height="16" />
-                      </span>Upvote</Link></td>
-                    <td>100</td>
-                    <td>5,000.00</td>
-                    <td>1 week</td>
-                    <td>2</td>
-
-                    <td>
-                      <div className="view-area" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                        <div className='icon'>
-                          <Image className="img" src={l1} alt="" />
-                        </div>
-                      </div>
-                    </td>
-                  </tr>
-
-                  <tr>
-                    <td className='gr-area'>
-                      <Link href='/airdropitem'>
-                      <span> <Image className="img" src={p1} alt="" /></span>
-                      <div className="info">
-                        <div className="area-1">
-                        <p>NetworkSoileum Network </p>
-                        <h6>$SOIL</h6>
-                        </div>
-                        <p className="btn">
-                          Featured
-                        </p>
-                      </div>
-                      </Link></td>
-                    <td>Token</td>
-                    <td><Link href="/" className="votebtn"><span>
-                    <IconThumbUp stroke={2} width="16" height="16" />
-                      </span>Upvote</Link></td>
-                    <td>100</td>
-                    <td>5,000.00</td>
-                    <td>1 week</td>
-                    <td>2</td>
-
-                    <td>
-                      <div className="view-area" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                        <div className='icon'>
-                          <Image className="img" src={l1} alt="" />
-                        </div>
-                      </div>
-                    </td>
-                  </tr>
-  
+                      </td>
+                    </tr>
+                  ))}
                 </tbody>
+
               </table>
-              <nav aria-label="..." class="d-flex justify-content-end me-3">
-  <ul class="pagination">
-    <li class="page-item disabled">
-      <span class="page-link">Previous</span>
-    </li>
-    <li class="page-item active"><a class="page-link" href="#">1</a></li>
-    <li class="page-item" aria-current="page">
-      <span class="page-link">2</span>
-    </li>
-    <li class="page-item"><a class="page-link" href="#">3</a></li>
-    <li class="page-item">
-      <a class="page-link" href="#">Next</a>
-    </li>
-  </ul>
-</nav>
+
+              {/* PAGINATION */}
+              <div className="flex justify-end mt-6">
+                <ul className="flex items-center gap-2">
+
+                  {/* Previous */}
+                  <li>
+                    <button
+                      onClick={prevPage}
+                      disabled={currentPage === 1}
+                      className={`px-3 py-1 border rounded-lg  
+                        ${currentPage === 1 ? "text-gray-300 cursor-not-allowed" : "hover:bg-gray-100"}
+                      `}
+                    >
+                      Previous
+                    </button>
+                  </li>
+
+                  {/* Dynamic Page Numbers */}
+                  {Array.from({ length: totalPages }, (_, i) => i + 1).map((num) => (
+                    <li key={num}>
+                      <button
+                        onClick={() => goToPage(num)}
+                        className={`px-3 py-1 border rounded-lg 
+                          ${currentPage === num ? "bg-purple-600 text-white" : "hover:bg-gray-100"}
+                        `}
+                      >
+                        {num}
+                      </button>
+                    </li>
+                  ))}
+
+                  {/* Next */}
+                  <li>
+                    <button
+                      onClick={nextPage}
+                      disabled={currentPage === totalPages}
+                      className={`px-3 py-1 border rounded-lg 
+                        ${currentPage === totalPages ? "text-gray-300 cursor-not-allowed" : "hover:bg-gray-100"}
+                      `}
+                    >
+                      Next
+                    </button>
+                  </li>
+
+                </ul>
               </div>
+
             </div>
+
           </div>
+
         </div>
       </div>
     </>
-  )
-}
+  );
+};
 
-export default airdrop;
+export default Airdrop;
