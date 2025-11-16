@@ -17,6 +17,10 @@ const nextConfig = {
       {
         protocol: "https",
         hostname: "crypto-blog.test",
+      },
+      {
+        protocol: "https",
+        hostname: "admin.bitfynance.com",
       }
     ],
   },
