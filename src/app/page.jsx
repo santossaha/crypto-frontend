@@ -61,33 +61,6 @@ const Page = () => {
       <div className="bannerArea">
         <div className="container mx-auto px-4">
           <BannerSection />
-          {/* <div className="priceSlider py-4 flex items-center overflow-x-auto gap-4">
-            <Slider />
-          </div> */}
-
-          {/* <div className="postSlider mt-8">
-            <div className="flex flex-col lg:flex-row gap-6">
-              <div className="w-full lg:w-2/3">
-               <SplideAutoScroll/>
-              </div>
-
-              <div className="w-full lg:w-1/3 flex justify-center lg:justify-end">
-                <div className="postBanner1 w-full max-w-md lg:mr-8">
-                  {bannerImage ? (
-                    <Image
-                      className="rounded-lg shadow-lg"
-                      src={bannerImage}
-                      alt="banner-1"
-                      width={800}
-                      height={300}
-                    />
-                  ) : (
-                    <Skeleton width={800} height={300} borderRadius={12} />
-                  )}
-                </div>
-              </div>
-            </div>
-          </div> */}
         </div>
       </div>
 

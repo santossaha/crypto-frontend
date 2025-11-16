@@ -5,6 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
 import axiosInstance from "../Helper/Helper";
+import { formatImageUrl } from "../Helper/imageUtils";
 import Categories from "../components/categories/page";
 import RecentView from "../components/recentView/page";
 import Skeleton from "react-loading-skeleton";
@@ -24,12 +25,14 @@ const containerVariants = {
 const cardVariants = {
   hidden: { opacity: 0, y: 12, scale: 0.98 },
   visible: { opacity: 1, y: 0, scale: 1, transition: { duration: 0.4 } },
-  hover: { scale: 1.02, y: -4, transition: { type: "spring", stiffness: 240 } },
+  hover: { y: -6, opacity: 0.98, transition: { duration: 0.25, ease: "easeOut" } },
 };
 
 // Image Skeleton Loader
 const ImageWithSkeleton = ({ src, alt, width = 400, height = 240, className }) => {
   const [loaded, setLoaded] = useState(false);
+
+  const imgSrc = formatImageUrl(src);
 
   return (
     <div className="relative w-full" style={{ height }}>
@@ -40,7 +43,7 @@ const ImageWithSkeleton = ({ src, alt, width = 400, height = 240, className }) =
         transition={{ duration: 0.4 }}
       >
         <Image
-          src={src}
+          src={imgSrc}
           alt={alt}
           width={width}
           height={height}
@@ -53,7 +56,7 @@ const ImageWithSkeleton = ({ src, alt, width = 400, height = 240, className }) =
   );
 };
 
-// Blog Card (Article)
+// Blog Card (Article) - card-style with image on top to match event listing
 const AnimatedCard = ({ item }) => {
   return (
     <motion.article
@@ -62,27 +65,57 @@ const AnimatedCard = ({ item }) => {
       whileInView="visible"
       whileHover="hover"
       viewport={{ once: true }}
-      className="w-full p-4 rounded-lg bg-white shadow-sm border border-gray-200"
+      className="w-full bg-white rounded-2xl shadow-md overflow-hidden border border-gray-100"
     >
-      <Link href={`/blog-details/${item.slug}`} className="flex gap-4">
-        <div className="w-[180px] rounded-lg overflow-hidden">
-          <ImageWithSkeleton src={item.image} width={180} height={120} alt={item.title} />
+      <Link href={`/blog/${item.slug}`} className="block">
+        <div className="w-full h-44 relative bg-gray-100 overflow-hidden">
+          <Image
+            src={formatImageUrl(item.image)}
+            alt={item.title || "blog image"}
+            fill
+            sizes="(max-width: 768px) 100vw, 33vw"
+            style={{ objectFit: "cover" }}
+            className="transition-transform duration-300"
+          />
         </div>
 
-        <div className="flex-1">
-          <div className="flex items-center gap-3 text-gray-500 text-sm">
-            <span>{new Date(item.created_at).toLocaleDateString()}</span>
-            <span className="flex items-center gap-1">
-              <Image src={Eye} width={14} height={14} alt="view" />
-              {item.views ?? "—"}
-            </span>
+        <div className="p-4">
+          <div className="text-xs text-gray-500 mb-2 flex items-center justify-between">
+            {item.created_at ? (
+              <span>{new Date(item.created_at).toLocaleDateString()}</span>
+            ) : (
+              <span className="inline-block h-3 w-24 bg-gray-200 rounded" />
+            )}
+
+            {typeof item.views !== 'undefined' ? (
+              <span>{item.views} views</span>
+            ) : (
+              <span className="inline-block h-3 w-16 bg-gray-200 rounded" />
+            )}
           </div>
 
-          <h3 className="text-lg font-semibold text-gray-800 mt-1">{item.title}</h3>
-          <p className="text-gray-600 mt-1">{item.short_description?.slice(0, 150)}...</p>
+          {item.title ? (
+            <h3 className="text-lg font-semibold text-gray-900 mb-2 line-clamp-2">{item.title}</h3>
+          ) : (
+            <div className="h-5 bg-gray-200 rounded w-3/4 mb-2" />
+          )}
 
-          <div className="mt-2">
-            <span className="text-purple-600 font-semibold">Read more</span>
+          {item.short_description ? (
+            <p className="text-sm text-gray-600 mb-3 line-clamp-2">{item.short_description?.slice(0, 120)}</p>
+          ) : (
+            <div className="space-y-2">
+              <div className="h-3 bg-gray-200 rounded w-full" />
+              <div className="h-3 bg-gray-200 rounded w-5/6" />
+            </div>
+          )}
+
+          <div className="flex items-center justify-between mt-3">
+            <span className="text-purple-600 font-medium">Read More →</span>
+            <div className="flex -space-x-2">
+              {[1,2,3].map(i => (
+                <div key={i} className="w-6 h-6 bg-gradient-to-r from-purple-400 to-pink-400 rounded-full border-2 border-white" />
+              ))}
+            </div>
           </div>
         </div>
       </Link>
@@ -149,6 +182,12 @@ const Blog = () => {
           <li><Link href="/" className="text-violet-200 font-semibold hover:text-violet-300">Home</Link></li>
           <li className="text-violet-200">/</li>
           <li className="font-bold text-white">Blog</li>
+          {blogs.length > 0 && (
+            <>
+              <li className="text-violet-200">/</li>
+              <li className="text-gray-300">{blogs.length} Posts</li>
+            </>
+          )}
         </ul>
       </HeroSection>
       
@@ -165,10 +204,16 @@ const Blog = () => {
           <h2 className="text-2xl font-bold text-white mb-3">New Posts</h2>
 
           {loading ? (
-            [...Array(3)].map((_, i) => <SkeletonCard key={i} />)
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+              {[...Array(6)].map((_, i) => (
+                <div key={i} className="p-4">
+                  <SkeletonCard />
+                </div>
+              ))}
+            </div>
           ) : (
             <motion.div
-              className="space-y-4"
+              className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6"
               variants={containerVariants}
               initial="hidden"
               animate="visible"
@@ -206,8 +251,11 @@ const Blog = () => {
         {/* RIGHT SIDEBAR */}
         <aside className="sticky top-6 space-y-6">
           <Categories />
-          <RecentView />
         </aside>
+      </section>
+      {/* RECENT VIEW - full width 4-card row */}
+      <section className="container mx-auto px-4 my-8">
+        <RecentView showAsGrid={true} />
       </section>
     </div>
   );

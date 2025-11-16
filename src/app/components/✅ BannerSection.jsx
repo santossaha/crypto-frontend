@@ -9,7 +9,7 @@ import "swiper/css/pagination";
 // Skeleton loader
 const Skeleton = ({ width, height, borderRadius = 8 }) => (
   <div
-    className="animate-pulse bg-white/10"
+    className="animate-pulse bg-gray-200"
     style={{ width, height, borderRadius }}
   />
 );
@@ -59,7 +59,7 @@ const BannerSection = () => {
                   slidesPerView={1}
                   breakpoints={{
                     640: { slidesPerView: 2 },
-                    1024: { slidesPerView: 3 }, // ✅ 3 images on desktop
+                    1024: { slidesPerView: 3 }, 
                   }}
                   pagination={{
                     clickable: true,

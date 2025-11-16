@@ -8,7 +8,7 @@ const NewsSection = ({ news, loading, categories }) => (
     items={news}
     loading={loading}
     categories={categories || []}
-    color="#0070f3"
+    color="#ffffff"
     animationClass={styles.slideInLeft}
     type="news"
   />

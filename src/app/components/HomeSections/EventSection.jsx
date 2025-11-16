@@ -8,7 +8,7 @@ const EventSection = ({ events, loading, categories }) => (
     items={events}
     loading={loading}
     categories={categories || []}
-    color="#00b894"
+    color="#ffffff"
     animationClass={styles.slideInLeftDelay2}
     type="event"
   />

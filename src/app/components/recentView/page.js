@@ -6,7 +6,7 @@ import { useEffect, useState } from "react";
 import Head from "next/head";
 import { formatImageUrl } from "../../Helper/imageUtils";
 
-const RecentView = () => {
+const RecentView = ({ showAsGrid = false }) => {
   const [recentViews, setRecentViews] = useState([]);
   const [loading, setLoading] = useState(true);
 
@@ -61,38 +61,35 @@ const RecentView = () => {
           </h3>
 
           {/* Grid Cards */}
-          <div className="grid grid-cols-1 md:grid-cols-1 gap-6">
-            {recentViews?.map((view) => (
+          <div className={showAsGrid ? "grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6" : "grid grid-cols-1 md:grid-cols-1 gap-6"}>
+            {(showAsGrid ? recentViews.slice(0, 4) : recentViews)?.map((view) => (
               <Link
-                href={`/blog-details/${view.slug}`}
+                href={`/blog/${view.slug}`}
                 key={view.id}
                 className="bg-white border border-gray-200 rounded-xl shadow-sm p-2 hover:shadow-lg transition-all duration-300"
               >
                 {/* Image */}
-                <div className="rounded-lg overflow-hidden">
+                <div className="rounded-lg overflow-hidden h-44">
                   <Image
                     src={formatImageUrl(view.image)}
-                    alt={view.title}
+                    alt={view.title || "recent view image"}
                     width={500}
                     height={300}
-                    className="w-full h-auto rounded-lg object-cover"
+                    className="w-full h-full rounded-lg object-cover"
                   />
                   
                 </div>
                 {/* Info */}
-                <div className="mb-4">                 
+                <div className="mb-4 p-2">                 
 
-                  <h4 className="text-xl font-semibold text-gray-800 mb-2">
+                  <h4 className="text-lg font-semibold text-gray-800 mb-2 line-clamp-2">
                     {view.title}
                   </h4>
 
                   <h6 className="text-sm text-gray-500 flex items-center gap-2">
-                    {/* <span className="text-gray-800 font-medium">
-                      {view.meta_keyword?.toUpperCase()}
-                    </span> */}
                     {new Date().toLocaleDateString()}
                   </h6>
-                  <p className="text-gray-600 text-sm mt-2">
+                  <p className="text-gray-600 text-sm mt-2 line-clamp-2">
                     {view.short_description}
                   </p>
                 </div>

@@ -12,14 +12,13 @@ const AnimatedCard = ({ item, index }) => {
     hidden: { 
       opacity: 0,
       y: 50,
-      scale: 0.8
+      scale: 0.95
     },
     visible: {
       opacity: 1,
       y: 0,
       scale: 1,
       transition: {
-        delay: index * 0.1,
         duration: 0.5,
         ease: "easeOut"
       }
@@ -30,14 +29,12 @@ const AnimatedCard = ({ item, index }) => {
     <motion.div
       className="col-md-12 col-lg-4"
       variants={cardVariants}
-      animate="visible"
       whileHover={{ 
-        scale: 1.02,
-        boxShadow: "0 8px 16px rgba(0, 0, 0, 0.1)",
+        scale: 1.03,
+        y: -4,
+        boxShadow: "0 12px 20px rgba(0, 0, 0, 0.15)",
         transition: { duration: 0.3 }
       }}
-      initial={{ scale: 1, boxShadow: "0 2px 8px rgba(0, 0, 0, 0.1)" }}
-      transition={{ duration: 0.3 }}
     >
       <div className="cardBox">
         <div className="picArea">
@@ -49,6 +46,7 @@ const AnimatedCard = ({ item, index }) => {
             height={300}
           />
         </div>
+
         <div className="cardInfo">
           <p>
             {new Date().toLocaleDateString()}{" "}
@@ -56,12 +54,15 @@ const AnimatedCard = ({ item, index }) => {
               <Image className="img" src={Eye} alt="eye" /> 120 View
             </span>
           </p>
+
           <h4>{item.title}</h4>
+
           <h5
             dangerouslySetInnerHTML={{
               __html: item.short_description,
             }}
           />
+
           <p>
             <Link className="btn" href={`/blog/${item.slug}`}>
               Read More
@@ -73,4 +74,4 @@ const AnimatedCard = ({ item, index }) => {
   );
 };
 
-export default AnimatedCard; 
+export default AnimatedCard;

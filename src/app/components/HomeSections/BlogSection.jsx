@@ -8,7 +8,7 @@ const BlogSection = ({ blogs, loading, categories }) => (
     items={blogs}
     loading={loading}
     categories={categories || []}
-    color="#e91e63"
+    color="#ffffff"
     animationClass={styles.slideInLeftDelay}
     type="blog"
   />
