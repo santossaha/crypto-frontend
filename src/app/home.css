@@ -1,9 +1,16 @@
 /* home css */
 .bannerArea {
     position: relative;
-    /* background-image: url(../app/assets/images/b-1.png);
-    top:-65px; */
-  } 
+    margin-top: 8px;
+}
+.bannerArea .container{ position: relative; z-index: 2; }
+.bannerOverlay{
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, rgba(2,7,55,0.6), rgba(2,7,55,0.75));
+    z-index: 1;
+    pointer-events: none;
+}
   .postSlider1 .carousel-control-prev,
   .postSlider1 .carousel-control-next {
     display: none;
@@ -20,6 +27,15 @@
     border-radius: 20px;
     overflow: hidden;
   }
+/* Banner section / hero */
+.banner-section{ position: relative; min-height: 300px; border-radius: 12px; overflow: hidden; background: linear-gradient(90deg,#02104a 0%, #031a66 100%); margin: 28px 0; }
+.banner-section .info-area{ position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%); max-width: 700px; padding: 24px; z-index: 3; text-align: center; }
+.banner-section .info-area h2{ font-size: 34px; line-height: 42px; font-weight: 800; color: #fff; margin-bottom: 12px; }
+.banner-section .info-area p{ color: #dbe9ff; font-size: 16px; margin-bottom: 18px; }
+.banner-cta{ display: inline-flex; gap: 10px; }
+.banner-cta .btn{ padding: 10px 18px; border-radius: 8px; font-weight: 700; }
+.btn-primary-ghost{ background: transparent; border: 1px solid rgba(255,255,255,0.16); color: #fff; }
+.btn-primary-solid{ background: #f9b638; color: #0b0b2a; }
   /* home about area */
   .aboutArea{margin: 50px 0;}
   .aboutArea .infoArea{margin-bottom: 35px;margin-right: 20px;position: relative;z-index: 1;}

@@ -1,39 +1,43 @@
 import React from "react";
 import Link from "next/link";
-import Skeleton from "react-loading-skeleton";
-import "react-loading-skeleton/dist/skeleton.css";
-import styles from "./HomeSections.module.css";
 
-const CategoryPanel = ({ allCategories, loading }) => (
-  <div className={styles.categoryPanel + ' ' + styles.categoryPanelWhiteBg}>
-    <h3 className={styles.categoryHeading}>Categories</h3>
-    {loading
-      ? <Skeleton height={30} count={6} style={{ margin: "8px 0" }} />
-      : Object.entries(allCategories).map(([section, cats]) => (
-          <div key={section} className={styles.panelSection}>
-            <div className={styles.panelSectionTitle + ' ' + styles[section + 'Bg']}>
-              {section}
-            </div>
-            <div className={styles.panelCatList}>
-              {cats.map((cat, idx) => (
-                <Link
-                  key={cat.id || idx}
-                  href={`/category/${cat.slug}`}
-                  className={styles.panelCat}
-                >
-                  <span className={styles.catIcon}>
-                    {/* Example SVG icon, replace as needed */}
-                    <svg width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
-                      <circle cx="8" cy="8" r="7" stroke="#888" strokeWidth="2" fill="none"/>
-                    </svg>
-                  </span>
-                  {cat.name}
-                </Link>
-              ))}
-            </div>
-          </div>
-        ))}
-  </div>
-);
+const CategoryPanel = ({ allCategories = {}, loading }) => {
+  const sections = Object.entries(allCategories || {});
 
-export default CategoryPanel; 
+  return (
+    <div className="bg-white rounded-xl shadow-sm p-4">
+      <h3 className="text-lg font-semibold mb-4">Categories</h3>
+
+      {loading ? (
+        <div className="space-y-3">
+          {Array.from({ length: 6 }).map((_, i) => (
+            <div key={i} className="h-8 bg-gray-200 rounded w-full animate-pulse" />
+          ))}
+        </div>
+      ) : (
+        <div className="space-y-6">
+          {sections.map(([section, cats]) => (
+            <div key={section}>
+              <div className="text-sm font-medium text-gray-700 mb-2">{section}</div>
+              <div className="flex flex-col gap-2">
+                {(cats || []).map((cat, idx) => (
+                  <Link
+                    key={cat.id || idx}
+                    href={`/category/${cat.slug}`}
+                    className="flex items-center gap-3 text-gray-600 hover:text-gray-900 p-2 rounded-md hover:bg-gray-50"
+                  >
+                    <span className="w-8 h-8 flex items-center justify-center bg-gradient-to-br from-indigo-500 to-pink-500 text-white rounded-md text-xs font-bold">{(cat.name || "").slice(0,2).toUpperCase()}</span>
+                    <span>{cat.name}</span>
+                    <span className="ml-auto text-xs text-gray-400">{cat.count ? `${cat.count}` : ""}</span>
+                  </Link>
+                ))}
+              </div>
+            </div>
+          ))}
+        </div>
+      )}
+    </div>
+  );
+};
+
+export default CategoryPanel;

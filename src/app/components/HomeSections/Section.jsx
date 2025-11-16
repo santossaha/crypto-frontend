@@ -1,7 +1,6 @@
 import React from "react";
 import Link from "next/link";
 import Image from "next/image";
-import styles from "./HomeSections.module.css";
 import { formatImageUrl } from "../../Helper/imageUtils";
 
 function truncateWords(text, numWords) {
@@ -12,18 +11,23 @@ function truncateWords(text, numWords) {
 
 const Section = ({ title, items, loading, categories, color, animationClass, type }) => {
   return (
-    <div className={`${styles.section} ${animationClass}`}>
-      <div className={styles.sectionHeader}>
-        <h2 style={{ color }}>{title}</h2>
+    <section className={`mb-8`}>
+      <div className="flex items-center justify-between mb-4">
+        <h2 className="text-2xl font-semibold" style={{ color }}>{title}</h2>
       </div>
-      <div className={styles.cardGrid}>
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
         {loading
           ? Array.from({ length: 6 }).map((_, idx) => (
-              <div key={idx} className={styles.skeletonCard}>
-                <div className={styles.skeletonShimmer}></div>
-              </div>
+              <article key={idx} className="bg-white rounded-xl shadow-sm overflow-hidden animate-pulse">
+                <div className="bg-gray-200 h-40 w-full" />
+                <div className="p-4">
+                  <div className="h-4 bg-gray-200 rounded w-3/4 mb-2" />
+                  <div className="h-3 bg-gray-200 rounded w-1/2 mb-3" />
+                  <div className="h-3 bg-gray-200 rounded w-full" style={{height:36}} />
+                </div>
+              </article>
             ))
-          : items.map((item, idx) => {
+          : (items || []).map((item, idx) => {
               // Determine detail page path
               console.log(item, 'item');
               let detailPath = "/";
@@ -39,33 +43,35 @@ const Section = ({ title, items, loading, categories, color, animationClass, typ
               let formattedDate = date ? new Date(date).toLocaleDateString(undefined, { year: 'numeric', month: 'long', day: 'numeric' }) : "";
               
               return (
-                <div key={item.id || idx} className={styles.card} style={{ textDecoration: "none" }}>
-                  {item.image && (
-                    <div style={{ width: "100%", height: 160, marginBottom: 0, borderTopLeftRadius: 16, borderTopRightRadius: 16, overflow: "hidden", background: "#f0f0f0" }}>
+                <article key={item.id || idx} className="bg-white rounded-xl shadow-md overflow-hidden hover:shadow-lg transition">
+                  {item.image ? (
+                    <div className="w-full h-40 relative bg-gray-100">
                       <Image
                         src={formatImageUrl(item.image)}
                         alt={item.title}
-                        width={400}
-                        height={160}
-                        style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }}
+                        fill
+                        sizes="(max-width: 768px) 100vw, 33vw"
+                        style={{ objectFit: "cover" }}
                       />
                     </div>
+                  ) : (
+                    <div className="w-full h-40 bg-gradient-to-r from-gray-100 to-gray-200" />
                   )}
-                  <div className={styles.cardInfo}>
-                    <div className={styles.cardDateViews}>
+
+                  <div className="p-4">
+                    <div className="text-xs text-gray-500 mb-2 flex items-center justify-between">
                       <span>{formattedDate}</span>
-                      <span>120 Views</span>
+                      <span>120 views</span>
                     </div>
-                    <div className={styles.cardTitle}>{item.title}</div>
-                    <Link href={detailPath} className={styles.cardReadMore} style={{ textDecoration: "none" }}>
-                      Read More &gt;
-                    </Link>
+                    <h3 className="text-lg font-semibold text-gray-900 mb-2">{item.title}</h3>
+                    <p className="text-sm text-gray-600 mb-3">{truncateWords(item.short_description || item.description || item.content, 24)}</p>
+                    <Link href={detailPath} className="inline-block text-sm text-indigo-600 font-medium">Read More →</Link>
                   </div>
-                </div>
+                </article>
               );
             })}
       </div>
-    </div>
+    </section>
   );
 };
 
