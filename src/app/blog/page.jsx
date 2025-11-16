@@ -1,154 +1,214 @@
 "use client";
 
+import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import React, { useEffect, useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import axiosInstance from "../Helper/Helper";
+import Categories from "../components/categories/page";
+import RecentView from "../components/recentView/page";
+import Skeleton from "react-loading-skeleton";
+
 import p1 from "../assets/images/p-1.jpg";
 import p2 from "../assets/images/e-1.jpg";
 import p3 from "../assets/images/e-2.jpg";
 import Eye from "../assets/images/eye.svg";
-
-import "react-loading-skeleton/dist/skeleton.css"
-import "./style.css";
-import Categories from "../components/categories/page";
-import axiosInstance from "../Helper/Helper";
-import RecentView from "../components/recentView/page";
-import NewsCard from "../components/NewsCard/page";
-import SkeletonCard from "../components/skeleton/SkeletonCard";
 import HeroSection from "../components/hero/HeroSection";
+import BannerSection from "../components/✅ BannerSection";
+
+const containerVariants = {
+  hidden: { opacity: 0, y: 8 },
+  visible: { opacity: 1, y: 0, transition: { staggerChildren: 0.08 } },
+};
+
+const cardVariants = {
+  hidden: { opacity: 0, y: 12, scale: 0.98 },
+  visible: { opacity: 1, y: 0, scale: 1, transition: { duration: 0.4 } },
+  hover: { scale: 1.02, y: -4, transition: { type: "spring", stiffness: 240 } },
+};
+
+// Image Skeleton Loader
+const ImageWithSkeleton = ({ src, alt, width = 400, height = 240, className }) => {
+  const [loaded, setLoaded] = useState(false);
+
+  return (
+    <div className="relative w-full" style={{ height }}>
+      {!loaded && <Skeleton height={height} />}
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={loaded ? { opacity: 1 } : {}}
+        transition={{ duration: 0.4 }}
+      >
+        <Image
+          src={src}
+          alt={alt}
+          width={width}
+          height={height}
+          className={className}
+          onLoadingComplete={() => setLoaded(true)}
+          loading="lazy"
+        />
+      </motion.div>
+    </div>
+  );
+};
+
+// Blog Card (Article)
+const AnimatedCard = ({ item }) => {
+  return (
+    <motion.article
+      variants={cardVariants}
+      initial="hidden"
+      whileInView="visible"
+      whileHover="hover"
+      viewport={{ once: true }}
+      className="w-full p-4 rounded-lg bg-white shadow-sm border border-gray-200"
+    >
+      <Link href={`/blog-details/${item.slug}`} className="flex gap-4">
+        <div className="w-[180px] rounded-lg overflow-hidden">
+          <ImageWithSkeleton src={item.image} width={180} height={120} alt={item.title} />
+        </div>
+
+        <div className="flex-1">
+          <div className="flex items-center gap-3 text-gray-500 text-sm">
+            <span>{new Date(item.created_at).toLocaleDateString()}</span>
+            <span className="flex items-center gap-1">
+              <Image src={Eye} width={14} height={14} alt="view" />
+              {item.views ?? "—"}
+            </span>
+          </div>
+
+          <h3 className="text-lg font-semibold text-gray-800 mt-1">{item.title}</h3>
+          <p className="text-gray-600 mt-1">{item.short_description?.slice(0, 150)}...</p>
+
+          <div className="mt-2">
+            <span className="text-purple-600 font-semibold">Read more</span>
+          </div>
+        </div>
+      </Link>
+    </motion.article>
+  );
+};
+
+// Skeleton card
+const SkeletonCard = () => (
+  <div className="w-full p-4 rounded-lg bg-white shadow-sm border border-gray-200">
+    <div className="flex gap-4">
+      <div className="w-[180px]">
+        <Skeleton height={120} />
+      </div>
+      <div className="flex-1">
+        <Skeleton width="40%" height={18} />
+        <Skeleton width="70%" height={22} className="mt-2" />
+        <Skeleton count={2} height={16} className="mt-3" />
+      </div>
+    </div>
+  </div>
+);
 
 const Blog = () => {
-  const [initialBlogs, setInitialBlogs] = useState([]);
-  const [isLoading, setIsLoading] = useState(true);
+  const [blogs, setBlogs] = useState([]);
+  const [page, setPage] = useState(1);
+  const [loading, setLoading] = useState(true);
+  const [moreLoading, setMoreLoading] = useState(false);
+  const [hasMore, setHasMore] = useState(true);
+
+  const loadBlogs = async (pageNo = 1) => {
+    try {
+      pageNo === 1 ? setLoading(true) : setMoreLoading(true);
+
+      const res = await axiosInstance(`/get-blogs?page=${pageNo}`);
+      if (res.data.status === "success") {
+        const list = res.data[0];
+
+        setBlogs((prev) =>
+          pageNo === 1 ? list : [...prev, ...list.filter((i) => !prev.some((p) => p.id === i.id))]
+        );
+
+        if (!list.length) setHasMore(false);
+      }
+    } finally {
+      setLoading(false);
+      setMoreLoading(false);
+    }
+  };
 
   useEffect(() => {
-    const fetchInitialBlogs = async () => {
-      try {
-        setIsLoading(true);
-        const response = await axiosInstance("/get-blogs?page=1");
-        if (response.data.status === "success") {
-          setInitialBlogs(response.data[0]);
-        }
-      } catch (error) {
-        console.error("Error fetching blogs:", error);
-      } finally {
-        setIsLoading(false);
-      }
-    };
-
-    fetchInitialBlogs();
+    loadBlogs(1);
   }, []);
 
   return (
-    <div>
-      <HeroSection title="Welcome to our Blog" subtitle="Lorem Ipsum is simply dummy text of the printing and typesetting">
-       
+    <div className="w-full">
+      <motion.header
+        initial={{ opacity: 0, y: -12 }}
+        animate={{ opacity: 1, y: 0 }}
+      >
+      <HeroSection title="Welcome to our Blog" subtitle="Lorem Ipsum is simply dummy text">
 
-           <ul className="flex items-center justify-center gap-2 text-white/80 text-sm">
-          <li>
-            <Link href="/" className="text-violet-200 font-semibold hover:text-violet-300">Home</Link>
-          </li>
+        <ul className="flex justify-center gap-2 text-gray-600 mt-3">
+          <li><Link href="/" className="text-violet-200 font-semibold hover:text-violet-300">Home</Link></li>
           <li className="text-violet-200">/</li>
-          <li className="text-white font-bold">Blog</li>
+          <li className="font-bold text-white">Blog</li>
         </ul>
       </HeroSection>
-      <section className="newsGroup mt-50">
-        <div className="container">
-          <div className="row">
-            <div className="col-md-6 col-lg-9">
-              <div className="postSlider1 area1">
-                <div
-                  id="carouselExampleIndicators"
-                  className="carousel slide"
-                  data-bs-ride="true"
-                >
-                  <div className="carousel-indicators">
-                    <button
-                      type="button"
-                      data-bs-target="#carouselExampleIndicators"
-                      data-bs-slide-to="0"
-                      className="active"
-                      aria-current="true"
-                      aria-label="Slide 1"
-                    ></button>
-                    <button
-                      type="button"
-                      data-bs-target="#carouselExampleIndicators"
-                      data-bs-slide-to="1"
-                      aria-label="Slide 2"
-                    ></button>
-                    <button
-                      type="button"
-                      data-bs-target="#carouselExampleIndicators"
-                      data-bs-slide-to="2"
-                      aria-label="Slide 3"
-                    ></button>
-                  </div>
-                  <div className="carousel-inner">
-                    <div className="carousel-item active">
-                      <Image className="img" src={p1} alt="slider1" />
-                    </div>
-                    <div className="carousel-item">
-                      <Image className="img" src={p2} alt="slider2" />
-                    </div>
-                    <div className="carousel-item">
-                      <Image className="img" src={p3} alt="slider3" />
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div className="col-md-6 col-lg-3">
-              <div className="newsCard">
-                <div className="cardBox">
-                  <div className="picArea">
-                    <Image className="img" src={p1} alt="slider1" />
-                  </div>
-                  <div className="cardInfo">
-                    <p>
-                      March 20, 2024
-                      <span>
-                        {" "}
-                        <Image className="img" src={Eye} alt="eye" /> 120 View
-                      </span>
-                    </p>
-                    <h4>
-                      Bitcoins wild ride: soaring highs and gut-wrenching lows.
-                    </h4>
-                    <h5>
-                      Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-                      Dolor fuga culpa optio laboriosam dolores voluptate vitae
-                      itaque nihil illum accusantium.
-                    </h5>
-                    <p>
-                      <Link className="btn" href="/blog-details">
-                        Read More
-                      </Link>
-                    </p>{" "}
-                  </div>
-                </div>
-              </div>
-            </div>
+      
+       <BannerSection/> 
+      </motion.header>
+
+      {/* GRID LAYOUT — LEFT CONTENT + RIGHT SIDEBAR */}
+      <section className="container mx-auto px-4 grid grid-cols-1 lg:grid-cols-[1fr_320px] gap-6 my-8">
+        
+        {/* LEFT SIDE */}
+        <main>
+
+          {/* BLOG LIST */}
+          <h2 className="text-2xl font-bold text-white mb-3">New Posts</h2>
+
+          {loading ? (
+            [...Array(3)].map((_, i) => <SkeletonCard key={i} />)
+          ) : (
+            <motion.div
+              className="space-y-4"
+              variants={containerVariants}
+              initial="hidden"
+              animate="visible"
+            >
+              <AnimatePresence>
+                {blogs.map((item) => (
+                  <AnimatedCard key={item.id} item={item} />
+                ))}
+              </AnimatePresence>
+            </motion.div>
+          )}
+
+          {/* LOAD MORE */}
+          <div className="text-center mt-6">
+            {moreLoading ? (
+              <button className="px-6 py-2 bg-purple-500 text-white rounded-lg cursor-not-allowed">
+                Loading...
+              </button>
+            ) : hasMore ? (
+              <button
+                className="common-btn"
+                onClick={() => {
+                  setPage(page + 1);
+                  loadBlogs(page + 1);
+                }}
+              >
+                Load more
+              </button>
+            ) : (
+              <p className="text-gray-600">No more posts</p>
+            )}
           </div>
-          <div className="row">
-            <div className="col-md-6 col-lg-9">
-              {isLoading ? (
-                <div className="row">
-                  {Array.from({ length: 3 }).map((_, index) => (
-                    <SkeletonCard key={index} />
-                  ))}
-                </div>
-              ) : (
-              <NewsCard initialBlogs={initialBlogs} />
-              )}
-            </div>
-            <div className="col-md-6 col-lg-3">
-              <Categories />
-            </div>
-          </div>
-        </div>
+        </main>
+
+        {/* RIGHT SIDEBAR */}
+        <aside className="sticky top-6 space-y-6">
+          <Categories />
+          <RecentView />
+        </aside>
       </section>
-      <RecentView />
     </div>
   );
 };

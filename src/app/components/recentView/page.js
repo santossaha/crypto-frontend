@@ -37,7 +37,9 @@ const RecentView = () => {
     : {};
 
   if (loading) {
-    return <div>Loading recent views...</div>;
+    return (
+      <div className="text-center py-10 text-gray-700">Loading recent views...</div>
+    );
   }
 
   return (
@@ -48,40 +50,56 @@ const RecentView = () => {
         <meta name="keywords" content={metadata.keywords} />
         <link rel="canonical" href={metadata.canonical} />
       </Head>
-      <div className="newpostarea">
-        <div className="container">
-          <div className="subHeadline">
-            <h3>Recent View</h3>
-          </div>
-          <div className="post-area">
-            <div className="row">
-              {recentViews?.map((view) => (
-                <div className="col-md-6" key={view.id}>
-                  <Link
-                    href={`/blog-details/${view.slug}`}
-                    className="postcard"
-                  >
-                    <div className="info-area">
-                      <h6>
-                        <span>{view.meta_keyword.toUpperCase()}</span>
-                        {new Date().toLocaleDateString()}
-                      </h6>
-                      <h4>{view.title}</h4>
-                      <p>{view.short_description}</p>
-                    </div>
-                    <div className="pic-area">
-                      <Image
-                        className="img"
-                        src={formatImageUrl(view.image)}
-                        alt={view.title}
-                        width={500}
-                        height={300}
-                      />
-                    </div>
-                  </Link>
+
+      {/* Main Container */}
+      <div className="w-full bg-white py-10 rounded-xl">
+        <div className="max-w-6xl mx-auto px-4">
+
+          {/* Page Title */}
+          <h3 className="text-lg md:text-xl  font-semibold text-gray-800 mb-6">
+            Recent View
+          </h3>
+
+          {/* Grid Cards */}
+          <div className="grid grid-cols-1 md:grid-cols-1 gap-6">
+            {recentViews?.map((view) => (
+              <Link
+                href={`/blog-details/${view.slug}`}
+                key={view.id}
+                className="bg-white border border-gray-200 rounded-xl shadow-sm p-2 hover:shadow-lg transition-all duration-300"
+              >
+                {/* Image */}
+                <div className="rounded-lg overflow-hidden">
+                  <Image
+                    src={formatImageUrl(view.image)}
+                    alt={view.title}
+                    width={500}
+                    height={300}
+                    className="w-full h-auto rounded-lg object-cover"
+                  />
+                  
                 </div>
-              ))}
-            </div>
+                {/* Info */}
+                <div className="mb-4">                 
+
+                  <h4 className="text-xl font-semibold text-gray-800 mb-2">
+                    {view.title}
+                  </h4>
+
+                  <h6 className="text-sm text-gray-500 flex items-center gap-2">
+                    {/* <span className="text-gray-800 font-medium">
+                      {view.meta_keyword?.toUpperCase()}
+                    </span> */}
+                    {new Date().toLocaleDateString()}
+                  </h6>
+                  <p className="text-gray-600 text-sm mt-2">
+                    {view.short_description}
+                  </p>
+                </div>
+
+                
+              </Link>
+            ))}
           </div>
         </div>
       </div>
