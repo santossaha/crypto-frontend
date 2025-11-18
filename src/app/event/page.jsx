@@ -153,7 +153,8 @@ const Page = () => {
                   transition={{ type: "tween", duration: 0.4 }}
                   className="relative rounded-2xl overflow-hidden shadow-md hover:shadow-xl cursor-pointer h-80"
                 >
-                  <Link href={`/event-details/${event.id}`} className="block absolute inset-0 z-0" />
+                  <Link href={`/event-details/${event.slug}`} className="block absolute inset-0 z-30" />
+                  
 
                   {/* Background Image */}
                   <div className="w-full h-full relative">

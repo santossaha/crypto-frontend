@@ -117,7 +117,7 @@ const SingleBlogDetail = async ({ params }) => {
 
       {/* Main Content Section with Suspense */}
       <Suspense fallback={<ContentSkeleton />}>
-      <div className="bg-gray-50 py-12">
+      <div className=" py-12">
         <div className="container mx-auto px-4">
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
             {/* Left Column - Blog Content */}
@@ -127,23 +127,23 @@ const SingleBlogDetail = async ({ params }) => {
               <div className="bg-white rounded-xl shadow-md p-8 mb-8">
                  
 
-      {/* Hero Image */}
-      <div className="relative">
-        <div className="relative w-full h-96 bg-gray-200 rounded-xl mb-4 overflow-hidden">
-          <Image
-            src={formatImageUrl(blogDetails.image)}
-            alt={blogDetails.title}
-            fill
-            sizes="100vw"
-            style={{ objectFit: "cover" }}
-            priority
-          />
-          {/* Category Badge */}
-          <div className="absolute top-6 left-6 bg-gradient-to-r from-purple-400 to-orange-400 text-white px-4 py-2 rounded-full text-sm font-semibold">
-            {blogDetails.type || "Blog"}
-          </div>
-        </div>
-      </div>
+              {/* Hero Image */}
+              <div className="relative">
+                <div className="relative w-full h-96 bg-gray-200 rounded-xl mb-4 overflow-hidden">
+                  <Image
+                    src={formatImageUrl(blogDetails.image)}
+                    alt={blogDetails.title}
+                    fill
+                    sizes="100vw"
+                    style={{ objectFit: "cover" }}
+                    priority
+                  />
+                  {/* Category Badge */}
+                  <div className="absolute top-6 left-6 bg-gradient-to-r from-purple-400 to-orange-400 text-white px-4 py-2 rounded-full text-sm font-semibold">
+                    {blogDetails.type || "Blog"}
+                  </div>
+                </div>
+              </div>
                 <h2 className="text-3xl font-bold text-gray-900 mb-4">
                   {blogDetails.title}
                 </h2>
