@@ -14,6 +14,7 @@ const Page = () => {
   const [eventType, setEventType] = useState("Upcoming");
   const [location, setLocation] = useState("India");
   const [openModal, setOpenModal] = useState(false);
+const [previewImage, setPreviewImage] = useState(null);
 
   // 🚀 Pagination States
   const [currentPage, setCurrentPage] = useState(1);
@@ -132,8 +133,18 @@ const Page = () => {
         <div className="container mx-auto px-4">
 
           {/* Heading */}
-          <div className="subHeadline mb-6">
+          <div className="subHeadline mb-6 flex justify-between">
             <h3 className="text-2xl font-bold text-gray-100">Events List</h3>
+            {/* Add Event Button */}
+          
+              <button
+                onClick={() => setOpenModal(true)}
+                className="px-5 py-2 bg-gradient-to-r from-purple-600 to-orange-500 text-white font-semibold rounded-lg shadow-md hover:opacity-90 transition"
+              >
+                + Add Event
+              </button>
+            
+
           </div>
 
           {/* Event Cards Grid (search form removed per request) */}
@@ -264,6 +275,140 @@ const Page = () => {
 
           </div>
         </div>
+
+        {/* Add Event Modal */}
+{openModal && (
+  <div className="fixed inset-0 bg-black/40 backdrop-blur-sm flex items-center justify-center z-50">
+    
+    <div className="bg-white rounded-2xl shadow-xl w-full max-w-lg max-h-[85vh] overflow-y-auto p-7 relative">
+
+      {/* Close Button */}
+      <button
+        onClick={() => setOpenModal(false)}
+        className="absolute top-3 right-3 text-gray-600 hover:text-black text-xl"
+      >
+        ✕
+      </button>
+
+      <h2 className="text-xl font-bold mb-5 text-gray-800">Add New Event</h2>
+
+      {/* Event Form */}
+      <form className="space-y-4">
+
+        {/* Image Upload */}
+        {/* Image Upload (Modern UI) */}
+<div>
+  <label className="text-sm font-medium text-gray-700">Event Image</label>
+
+  <div className="mt-2">
+    <label
+      htmlFor="imageUpload"
+      className="
+        flex flex-col items-center justify-center 
+        border-2 border-dashed border-gray-300 
+        bg-gray-50 hover:bg-gray-100
+        rounded-xl p-6 cursor-pointer 
+        transition-all
+      "
+    >
+      {/* Preview */}
+      {previewImage ? (
+        <img
+          src={previewImage}
+          alt="Preview"
+          className="w-full h-48 object-cover rounded-lg shadow"
+        />
+      ) : (
+        <div className="flex flex-col items-center text-gray-500">
+          <div className="w-14 h-14 bg-white border shadow rounded-full flex items-center justify-center mb-3">
+            <span className="text-3xl">📷</span>
+          </div>
+          <p className="text-sm font-semibold">Click to upload or drag & drop</p>
+          <p className="text-xs text-gray-400 mt-1">PNG, JPG, JPEG up to 5MB</p>
+        </div>
+      )}
+
+      <input
+        type="file"
+        id="imageUpload"
+        accept="image/*"
+        className="hidden"
+        onChange={(e) => {
+          const file = e.target.files[0];
+          if (file) {
+            const url = URL.createObjectURL(file);
+            setPreviewImage(url);
+          }
+        }}
+      />
+    </label>
+  </div>
+</div>
+
+
+        {/* Title */}
+        <div>
+          <label className="text-sm font-medium text-gray-700">Title</label>
+          <input
+            type="text"
+            className="w-full px-3 py-2 border rounded-lg mt-1 focus:ring-2 focus:ring-purple-500"
+            placeholder="Enter event title"
+          />
+        </div>
+
+        {/* Date */}
+        <div>
+          <label className="text-sm font-medium text-gray-700">Date</label>
+          <input
+            type="date"
+            className="w-full px-3 py-2 border rounded-lg mt-1 focus:ring-2 focus:ring-purple-500"
+          />
+        </div>
+
+        {/* Venue */}
+        <div>
+          <label className="text-sm font-medium text-gray-700">Venue</label>
+          <input
+            type="text"
+            className="w-full px-3 py-2 border rounded-lg mt-1 focus:ring-2 focus:ring-purple-500"
+            placeholder="Enter venue"
+          />
+        </div>
+
+        {/* Location */}
+        <div>
+          <label className="text-sm font-medium text-gray-700">Location</label>
+          <input
+            type="text"
+            className="w-full px-3 py-2 border rounded-lg mt-1 focus:ring-2 focus:ring-purple-500"
+            placeholder="Enter location"
+          />
+        </div>
+
+        {/* Description */}
+        <div>
+          <label className="text-sm font-medium text-gray-700">Description</label>
+          <textarea
+            rows="3"
+            className="w-full px-3 py-2 border rounded-lg mt-1 focus:ring-2 focus:ring-purple-500"
+            placeholder="Enter description"
+          ></textarea>
+        </div>
+
+        {/* Submit */}
+        <button
+          type="submit"
+          className="w-full py-2 bg-gradient-to-r from-purple-600 to-orange-500 text-white font-semibold rounded-lg shadow-md hover:opacity-90 transition"
+        >
+          Add Event
+        </button>
+
+      </form>
+    </div>
+  </div>
+)}
+
+
       </div>
   );
 };
