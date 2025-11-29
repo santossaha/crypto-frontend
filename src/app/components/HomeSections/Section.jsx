@@ -4,6 +4,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { motion } from "framer-motion";
 import { formatImageUrl } from "../../Helper/imageUtils";
+import formatDate from "../../Helper/helperUtils";
 
 function truncateWords(text, numWords) {
   if (!text) return "";
@@ -92,7 +93,7 @@ const Section = ({ title, items, loading, categories, color, animationClass, typ
             ))
           : (items || []).map((item, idx) => {
               // Determine detail page path
-              console.log(item, 'item');
+              
               let detailPath = "/";
               if (type === "news") detailPath = `/news/${item.slug}`;
               else if (type === "blog") detailPath = `/blog/${item.slug}`;
@@ -101,9 +102,8 @@ const Section = ({ title, items, loading, categories, color, animationClass, typ
               // Description field
               let desc = item.short_description || item.description || item.content;
               
-              // Date formatting
-              let date = item.created_at || item.date || item.publishedAt;
-              let formattedDate = date ? new Date(date).toLocaleDateString(undefined, { year: 'numeric', month: 'long', day: 'numeric' }) : "";
+              // Date formatting (use reusable helper)
+              let formattedDate = formatDate(item.created_at);
               
               return (
                 <motion.article 

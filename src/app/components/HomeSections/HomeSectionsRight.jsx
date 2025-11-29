@@ -5,16 +5,17 @@ import Image from "next/image";
 import { motion } from "framer-motion";
 import CategoryPanel from "./CategoryPanel";
 import { formatImageUrl } from "../../Helper/imageUtils";
+import formatDate from "@/app/Helper/helperUtils";
 
 const SmallPost = ({ item }) => {
   const date = item?.created_at || item?.date || item?.publishedAt;
-  const formatted = date ? new Date(date).toLocaleDateString() : "";
+  const formatted = formatDate(item.created_at);
   return (
     <motion.div
       whileHover={{ y: -4 }}
       transition={{ type: "tween", duration: 0.5 }}
     >
-      <Link href={`/news/${item.id || item.slug}`} className="flex items-center gap-3 hover:bg-gray-50 p-2 rounded-md">
+      <Link href={`/blog/${item.slug}`} className="flex items-center gap-3 hover:bg-gray-50 p-2 rounded-md">
         <div className="w-12 h-12 flex-shrink-0 rounded-md overflow-hidden bg-gray-100">
           {item.image ? (
             <Image src={formatImageUrl(item.image)} alt={item.title} width={48} height={48} style={{ objectFit: 'cover' }} />
@@ -64,7 +65,7 @@ const skeletonVariants = {
 };
 
 const HomeSectionsRight = ({ categories = {}, loading, news = [], blogs = [], events = [] }) => {
-  const latest = (news && news.length) ? news.slice(0,3) : (blogs && blogs.length ? blogs.slice(0,3) : events.slice(0,3));
+  const latest = blogs && blogs.length ? blogs.slice(0,3) : [];
 
   // Flatten categories into a single array for the pills
   const flattened = Object.values(categories || {}).flat() || [];

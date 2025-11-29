@@ -80,6 +80,7 @@ const ContentSkeleton = () => (
 const SingleBlogDetail = async ({ params }) => {
   const slug = (await params).singleBlogDetail;
   const blogDetails = await getBlogDetails(slug);
+ console.log(blogDetails);
 
   if (!blogDetails) {
     return (
