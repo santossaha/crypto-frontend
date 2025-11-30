@@ -66,10 +66,12 @@ const skeletonVariants = {
 
 const HomeSectionsRight = ({ categories = {}, loading, news = [], blogs = [], events = [] }) => {
   const latest = blogs && blogs.length ? blogs.slice(0,3) : [];
-
+  
   // Flatten categories into a single array for the pills
-  const flattened = Object.values(categories || {}).flat() || [];
-  const popularTags = flattened.slice(0,8).map(c => c.slug || c.name).filter(Boolean);
+  //const flattened = Object.values(categories || {}).flat() || [];
+  const blogCategory =  categories.blog || [];
+  const newsCategory =  categories.news || [];
+  //const popularTags = flattened.slice(0,8).map(c => c.slug || c.name).filter(Boolean);
 
   return (
     <motion.aside 
@@ -114,16 +116,29 @@ const HomeSectionsRight = ({ categories = {}, loading, news = [], blogs = [], ev
           </div>
         ) : (
           <motion.div className="flex flex-wrap gap-2">
-            {flattened.slice(0,12).map((cat, i) => (
+            {blogCategory.slice(0,12).map((cat, i) => (
               <motion.div
                 key={cat.id || i}
               >
                 <Link href={`/category/${cat.slug}`} className="px-3 py-1 bg-gray-100 text-sm rounded-full text-gray-700 inline-block">{cat.name}</Link>
-              </motion.div>
+              </motion.div> 
             ))}
+
+            {newsCategory.slice(0,12).map((cat, i) => (
+              <motion.div
+                key={cat.id || i}
+              >
+                <Link href={`/category/${cat.slug}`} className="px-3 py-1 bg-gray-100 text-sm rounded-full text-gray-700 inline-block">{cat.name}</Link>
+              </motion.div> 
+            ))}
+
           </motion.div>
+
+          
         )}
       </motion.div>
+
+
 
 
       {/* Social Media */}
