@@ -13,15 +13,17 @@ export const useHomeData = () => {
     console.log("Fetching from API:", process.env.NEXT_PUBLIC_API_URL);
     axiosInstance("/get-latest-date")
       .then((res) => {
-        console.log("API Response:", res.data);
+        console.log('working....');
+
+        console.log("API  Response: ", res.data);
         const data = res.data;
         setNews(data.latest_news || []);
         setBlogs(data.latest_blog || []);
-        setEvents(data.latest_event || []);
+      //  setEvents(data.latest_event || []);
         setCategories({
           news: data.news_categories || [],
           blog: data.blog_categories || [],
-          event: data.event_categories || [],
+         // event: data.event_categories || [],
         });
       })
       .catch((error) => {
