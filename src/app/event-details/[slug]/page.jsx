@@ -23,7 +23,7 @@ export default function Page() {
         <ul className="flex justify-center gap-2 text-gray-600 mt-3">
           <li><Link href="/" className="text-violet-200 font-semibold hover:text-violet-300">Home</Link></li>
           <li className="text-violet-200">/</li>
-          <li className="font-bold text-white">Blog</li>
+          <li className="font-bold text-white">Event</li>
         </ul>
       </HeroSection>
 
