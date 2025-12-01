@@ -9,11 +9,6 @@ import { formatImageUrl } from "../Helper/imageUtils";
 import Categories from "../components/categories/page";
 import RecentView from "../components/recentView/page";
 import Skeleton from "react-loading-skeleton";
-
-import p1 from "../assets/images/p-1.jpg";
-import p2 from "../assets/images/e-1.jpg";
-import p3 from "../assets/images/e-2.jpg";
-import Eye from "../assets/images/eye.svg";
 import HeroSection from "../components/hero/HeroSection";
 import BannerSection from "../components/✅ BannerSection";
 
@@ -58,6 +53,10 @@ const ImageWithSkeleton = ({ src, alt, width = 400, height = 240, className }) =
 
 // Blog Card (Article) - card-style with image on top to match event listing
 const AnimatedCard = ({ item }) => {
+
+const formattedDate = item.created_at
+? new Date(item.created_at).toLocaleDateString()
+: null;
   return (
     <motion.article
       variants={cardVariants}
@@ -80,19 +79,8 @@ const AnimatedCard = ({ item }) => {
         </div>
 
         <div className="p-4">
-          <div className="text-xs text-gray-500 mb-2 flex items-center justify-between">
-            {item.created_at ? (
-              <span>{new Date(item.created_at).toLocaleDateString()}</span>
-            ) : (
-              <span className="inline-block h-3 w-24 bg-gray-200 rounded" />
-            )}
-
-            {typeof item.views !== 'undefined' ? (
-              <span>{item.views} views</span>
-            ) : (
-              <span className="inline-block h-3 w-16 bg-gray-200 rounded" />
-            )}
-          </div>
+          {/* DATE + VIEWS — SAME UI AS SECTION COMPONENT */} 
+          <div className="text-xs text-gray-500 mb-2 flex items-center justify-between"> <span>{formattedDate || "June 25, 2025"}</span> <span>{item.views ?? 0} views</span> </div>
 
           {item.title ? (
             <h3 className="text-lg font-semibold text-gray-900 mb-2 line-clamp-2">{item.title}</h3>
@@ -109,13 +97,10 @@ const AnimatedCard = ({ item }) => {
             </div>
           )}
 
-          <div className="flex items-center justify-between mt-3">
-            <span className="text-purple-600 font-medium">Read More →</span>
-            <div className="flex -space-x-2">
-              {[1,2,3].map(i => (
-                <div key={i} className="w-6 h-6 bg-gradient-to-r from-purple-400 to-pink-400 rounded-full border-2 border-white" />
-              ))}
-            </div>
+          <div className="flex items-center justify-start mt-3">
+            <span className="inline-block text-sm text-indigo-600 font-medium hover:text-indigo-700">Read More →</span>
+            
+           
           </div>
         </div>
       </Link>
@@ -182,12 +167,6 @@ const Blog = () => {
           <li><Link href="/" className="text-violet-200 font-semibold hover:text-violet-300">Home</Link></li>
           <li className="text-violet-200">/</li>
           <li className="font-bold text-white">Blog</li>
-          {blogs.length > 0 && (
-            <>
-              <li className="text-violet-200">/</li>
-              <li className="text-gray-300">{blogs.length} Posts</li>
-            </>
-          )}
         </ul>
       </HeroSection>
       

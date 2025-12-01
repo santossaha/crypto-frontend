@@ -15,10 +15,19 @@ const SmallPost = ({ item }) => {
       whileHover={{ y: -4 }}
       transition={{ type: "tween", duration: 0.5 }}
     >
-      <Link href={`/blog/${item.slug}`} className="flex items-center gap-3 hover:bg-gray-50 p-2 rounded-md">
+      <Link
+        href={`/blog/${item.slug}`}
+        className="flex items-center gap-3 hover:bg-gray-50 p-2 rounded-md"
+      >
         <div className="w-12 h-12 flex-shrink-0 rounded-md overflow-hidden bg-gray-100">
           {item.image ? (
-            <Image src={formatImageUrl(item.image)} alt={item.title} width={48} height={48} style={{ objectFit: 'cover' }} />
+            <Image
+              src={formatImageUrl(item.image)}
+              alt={item.title}
+              width={48}
+              height={48}
+              style={{ objectFit: "cover" }}
+            />
           ) : null}
         </div>
         <div className="flex-1">
@@ -64,17 +73,23 @@ const skeletonVariants = {
   },
 };
 
-const HomeSectionsRight = ({ categories = {}, loading, news = [], blogs = [], events = [] }) => {
-  const latest = blogs && blogs.length ? blogs.slice(0,3) : [];
-  
+const HomeSectionsRight = ({
+  categories = {},
+  loading,
+  news = [],
+  blogs = [],
+  events = [],
+}) => {
+  const latest = blogs && blogs.length ? blogs.slice(0, 3) : [];
+
   // Flatten categories into a single array for the pills
   //const flattened = Object.values(categories || {}).flat() || [];
-  const blogCategory =  categories.blog || [];
-  const newsCategory =  categories.news || [];
+  const blogCategory = categories.blog || [];
+  const newsCategory = categories.news || [];
   //const popularTags = flattened.slice(0,8).map(c => c.slug || c.name).filter(Boolean);
 
   return (
-    <motion.aside 
+    <motion.aside
       className="sticky top-24 space-y-6"
       variants={containerVariants}
       initial="hidden"
@@ -82,12 +97,20 @@ const HomeSectionsRight = ({ categories = {}, loading, news = [], blogs = [], ev
       viewport={{ once: false, amount: 0.2 }}
     >
       {/* Latest Posts */}
-      <motion.div variants={itemVariants} className="bg-white rounded-xl shadow-sm p-4 hover:shadow-md transition">
+      <motion.div
+        variants={itemVariants}
+        className="bg-white rounded-xl shadow-sm p-4 hover:shadow-md transition"
+      >
         <h4 className="text-lg font-semibold mb-3">Latest Post</h4>
         {loading ? (
           <div className="space-y-3">
-            {Array.from({ length: 3 }).map((_,i) => (
-              <motion.div key={i} animate="loading" variants={skeletonVariants} className="flex items-center gap-3">
+            {Array.from({ length: 3 }).map((_, i) => (
+              <motion.div
+                key={i}
+                animate="loading"
+                variants={skeletonVariants}
+                className="flex items-center gap-3"
+              >
                 <motion.div className="w-12 h-12 bg-gray-200 rounded-md" />
                 <div className="flex-1 space-y-2">
                   <motion.div className="h-3 bg-gray-200 rounded w-3/4" />
@@ -106,43 +129,95 @@ const HomeSectionsRight = ({ categories = {}, loading, news = [], blogs = [], ev
       </motion.div>
 
       {/* Categories */}
-      <motion.div variants={itemVariants} className="bg-white rounded-xl shadow-sm p-4 hover:shadow-md transition">
+
+      {/* Categories */}
+      <motion.div
+        variants={itemVariants}
+        className="bg-white rounded-xl shadow-sm p-4 hover:shadow-md transition"
+      >
         <h4 className="text-lg font-semibold mb-3">Categories</h4>
+
         {loading ? (
           <div className="flex flex-wrap gap-2">
-            {Array.from({ length: 6 }).map((_,i) => (
-              <motion.div key={i} animate="loading" variants={skeletonVariants} className="h-8 bg-gray-200 rounded-full px-3 w-20" />
-            ))}
+            {Array.from({ length: 6 }).map((_, i) => (
+              <motion.div
+                key={i}
+                animate="loading"
+                variants={skeletonVariants}
+                className="h-8 bg-gray-200 rounded-full px-3 w-20"
+              />
+            ))}{" "}
           </div>
         ) : (
-          <motion.div className="flex flex-wrap gap-2">
-            {blogCategory.slice(0,12).map((cat, i) => (
-              <motion.div
-                key={cat.id || i}
-              >
-                <Link href={`/category/${cat.slug}`} className="px-3 py-1 bg-gray-100 text-sm rounded-full text-gray-700 inline-block">{cat.name}</Link>
-              </motion.div> 
-            ))}
+          <motion.div className="space-y-4">
+            {/* NEWS CATEGORY */}
+            {newsCategory.length > 0 && (
+              <div>
+                <h5 className="font-semibold text-sm mb-2 text-gray-700">
+                  News
+                </h5>
+                <div className="flex flex-wrap gap-2">
+                  {newsCategory.map((cat, i) => (
+                    <Link
+                      key={cat.id || i}
+                      href={`/category/${cat.slug}`}
+                      className="px-3 py-1 bg-gray-100 text-sm rounded-full text-gray-700"
+                    >
+                      {cat.name}
+                    </Link>
+                  ))}
+                </div>
+              </div>
+            )}
 
-            {newsCategory.slice(0,12).map((cat, i) => (
-              <motion.div
-                key={cat.id || i}
-              >
-                <Link href={`/category/${cat.slug}`} className="px-3 py-1 bg-gray-100 text-sm rounded-full text-gray-700 inline-block">{cat.name}</Link>
-              </motion.div> 
-            ))}
+            {/* BLOG CATEGORY */}
+            {blogCategory.length > 0 && (
+              <div>
+                <h5 className="font-semibold text-sm mb-2 text-gray-700">
+                  Blog
+                </h5>
+                <div className="flex flex-wrap gap-2">
+                  {blogCategory.map((cat, i) => (
+                    <Link
+                      key={cat.id || i}
+                      href={`/category/${cat.slug}`}
+                      className="px-3 py-1 bg-gray-100 text-sm rounded-full text-gray-700"
+                    >
+                      {cat.name}
+                    </Link>
+                  ))}
+                </div>
+              </div>
+            )}
 
+            {/* EVENT CATEGORY (ADD THIS IF EXISTS) */}
+            {categories.event && categories.event.length > 0 && (
+              <div>
+                <h5 className="font-semibold text-sm mb-2 text-gray-700">
+                  Events
+                </h5>
+                <div className="flex flex-wrap gap-2">
+                  {categories.event.map((cat, i) => (
+                    <Link
+                      key={cat.id || i}
+                      href={`/category/${cat.slug}`}
+                      className="px-3 py-1 bg-gray-100 text-sm rounded-full text-gray-700"
+                    >
+                      {cat.name}
+                    </Link>
+                  ))}
+                </div>
+              </div>
+            )}
           </motion.div>
-
-          
         )}
       </motion.div>
 
-
-
-
       {/* Social Media */}
-      <motion.div variants={itemVariants} className="bg-white rounded-xl shadow-sm p-4 hover:shadow-md transition">
+      <motion.div
+        variants={itemVariants}
+        className="bg-white rounded-xl shadow-sm p-4 hover:shadow-md transition"
+      >
         <h4 className="text-lg font-semibold mb-3">Social Media</h4>
         <div className="flex items-center gap-3">
           {[
@@ -151,9 +226,9 @@ const HomeSectionsRight = ({ categories = {}, loading, news = [], blogs = [], ev
             { href: "#", bg: "bg-sky-500", label: "in" },
             { href: "#", bg: "bg-rose-500", label: "t" },
           ].map((social, i) => (
-            <motion.a 
+            <motion.a
               key={i}
-              href={social.href} 
+              href={social.href}
               className={`w-8 h-8 rounded-full ${social.bg} flex items-center justify-center text-white text-xs font-semibold`}
               whileHover={{ scale: 1.1, y: -4 }}
               transition={{ type: "tween", duration: 0.4 }}

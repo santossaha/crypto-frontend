@@ -107,14 +107,14 @@ const Categories = () => {
               <Link
                 href={`/${cat.slug}`}
                 className="
-            px-4 py-2
-            bg-gray-100 
-            text-gray-700 
-            rounded-full 
-            text-sm
-            hover:bg-violet-100 
-            transition 
-          ">
+                px-4 py-2
+                bg-gray-100 
+                text-gray-700 
+                rounded-full 
+                text-sm
+                hover:bg-violet-100 
+                transition 
+              ">
                 {cat.name}
               </Link>
             </motion.li>
