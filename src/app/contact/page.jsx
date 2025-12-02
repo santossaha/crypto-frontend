@@ -220,7 +220,7 @@ const Contact = () => {
               </div>
 
               {/* Button */}
-              <button className="common-btn w-full">
+              <button className="w-full px-5 py-2 bg-gradient-to-r from-purple-600 to-orange-500 text-white font-semibold rounded-lg shadow-md hover:opacity-90 transition">
                 Send Message
               </button>
 

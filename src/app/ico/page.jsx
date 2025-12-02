@@ -95,7 +95,7 @@ const Page = () => {
                 <option value="2">ICO / IDO 2</option>
               </select>
 
-              <button className="w-full common-btn">Search</button>
+              <button className="px-5 py-2 bg-gradient-to-r from-purple-600 to-orange-500 text-white font-semibold rounded-lg shadow-md hover:opacity-90 transition">Search</button>
             </div>
 
             {/* TABLE SECTION */}

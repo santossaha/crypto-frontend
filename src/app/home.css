@@ -1,4 +1,25 @@
 /* home css */
+.or-boredr{
+    position: relative;
+}
+.or-boredr::after{
+    position: absolute;
+    top: 50%;
+    right: 0;
+    content: ' ';
+    width: 45%;
+    height: 1px;
+    background-color: #ccc;
+}
+.or-boredr::before{
+    position: absolute;
+    top: 50%;
+    left: 0px;
+    content: ' ';
+    width: 45%;
+    height: 1px;
+    background-color: #ccc;
+}
 .bannerArea {
     position: relative;
     margin-top: 8px;

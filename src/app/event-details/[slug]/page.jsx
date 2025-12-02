@@ -7,8 +7,9 @@ import banner from "../../assets/images/banner-1.jpg";
 import banner2 from "../../assets/images/banner-2.jpg";
 import banner3 from "../../assets/images/banner-3.jpg";
 import { MdShareLocation, MdUpdate, MdAttachEmail    } from "react-icons/md";
-import { FaPhoneVolume } from "react-icons/fa6";
+import { FaPhoneVolume, FaSquareFacebook  } from "react-icons/fa6";
 import { FaGlobeEurope } from "react-icons/fa";
+import { BsInstagram, BsLinkedin  } from "react-icons/bs";
 
 
 
@@ -37,19 +38,23 @@ export default function Page() {
           <div className="p-8 border-t md:border-t-0 md:border-l   flex flex-col justify-start">
 
             <h2 className="text-3xl font-bold">Dinner Party</h2>
+            <p>We are hosting a dinner party just for our best clients. We are excited to see you there.
+</p>
 
             <div className="mt-6 space-y-3 text-gray-700">
               <div className="flex gap-2 items-center">
-                <span><MdUpdate className="text-orange-500 text-xl"/></span> <span className="text-sm font-bold text-black">Date and Time</span>
-              </div>
-              <div className="flex gap-10 items-center text-sm text-gray-500">
-                <span className="">Saturday, Feb 23 2019</span><span> 5:00 PM – 11:00 PM</span>
+                <span className="p-2 bg-violet-100 rounded-xl"><MdUpdate className="text-purple-400 text-xl"/></span>
+                <span className="text-sm font-semibold text-gray-700">Saturday, Feb 23 2019</span><span> 5:00 PM – 11:00 PM</span>
               </div>
               <div className="flex gap-2 items-center">
-                <span><MdShareLocation  className="text-orange-500 text-xl"/></span> <span className="text-sm font-bold text-black"> Location</span>
+                <span className="p-2 bg-violet-100 rounded-xl"><MdShareLocation  className="text-purple-400 text-xl"/></span>
+                <span className="text-sm font-semibold text-gray-700"> 5323 Gilroy St Gilroy, CA</span>
               </div>
+              <h4 className="text-md font-bold mt-3">Share With Friends :</h4>
               <div className="flex gap-2 items-center">
-                <span className="text-sm text-gray-500"> 5323 Gilroy St Gilroy, CA</span>
+               <span className="p-2 bg-violet-400 rounded-xl"><BsInstagram  className="text-white text-md"/></span>
+               <span className="p-2 bg-violet-400 rounded-xl"><FaSquareFacebook  className="text-white text-md"/></span>
+               <span className="p-2 bg-violet-400 rounded-xl"><BsLinkedin  className="text-white text-md"/></span>
               </div>
             </div>
 
@@ -61,12 +66,16 @@ export default function Page() {
 
             <h3 className="text-xl font-bold mb-3">Subscribe Now</h3>
 
-            <button className="px-5 py-2 bg-orange-500 text-white font-semibold rounded-lg mb-4">
-              Add to Calendar
-            </button>
-
-            <p className="text-gray-600 text-sm mb-3">
-              Scan QR with your phone and you will be subscribed automatically.
+            <div className="flex items-center justify-between gap-10">
+              <h4 className="font-bold">Click to Add your Calendra</h4>
+                <button className="px-4 py-2 bg-gradient-to-r from-purple-600 to-orange-500 text-white font-semibold rounded-lg shadow-md hover:opacity-90 transition">
+                Add to Calendar
+              </button>
+            </div>
+            <div className="text-center py-3 or-boredr"><span>OR</span></div>
+           <div className="flex items-center justify-between gap-7">
+             <p className="text-gray-600 text-sm mb-3">
+              Scan QR with your phone <br/> and you will be subscribed <br/> automatically.
             </p>
 
             <div className="flex justify-center">
@@ -76,6 +85,7 @@ export default function Page() {
                 alt="QR"
               />
             </div>
+           </div>
           </div>
         </div>
       </div>
@@ -156,14 +166,13 @@ export default function Page() {
               </div>
             </div>
 
-            <p className="text-sm font-bold text-black mb-1 flex items-center gap-2"> <span><FaPhoneVolume  className="text-orange-500 text-xl"/></span> Phone Number</p>
-            <p className="text-gray-500 mb-3">(415)444-3434</p>
+            <p className="text-sm font-semibold text-gray-700 mb-3 flex items-center gap-2"> <span className="p-2 bg-violet-100 rounded-xl"><FaPhoneVolume  className="text-purple-400  text-lg"/></span> (415)444-3434</p>
+           
+            <p className="text-sm font-semibold text-gray-700 mb-3 flex items-center gap-2"><span className="p-2 bg-violet-100 rounded-xl"><MdAttachEmail  className="text-purple-400 text-lg"/></span> eino_runolf_sdottir@yahoo.com</p>
+            
 
-            <p className="text-sm font-bold text-black mb-1 flex items-center gap-2"><span><MdAttachEmail  className="text-orange-500 text-xl"/></span> Email</p>
-            <p className="text-gray-500 mb-3">eino_runolf_sdottir@yahoo.com</p>
-
-            <p className="text-sm font-bold text-black mb-1 flex items-center gap-2"><span><FaGlobeEurope className="text-orange-500 text-xl"/></span> Website</p>
-            <p className="text-gray-500">www.hilltopgilroy.com</p>
+            <p className="text-sm font-semibold text-gray-700 mb-3 flex items-center gap-2"><span className="p-2 bg-violet-100 rounded-xl"><FaGlobeEurope className="text-purple-400 text-lg"/></span> www.hilltopgilroy.com</p>
+            
           </div>
 
         </div>

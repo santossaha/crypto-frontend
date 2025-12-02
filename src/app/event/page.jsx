@@ -8,6 +8,10 @@ import axiosInstance from "../Helper/Helper";
 import { formatImageUrl } from "../Helper/imageUtils";
 import HeroSection from "../components/hero/HeroSection";
 
+import { FaCalendarDay } from "react-icons/fa";
+
+import { FaPhoneVolume } from "react-icons/fa6";
+import { FaGlobeEurope } from "react-icons/fa";
 const Page = () => {
   const [events, setEvents] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -198,7 +202,7 @@ const [previewImage, setPreviewImage] = useState(null);
 
                       <div className="flex items-center gap-4 text-sm text-gray-600">
                         <div className="flex items-center gap-2">
-                          <span>📅</span>
+                          <span className="text-purple-400"><FaCalendarDay/></span>
                           <span>{new Date(event.start_date).toLocaleDateString()}</span>
                         </div>
 
@@ -263,7 +267,7 @@ const [previewImage, setPreviewImage] = useState(null);
                   className={`px-4 py-2 rounded-lg border transition ${
                     currentPage === totalPages
                       ? "text-gray-100 cursor-not-allowed border-gray-200"
-                      : "bg-gradient-to-r from-purple-400 to-orange-400 text-gray-100 hover:bg-gray-100 hover:text-gray-200"
+                      : "px-5 py-2 bg-gradient-to-r from-purple-600 to-orange-500 text-white font-semibold rounded-lg shadow-md hover:opacity-90 transition"
                   }`}
                 >
                   Next
