@@ -19,7 +19,7 @@ export default function Page() {
     <div className="bg-gray-100 min-h-screen pb-20">
 
       {/* ---------- TOP HERO ---------- */}
-      <HeroSection title="Welcome to our Blog" subtitle="Lorem Ipsum is simply dummy text">
+      <HeroSection title="Welcome to our Events" subtitle="Lorem Ipsum is simply dummy text">
 
         <ul className="flex justify-center gap-2 text-gray-600 mt-3">
           <li><Link href="/" className="text-violet-200 font-semibold hover:text-violet-300">Home</Link></li>
