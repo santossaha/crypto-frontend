@@ -16,7 +16,7 @@ import { BsInstagram, BsLinkedin  } from "react-icons/bs";
 
 export default function Page() {
   return (
-    <div className="bg-gray-100 min-h-screen pb-20">
+    <div className=" min-h-screen pb-20">
 
       {/* ---------- TOP HERO ---------- */}
       <HeroSection title="Welcome to our Events" subtitle="Lorem Ipsum is simply dummy text">
@@ -39,7 +39,7 @@ export default function Page() {
 
             <h2 className="text-3xl font-bold">Dinner Party</h2>
             <p>We are hosting a dinner party just for our best clients. We are excited to see you there.
-</p>
+            </p>
 
             <div className="mt-6 space-y-3 text-gray-700">
               <div className="flex gap-2 items-center">

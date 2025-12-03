@@ -36,7 +36,7 @@ const BannerSection = () => {
 
   return (
     <section className="py-10">
-      <div className="container mx-auto px-4">
+      <div className="container mx-auto">
         <div className="flex flex-col lg:flex-row gap-6">
           {/* LEFT SIDE - IMAGE SLIDER (70%) */}
           <div className="w-full lg:w-[70%]">

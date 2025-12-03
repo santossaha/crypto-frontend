@@ -51,13 +51,13 @@ const Page = () => {
       {/* Hero inserted directly after header */}
   
       {/* Crypto ticker / slider placed after hero */}
-      <div className="container mx-auto px-4">
+      <div className="container mx-auto">
         <div className="bg-gradient-to-r from-[#1b1740] via-[#221a57] to-[#071129] text-white rounded-xl px-4 py-3">
           <CryptoSlider />
         </div>
       </div>
       <div className="bannerArea">
-        <div className="container mx-auto px-4">
+        <div className="container mx-auto">
           <BannerSection />
         </div>
       </div>
