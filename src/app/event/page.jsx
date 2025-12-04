@@ -7,8 +7,7 @@ import { motion } from "framer-motion";
 import axiosInstance from "../Helper/Helper";
 import { formatImageUrl } from "../Helper/imageUtils";
 import HeroSection from "../components/hero/HeroSection";
-import { MdShareLocation, MdUpdate } from "react-icons/md";
-import { FaLocationArrow  } from "react-icons/fa6";
+
 const Page = () => {
   const [events, setEvents] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -192,13 +191,8 @@ const Page = () => {
                         {event.category || "Science"}
                       </div>
 
-                      {/* Favorite / action icon (top-right) */}
-                      <div className="absolute top-3 right-3 bg-purple-500 text-white w-8 h-8 rounded-full flex items-center justify-center shadow-lg">
-                        <FaLocationArrow />
-                      </div>
-
                       {/* White Info Card (bottom-left) */}
-                      <div className="absolute left-4 right-4 bottom-4 z-10 bg-white rounded-2xl shadow-lg p-4">
+                      <div className="absolute left-4 right-4 bottom-4 z-50 bg-white rounded-2xl shadow-lg p-4">
                         <h4 className="text-sm font-semibold text-gray-900 mb-1 line-clamp-2">
                           {event.title}
                         </h4>
@@ -208,17 +202,48 @@ const Page = () => {
 
                         <div className="mt-6 space-y-3 text-gray-700">
                           <div className="flex gap-2 items-center">
-                            <span className="p-1 bg-violet-100 rounded-xl">
-                              <MdUpdate className="text-purple-400 text-sm" />
+                            <span className="px-2  py-1 bg-violet-100 rounded-xl">
+                              {/* <i class="ri-timer-flash-line text-purple-400 text-sm"></i> */}
+                              <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                className="w-4 h-4 text-purple-400"
+                                fill="none"
+                                viewBox="0 0 24 24"
+                                stroke="currentColor"
+                                strokeWidth="1.8"
+                              >
+                                <path
+                                  strokeLinecap="round"
+                                  strokeLinejoin="round"
+                                  d="M12 8v4l3 3m2-13H7m1 3h8M12 21a9 9 0 100-18 9 9 0 000 18z"
+                                />
+                              </svg>
                             </span>
                             <span className="text-xs font-semibold text-gray-700">
                               Saturday, Feb 23 2019
                             </span>
-                            <span className="text-xs font-semibold text-gray-700"> 5:00 PM – 11:00 PM</span>
+                            <span className="text-xs font-semibold text-gray-700">
+                              {" "}
+                              5:00 PM – 11:00 PM
+                            </span>
                           </div>
                           <div className="flex gap-2 items-center">
-                            <span className="p-1 bg-violet-100 rounded-xl">
-                              <MdShareLocation className="text-purple-400 text-sm" />
+                            <span className="px-2  py-1 bg-violet-100 rounded-xl">
+                              <i class="ri-map-pin-line text-purple-400 text-sm"></i>
+                              <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                className="w-4 h-4 text-purple-400"
+                                fill="none"
+                                viewBox="0 0 24 24"
+                                stroke="currentColor"
+                                strokeWidth="1.8"
+                              >
+                                <path
+                                  strokeLinecap="round"
+                                  strokeLinejoin="round"
+                                  d="M12 11.5a3 3 0 100-6 3 3 0 000 6zm0 9.5s7-5 7-11a7 7 0 10-14 0c0 6 7 11 7 11z"
+                                />
+                              </svg>
                             </span>
                             <span className="text-xs font-semibold text-gray-700">
                               {" "}
@@ -228,13 +253,21 @@ const Page = () => {
                         </div>
 
                         <div className="mt-3 flex items-center justify-between">
-                        <div className="flex -space-x-2">
-                          {[1, 2, 3].map((i) => (
-                            <div key={i} className="w-7 h-7 bg-gradient-to-r from-purple-400 to-pink-400 rounded-full border-2 border-white" />
-                          ))}
+                          <Link href={`/event-details/${event.slug}`}>
+                            <div className="px-3 py-2  bg-violet-500 rounded-2xl hover:bg-violet-700">
+                              <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                className="w-4 h-4 text-white"
+                                
+  style={{ transform: "rotate(-45deg)" }}
+                                viewBox="0 0 24 24"
+                                fill="currentColor"
+                              >
+                                <path d="M3.4 20.6L22 12 3.4 3.4 3 10l12 2-12 2z" />
+                              </svg>
+                            </div>
+                          </Link>
                         </div>
-                        <span className="text-xs text-gray-600">+50 others are going</span>
-                      </div>
                       </div>
                     </div>
                   </motion.div>
