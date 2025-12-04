@@ -169,7 +169,7 @@ const Page = () => {
                   >
                     <Link
                       href={`/event-details/${event.slug}`}
-                      className="block absolute inset-0 z-30"
+                      className="block absolute inset-0 z-20"
                     />
 
                     {/* Background Image */}
@@ -192,7 +192,7 @@ const Page = () => {
                       </div>
 
                       {/* White Info Card (bottom-left) */}
-                      <div className="absolute left-4 right-4 bottom-4 z-50 bg-white rounded-2xl shadow-lg p-4">
+                      <div className="absolute left-4 right-4 bottom-4 z-30 bg-white rounded-2xl shadow-lg p-4">
                         <h4 className="text-sm font-semibold text-gray-900 mb-1 line-clamp-2">
                           {event.title}
                         </h4>
