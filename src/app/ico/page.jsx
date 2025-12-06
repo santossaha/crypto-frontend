@@ -5,7 +5,6 @@ import Link from "next/link";
 import Image from "next/image";
 
 import p1 from "../assets/images/e-1.jpg";
-import e1 from "../assets/images/edit.svg";
 import HeroSection from "../components/hero/HeroSection";
 
 const Page = () => {
@@ -136,7 +135,15 @@ const Page = () => {
 
                       <td className="text-center">
                         <div className="inline-block cursor-pointer bg-gray-200 p-2 rounded-lg hover:bg-gray-300">
-                          <Image src={e1} alt="edit" width={20} height={20} />
+                        
+                          <svg xmlns="http://www.w3.org/2000/svg"
+  className="w-5 h-5 text-purple-400"
+  fill="none" viewBox="0 0 24 24"
+  stroke="currentColor" strokeWidth="1.8">
+  <path strokeLinecap="round" strokeLinejoin="round"
+    d="M4 21v-4.586a1 1 0 01.293-.707L16.5 3.5a2 2 0 112.828 2.828L7.12 19.707a1 1 0 01-.707.293H4z" />
+</svg>
+
                         </div>
                       </td>
                     </tr>
