@@ -60,7 +60,7 @@ const ServiceDetails = () => {
               <div className="col-md-6 col-lg-9">
                 <div className="newsCard">
                   <div className="subHeadline">
-                    <h3>Service Details: {slug}</h3>
+                    <h3>Service Details dd: {slug}</h3>
                   </div>
                   <div className="row">
                     {Array.from({ length: 6 }).map((_, index) => (
