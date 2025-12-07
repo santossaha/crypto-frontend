@@ -14,7 +14,8 @@ const Page = () => {
   const [eventType, setEventType] = useState("Upcoming");
   const [location, setLocation] = useState("India");
   const [openModal, setOpenModal] = useState(false);
-  const [previewImage, setPreviewImage] = useState(null);
+  const [galleryImages, setGalleryImages] = useState([]);
+  const [galleryError, setGalleryError] = useState("");
 
   // 🚀 Pagination States
   const [currentPage, setCurrentPage] = useState(1);
@@ -187,13 +188,10 @@ const Page = () => {
                       <div className="absolute inset-0 bg-gradient-to-t from-black/35 via-transparent to-transparent" />
 
                       {/* Category Badge (top-left) */}
-                      <div className="absolute top-3 left-3 bg-gradient-to-r from-purple-400 to-orange-400 text-white px-3 py-1 rounded-full text-xs font-semibold">
-                        {event.category || "Science"}
-                      </div>
 
                       {/* White Info Card (bottom-left) */}
-                      <div className="absolute left-4 right-4 bottom-4 z-30 bg-white rounded-2xl shadow-lg p-4">
-                        <h4 className="text-sm font-semibold text-gray-900 mb-1 line-clamp-2">
+                      <div className="absolute left-4 right-4 bottom-4 z-30 bg-white rounded-2xl shadow-lg p-3">
+                        <h4 className="text-lg font-bold text-gray-900 mb-1 line-clamp-2">
                           {event.title}
                         </h4>
                         <p className="text-xs text-gray-500 mb-2">
@@ -201,32 +199,76 @@ const Page = () => {
                         </p>
 
                         <div className="mt-6 space-y-3 text-gray-700">
-                          <div className="flex gap-2 items-center">
-                            <span className="px-2  py-1 bg-violet-100 rounded-xl">
-                              {/* <i class="ri-timer-flash-line text-purple-400 text-sm"></i> */}
-                              <svg
-                                xmlns="http://www.w3.org/2000/svg"
-                                className="w-4 h-4 text-purple-400"
-                                fill="none"
-                                viewBox="0 0 24 24"
-                                stroke="currentColor"
-                                strokeWidth="1.8"
-                              >
-                                <path
-                                  strokeLinecap="round"
-                                  strokeLinejoin="round"
-                                  d="M12 8v4l3 3m2-13H7m1 3h8M12 21a9 9 0 100-18 9 9 0 000 18z"
-                                />
-                              </svg>
-                            </span>
-                            <span className="text-xs font-semibold text-gray-700">
-                              Saturday, Feb 23 2019
-                            </span>
-                            <span className="text-xs font-semibold text-gray-700">
-                              {" "}
-                              5:00 PM – 11:00 PM
-                            </span>
+                          <div className="flex items-center justify-between gap-3 text-xs font-semibold text-gray-700">
+                            {/* Start Date & Time */}
+                            <div className="flex items-center gap-2">
+                              <div className="flex items-center gap-1">
+                                <span className="p-2 bg-violet-100 rounded-xl flex items-center justify-center">
+                                  <svg
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    className="w-4 h-4 text-purple-400"
+                                    fill="none"
+                                    viewBox="0 0 24 24"
+                                    stroke="currentColor"
+                                    strokeWidth="1.8"
+                                  >
+                                    <path
+                                      strokeLinecap="round"
+                                      strokeLinejoin="round"
+                                      d="M12 8v4l3 3m2-13H7m1 3h8M12 21a9 9 0 100-18 9 9 0 000 18z"
+                                    />
+                                  </svg>
+                                </span>
+                                <div className="flex justify-start flex-col">
+                                  <span className="font-bold text-[11px]">
+                                    Start Date-Time:
+                                  </span>
+                                  <span className="text-[10px] text-gray-600">
+                                    {" "}
+                                    Sat Feb 10 2025{" "}
+                                    <bladge className="text-[8px] text-purple-500">
+                                      10:00AM
+                                    </bladge>
+                                  </span>
+                                </div>
+                              </div>
+                            </div>
+
+                            <div className="w-px h-8 bg-gray-300"></div>
+                            {/* End Date & Time */}
+
+                            <div className="flex items-center gap-1">
+                              <span className="p-2 bg-violet-100 rounded-xl flex items-center justify-center">
+                                <svg
+                                  xmlns="http://www.w3.org/2000/svg"
+                                  className="w-4 h-4 text-purple-400"
+                                  fill="none"
+                                  viewBox="0 0 24 24"
+                                  stroke="currentColor"
+                                  strokeWidth="1.8"
+                                >
+                                  <path
+                                    strokeLinecap="round"
+                                    strokeLinejoin="round"
+                                    d="M12 8v4l3 3m2-13H7m1 3h8M12 21a9 9 0 100-18 9 9 0 000 18z"
+                                  />
+                                </svg>
+                              </span>
+                              <div className="flex justify-start flex-col">
+                                <span className="font-bold text-[11px]">
+                                  End Date-Time:
+                                </span>
+                                <span className="text-[10px] text-gray-600">
+                                  {" "}
+                                  Sat Feb 10 2025{" "}
+                                  <bladge className="text-[8px] text-orange-500">
+                                    5:00PM
+                                  </bladge>
+                                </span>
+                              </div>
+                            </div>
                           </div>
+
                           <div className="flex gap-2 items-center">
                             <span className="px-2  py-1 bg-violet-100 rounded-xl">
                               <i class="ri-map-pin-line text-purple-400 text-sm"></i>
@@ -252,19 +294,51 @@ const Page = () => {
                           </div>
                         </div>
 
-                        <div className="mt-3 flex items-center justify-between">
+                        <div className="mt-3 flex items-center justify-end">
                           <Link href={`/event-details/${event.slug}`}>
-                            <div className="px-3 py-2  bg-violet-500 rounded-2xl hover:bg-violet-700">
-                              <svg
-                                xmlns="http://www.w3.org/2000/svg"
-                                className="w-4 h-4 text-white"
-                                
-  style={{ transform: "rotate(-45deg)" }}
-                                viewBox="0 0 24 24"
-                                fill="currentColor"
+                            <div className="relative w-32 h-10 bg-gradient-to-r from-purple-600 to-orange-500 text-white border-transparent rounded-lg overflow-hidden group cursor-pointer select-none">
+                              {/* Flash Shine Effect */}
+                              <span
+                                className="absolute inset-0 w-1/2 h-full bg-white/30 opacity-0 group-hover:opacity-100
+                              translate-x-[-150%] group-hover:translate-x-[200%]
+                              skew-x-[20deg] transition-all duration-700 ease-out"
+                              ></span>
+
+                              {/* Default State (icon only) */}
+                              <div
+                                className="absolute inset-0 flex items-center justify-center gap-2 text-white 
+                              transition-all duration-300 group-hover:-translate-y-full"
                               >
-                                <path d="M3.4 20.6L22 12 3.4 3.4 3 10l12 2-12 2z" />
-                              </svg>
+                                <svg
+                                  xmlns="http://www.w3.org/2000/svg"
+                                  className="w-4 h-4 text-white"
+                                  style={{ transform: "rotate(-45deg)" }}
+                                  viewBox="0 0 24 24"
+                                  fill="currentColor"
+                                >
+                                  <path d="M3.4 20.6L22 12 3.4 3.4 3 10l12 2-12 2z" />
+                                </svg>
+                              </div>
+
+                              {/* Hover State - Slide up from bottom */}
+                              <div
+                                className="absolute inset-0 flex items-center justify-center gap-2 text-white 
+                              translate-y-full transition-all duration-300 group-hover:translate-y-0"
+                              >
+                                <span className="text-sm font-medium">
+                                  View Details
+                                </span>
+
+                                <svg
+                                  xmlns="http://www.w3.org/2000/svg"
+                                  className="w-4 h-4 text-white"
+                                  style={{ transform: "rotate(-45deg)" }}
+                                  viewBox="0 0 24 24"
+                                  fill="currentColor"
+                                >
+                                  <path d="M3.4 20.6L22 12 3.4 3.4 3 10l12 2-12 2z" />
+                                </svg>
+                              </div>
                             </div>
                           </Link>
                         </div>
@@ -345,61 +419,118 @@ const Page = () => {
 
             {/* Event Form */}
             <form className="space-y-4">
-              {/* Image Upload */}
-              {/* Image Upload (Modern UI) */}
-              <div>
-                <label className="text-sm font-medium text-gray-700">
-                  Event Image
-                </label>
+              
 
-                <div className="mt-2">
+              {/* Gallery Images */}
+                <div>
+                  <label className="text-sm font-medium text-gray-700">
+                    Event Gallery
+                  </label>
+
+                  {/* Placeholder Upload Box */}
                   <label
-                    htmlFor="imageUpload"
+                    htmlFor="galleryUpload"
                     className="
-        flex flex-col items-center justify-center 
-        border-2 border-dashed border-gray-300 
-        bg-gray-50 hover:bg-gray-100
-        rounded-xl p-6 cursor-pointer 
-        transition-all
-      "
+                      mt-2 flex flex-col items-center justify-center 
+                      border-2 border-dashed border-gray-300 
+                      bg-gray-50 hover:bg-gray-100
+                      rounded-xl p-6 cursor-pointer 
+                      transition-all
+                    "
                   >
-                    {/* Preview */}
-                    {previewImage ? (
-                      <img
-                        src={previewImage}
-                        alt="Preview"
-                        className="w-full h-48 object-cover rounded-lg shadow"
-                      />
-                    ) : (
+                    {/* If No Images → Show Placeholder */}
+                    {galleryImages.length === 0 ? (
                       <div className="flex flex-col items-center text-gray-500">
                         <div className="w-14 h-14 bg-white border shadow rounded-full flex items-center justify-center mb-3">
-                          <span className="text-3xl">📷</span>
+                          <span className="text-3xl">🖼️</span>
                         </div>
-                        <p className="text-sm font-semibold">
-                          Click to upload or drag & drop
-                        </p>
-                        <p className="text-xs text-gray-400 mt-1">
-                          PNG, JPG, JPEG up to 5MB
-                        </p>
+                        <p className="text-sm font-semibold">Upload Gallery Images</p>
+                        <p className="text-xs text-gray-400 mt-1">PNG, JPG, JPEG (max 10)</p>
                       </div>
+                    ) : (
+                      <p className="text-sm text-gray-600">Add more images</p>
                     )}
 
                     <input
                       type="file"
-                      id="imageUpload"
+                      id="galleryUpload"
+                      multiple
                       accept="image/*"
                       className="hidden"
                       onChange={(e) => {
-                        const file = e.target.files[0];
-                        if (file) {
-                          const url = URL.createObjectURL(file);
-                          setPreviewImage(url);
+                        const files = Array.from(e.target.files);
+                        const allowedTypes = ["image/jpeg", "image/png", "image/jpg"];
+                        const maxSize = 5 * 1024 * 1024; // 5 MB
+                        const maxImages = 10;
+
+                        let errors = [];
+
+                        // Check count
+                        if (files.length + galleryImages.length > maxImages) {
+                          errors.push(`You can upload max ${maxImages} photos.`);
                         }
+
+                        // Check file rules
+                        files.forEach((file) => {
+                          if (!allowedTypes.includes(file.type)) {
+                            errors.push(`${file.name} is not a valid image type.`);
+                          }
+                          if (file.size > maxSize) {
+                            errors.push(`${file.name} is larger than 5MB.`);
+                          }
+                        });
+
+                        if (errors.length > 0) {
+                          setGalleryError(errors.join(" | "));
+                          return;
+                        }
+
+                        setGalleryError("");
+
+                        const previews = files.map((file) => ({
+                          url: URL.createObjectURL(file),
+                          file: file,
+                        }));
+
+                        setGalleryImages((prev) => [...prev, ...previews]);
                       }}
                     />
                   </label>
+
+                  {/* Error Message */}
+                  {galleryError && (
+                    <p className="text-red-600 text-sm mt-1">{galleryError}</p>
+                  )}
+
+                  {/* Preview Grid */}
+                  <div className="grid grid-cols-3 gap-3 mt-3">
+                    {galleryImages.map((img, index) => (
+                      <div key={index} className="relative group">
+                        <img
+                          src={img.url}
+                          className="h-20 w-full object-cover rounded-lg shadow"
+                        />
+
+                        {/* Delete Button */}
+                        <button
+                          onClick={() =>
+                            setGalleryImages(galleryImages.filter((_, i) => i !== index))
+                          }
+                          className="
+                            absolute top-1 right-1 
+                            bg-black/60 text-white text-xs 
+                            rounded-full px-1.5 py-0.5 
+                            opacity-0 group-hover:opacity-100 
+                            transition
+                          "
+                        >
+                          ✕
+                        </button>
+                      </div>
+                    ))}
+                  </div>
                 </div>
-              </div>
+
 
               {/* Title */}
               <div>
@@ -413,26 +544,25 @@ const Page = () => {
                 />
               </div>
 
-              {/* Date */}
+              {/* Start Date & Time */}
               <div>
                 <label className="text-sm font-medium text-gray-700">
-                  Date
+                  Start Date & Time
                 </label>
                 <input
-                  type="date"
+                  type="datetime-local"
                   className="w-full px-3 py-2 border rounded-lg mt-1 focus:ring-2 focus:ring-purple-500"
                 />
               </div>
 
-              {/* Venue */}
+              {/* End Date & Time */}
               <div>
                 <label className="text-sm font-medium text-gray-700">
-                  Venue
+                  End Date & Time
                 </label>
                 <input
-                  type="text"
+                  type="datetime-local"
                   className="w-full px-3 py-2 border rounded-lg mt-1 focus:ring-2 focus:ring-purple-500"
-                  placeholder="Enter venue"
                 />
               </div>
 
@@ -448,16 +578,88 @@ const Page = () => {
                 />
               </div>
 
-              {/* Description */}
+              {/* Event Details */}
               <div>
                 <label className="text-sm font-medium text-gray-700">
-                  Description
+                  Event Details
                 </label>
                 <textarea
                   rows="3"
                   className="w-full px-3 py-2 border rounded-lg mt-1 focus:ring-2 focus:ring-purple-500"
-                  placeholder="Enter description"
-                ></textarea>
+                  placeholder="Enter full event details"
+                />
+              </div>
+
+              {/* Email */}
+              <div>
+                <label className="text-sm font-medium text-gray-700">
+                  Email ID
+                </label>
+                <input
+                  type="email"
+                  className="w-full px-3 py-2 border rounded-lg mt-1"
+                  placeholder="example@email.com"
+                />
+              </div>
+
+              {/* Phone */}
+              <div>
+                <label className="text-sm font-medium text-gray-700">
+                  Phone Number
+                </label>
+                <input
+                  type="tel"
+                  className="w-full px-3 py-2 border rounded-lg mt-1"
+                  placeholder="+91 9876543210"
+                />
+              </div>
+
+              {/* Website */}
+              <div>
+                <label className="text-sm font-medium text-gray-700">
+                  Website
+                </label>
+                <input
+                  type="url"
+                  className="w-full px-3 py-2 border rounded-lg mt-1"
+                  placeholder="https://yourwebsite.com"
+                />
+              </div>
+
+              {/* Social Links */}
+              <div className="grid grid-cols-1 gap-3">
+                <div>
+                  <label className="text-sm font-medium text-gray-700">
+                    Instagram
+                  </label>
+                  <input
+                    type="url"
+                    className="w-full px-3 py-2 border rounded-lg mt-1"
+                    placeholder="https://instagram.com/yourpage"
+                  />
+                </div>
+
+                <div>
+                  <label className="text-sm font-medium text-gray-700">
+                    Facebook
+                  </label>
+                  <input
+                    type="url"
+                    className="w-full px-3 py-2 border rounded-lg mt-1"
+                    placeholder="https://facebook.com/yourpage"
+                  />
+                </div>
+
+                <div>
+                  <label className="text-sm font-medium text-gray-700">
+                    Twitter
+                  </label>
+                  <input
+                    type="url"
+                    className="w-full px-3 py-2 border rounded-lg mt-1"
+                    placeholder="https://twitter.com/yourpage"
+                  />
+                </div>
               </div>
 
               {/* Submit */}

@@ -8,6 +8,18 @@ import banner2 from "../../assets/images/banner-2.jpg";
 import banner3 from "../../assets/images/banner-3.jpg";
 
 export default function Page() {
+  const eventTitle = "My Event";
+const eventStart = "20251210T170000"; // YYYYMMDDTHHMMSS
+const eventEnd = "20251210T230000";
+const eventLocation = "New Delhi, India";
+const eventDetails = "This is an amazing event";
+
+const googleCalendarUrl = `https://www.google.com/calendar/render?action=TEMPLATE&text=${encodeURIComponent(
+  eventTitle
+)}&dates=${eventStart}/${eventEnd}&details=${encodeURIComponent(
+  eventDetails
+)}&location=${encodeURIComponent(eventLocation)}`;
+
   return (
     <div className=" min-h-screen pb-20">
       {/* ---------- TOP HERO ---------- */}
@@ -41,28 +53,74 @@ export default function Page() {
             </p>
 
             <div className="mt-6 space-y-3 text-gray-700">
-              <div className="flex gap-2 items-center">
-                <span className="p-2 bg-violet-100 rounded-xl">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    className="w-4 h-4 text-purple-400"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                    strokeWidth="1.8"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      d="M12 8v4l3 3m2-13H7m1 3h8M12 21a9 9 0 100-18 9 9 0 000 18z"
-                    />
-                  </svg>
-                </span>
-                <span className="text-sm font-semibold text-gray-700">
-                  Saturday, Feb 23 2019
-                </span>
-                <span> 5:00 PM – 11:00 PM</span>
+              <div className="flex items-center justify-between gap-4 text-xs font-semibold text-gray-700">
+                {/* Start Date & Time */}
+                <div className="flex items-center gap-2">
+                  <div className="flex items-center gap-2">
+                    <span className="p-2 bg-violet-100 rounded-xl flex items-center justify-center">
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        className="w-4 h-4 text-purple-400"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke="currentColor"
+                        strokeWidth="1.8"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          d="M12 8v4l3 3m2-13H7m1 3h8M12 21a9 9 0 100-18 9 9 0 000 18z"
+                        />
+                      </svg>
+                    </span>
+                    <div className="flex justify-start flex-col">
+                      <span className="font-bold text-sm">
+                        Start Date-Time:
+                      </span>
+                      <span className="text-md text-gray-600">
+                        {" "}
+                        Sat Feb 10 2025{" "}
+                        <bladge className="text-[10px] text-purple-500">
+                          10:00AM
+                        </bladge>
+                      </span>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="w-px h-8 bg-gray-300"></div>
+                {/* End Date & Time */}
+
+                <div className="flex items-center gap-2">
+                  <span className="p-2 bg-violet-100 rounded-xl flex items-center justify-center">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      className="w-4 h-4 text-purple-400"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                      strokeWidth="1.8"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        d="M12 8v4l3 3m2-13H7m1 3h8M12 21a9 9 0 100-18 9 9 0 000 18z"
+                      />
+                    </svg>
+                  </span>
+                  <div className="flex justify-start flex-col">
+                    <span className="font-bold text-sm">End Date-Time:</span>
+                    <span className="text-md text-gray-600">
+                      {" "}
+                      Sat Feb 10 2025{" "}
+                      <bladge className="text-[10px] text-orange-500">
+                        5:00PM
+                      </bladge>
+                    </span>
+                  </div>
+                </div>
               </div>
+
               <div className="flex gap-2 items-center">
                 <span className="p-2 bg-violet-100 rounded-xl">
                   <svg
@@ -128,9 +186,17 @@ export default function Page() {
 
             <div className="flex items-center justify-between gap-10">
               <h4 className="font-bold">Click to Add your Calendra</h4>
-              <button className="px-4 py-2 bg-gradient-to-r from-purple-600 to-orange-500 text-white font-semibold rounded-lg shadow-md hover:opacity-90 transition">
-                Add to Calendar
-              </button>
+             
+              <a
+                  href={googleCalendarUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <button className="px-4 py-2 bg-gradient-to-r from-purple-600 to-orange-500 text-white font-semibold rounded-lg shadow-md hover:opacity-90 transition">
+                    Add to Calendar
+                  </button>
+                </a>
+
             </div>
             <div className="text-center py-3 or-boredr">
               <span>OR</span>
@@ -143,10 +209,17 @@ export default function Page() {
 
               <div className="flex justify-center">
                 <img
-                  src="https://api.qrserver.com/v1/create-qr-code/?size=160x160&data=example"
+                  src={`https://api.qrserver.com/v1/create-qr-code/?size=160x160&data=${encodeURIComponent(
+                    "https://maps.app.goo.gl/8YH3K3AbC2h2QFQFA"
+                  )}`}
                   className="w-32 h-32 rounded"
                   alt="QR"
                 />
+                {/* <img
+                  src={`https://api.qrserver.com/v1/create-qr-code/?size=160x160&data=${encodeURIComponent(event.locationLink)}`}
+                  className="w-32 h-32 rounded"
+                  alt="QR"
+                /> */}
               </div>
             </div>
           </div>
@@ -237,14 +310,20 @@ export default function Page() {
 
             <p className="text-sm font-semibold text-gray-700 mb-3 flex items-center gap-2">
               <span className="p-2 bg-violet-100 rounded-xl">
-               <svg xmlns="http://www.w3.org/2000/svg"
-  className="w-5 h-5 text-purple-400"
-  fill="none" viewBox="0 0 24 24"
-  stroke="currentColor" strokeWidth="1.8">
-  <path strokeLinecap="round" strokeLinejoin="round"
-    d="M3 5h18v14H3V5zm0 0l9 7 9-7"/>
-</svg>
-
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  className="w-5 h-5 text-purple-400"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                  strokeWidth="1.8"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="M3 5h18v14H3V5zm0 0l9 7 9-7"
+                  />
+                </svg>
               </span>{" "}
               eino_runolf_sdottir@yahoo.com
             </p>
