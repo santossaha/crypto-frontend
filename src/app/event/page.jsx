@@ -183,7 +183,7 @@ const Page = () => {
                           {event.title}
                         </h4>
                         <p className="text-xs text-gray-500 mb-2">
-                          By John Doe
+                          By {event.organizer || 'Admin'}
                         </p>
 
                         <div className="mt-6 space-y-3 text-gray-700">
@@ -213,9 +213,9 @@ const Page = () => {
                                   </span>
                                   <span className="text-[10px] text-gray-600">
                                     {" "}
-                                    Sat Feb 10 2025{" "}
+                                    {event.start_date || "Sat Feb 10 2025"}{" "}
                                     <bladge className="text-[8px] text-purple-500">
-                                      10:00AM
+                                      {event.start_time || "10:00AM"}
                                     </bladge>
                                   </span>
                                 </div>
@@ -248,9 +248,9 @@ const Page = () => {
                                 </span>
                                 <span className="text-[10px] text-gray-600">
                                   {" "}
-                                  Sat Feb 10 2025{" "}
+                                  {event.end_date || "Sat Feb 10 2025"}{" "}
                                   <bladge className="text-[8px] text-orange-500">
-                                    5:00PM
+                                    {event.end_time || "5:00PM"}
                                   </bladge>
                                 </span>
                               </div>
