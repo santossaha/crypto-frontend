@@ -17,15 +17,15 @@ const Page = () => {
   const [galleryImages, setGalleryImages] = useState([]);
   const [galleryError, setGalleryError] = useState("");
 
-  // 🚀 Pagination States
-  const [currentPage, setCurrentPage] = useState(1);
-  const itemsPerPage = 5;
+  // 🚀 Pagination States (removed for showing all events)
+  // const [currentPage, setCurrentPage] = useState(1);
+  // const itemsPerPage = 5;
 
   useEffect(() => {
     const fetchEvents = async () => {
       const start = Date.now();
       try {
-        const response = await axiosInstance("/get-events");
+        const response = await axiosInstance("/event-list");
         // Debug/log the raw response to help diagnose shape issues
         console.log("/get-events response:", response);
 
@@ -45,6 +45,7 @@ const Page = () => {
         }
 
         setEvents(eventsList);
+        console.log('Total events fetched:', eventsList.length);
       } catch (error) {
         console.error("Error fetching events:", error);
       } finally {
@@ -61,25 +62,12 @@ const Page = () => {
     fetchEvents();
   }, []);
 
-  // 📌 Pagination Logic
-  const totalPages = Math.ceil((events?.length || 0) / itemsPerPage);
-  const startIndex = (currentPage - 1) * itemsPerPage;
-  // Ensure we only call slice on an actual array to avoid runtime errors
+  // 📌 Events List (showing all events)
   const eventsList = Array.isArray(events)
     ? events
     : events && Array.isArray(events.data)
     ? events.data
     : [];
-  const paginatedEvents =
-    eventsList.slice(startIndex, startIndex + itemsPerPage) || [];
-
-  const goToPrev = () => {
-    if (currentPage > 1) setCurrentPage(currentPage - 1);
-  };
-
-  const goToNext = () => {
-    if (currentPage < totalPages) setCurrentPage(currentPage + 1);
-  };
 
   const containerVariants = {
     hidden: { opacity: 0 },
@@ -160,7 +148,7 @@ const Page = () => {
               ? Array.from({ length: 6 }).map((_, idx) => (
                   <SkeletonCard key={idx} idx={idx} />
                 ))
-              : paginatedEvents.map((event) => (
+              : eventsList.map((event) => (
                   <motion.div
                     key={event.id}
                     variants={itemVariants}
@@ -169,14 +157,14 @@ const Page = () => {
                     className="relative rounded-2xl overflow-hidden shadow-md hover:shadow-xl cursor-pointer h-80"
                   >
                     <Link
-                      href={`/event-details/${event.slug}`}
+                      href={`/event-details/${event.id}`}
                       className="block absolute inset-0 z-20"
                     />
 
                     {/* Background Image */}
                     <div className="w-full h-full relative">
                       <Image
-                        src={formatImageUrl(event.image)}
+                        src="/p-1.jpg"
                         alt={event.title}
                         fill
                         sizes="(max-width: 768px) 100vw, 33vw"
@@ -287,15 +275,12 @@ const Page = () => {
                                 />
                               </svg>
                             </span>
-                            <span className="text-xs font-semibold text-gray-700">
-                              {" "}
-                              5323 Gilroy St Gilroy, CA
-                            </span>
+                            <span className="text-xs font-semibold text-gray-700">{event.location || event.address || "5323 Gilroy St Gilroy, CA"}</span>
                           </div>
                         </div>
 
                         <div className="mt-3 flex items-center justify-end">
-                          <Link href={`/event-details/${event.slug}`}>
+                          <Link href={`/event-details/${event.id}`}>
                             <div className="relative w-32 h-10 bg-gradient-to-r from-purple-600 to-orange-500 text-white border-transparent rounded-lg overflow-hidden group cursor-pointer select-none">
                               {/* Flash Shine Effect */}
                               <span
@@ -348,56 +333,7 @@ const Page = () => {
                 ))}
           </div>
 
-          {/* Pagination */}
-          <div className="flex justify-center mt-8">
-            <ul className="flex items-center gap-2">
-              {/* Prev */}
-              <li>
-                <button
-                  onClick={goToPrev}
-                  disabled={currentPage === 1}
-                  className={`px-4 py-2 rounded-lg border transition ${
-                    currentPage === 1
-                      ? "text-gray-400 cursor-not-allowed border-gray-200"
-                      : "border-gray-300 hover:bg-gray-100"
-                  }`}
-                >
-                  Previous
-                </button>
-              </li>
 
-              {/* Page Numbers */}
-              {[...Array(totalPages)].map((_, index) => (
-                <li key={index}>
-                  <button
-                    onClick={() => setCurrentPage(index + 1)}
-                    className={`px-4 py-2 rounded-lg border transition ${
-                      currentPage === index + 1
-                        ? "bg-gradient-to-r from-purple-600 to-orange-500 text-white border-transparent"
-                        : "border-gray-300 hover:bg-gray-100"
-                    }`}
-                  >
-                    {index + 1}
-                  </button>
-                </li>
-              ))}
-
-              {/* Next */}
-              <li>
-                <button
-                  onClick={goToNext}
-                  disabled={currentPage === totalPages}
-                  className={`px-4 py-2 rounded-lg border transition ${
-                    currentPage === totalPages
-                      ? "text-gray-100 cursor-not-allowed border-gray-200"
-                      : "px-5 py-2 bg-gradient-to-r from-purple-600 to-orange-500 text-white font-semibold rounded-lg shadow-md hover:opacity-90 transition"
-                  }`}
-                >
-                  Next
-                </button>
-              </li>
-            </ul>
-          </div>
         </div>
       </div>
 
