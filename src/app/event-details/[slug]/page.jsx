@@ -56,7 +56,7 @@ export default async function Page({ params }) {
             </Link>
           </li>
           <li className="text-violet-200">/</li>
-          <li className="font-bold text-white">Event</li>
+          <li className="font-bold text-white">{eventTitle}</li>
         </ul>
       </HeroSection>
 
