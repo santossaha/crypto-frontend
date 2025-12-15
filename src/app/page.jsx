@@ -62,7 +62,7 @@ const Page = () => {
         </div>
       </div>
 
-      <AboutSection />
+      {/* <AboutSection /> */}
       <HomeSections />
       {/* <NewsGroup /> */}
     </div>
