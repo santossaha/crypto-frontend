@@ -13,6 +13,7 @@ import Image from "next/image";
 import Logo from "../../assets/images/logo.png";
 import { usePathname } from "next/navigation";
 import axiosInstance from "@/app/Helper/Helper";
+import { motion, AnimatePresence } from "framer-motion";
 
 const Header = () => {
   const pathname = usePathname();
@@ -22,7 +23,7 @@ const Header = () => {
   const [openMobile, setOpenMobile] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
 
-  // Dropdown state (click to open)
+  // Dropdown state (hover to open)
   const [servicesOpen, setServicesOpen] = useState(false);
 
   // close dropdown when clicking outside
@@ -123,7 +124,8 @@ const Header = () => {
                 <button
                   type="button"
                   aria-expanded={servicesOpen}
-                  onClick={() => setServicesOpen((s) => !s)}
+                  onMouseEnter={() => setServicesOpen(true)}
+                  onMouseLeave={() => setServicesOpen(false)}
                   className={`flex items-center gap-1 text-sm font-semibold px-3 py-2 rounded-md transition 
                     hover:bg-gray-100/20 hover:text-violet-950
                     ${servicesOpen ? "bg-gray-100/20 text-violet-950" : ""}`}
@@ -135,38 +137,49 @@ const Header = () => {
                   />
                 </button>
 
-                {/* Dropdown Panel (Width Reduced to w-64) */}
-                <div
-                  className={`absolute left-0 mt-3 transform z-50 w-64 rounded-lg shadow-lg 
-                  border border-gray-200 bg-white text-violet-950 p-3 transition-all origin-top
-                  ${servicesOpen ? "opacity-100 scale-100 visible" : "opacity-0 scale-95 invisible pointer-events-none"}`}
-                >
-                  <div className="grid grid-cols-1 gap-4">
-                    {getCategories?.map((group) => (
-                      <div key={group.id} className="space-y-2">
-                        <h5 className="font-semibold mb-2 text-gray-700 flex items-center gap-2">
-                          <IconFolder size={16} className="text-[#9850ee]" />
-                          {group.type}
-                        </h5>
+                {/* Dropdown Panel with Modern Styling */}
+                <AnimatePresence>
+                  {servicesOpen && (
+                    <motion.div
+                      initial={{ opacity: 0, y: -10, scale: 0.95 }}
+                      animate={{ opacity: 1, y: 0, scale: 1 }}
+                      exit={{ opacity: 0, y: -10, scale: 0.95 }}
+                      transition={{ duration: 0.2, ease: "easeOut" }}
+                      className="absolute right-0 mt-3 z-50 w-[500px] rounded-xl shadow-2xl 
+                        bg-white/95 backdrop-blur-lg border border-white/20 text-violet-950 p-4 
+                        ring-1 ring-black/5"
+                      onMouseEnter={() => setServicesOpen(true)}
+                      onMouseLeave={() => setServicesOpen(false)}
+                    >
+                      <div className="grid grid-cols-3 gap-6">
+                        {/* Dynamic Services */}
+                        {getCategories?.map((group) => (
+                          <div key={group.id} className="space-y-3">
+                            <h5 className="font-bold text-lg mb-3 text-gray-800 flex items-center gap-2">
+                              <div className="w-2 h-2 bg-gradient-to-r from-[#9850ee] to-[#fdb748] rounded-full"></div>
+                              {group.type}
+                            </h5>
 
-                        <ul className="space-y-1">
-                          {group.categories?.map((cat) => (
-                            <li key={cat.id}>
-                              <Link
-                                href={`/service-details/${cat.slug}`}
-                                className="flex items-center justify-between gap-2 text-sm text-gray-700 
-                                  hover:text-violet-950 hover:bg-gray-100 px-2 py-1 rounded-md transition"
-                              >
-                                <span>{cat.name}</span>
-                                <IconChevronRight size={16} className="text-gray-400" />
-                              </Link>
-                            </li>
-                          ))}
-                        </ul>
+                            <ul className="space-y-2">
+                              {group.categories?.map((cat) => (
+                                <li key={cat.id}>
+                                  <Link
+                                    href={`/service-details/${cat.slug}`}
+                                    className="flex items-center justify-between gap-3 text-sm text-gray-700 
+                                      hover:text-violet-950 hover:bg-gradient-to-r hover:from-[#9850ee]/10 hover:to-[#fdb748]/10 
+                                      px-3 py-2 rounded-lg transition-all duration-200 group"
+                                  >
+                                    <span className="font-medium">{cat.name}</span>
+                                  </Link>
+                                </li>
+                              ))}
+                            </ul>
+                          </div>
+                        ))}
                       </div>
-                    ))}
-                  </div>
-                </div>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
               </div>
 
               <Link
