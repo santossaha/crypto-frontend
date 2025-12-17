@@ -4,7 +4,6 @@ import dynamic from "next/dynamic";
 
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import AboutSection from "./components/aboutUs/page";
 import CryptoSlider from "./components/CryptoSlider/CryptoSlider";
 import axiosInstance from "./Helper/Helper";
 import "react-loading-skeleton/dist/skeleton.css"

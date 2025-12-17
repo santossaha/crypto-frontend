@@ -154,7 +154,7 @@ const Categories = () => {
             {categories.map((cat, i) => (
               <motion.li key={i} variants={itemVariants}>
                 <Link
-                  href={`/${cat.slug}`}
+                  href={`/category/${cat.slug}`}
                   className="px-4 py-2 rounded-full bg-gray-100 text-sm text-gray-700 hover:bg-indigo-100 transition-all"
                 >
                   {cat.name}

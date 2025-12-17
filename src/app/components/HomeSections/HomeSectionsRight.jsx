@@ -164,7 +164,7 @@ const HomeSectionsRight = ({
                       className="px-3 py-1 bg-gray-100 text-sm rounded-full text-gray-700"
                     >
                       {cat.name}
-                    </Link>
+                    </Link> 
                   ))}
                 </div>
               </div>

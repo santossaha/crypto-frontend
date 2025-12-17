@@ -11,6 +11,19 @@ import SkeletonCard from "@/app/components/skeleton/SkeletonCard";
 import { formatImageUrl } from "../../Helper/imageUtils";
 import HeroSection from "@/app/components/hero/HeroSection";
 
+// Animation Variants
+const cardVariants = {
+  hidden: { opacity: 0, y: 30 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: {
+      duration: 1.2,
+      ease: "easeOut",
+    },
+  },
+};
+
 const ServiceDetails = () => {
   const { slug } = useParams();
   const [serviceDetails, setServiceDetails] = useState([]);
@@ -46,8 +59,8 @@ const ServiceDetails = () => {
         animate={{ opacity: 1, y: 0 }}
       >
         <HeroSection
-          title="Welcome to our Blog"
-          subtitle="Discover the best premium listings curated specially for you."
+          title="Welcome to our Services"
+          subtitle="Discover the best premium services curated specially for you."
         >
           <ul className="flex justify-center gap-2 text-gray-600 mt-3">
             <li>
@@ -59,12 +72,9 @@ const ServiceDetails = () => {
               </Link>
             </li>
             <li className="text-violet-200">/</li>
-            <li className="font-bold text-white">
-            <span className="text-white capitalize">{slug}</span>
-            </li>
+            <li className="font-bold text-white capitalize">{slug}</li>
           </ul>
         </HeroSection>
-        {/* <BannerSection /> */}
       </motion.header>
       <div className="container mx-auto px-6 py-12">
         {/* ---------- Page Heading ---------- */}
@@ -75,7 +85,7 @@ const ServiceDetails = () => {
             transition={{ duration: 0.5 }}
             className="text-4xl font-bold text-gray-800"
           >
-         </motion.h2>
+          </motion.h2>
          <h2 className="text-2xl font-bold text-white mb-0 capitalize">{slug}</h2>
         </div>
 
@@ -89,14 +99,30 @@ const ServiceDetails = () => {
         ) : (
           <>
             {/* ---------- Services Grid ---------- */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+            <motion.div
+              initial="hidden"
+              animate="visible"
+              variants={{
+                hidden: { opacity: 0 },
+                visible: {
+                  opacity: 1,
+                  transition: {
+                    staggerChildren: 0.2,
+                    delayChildren: 0.15,
+                  },
+                },
+              }}
+              className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8"
+            >
               {serviceDetails.length > 0 ? (
-                serviceDetails.map((service) => (
+                serviceDetails.map((service, index) => (
                   <motion.div
                     key={service.id}
-                    whileHover={{ scale: 1.03 }}
-                    className="bg-white rounded-xl shadow-md overflow-hidden hover:shadow-xl transition-all duration-300"
-                  >
+                    variants={cardVariants}
+      whileHover={{ y: -6 }}
+      transition={{ type: "tween", duration: 0.6, ease: "easeOut" }}
+      className="bg-white rounded-xl shadow-md overflow-hidden cursor-pointer h-full hover:shadow-lg"
+    >
                     {/* Image */}
                     <div className="relative h-56 w-full">
                       <Image
@@ -108,15 +134,16 @@ const ServiceDetails = () => {
                     </div>
 
                     {/* Content */}
-                    <div className="p-5">
+                    <div className="p-3.5">
                       <div className="flex items-center justify-between text-sm text-gray-500">
                         <span>
                           {new Date(service.created_at).toLocaleDateString()}
                         </span>
 
                         <span className="flex items-center gap-1">
-                          <Image src={Eye} alt="views" width={16} height={16} />{" "}
-                          120
+                         
+                          
+                          <span>0 views</span>
                         </span>
                       </div>
 
@@ -132,7 +159,7 @@ const ServiceDetails = () => {
                       />
 
                       <Link
-                        href={`/blog/${service.slug}`}
+                        href={`/service-details/${service.slug}`}
                         className="inline-block mt-4 text-indigo-600 hover:text-indigo-800 font-medium"
                       >
                         Read More →
@@ -143,7 +170,7 @@ const ServiceDetails = () => {
               ) : (
                 <p className="text-gray-100">No service found.</p>
               )}
-            </div>
+            </motion.div>
 
             {/* ---------- Pagination ---------- */}
             {totalPages > 1 && (
