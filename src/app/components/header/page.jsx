@@ -155,7 +155,7 @@ const Header = () => {
                         {/* Dynamic Services */}
                         {getCategories?.map((group) => (
                           <div key={group.id} className="space-y-3">
-                            <h5 className="font-bold text-lg mb-3 text-gray-800 flex items-center gap-2">
+                            <h5 className="font-bold text-lg mb-3 text-gray-800 flex items-center gap-2 capitalize">
                               <div className="w-2 h-2 bg-gradient-to-r from-[#9850ee] to-[#fdb748] rounded-full"></div>
                               {group.type}
                             </h5>

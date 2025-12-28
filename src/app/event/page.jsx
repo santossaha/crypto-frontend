@@ -16,10 +16,88 @@ const Page = () => {
   const [openModal, setOpenModal] = useState(false);
   const [galleryImages, setGalleryImages] = useState([]);
   const [galleryError, setGalleryError] = useState("");
+  const [bannerImage, setBannerImage] = useState(null);
+  
+  const [submitting, setSubmitting] = useState(false);
+const [formData, setFormData] = useState({
+  title: "",
+  content: "",
+  from_date: "",
+  to_date: "",
+  start_time: "",
+  to_time: "",
+  location: "",
+  contact_detail: "",
+  email: "",
+  website_url: "",
+  facebook: "",
+  instagram: "",
+  linkedin: "",
+  description: "",
+});
 
-  // 🚀 Pagination States (removed for showing all events)
-  // const [currentPage, setCurrentPage] = useState(1);
-  // const itemsPerPage = 5;
+
+
+  // 🔹 handle input change
+  const handleChange = (e) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+
+const handleSubmit = async (e) => {
+  e.preventDefault();
+  setSubmitting(true);
+
+  try {
+    const fd = new FormData();
+
+    Object.entries(formData).forEach(([key, value]) => {
+      fd.append(key, value);
+    });
+
+    // ✅ banner image (VERY IMPORTANT)
+    if (bannerImage) {
+      fd.append("image", bannerImage);
+    }
+
+    // gallery images
+    galleryImages.forEach((img) => {
+      fd.append("gallery_images[]", img.file);
+    });
+
+    const res = await axiosInstance.post("/create-event", fd);
+
+    alert("✅ Event added successfully");
+    setOpenModal(false);
+
+    // reset
+    setFormData({
+      title: "",
+      content: "",
+      from_date: "",
+      to_date: "",
+      start_time: "",
+      to_time: "",
+      location: "",
+      contact_detail: "",
+      email: "",
+      website_url: "",
+      facebook: "",
+      instagram: "",
+      linkedin: "",
+      description: "",
+    });
+    setBannerImage(null);
+    setGalleryImages([]);
+  } catch (err) {
+    console.log("422 error details:", err.response?.data);
+    alert("❌ Failed to add event");
+  } finally {
+    setSubmitting(false);
+  }
+};
+
+
+
 
   useEffect(() => {
     const fetchEvents = async () => {
@@ -45,7 +123,7 @@ const Page = () => {
         }
 
         setEvents(eventsList);
-        console.log('Total events fetched:', eventsList.length);
+        console.log("Total events fetched:", eventsList.length);
       } catch (error) {
         console.error("Error fetching events:", error);
       } finally {
@@ -58,6 +136,7 @@ const Page = () => {
           setLoading(false);
         }
       }
+      window.scrollTo({ top: 0, behavior: "smooth" });
     };
     fetchEvents();
   }, []);
@@ -104,6 +183,16 @@ const Page = () => {
     </div>
   );
 
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 6;
+
+  const totalPages = Math.ceil(eventsList.length / itemsPerPage);
+
+  const startIndex = (currentPage - 1) * itemsPerPage;
+  const endIndex = startIndex + itemsPerPage;
+
+  const paginatedEvents = eventsList.slice(startIndex, endIndex);
+
   return (
     <div>
       {/* Hero Section */}
@@ -148,9 +237,9 @@ const Page = () => {
               ? Array.from({ length: 6 }).map((_, idx) => (
                   <SkeletonCard key={idx} idx={idx} />
                 ))
-              : eventsList.map((event) => (
+              : paginatedEvents.map((event) => (
                   <motion.div
-                   key={event.slug}
+                    key={event.slug}
                     variants={itemVariants}
                     whileHover={{ y: -6 }}
                     transition={{ type: "tween", duration: 0.4 }}
@@ -183,7 +272,7 @@ const Page = () => {
                           {event.title}
                         </h4>
                         <p className="text-xs text-gray-500 mb-2">
-                          By {event.organizer || 'Admin'}
+                          By {event.organizer || "Admin"}
                         </p>
 
                         <div className="mt-6 space-y-3 text-gray-700">
@@ -213,7 +302,7 @@ const Page = () => {
                                   </span>
                                   <span className="text-[10px] text-gray-600">
                                     {" "}
-                                    {event.start_date || "Sat Feb 10 2025"}{" "}
+                                    {event.from_date || "Sat Feb 10 2025"}{" "}
                                     <bladge className="text-[8px] text-purple-500">
                                       {event.start_time || "10:00AM"}
                                     </bladge>
@@ -248,9 +337,9 @@ const Page = () => {
                                 </span>
                                 <span className="text-[10px] text-gray-600">
                                   {" "}
-                                  {event.end_date || "Sat Feb 10 2025"}{" "}
+                                  {event.to_date || "Sat Feb 10 2025"}{" "}
                                   <bladge className="text-[8px] text-orange-500">
-                                    {event.end_time || "5:00PM"}
+                                    {event.to_time || "5:00PM"}
                                   </bladge>
                                 </span>
                               </div>
@@ -275,7 +364,11 @@ const Page = () => {
                                 />
                               </svg>
                             </span>
-                            <span className="text-xs font-semibold text-gray-700">{event.location || event.address || "5323 Gilroy St Gilroy, CA"}</span>
+                            <span className="text-xs font-semibold text-gray-700">
+                              {event.location ||
+                                event.address ||
+                                "5323 Gilroy St Gilroy, CA"}
+                            </span>
                           </div>
                         </div>
 
@@ -332,9 +425,32 @@ const Page = () => {
                   </motion.div>
                 ))}
           </div>
-            
-            
+          {/* Pagination */}
+          {!loading && totalPages > 1 && (
+            <div className="flex justify-center items-center gap-3 mt-10">
+              <button
+                onClick={() => setCurrentPage((p) => Math.max(p - 1, 1))}
+                disabled={currentPage === 1}
+                className="px-4 py-2 rounded-lg bg-gray-700 text-white disabled:opacity-40"
+              >
+                Prev
+              </button>
 
+              <span className="text-white font-semibold">
+                Page {currentPage} of {totalPages}
+              </span>
+
+              <button
+                onClick={() =>
+                  setCurrentPage((p) => Math.min(p + 1, totalPages))
+                }
+                disabled={currentPage === totalPages}
+                className="px-4 py-2 rounded-lg bg-gray-700 text-white disabled:opacity-40"
+              >
+                Next
+              </button>
+            </div>
+          )}
         </div>
       </div>
 
@@ -355,119 +471,45 @@ const Page = () => {
             </h2>
 
             {/* Event Form */}
-            <form className="space-y-4">
-              
+            <form onSubmit={handleSubmit} className="space-y-4">
 
+
+               {/* Banner Image */}
+              <label className="block border-dashed border-2 p-4 rounded-lg cursor-pointer">
+                Upload Banner Image
+                <input
+                  type="file"
+                  accept="image/*"
+                  className="hidden"
+                  onChange={(e) =>
+                    setBannerImage(e.target.files[0])
+                  }
+                />
+              </label>
               {/* Gallery Images */}
-                <div>
-                  <label className="text-sm font-medium text-gray-700">
-                    Event Gallery
-                  </label>
+              <label className="block border-dashed border-2 p-4 rounded-lg cursor-pointer">
+                Upload Gallery Images
+                <input
+                  type="file"
+                  multiple
+                  accept="image/*"
+                  className="hidden"
+                  onChange={(e) => {
+                    const files = Array.from(e.target.files);
+                    const previews = files.map((file) => ({
+                      url: URL.createObjectURL(file),
+                      file,
+                    }));
+                    setGalleryImages((prev) => [...prev, ...previews]);
+                  }}
+                />
+              </label>
 
-                  {/* Placeholder Upload Box */}
-                  <label
-                    htmlFor="galleryUpload"
-                    className="
-                      mt-2 flex flex-col items-center justify-center 
-                      border-2 border-dashed border-gray-300 
-                      bg-gray-50 hover:bg-gray-100
-                      rounded-xl p-6 cursor-pointer 
-                      transition-all
-                    "
-                  >
-                    {/* If No Images → Show Placeholder */}
-                    {galleryImages.length === 0 ? (
-                      <div className="flex flex-col items-center text-gray-500">
-                        <div className="w-14 h-14 bg-white border shadow rounded-full flex items-center justify-center mb-3">
-                          <span className="text-3xl">🖼️</span>
-                        </div>
-                        <p className="text-sm font-semibold">Upload Gallery Images</p>
-                        <p className="text-xs text-gray-400 mt-1">PNG, JPG, JPEG (max 10)</p>
-                      </div>
-                    ) : (
-                      <p className="text-sm text-gray-600">Add more images</p>
-                    )}
-
-                    <input
-                      type="file"
-                      id="galleryUpload"
-                      multiple
-                      accept="image/*"
-                      className="hidden"
-                      onChange={(e) => {
-                        const files = Array.from(e.target.files);
-                        const allowedTypes = ["image/jpeg", "image/png", "image/jpg"];
-                        const maxSize = 5 * 1024 * 1024; // 5 MB
-                        const maxImages = 10;
-
-                        let errors = [];
-
-                        // Check count
-                        if (files.length + galleryImages.length > maxImages) {
-                          errors.push(`You can upload max ${maxImages} photos.`);
-                        }
-
-                        // Check file rules
-                        files.forEach((file) => {
-                          if (!allowedTypes.includes(file.type)) {
-                            errors.push(`${file.name} is not a valid image type.`);
-                          }
-                          if (file.size > maxSize) {
-                            errors.push(`${file.name} is larger than 5MB.`);
-                          }
-                        });
-
-                        if (errors.length > 0) {
-                          setGalleryError(errors.join(" | "));
-                          return;
-                        }
-
-                        setGalleryError("");
-
-                        const previews = files.map((file) => ({
-                          url: URL.createObjectURL(file),
-                          file: file,
-                        }));
-
-                        setGalleryImages((prev) => [...prev, ...previews]);
-                      }}
-                    />
-                  </label>
-
-                  {/* Error Message */}
-                  {galleryError && (
-                    <p className="text-red-600 text-sm mt-1">{galleryError}</p>
-                  )}
-
-                  {/* Preview Grid */}
-                  <div className="grid grid-cols-3 gap-3 mt-3">
-                    {galleryImages.map((img, index) => (
-                      <div key={index} className="relative group">
-                        <img
-                          src={img.url}
-                          className="h-20 w-full object-cover rounded-lg shadow"
-                        />
-
-                        {/* Delete Button */}
-                        <button
-                          onClick={() =>
-                            setGalleryImages(galleryImages.filter((_, i) => i !== index))
-                          }
-                          className="
-                            absolute top-1 right-1 
-                            bg-black/60 text-white text-xs 
-                            rounded-full px-1.5 py-0.5 
-                            opacity-0 group-hover:opacity-100 
-                            transition
-                          "
-                        >
-                          ✕
-                        </button>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-
+              <div className="grid grid-cols-3 gap-2">
+                {galleryImages.map((img, i) => (
+                  <img key={i} src={img.url} className="h-20 w-full object-cover rounded" />
+                ))}
+              </div>
 
               {/* Title */}
               <div>
@@ -475,33 +517,60 @@ const Page = () => {
                   Title
                 </label>
                 <input
-                  type="text"
-                  className="w-full px-3 py-2 border rounded-lg mt-1 focus:ring-2 focus:ring-purple-500"
+                type="text"
+                 name="title" value={formData.title} onChange={handleChange}
+                  className="w-full px-3 input py-2 border rounded-lg mt-1 focus:ring-2 focus:ring-purple-500"
                   placeholder="Enter event title"
                 />
               </div>
 
-              {/* Start Date & Time */}
-              <div>
-                <label className="text-sm font-medium text-gray-700">
-                  Start Date & Time
-                </label>
-                <input
-                  type="datetime-local"
-                  className="w-full px-3 py-2 border rounded-lg mt-1 focus:ring-2 focus:ring-purple-500"
-                />
+                 {/* Start Date & Time */}
+              <div className="grid grid-cols-2 gap-4">
+                  <div>
+                    <label className="text-sm font-medium text-gray-700">
+                    Start Date
+                  </label>
+                  <input
+                    type="date" name="from_date" value={formData.from_date} onChange={handleChange}
+                    className="w-full px-3 input py-2 border rounded-lg mt-1 focus:ring-2 focus:ring-purple-500"
+                  />
+                </div>
+
+                <div>
+                    <label className="text-sm font-medium text-gray-700">
+                    Start Time
+                  </label>
+                  <input
+                    type="time" name="start_time" value={formData.start_time} onChange={handleChange}
+                    className="w-full px-3 input py-2 border rounded-lg mt-1 focus:ring-2 focus:ring-purple-500"
+                  />
+                </div>
               </div>
 
-              {/* End Date & Time */}
-              <div>
-                <label className="text-sm font-medium text-gray-700">
-                  End Date & Time
-                </label>
-                <input
-                  type="datetime-local"
-                  className="w-full px-3 py-2 border rounded-lg mt-1 focus:ring-2 focus:ring-purple-500"
-                />
+                <div className="grid grid-cols-2 gap-4">
+                  <div>
+                    <label className="text-sm font-medium text-gray-700">
+                    End Date
+                  </label>
+                  <input
+                   type="date" name="to_date" value={formData.to_date} onChange={handleChange}
+                    className="w-full px-3 input py-2 border rounded-lg mt-1 focus:ring-2 focus:ring-purple-500"
+                  />
+                </div>
+
+                <div>
+                    <label className="text-sm font-medium text-gray-700">
+                    End Time
+                  </label>
+                  <input
+                    type="time" name="to_time" value={formData.to_time} onChange={handleChange} 
+                    className="w-full px-3 input py-2 border rounded-lg mt-1 focus:ring-2 focus:ring-purple-500"
+                  />
+                </div>
               </div>
+
+
+             
 
               {/* Location */}
               <div>
@@ -509,8 +578,9 @@ const Page = () => {
                   Location
                 </label>
                 <input
-                  type="text"
-                  className="w-full px-3 py-2 border rounded-lg mt-1 focus:ring-2 focus:ring-purple-500"
+                type="text"
+                 name="location" value={formData.location} onChange={handleChange}
+                  className="w-full px-3 py-2 input border rounded-lg mt-1 focus:ring-2 focus:ring-purple-500"
                   placeholder="Enter location"
                 />
               </div>
@@ -521,8 +591,8 @@ const Page = () => {
                   Event Details
                 </label>
                 <textarea
-                  rows="3"
-                  className="w-full px-3 py-2 border rounded-lg mt-1 focus:ring-2 focus:ring-purple-500"
+                  rows="2" name="content" value={formData.content} onChange={handleChange}
+                  className="w-full px-3 py-2 border input rounded-lg mt-1 focus:ring-2 focus:ring-purple-500"
                   placeholder="Enter full event details"
                 />
               </div>
@@ -533,8 +603,9 @@ const Page = () => {
                   Email ID
                 </label>
                 <input
-                  type="email"
-                  className="w-full px-3 py-2 border rounded-lg mt-1"
+                type="email"
+                  name="email" value={formData.email} onChange={handleChange}
+                  className="w-full px-3 py-2 border rounded-lg mt-1 input"
                   placeholder="example@email.com"
                 />
               </div>
@@ -545,20 +616,32 @@ const Page = () => {
                   Phone Number
                 </label>
                 <input
-                  type="tel"
-                  className="w-full px-3 py-2 border rounded-lg mt-1"
+                type="tel"
+                  name="contact_detail" value={formData.contact_detail} onChange={handleChange}
+                  className="w-full px-3 py-2 border rounded-lg mt-1 input"
                   placeholder="+91 9876543210"
                 />
               </div>
-
+                 {/*  Event Description */}
+              <div>
+                <label className="text-sm font-medium text-gray-700">
+                  Event Description
+                </label>
+                <textarea
+                  rows="3" name="description" value={formData.description} onChange={handleChange}
+                  className="w-full px-3 py-2 border input rounded-lg mt-1 focus:ring-2 focus:ring-purple-500"
+                  placeholder="Enter full Event Description"
+                />
+              </div>
               {/* Website */}
               <div>
                 <label className="text-sm font-medium text-gray-700">
                   Website
                 </label>
                 <input
-                  type="url"
-                  className="w-full px-3 py-2 border rounded-lg mt-1"
+                type="url"
+                  name="website_url" value={formData.website_url} onChange={handleChange}
+                  className="w-full px-3 py-2 border rounded-lg mt-1 input"
                   placeholder="https://yourwebsite.com"
                 />
               </div>
@@ -570,8 +653,9 @@ const Page = () => {
                     Instagram
                   </label>
                   <input
-                    type="url"
-                    className="w-full px-3 py-2 border rounded-lg mt-1"
+                  type="url"
+                   name="instagram" value={formData.instagram} onChange={handleChange}
+                    className="w-full px-3 py-2 border rounded-lg mt-1 input"
                     placeholder="https://instagram.com/yourpage"
                   />
                 </div>
@@ -581,30 +665,32 @@ const Page = () => {
                     Facebook
                   </label>
                   <input
-                    type="url"
-                    className="w-full px-3 py-2 border rounded-lg mt-1"
+                  type="url"
+                  name="facebook" value={formData.facebook} onChange={handleChange}
+                    className="w-full px-3 py-2 border rounded-lg mt-1 input"
                     placeholder="https://facebook.com/yourpage"
                   />
                 </div>
 
                 <div>
                   <label className="text-sm font-medium text-gray-700">
-                    Twitter
+                    LinkedIn
                   </label>
                   <input
-                    type="url"
-                    className="w-full px-3 py-2 border rounded-lg mt-1"
-                    placeholder="https://twitter.com/yourpage"
+                  type="url"
+                    name="linkedin" value={formData.linkedin} onChange={handleChange}
+                    className="w-full px-3 py-2 border rounded-lg mt-1 input"
+                    placeholder="https://linkedin.com/yourpage"
                   />
                 </div>
               </div>
 
               {/* Submit */}
               <button
-                type="submit"
+                type="submit" disabled={submitting}
                 className="w-full py-2 bg-gradient-to-r from-purple-600 to-orange-500 text-white font-semibold rounded-lg shadow-md hover:opacity-90 transition"
               >
-                Add Event
+                {submitting ? "Adding..." : "Add Event"}
               </button>
             </form>
           </div>
