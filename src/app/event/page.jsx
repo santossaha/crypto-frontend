@@ -25,7 +25,7 @@ const Page = () => {
     const fetchEvents = async () => {
       const start = Date.now();
       try {
-        const response = await axiosInstance("/event-list");
+        const response = await axiosInstance("/get-events");
         // Debug/log the raw response to help diagnose shape issues
         console.log("/get-events response:", response);
 
@@ -150,21 +150,21 @@ const Page = () => {
                 ))
               : eventsList.map((event) => (
                   <motion.div
-                    key={event.id}
+                   key={event.slug}
                     variants={itemVariants}
                     whileHover={{ y: -6 }}
                     transition={{ type: "tween", duration: 0.4 }}
                     className="relative rounded-2xl overflow-hidden shadow-md hover:shadow-xl cursor-pointer h-80"
                   >
                     <Link
-                      href={`/event-details/${event.id}`}
+                      href={`/event-details/${event.slug}`}
                       className="block absolute inset-0 z-20"
                     />
 
                     {/* Background Image */}
                     <div className="w-full h-full relative">
                       <Image
-                        src="/p-1.jpg"
+                        src={formatImageUrl(event.image)}
                         alt={event.title}
                         fill
                         sizes="(max-width: 768px) 100vw, 33vw"
@@ -280,7 +280,7 @@ const Page = () => {
                         </div>
 
                         <div className="mt-3 flex items-center justify-end">
-                          <Link href={`/event-details/${event.id}`}>
+                          <Link href={`/event-details/${event.slug}`}>
                             <div className="relative w-32 h-10 bg-gradient-to-r from-purple-600 to-orange-500 text-white border-transparent rounded-lg overflow-hidden group cursor-pointer select-none">
                               {/* Flash Shine Effect */}
                               <span
@@ -332,7 +332,8 @@ const Page = () => {
                   </motion.div>
                 ))}
           </div>
-
+            
+            
 
         </div>
       </div>
