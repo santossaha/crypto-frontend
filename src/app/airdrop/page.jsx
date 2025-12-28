@@ -32,6 +32,10 @@ const Airdrop = () => {
 
   const totalPages = Math.ceil(fullData.length / rowsPerPage);
 
+  React.useEffect(() => {
+    document.title = "Airdrops - Crypto Frontend";
+  }, []);
+
   // Pagination handlers
   const goToPage = (num) => setCurrentPage(num);
   const nextPage = () => currentPage < totalPages && setCurrentPage(currentPage + 1);

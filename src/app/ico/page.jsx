@@ -10,6 +10,10 @@ import HeroSection from "../components/hero/HeroSection";
 const Page = () => {
   const [eventType, setEventType] = useState("Upcoming");
 
+  React.useEffect(() => {
+    document.title = "ICO - Crypto Frontend";
+  }, []);
+
   const fullData = Array(20).fill({
     name: "RaysX",
     stage: "ICO",

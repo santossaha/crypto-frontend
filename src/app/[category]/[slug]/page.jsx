@@ -54,6 +54,10 @@ const CategoriesPage = ({ params }) => {
   const [page, setPage] = useState(1);
   const [hasMore, setHasMore] = useState(true);
 
+  React.useEffect(() => {
+    document.title = "Blog Post - Crypto Frontend";
+  }, []);
+
   const loadBlogs = async (pageNo = 1) => {
     try {
       pageNo === 1 ? setLoading(true) : setMoreLoading(true);

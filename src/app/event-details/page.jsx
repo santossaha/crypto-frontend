@@ -4,6 +4,11 @@ import p1 from "../assets/images/man.jpg";
 import HeroSection from "../components/hero/HeroSection";
 import "./style.css";
 
+export const metadata = {
+  title: "Event Details - Crypto Frontend",
+  description: "Overview of event details and information for crypto enthusiasts.",
+};
+
 const Page = () => {
   return (
     <>

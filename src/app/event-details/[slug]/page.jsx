@@ -8,6 +8,11 @@ import banner3 from "../../assets/images/banner-3.jpg";
 import { formatImageUrl } from "@/app/Helper/imageUtils";
 import ShareButtons from "@/app/components/ShareButtons";
 
+export const metadata = {
+  title: "Event Details - Crypto Frontend",
+  description: "Get detailed information about upcoming crypto events, including schedules, locations, and registration details.",
+};
+
 async function getEventBySlug(slug) {
   try {
     const res = await axiosInstance(`/event-detail/${slug}`);

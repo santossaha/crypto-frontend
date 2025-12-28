@@ -23,6 +23,10 @@ const Contact = () => {
   const [errors, setErrors] = useState({});
   const [statusMessage, setStatusMessage] = useState("");
 
+  React.useEffect(() => {
+    document.title = "Contact Us - Crypto Frontend";
+  }, []);
+
   const validateForm = () => {
     const newErrors = {};
 

@@ -2,6 +2,10 @@ import Link from 'next/link';
 import React from 'react';
 import "./style.css";
 
+export const metadata = {
+  title: "Submit Event - Crypto Frontend",
+  description: "Submit your crypto event details for listing on our platform. Share information about conferences, meetups, and blockchain events.",
+};
 
 const page = () => {
   return (

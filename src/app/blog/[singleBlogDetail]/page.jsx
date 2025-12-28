@@ -9,6 +9,11 @@ import HeroSection from "@/app/components/hero/HeroSection";
 import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
 
+export const metadata = {
+  title: "Blog Detail - Crypto Frontend",
+  description: "Detailed view of a blog post covering topics in cryptocurrency and blockchain.",
+};
+
 async function getBlogDetails(slug) {
   try {
     const response = await axiosInstance(`/blog-details/${slug}`);

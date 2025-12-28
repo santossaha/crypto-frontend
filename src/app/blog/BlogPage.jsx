@@ -8,6 +8,7 @@ import axiosInstance from "../Helper/Helper";
 import { formatImageUrl } from "../Helper/imageUtils";
 
 import Categories from "../components/categories/page";
+
 import RecentView from "../components/recentView/page";
 import HeroSection from "../components/hero/HeroSection";
 import BannerSection from "../components/✅ BannerSection";
@@ -139,6 +140,16 @@ const Blog = () => {
 
   useEffect(() => {
     document.title = "Blog - Crypto Frontend";
+    const metaDescription = document.querySelector('meta[name="description"]');
+    const description = "Read the latest crypto blog posts, news, and insights on blockchain technology, cryptocurrencies, and market trends.";
+    if (metaDescription) {
+      metaDescription.setAttribute('content', description);
+    } else {
+      const meta = document.createElement('meta');
+      meta.name = 'description';
+      meta.content = description;
+      document.head.appendChild(meta);
+    }
   }, []);
 
   return (

@@ -4,6 +4,7 @@ import Link from "next/link";
 import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import { motion } from "framer-motion";
+import axios from "axios";
 import axiosInstance from "../Helper/Helper";
 import { formatImageUrl } from "../Helper/imageUtils";
 import HeroSection from "../components/hero/HeroSection";
@@ -16,6 +17,7 @@ const Page = () => {
   const [openModal, setOpenModal] = useState(false);
   const [galleryImages, setGalleryImages] = useState([]);
   const [galleryError, setGalleryError] = useState("");
+  const [formErrors, setFormErrors] = useState({});
   const [bannerImage, setBannerImage] = useState(null);
   
   const [submitting, setSubmitting] = useState(false);
@@ -34,6 +36,10 @@ const [formData, setFormData] = useState({
   instagram: "",
   linkedin: "",
   description: "",
+  meta_title: "",
+  meta_description: "",
+  meta_keyword: "",
+  canonical: "",
 });
 
 
@@ -41,17 +47,48 @@ const [formData, setFormData] = useState({
   // 🔹 handle input change
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
+    setFormErrors(prev => ({...prev, [e.target.name]: ""}));
   };
 
 const handleSubmit = async (e) => {
   e.preventDefault();
+
+  // Validation
+  const errors = {};
+  if (!formData.title.trim()) errors.title = "Title is required";
+  if (!formData.content.trim()) errors.content = "Event details are required";
+  if (!formData.from_date) errors.from_date = "Start date is required";
+  if (!formData.location.trim()) errors.location = "Location is required";
+  if (!bannerImage) errors.banner = "Banner image is required";
+  if (galleryImages.length === 0) errors.gallery = "At least one gallery image is required";
+
+  if (Object.keys(errors).length > 0) {
+    setFormErrors(errors);
+    return;
+  }
+
+  setFormErrors({});
   setSubmitting(true);
 
   try {
     const fd = new FormData();
 
+    // Format dates to DD-MM-YYYY
+    const formatDate = (date) => {
+      if (!date) return '';
+      const d = new Date(date);
+      const day = String(d.getDate()).padStart(2, '0');
+      const month = String(d.getMonth() + 1).padStart(2, '0');
+      const year = d.getFullYear();
+      return `${day}-${month}-${year}`;
+    };
+
     Object.entries(formData).forEach(([key, value]) => {
-      fd.append(key, value);
+      if (key === 'from_date' || key === 'to_date') {
+        fd.append(key, formatDate(value));
+      } else {
+        fd.append(key, value);
+      }
     });
 
     // ✅ banner image (VERY IMPORTANT)
@@ -61,10 +98,16 @@ const handleSubmit = async (e) => {
 
     // gallery images
     galleryImages.forEach((img) => {
-      fd.append("gallery_images[]", img.file);
+      fd.append("gallery_images", img.file);
     });
 
-    const res = await axiosInstance.post("/create-event", fd);
+    // Debug: log FormData contents
+    console.log("FormData being sent:");
+    for (let [key, value] of fd.entries()) {
+      console.log(key, value);
+    }
+
+    const res = await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/create-event`, fd);
 
     alert("✅ Event added successfully");
     setOpenModal(false);
@@ -85,11 +128,16 @@ const handleSubmit = async (e) => {
       instagram: "",
       linkedin: "",
       description: "",
+      meta_title: "",
+      meta_description: "",
+      meta_keyword: "",
+      canonical: "",
     });
     setBannerImage(null);
     setGalleryImages([]);
   } catch (err) {
-    console.log("422 error details:", err.response?.data);
+    console.log("Full error:", err);
+    console.log("Error response:", err.response);
     alert("❌ Failed to add event");
   } finally {
     setSubmitting(false);
@@ -147,6 +195,10 @@ const handleSubmit = async (e) => {
     : events && Array.isArray(events.data)
     ? events.data
     : [];
+
+  React.useEffect(() => {
+    document.title = "Events - Crypto Frontend";
+  }, []);
 
   const containerVariants = {
     hidden: { opacity: 0 },
@@ -481,11 +533,13 @@ const handleSubmit = async (e) => {
                   type="file"
                   accept="image/*"
                   className="hidden"
-                  onChange={(e) =>
-                    setBannerImage(e.target.files[0])
-                  }
+                  onChange={(e) => {
+                    setBannerImage(e.target.files[0]);
+                    setFormErrors(prev => ({...prev, banner: ""}));
+                  }}
                 />
               </label>
+              {formErrors.banner && <p className="text-red-500 text-sm mt-1">{formErrors.banner}</p>}
               {/* Gallery Images */}
               <label className="block border-dashed border-2 p-4 rounded-lg cursor-pointer">
                 Upload Gallery Images
@@ -501,9 +555,11 @@ const handleSubmit = async (e) => {
                       file,
                     }));
                     setGalleryImages((prev) => [...prev, ...previews]);
+                    setFormErrors(prev => ({...prev, gallery: ""}));
                   }}
                 />
               </label>
+              {formErrors.gallery && <p className="text-red-500 text-sm mt-1">{formErrors.gallery}</p>}
 
               <div className="grid grid-cols-3 gap-2">
                 {galleryImages.map((img, i) => (
@@ -522,6 +578,7 @@ const handleSubmit = async (e) => {
                   className="w-full px-3 input py-2 border rounded-lg mt-1 focus:ring-2 focus:ring-purple-500"
                   placeholder="Enter event title"
                 />
+                {formErrors.title && <p className="text-red-500 text-sm mt-1">{formErrors.title}</p>}
               </div>
 
                  {/* Start Date & Time */}
@@ -534,6 +591,7 @@ const handleSubmit = async (e) => {
                     type="date" name="from_date" value={formData.from_date} onChange={handleChange}
                     className="w-full px-3 input py-2 border rounded-lg mt-1 focus:ring-2 focus:ring-purple-500"
                   />
+                  {formErrors.from_date && <p className="text-red-500 text-sm mt-1">{formErrors.from_date}</p>}
                 </div>
 
                 <div>
@@ -583,6 +641,7 @@ const handleSubmit = async (e) => {
                   className="w-full px-3 py-2 input border rounded-lg mt-1 focus:ring-2 focus:ring-purple-500"
                   placeholder="Enter location"
                 />
+                {formErrors.location && <p className="text-red-500 text-sm mt-1">{formErrors.location}</p>}
               </div>
 
               {/* Event Details */}
@@ -595,6 +654,7 @@ const handleSubmit = async (e) => {
                   className="w-full px-3 py-2 border input rounded-lg mt-1 focus:ring-2 focus:ring-purple-500"
                   placeholder="Enter full event details"
                 />
+                {formErrors.content && <p className="text-red-500 text-sm mt-1">{formErrors.content}</p>}
               </div>
 
               {/* Email */}
@@ -681,6 +741,57 @@ const handleSubmit = async (e) => {
                     name="linkedin" value={formData.linkedin} onChange={handleChange}
                     className="w-full px-3 py-2 border rounded-lg mt-1 input"
                     placeholder="https://linkedin.com/yourpage"
+                  />
+                </div>
+              </div>
+
+              {/* Meta Fields */}
+              <div className="grid grid-cols-1 gap-3">
+                <div>
+                  <label className="text-sm font-medium text-gray-700">
+                    Meta Title
+                  </label>
+                  <input
+                    type="text"
+                    name="meta_title" value={formData.meta_title} onChange={handleChange}
+                    className="w-full px-3 py-2 border rounded-lg mt-1 input"
+                    placeholder="Enter meta title"
+                  />
+                </div>
+
+                <div>
+                  <label className="text-sm font-medium text-gray-700">
+                    Meta Description
+                  </label>
+                  <textarea
+                    rows="2"
+                    name="meta_description" value={formData.meta_description} onChange={handleChange}
+                    className="w-full px-3 py-2 border rounded-lg mt-1 input"
+                    placeholder="Enter meta description"
+                  />
+                </div>
+
+                <div>
+                  <label className="text-sm font-medium text-gray-700">
+                    Meta Keywords
+                  </label>
+                  <input
+                    type="text"
+                    name="meta_keyword" value={formData.meta_keyword} onChange={handleChange}
+                    className="w-full px-3 py-2 border rounded-lg mt-1 input"
+                    placeholder="Enter meta keywords"
+                  />
+                </div>
+
+                <div>
+                  <label className="text-sm font-medium text-gray-700">
+                    Canonical URL
+                  </label>
+                  <input
+                    type="url"
+                    name="canonical" value={formData.canonical} onChange={handleChange}
+                    className="w-full px-3 py-2 border rounded-lg mt-1 input"
+                    placeholder="https://yourwebsite.com/canonical"
                   />
                 </div>
               </div>

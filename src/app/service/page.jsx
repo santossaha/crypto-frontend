@@ -1,6 +1,11 @@
 import Link from 'next/link'
 import React from 'react'
 
+export const metadata = {
+  title: "Services - Crypto Frontend",
+  description: "Explore our services related to cryptocurrency, blockchain development, and crypto consulting.",
+};
+
 const page = () => {
   return (
     <div>

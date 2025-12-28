@@ -10,7 +10,6 @@ import "react-loading-skeleton/dist/skeleton.css"
 import HomeSections from "./components/HomeSections";
 import BannerSection from "./components/✅ BannerSection";
 
-
 const Slider = dynamic(() => import("./components/slider/SimpleSlider"), {
   ssr: false,
 });
@@ -18,6 +17,10 @@ const Slider = dynamic(() => import("./components/slider/SimpleSlider"), {
 const Page = () => {
   const [loading, setLoading] = useState(true);
   const [bannerImage, setBannerImage] = useState(null);
+
+  React.useEffect(() => {
+    document.title = "Crypto Frontend - Home";
+  }, []);
 
   useEffect(() => {
    

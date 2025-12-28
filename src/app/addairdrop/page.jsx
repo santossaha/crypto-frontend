@@ -3,7 +3,10 @@ import React from 'react'
 import Banner from "../components/banner/page";
 import './style.css';
 
-
+export const metadata = {
+  title: "Add Airdrop - Crypto Frontend",
+  description: "Add new airdrop opportunities to our crypto platform. Share details about upcoming token distributions and rewards.",
+};
 
 const addairdrop = () => {
   return (

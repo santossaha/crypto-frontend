@@ -32,6 +32,10 @@ const ServiceDetails = () => {
   const [totalPages, setTotalPages] = useState(1);
 
   useEffect(() => {
+    document.title = "Service Details - Crypto Frontend";
+  }, []);
+
+  useEffect(() => {
     const fetchServiceDetails = async () => {
       try {
         const response = await axiosInstance(

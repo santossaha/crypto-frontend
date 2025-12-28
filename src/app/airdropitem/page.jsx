@@ -8,6 +8,11 @@ import { IconCalendarMonth } from '@tabler/icons-react';
 import { IconUpload } from '@tabler/icons-react';
 import { IconArrowBigUp } from '@tabler/icons-react';
 import { IconArrowForward } from '@tabler/icons-react';
+
+export const metadata = {
+  title: "Airdrop Item - Crypto Frontend",
+  description: "Detailed information about a specific airdrop. Learn how to participate and claim your free crypto tokens.",
+};
 import { IconArrowBackUp } from '@tabler/icons-react';
 
 const page = () => {
