@@ -5,6 +5,7 @@ import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
 import axiosInstance from "../../Helper/Helper";
 import { formatImageUrl } from "../../Helper/imageUtils";
+import formatDate from "../../Helper/helperUtils";
 import HeroSection from "../../components/hero/HeroSection";
 
 // Animation Variants
@@ -46,6 +47,55 @@ const SkeletonCard = () => (
   </motion.article>
 );
 
+// CARD COMPONENT (UPDATED)
+const AnimatedCard = ({ item, index }) => {
+  // Date formatting (use reusable helper)
+  let formattedDate = formatDate(item.created_at);
+  return (
+    <motion.article
+      custom={index}
+      variants={cardVariants}
+      whileHover={{ y: -6 }}
+      transition={{ type: "tween", duration: 0.6, ease: "easeOut" }}
+      className="bg-white rounded-xl shadow-md overflow-hidden cursor-pointer h-full hover:shadow-lg"
+    >
+      <Link href={`/blog/${item.slug}`} className="block">
+        <div className="w-full h-40 relative bg-gray-100 overflow-hidden">
+          <Image
+            src={formatImageUrl(item.image)}
+            alt={item.title}
+            fill
+            style={{ objectFit: "cover" }}
+          />
+        </div>
+
+        <div className="p-4">
+          <div className="text-xs text-gray-500 mb-2 flex items-center justify-between">
+            <span>{formattedDate}</span>
+            <span>{item.views ?? 0} views</span>
+          </div>
+
+          <h3 className="text-lg font-semibold text-gray-900 mb-2 line-clamp-2">
+            {item.title}
+          </h3>
+
+          <p className="text-sm text-gray-600 mb-3 line-clamp-2">
+            {(
+              item.short_description ||
+              item.description ||
+              item.content
+            )?.slice(0, 120)}
+          </p>
+
+          <span className="inline-block text-sm text-indigo-600 font-medium hover:text-indigo-700">
+            Read More →
+          </span>
+        </div>
+      </Link>
+    </motion.article>
+  );
+};
+
 const CategoriesPage = ({ params }) => {
   const { slug } = params;
   const [blogs, setBlogs] = useState([]);
@@ -58,28 +108,19 @@ const CategoriesPage = ({ params }) => {
     document.title = "Blog Post - Crypto Frontend";
   }, []);
 
-  const loadBlogs = async (pageNo = 1) => {
+  const loadBlogs = async () => {
     try {
-      pageNo === 1 ? setLoading(true) : setMoreLoading(true);
+      setLoading(true);
 
-      const res = await axiosInstance(`/get-blogs?page=${pageNo}`);
+      const res = await axiosInstance(`/category-wise-details/${slug}`);
 
       if (res.data.status === "success") {
-        const allBlogs = res.data[0];
-        // Filter blogs by category on client side
-        const filteredBlogs = allBlogs.filter(blog =>
-          blog.category?.toLowerCase() === slug.toLowerCase() ||
-          blog.categories?.some(cat => cat.toLowerCase() === slug.toLowerCase())
-        );
-
-        setBlogs((prev) =>
-          pageNo === 1
-            ? filteredBlogs
-            : [...prev, ...filteredBlogs.filter((i) => !prev.some((p) => p.id === i.id))]
-        );
-
-        if (!filteredBlogs.length) setHasMore(false);
+        // 👇 API me blogs "0" key ke andar aa rahe hain
+        setBlogs(res.data[0] || []);
+        setHasMore(false); // pagination backend me nahi hai
       }
+    } catch (error) {
+      console.error("Category fetch error:", error);
     } finally {
       setLoading(false);
       setMoreLoading(false);
@@ -97,7 +138,7 @@ const CategoriesPage = ({ params }) => {
         animate={{ opacity: 1, y: 0 }}
       >
         <HeroSection
-          title={`${slug}`}
+          title={slug}
           subtitle="Discover the best premium listings curated specially for you."
         >
           <ul className="flex justify-center gap-2 text-gray-600 mt-3">
@@ -122,6 +163,9 @@ const CategoriesPage = ({ params }) => {
       </motion.header>
 
       <div className="container mx-auto px-6 py-12">
+        <h2 className="text-2xl font-bold text-gray-100 capitalize mb-5">
+          {slug}
+        </h2>
         <motion.div
           variants={containerVariants}
           initial="hidden"
@@ -129,70 +173,28 @@ const CategoriesPage = ({ params }) => {
           className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6"
         >
           <AnimatePresence>
-            {loading
-              ? Array.from({ length: 8 }).map((_, i) => (
-                  <SkeletonCard key={`skeleton-${i}`} />
-                ))
-              : blogs.map((blog, index) => (
-                  <AnimatedCard key={blog.id} item={blog} index={index} />
-                ))}
+            {loading ? (
+              Array.from({ length: 8 }).map((_, i) => (
+                <SkeletonCard key={`skeleton-${i}`} />
+              ))
+            ) : blogs.length > 0 ? (
+              blogs.map((blog) => (
+                <AnimatedCard key={blog.id} item={blog} className="bg-white" />
+              ))
+            ) : (
+              <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                className="col-span-full text-center mt-6"
+              >
+                
+                <p className="text-gray-300 mt-1">
+                  There are currently no blog posts in this category.
+                </p>
+              </motion.div>
+            )}
           </AnimatePresence>
         </motion.div>
-
-        {moreLoading && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 mt-6"
-          >
-            {Array.from({ length: 4 }).map((_, i) => (
-              <SkeletonCard key={`more-skeleton-${i}`} />
-            ))}
-          </motion.div>
-        )}
-
-        {!loading && hasMore && (
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.5 }}
-            className="text-center mt-12"
-          >
-            <button
-              onClick={() => {
-                setPage((prev) => prev + 1);
-                loadBlogs(page + 1);
-              }}
-              className="bg-gradient-to-r from-purple-400 to-orange-400 text-white px-8 py-3 rounded-lg font-semibold hover:shadow-lg transition-all duration-300"
-            >
-              Load More Posts
-            </button>
-          </motion.div>
-        )}
-
-        {!loading && !hasMore && blogs.length > 0 && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 0.5 }}
-            className="text-center mt-12"
-          >
-            <p className="text-gray-500">No more posts to load</p>
-          </motion.div>
-        )}
-
-        {!loading && blogs.length === 0 && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 0.5 }}
-            className=" mt-6"
-          ><h2 className="text-2xl font-bold text-gray-100 capitalize">{slug}</h2>
-            <p className="text-gray-300 mt-1">
-              There are currently no blog posts in this category.
-            </p>
-          </motion.div>
-        )}
       </div>
     </div>
   );

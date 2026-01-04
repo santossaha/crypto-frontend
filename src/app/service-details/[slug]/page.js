@@ -5,11 +5,11 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 import { useParams } from "next/navigation";
 import axiosInstance from "@/app/Helper/Helper";
-import Eye from "../../assets/images/eye.svg";
 import { motion } from "framer-motion";
 import SkeletonCard from "@/app/components/skeleton/SkeletonCard";
 import { formatImageUrl } from "../../Helper/imageUtils";
 import HeroSection from "@/app/components/hero/HeroSection";
+import formatDate from "@/app/Helper/helperUtils";
 
 // Animation Variants
 const cardVariants = {
@@ -54,7 +54,6 @@ const ServiceDetails = () => {
   }, [slug, currentPage]);
 
   const handlePageSelect = (page) => setCurrentPage(page);
-
   return (
       
     <section>
@@ -123,10 +122,10 @@ const ServiceDetails = () => {
                   <motion.div
                     key={service.id}
                     variants={cardVariants}
-      whileHover={{ y: -6 }}
-      transition={{ type: "tween", duration: 0.6, ease: "easeOut" }}
-      className="bg-white rounded-xl shadow-md overflow-hidden cursor-pointer h-full hover:shadow-lg"
-    >
+                    whileHover={{ y: -6 }}
+                    transition={{ type: "tween", duration: 0.6, ease: "easeOut" }}
+                    className="bg-white rounded-xl shadow-md overflow-hidden cursor-pointer h-full hover:shadow-lg"
+                  >
                     {/* Image */}
                     <div className="relative h-56 w-full">
                       <Image
@@ -140,10 +139,9 @@ const ServiceDetails = () => {
                     {/* Content */}
                     <div className="p-3.5">
                       <div className="flex items-center justify-between text-sm text-gray-500">
-                        <span>
-                          {new Date(service.created_at).toLocaleDateString()}
+                         <span>
+                          {formatDate(service.created_at)}
                         </span>
-
                         <span className="flex items-center gap-1">
                          
                           

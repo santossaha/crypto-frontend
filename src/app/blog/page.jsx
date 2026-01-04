@@ -6,11 +6,11 @@ import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
 import axiosInstance from "../Helper/Helper";
 import { formatImageUrl } from "../Helper/imageUtils";
+import formatDate from "../Helper/helperUtils";
 
 import Categories from "../components/categories/page";
 import RecentView from "../components/recentView/page";
 import HeroSection from "../components/hero/HeroSection";
-import BannerSection from "../components/✅ BannerSection";
 
 // Animation Variants
 const containerVariants = {
@@ -53,10 +53,8 @@ const SkeletonCard = () => (
 
 // CARD COMPONENT (UPDATED)
 const AnimatedCard = ({ item, index }) => {
-  const formattedDate = item.created_at
-    ? new Date(item.created_at).toLocaleDateString()
-    : "June 25, 2025";
-
+   // Date formatting (use reusable helper)
+   let formattedDate = formatDate(item.created_at);
   return (
     <motion.article
       custom={index}

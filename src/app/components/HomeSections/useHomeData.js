@@ -11,7 +11,7 @@ export const useHomeData = () => {
   useEffect(() => {
     setLoading(true);
     console.log("Fetching from API:", process.env.NEXT_PUBLIC_API_URL);
-    axiosInstance("/get-latest-date")
+    axiosInstance("/get-latest-data")
       .then((res) => {
         console.log('working....');
 
