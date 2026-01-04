@@ -4,7 +4,6 @@ import Link from "next/link";
 import React, { useEffect, useRef, useState } from "react";
 import {
   IconChevronDown,
-  IconChevronRight,
   IconFolder,
   IconMenu2,
   IconX,
@@ -151,9 +150,11 @@ const Header = () => {
                       onMouseEnter={() => setServicesOpen(true)}
                       onMouseLeave={() => setServicesOpen(false)}
                     >
-                      <div className="grid grid-cols-3 gap-6">
+                      <div className="grid grid-cols-2 gap-6">
                         {/* Dynamic Services */}
-                        {getCategories?.map((group) => (
+                        {getCategories?.filter((group) => 
+                          !group.type?.toLowerCase().includes('event')
+                        ).map((group) => (
                           <div key={group.id} className="space-y-3">
                             <h5 className="font-bold text-lg mb-3 text-gray-800 flex items-center gap-2 capitalize">
                               <div className="w-2 h-2 bg-gradient-to-r from-[#9850ee] to-[#fdb748] rounded-full"></div>
@@ -252,7 +253,9 @@ const Header = () => {
               {/* Mobile Services: expand/collapse each group */}
               <div className="text-white font-medium mb-2">Services</div>
               <div className="pl-2 space-y-2">
-                {getCategories?.map((group) => (
+                {getCategories?.filter((group) => 
+                  !group.type?.toLowerCase().includes('event')
+                ).map((group) => (
                   <details key={group.id} className="text-sm">
                     <summary className="list-none flex items-center justify-between gap-2 cursor-pointer py-1">
                       <div className="flex items-center gap-2">

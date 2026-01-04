@@ -5,6 +5,7 @@ import p1 from "../../assets/images/logo.png";
 import m1 from "../../assets/images/facebook.svg";
 import m2 from "../../assets/images/twitter.svg";
 import m3 from "../../assets/images/instagram.svg";
+
 const page = () => {
   return (
     <footer className="mt-12">

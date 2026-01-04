@@ -104,36 +104,32 @@ const AnimatedCard = ({ item, index }) => {
 const Blog = () => {
   const [blogs, setBlogs] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [moreLoading, setMoreLoading] = useState(false);
-  const [page, setPage] = useState(1);
-  const [hasMore, setHasMore] = useState(true);
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 6;
 
   const loadBlogs = async (pageNo = 1) => {
     try {
-      pageNo === 1 ? setLoading(true) : setMoreLoading(true);
-
+      setLoading(true);
       const res = await axiosInstance(`/get-blogs?page=${pageNo}`);
 
       if (res.data.status === "success") {
         const list = res.data[0];
+        setBlogs(list);
 
-        setBlogs((prev) =>
-          pageNo === 1
-            ? list
-            : [...prev, ...list.filter((i) => !prev.some((p) => p.id === i.id))]
-        );
-
-        if (!list.length) setHasMore(false);
+        // If we got blogs, assume there might be more pages
+        // If we got empty results, we've reached the end
+        if (list.length === 0 && pageNo > 1) {
+          setCurrentPage(pageNo - 1); // Go back to previous page
+        }
       }
     } finally {
       setLoading(false);
-      setMoreLoading(false);
     }
   };
 
   useEffect(() => {
-    loadBlogs(1);
-  }, []);
+    loadBlogs(currentPage);
+  }, [currentPage]);
 
   useEffect(() => {
     document.title = "Blog - Crypto Frontend";
@@ -191,26 +187,7 @@ const Blog = () => {
               </motion.div>
             )}
 
-            {/* LOAD MORE */}
-            <div className="text-center mt-6">
-              {moreLoading ? (
-                <button className="px-6 py-2 bg-purple-500 text-white rounded-lg cursor-not-allowed">
-                  Loading...
-                </button>
-              ) : hasMore ? (
-                <button
-                  className="px-5 py-2 bg-gradient-to-r from-purple-600 to-orange-500 text-white font-semibold rounded-lg shadow-md hover:opacity-90 transition"
-                  onClick={() => {
-                    setPage(page + 1);
-                    loadBlogs(page + 1);
-                  }}
-                >
-                  Load more
-                </button>
-              ) : (
-                <p className="text-gray-400">No more posts</p>
-              )}
-            </div>
+            
           </div>
 
           {/* RIGHT SIDEBAR */}

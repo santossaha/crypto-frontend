@@ -7,13 +7,9 @@ import { motion } from "framer-motion";
 import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
 
-import e1 from "../../assets/images/e-1.jpg";
-import e2 from "../../assets/images/e-2.jpg";
-import e3 from "../../assets/images/e-3.jpg";
-import e4 from "../../assets/images/e-4.jpg";
-import e5 from "../../assets/images/e-5.jpg";
-
 import axiosInstance from "@/app/Helper/Helper";
+import { formatImageUrl } from "@/app/Helper/imageUtils";
+import formatDate from "@/app/Helper/helperUtils";
 
 // Parent container animation
 const containerVariants = {
@@ -81,18 +77,35 @@ const ImageWithSkeleton = ({ src, alt, width, height }) => {
 const Categories = () => {
   const [categories, setCategories] = useState([]);
   const [loading, setLoading] = useState(true);
-  // Load categories
+  const [latestPosts, setLatestPosts] = useState([]);
+  const [postsLoading, setPostsLoading] = useState(true);
+  // Load categories and latest posts
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const res = await axiosInstance("/latest-news-category");
-        if (res?.data?.status === "success") {
-          setCategories(res.data.data || []);
+        // Fetch categories
+        const categoryRes = await axiosInstance("/latest-news-category");
+        if (categoryRes?.data?.status === "success") {
+          setCategories(categoryRes.data.data || []);
         }
       } catch (error) {
         console.error("Category Fetch Error:", error);
       } finally {
         setLoading(false);
+      }
+
+      try {
+        // Fetch latest posts
+        const postsRes = await axiosInstance("/get-blogs?page=1");
+        if (postsRes?.data?.status === "success") {
+          const posts = postsRes.data[0] || [];
+          // Take only first 4 posts
+          setLatestPosts(posts.slice(0, 4));
+        }
+      } catch (error) {
+        console.error("Latest Posts Fetch Error:", error);
+      } finally {
+        setPostsLoading(false);
       }
     };
     fetchData();
@@ -114,22 +127,60 @@ const Categories = () => {
       transition={{ type: "tween", duration: 0.5 }} className=" bg-white rounded-xl p-6">
         <h3 className="text-xl font-semibold text-gray-800 mb-4">Latest Post</h3>
 
-        <motion.ul variants={containerVariants} className="space-y-4">
-          {[e3, e4, e1, e2].map((img, idx) => (
-            <motion.li key={idx} variants={itemVariants}>
-              <Link href="/blog-details" className="flex items-center gap-3 group">
-                <ImageWithSkeleton src={img} alt="post" width={80} height={60} />
-
-                <div>
-                  <h5 className="text-gray-800 font-medium text-sm group-hover:text-indigo-600 transition">
-                    Sample Popular Blog Title
-                  </h5>
-                  <p className="text-gray-500 text-xs">March 12, 2024</p>
+        {postsLoading ? (
+          <div className="space-y-4">
+            {Array.from({ length: 4 }).map((_, idx) => (
+              <motion.div key={idx} variants={itemVariants} className="flex items-center gap-3">
+                <motion.div
+                  variants={skeletonVariants}
+                  animate="loading"
+                  className="w-20 h-15 bg-gray-200 rounded-md"
+                />
+                <div className="flex-1 space-y-2">
+                  <motion.div
+                    variants={skeletonVariants}
+                    animate="loading"
+                    className="h-4 bg-gray-200 rounded w-3/4"
+                  />
+                  <motion.div
+                    variants={skeletonVariants}
+                    animate="loading"
+                    className="h-3 bg-gray-200 rounded w-1/2"
+                  />
                 </div>
-              </Link>
-            </motion.li>
-          ))}
-        </motion.ul>
+              </motion.div>
+            ))}
+          </div>
+        ) : (
+          <motion.ul variants={containerVariants} className="space-y-4">
+            {latestPosts.map((post, idx) => (
+              <motion.li key={post.id || idx} variants={itemVariants}>
+                <Link href={`/blog/${post.slug}`} className="flex items-center gap-3 group">
+                  
+                  <div className="w-12 h-12 flex-shrink-0 rounded-md overflow-hidden bg-gray-100">
+                            {post.image ? (
+                              <Image
+                                src={formatImageUrl(post.image)}
+                                alt={post.title}
+                                width={48}
+                                height={48}
+                                style={{ objectFit: "cover" }}
+                              />
+                            ) : null}
+                          </div>
+                  <div>
+                    <h5 className="text-gray-800 font-medium text-sm group-hover:text-indigo-600 transition line-clamp-2">
+                      {post.title}
+                    </h5>
+                    <p className="text-gray-500 text-xs">
+                      {formatDate(post.created_at)}
+                    </p>
+                  </div>
+                </Link>
+              </motion.li>
+            ))}
+          </motion.ul>
+        )}
       </motion.div>
       
       {/* Category List */}
