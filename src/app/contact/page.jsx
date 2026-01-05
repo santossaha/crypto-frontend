@@ -132,7 +132,7 @@ const { appData, loading, error } = useAppData();
         <IconMail size={26} className="text-[#9850ee]" />
       </div>
       <div>
-        <p className="text-gray-800 text-sm font-semibold mb-1">Email Us</p>
+        <p className="text-gray-800 text-sm font-semibold mb-1 ">Email Us</p>
         <h6 className="text-gray-600 text-lg">{data?.email || "demos@example.com"}</h6>
       </div>
     </li>
