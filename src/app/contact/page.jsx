@@ -3,15 +3,12 @@ import Link from "next/link";
 import React, { useState } from "react";
 import axiosInstance from "../Helper/Helper";
 import HeroSection from "../components/hero/HeroSection";
-import Image from "next/image";
 import { IconPhoneCall, IconMail, IconMapPin } from "@tabler/icons-react";
-
-import p1 from "../assets/images/contacticon.svg";
-import e1 from "../assets/images/call-calling.svg";
-import e2 from "../assets/images/mail-1.svg";
-import e3 from "../assets/images/map.svg";
+import useAppData from "@/app/Hooks/useAppDetail";
 
 const Contact = () => {
+
+  
   const [formData, setFormData] = useState({
     first_name: "",
     last_name: "",
@@ -80,6 +77,12 @@ const Contact = () => {
       setStatusMessage("Failed to send message.");
     }
   };
+const { appData, loading, error } = useAppData();
+
+  if (loading) return null;
+  if (error) return null;
+
+  const data = appData?.data || appData;
 
   return (
     <div>
@@ -117,7 +120,7 @@ const Contact = () => {
       </div>
       <div>
         <p className="text-gray-800 text-sm font-semibold">Call Us</p>
-        <h6 className="text-gray-600 text-lg">1800 419 20001</h6>
+        <h6 className="text-gray-600 text-lg">{data?.phone || "(406) 555-012"}</h6>
       </div>
     </li>
 
@@ -128,7 +131,7 @@ const Contact = () => {
       </div>
       <div>
         <p className="text-gray-800 text-sm font-semibold">Email Us</p>
-        <h6 className="text-gray-600 text-lg">demo@gmail.in</h6>
+        <h6 className="text-gray-600 text-lg">{data?.email || "demos@example.com"}</h6>
       </div>
     </li>
 
@@ -140,7 +143,8 @@ const Contact = () => {
       <div>
         <p className="text-gray-800 text-sm font-semibold">Address</p>
         <h6 className="text-gray-600 text-lg">
-          Demo Street, New Town, Kolkata
+          {data?.address},
+                    {data?.city}, {data?.state}, {data?.country}
         </h6>
       </div>
     </li>

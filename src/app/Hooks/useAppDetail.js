@@ -1,34 +1,34 @@
-import { useState, useEffect } from 'react';
+"use client";
 
-const useAppDetail = () => {
-  const [data, setData] = useState(null);
+import { useEffect, useState } from "react";
+import axiosInstance from "../Helper/Helper";
+
+const useAppData = () => {
+  const [appData, setAppData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
-  useEffect(() => {
-    const fetchAppDetail = async () => {
-      try {
-        const response = await fetch('https://admin.bitfynance.com/api/app-detail');
-        if (!response.ok) {
-          throw new Error('Failed to fetch app details');
-        }
-        const result = await response.json();
-        if (result.status === 'success') {
-          setData(result.data);
-        } else {
-          throw new Error('API returned error status');
-        }
-      } catch (err) {
-        setError(err.message);
-      } finally {
-        setLoading(false);
-      }
-    };
+  const fetchAppData = async () => {
+    try {
+      setLoading(true);
+      const res = await axiosInstance("/app-detail");
 
-    fetchAppDetail();
+      if (res.data?.status === "success") {
+        setAppData(res.data.data || res.data);
+      }
+    } catch (err) {
+      console.error("App data fetch error:", err);
+      setError(err);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    fetchAppData();
   }, []);
 
-  return { data, loading, error };
+  return { appData, loading, error };
 };
 
-export default useAppDetail;
+export default useAppData;

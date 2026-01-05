@@ -88,7 +88,7 @@ const Header = () => {
             </div>
 
             {/* Desktop Nav */}
-            <nav className="hidden lg:flex items-center space-x-2">
+            <nav className="hidden lg:flex items-center space-x-2 my-navbar">
 
               {/* Nav Link Component with active + hover styles */}
               <Link
@@ -125,7 +125,7 @@ const Header = () => {
                   aria-expanded={servicesOpen}
                   onMouseEnter={() => setServicesOpen(true)}
                   onMouseLeave={() => setServicesOpen(false)}
-                  className={`flex items-center gap-1 text-sm font-semibold px-3 py-2 rounded-md transition 
+                  className={`flex items-center gap-1 text-sm font-semibold px-3 py-2 text-violet-950 rounded-md transition 
                     hover:bg-gray-100/20 hover:text-violet-950
                     ${servicesOpen ? "bg-gray-100/20 text-violet-950" : ""}`}
                 >

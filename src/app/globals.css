@@ -19,7 +19,7 @@
 body {
   margin: 0;
   padding: 0;
-  background-color: #020737;
+  background-color: #020737 !important;
   overflow-x: hidden;
   overflow-y: auto;
   min-height: 100vh;
@@ -35,7 +35,6 @@ body {
   object-fit: cover;
   overflow: hidden;
 }
-
 ul {
   padding: 0;
   margin: 0;
@@ -48,8 +47,19 @@ ul li {
   text-decoration: none;
 }
 a {
-  text-decoration: none;
+  text-decoration: none !important;
 }
+.my-navbar a {
+  color: #2e1065 !important;
+  font-weight: 500;
+}
+.footer-links li a{
+  color: #d1d5db !important;
+}
+.footer-links li a:hover{
+  color: #9850ee !important;  }
+.my-navbar a:hover {
+  color: #9850ee !important;}
 .banner-section {
   position: relative;
 }

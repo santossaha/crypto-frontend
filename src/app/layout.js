@@ -1,7 +1,6 @@
-import { Inter } from "next/font/google";
 import Script from "next/script";
-import Header from "./components/header/page";
-import Footer from "./components/footer/page";
+import Header from "./components/header/Header";
+import Footer from "./components/footer/Footer";
 import Head from "next/head";
 //import CandlestickBackground from "./components/CandlestickBackground";
 
@@ -73,10 +72,7 @@ export default function RootLayout({ children }) {
         <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
         <link
           href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css"
-          rel="stylesheet"
-          integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65"
-          crossorigin="anonymous"
-        />
+          rel="stylesheet"/>
       </Head>
       <body>
         {/* <CandlestickBackground /> */}
