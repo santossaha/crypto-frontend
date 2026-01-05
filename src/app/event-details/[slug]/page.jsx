@@ -348,7 +348,7 @@ export default async function Page({ params }) {
                 className="rounded-full"
               />
               <div>
-                <p className="font-semibold">
+                <p className="font-semibold mb-0">
                   {event.organizer || "Organizer Name"}
                 </p>
                 <p className="text-sm text-gray-500">Event Organizer</p>
