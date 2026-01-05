@@ -295,9 +295,13 @@ export default async function Page({ params }) {
                 />
               )}
             </div>
-            <p className="text-gray-700 leading-relaxed">
-              {event.description || event.details || "No details available."}
-            </p>
+           <p
+  className="text-gray-700 leading-relaxed"
+  dangerouslySetInnerHTML={{
+    __html: event.description || event.details || "No details available."
+  }}
+/>
+
           </div>
 
           {/* PHOTOS + VIDEOS */}
