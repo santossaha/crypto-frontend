@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const axiosInstance = axios.create({
-  baseURL: process.env.API_URL,
+  baseURL: "https://admin.bitfynance.com/api",
   headers: {
     "Content-Type": "application/json",
   },

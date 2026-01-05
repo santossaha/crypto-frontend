@@ -14,7 +14,7 @@ const Contact = () => {
     last_name: "",
     phone_number: "",
     email: "",
-    address: "",
+    message: "",
   });
 
   const [errors, setErrors] = useState({});
@@ -41,7 +41,7 @@ const Contact = () => {
     } else if (!/\S+@\S+\.\S+/.test(formData.email)) {
       newErrors.email = "Invalid email.";
     }
-    if (!formData.address.trim()) newErrors.address = "Message is required.";
+    if (!formData.message.trim()) newErrors.message = "Message is required.";
 
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
@@ -61,19 +61,21 @@ const Contact = () => {
 
     try {
       const response = await axiosInstance.post("/save-contact-us", formData);
-      if (response.data.status === "success") {
+      console.log("API Response:", response.data);
+      if (response.data.success === true) {
         setStatusMessage("Thank you! We received your message.");
         setFormData({
           first_name: "",
           last_name: "",
           phone_number: "",
           email: "",
-          address: "",
+          message: "",
         });
       } else {
         setStatusMessage("Error occurred, try again.");
       }
     } catch (error) {
+      console.log("API Error:", error);
       setStatusMessage("Failed to send message.");
     }
   };
@@ -173,6 +175,7 @@ const { appData, loading, error } = useAppData();
                     placeholder="John"
                     className="w-full bg-gray-50 border border-gray-300 px-4 py-2 rounded-lg focus:border-teal-400 outline-none"
                   />
+                  {errors.first_name && <p className="text-red-500 text-sm mt-1">{errors.first_name}</p>}
                 </div>
                 <div>
                   <label className="text-gray-600 block mb-1">Last Name</label>
@@ -184,6 +187,7 @@ const { appData, loading, error } = useAppData();
                     placeholder="Doe"
                     className="w-full bg-gray-50 border border-gray-300 px-4 py-2 rounded-lg focus:border-teal-400 outline-none"
                   />
+                  {errors.last_name && <p className="text-red-500 text-sm mt-1">{errors.last_name}</p>}
                 </div>
               </div>
 
@@ -200,6 +204,7 @@ const { appData, loading, error } = useAppData();
                     placeholder="9876543210"
                     className="w-full bg-gray-50 border border-gray-300 px-4 py-2 rounded-lg focus:border-teal-400 outline-none"
                   />
+                  {errors.phone_number && <p className="text-red-500 text-sm mt-1">{errors.phone_number}</p>}
                 </div>
                 <div>
                   <label className="text-gray-600 block mb-1">Email</label>
@@ -211,6 +216,7 @@ const { appData, loading, error } = useAppData();
                     placeholder="email@example.com"
                     className="w-full bg-gray-50 border border-gray-300 px-4 py-2 rounded-lg focus:border-teal-400 outline-none"
                   />
+                  {errors.email && <p className="text-red-500 text-sm mt-1">{errors.email}</p>}
                 </div>
               </div>
 
@@ -218,13 +224,14 @@ const { appData, loading, error } = useAppData();
               <div>
                 <label className="text-gray-600 block mb-1">Message</label>
                 <textarea
-                  name="address"
-                  value={formData.address}
+                  name="message"
+                  value={formData.message}
                   onChange={handleChange}
                   placeholder="Write here..."
                   rows={4}
                   className="w-full bg-gray-50 border border-gray-300 px-4 py-2 rounded-lg focus:border-teal-400 outline-none"
                 ></textarea>
+                {errors.message && <p className="text-red-500 text-sm mt-1">{errors.message}</p>}
               </div>
 
               {/* Button */}
