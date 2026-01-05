@@ -121,7 +121,7 @@ const { appData, loading, error } = useAppData();
         <IconPhoneCall size={26} className="text-[#9850ee]" />
       </div>
       <div>
-        <p className="text-gray-800 text-sm font-semibold">Call Us</p>
+        <p className="text-gray-800 text-sm font-semibold mb-1">Call Us</p>
         <h6 className="text-gray-600 text-lg">{data?.phone || "(406) 555-012"}</h6>
       </div>
     </li>
@@ -132,7 +132,7 @@ const { appData, loading, error } = useAppData();
         <IconMail size={26} className="text-[#9850ee]" />
       </div>
       <div>
-        <p className="text-gray-800 text-sm font-semibold">Email Us</p>
+        <p className="text-gray-800 text-sm font-semibold mb-1">Email Us</p>
         <h6 className="text-gray-600 text-lg">{data?.email || "demos@example.com"}</h6>
       </div>
     </li>
@@ -143,7 +143,7 @@ const { appData, loading, error } = useAppData();
         <IconMapPin size={26} className="text-[#9850ee]" />
       </div>
       <div>
-        <p className="text-gray-800 text-sm font-semibold">Address</p>
+        <p className="text-gray-800 text-sm font-semibold mb-1">Address</p>
         <h6 className="text-gray-600 text-lg">
           {data?.address},
                     {data?.city}, {data?.state}, {data?.country}
