@@ -216,7 +216,7 @@ const Categories = () => {
         )}
       </motion.div>
       {/* Social Media */}
-      <motion.div
+      {/* <motion.div
         variants={itemVariants}
         className="bg-white rounded-xl shadow-sm p-4 hover:shadow-md transition"
       >
@@ -239,7 +239,7 @@ const Categories = () => {
             </motion.a>
           ))}
         </div>
-      </motion.div>
+      </motion.div> */}
     </motion.aside>
 
     
