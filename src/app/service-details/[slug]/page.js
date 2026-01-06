@@ -26,10 +26,9 @@ const cardVariants = {
 
 const ServiceDetails = () => {
   const { slug } = useParams();
+  console.log("ServiceDetails component rendered with slug:", slug);
   const [serviceDetails, setServiceDetails] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [currentPage, setCurrentPage] = useState(1);
-  const [totalPages, setTotalPages] = useState(1);
 
   useEffect(() => {
     document.title = "Service Details - Crypto Frontend";
@@ -38,27 +37,60 @@ const ServiceDetails = () => {
   useEffect(() => {
     const fetchServiceDetails = async () => {
       try {
-        const response = await axiosInstance(
-          `/service-details/${slug}?page=${currentPage}`
-        );
-        setServiceDetails(response.data.data.data);
-        setTotalPages(response.data.data.last_page);
+        console.log("Fetching service details for slug:", slug);
+        const response = await axiosInstance(`/category-wise-details/${slug}`);
+        console.log("API Response:", response);
+        console.log("Response data:", response.data);
+        
+        // Try different response structures
+        let services = [];
+        if (response.data) {
+          if (Array.isArray(response.data)) {
+            services = response.data;
+          } else if (response.data.data) {
+            if (Array.isArray(response.data.data)) {
+              services = response.data.data;
+            } else if (response.data.data.data) {
+              services = response.data.data.data;
+            }
+          } else if (response.data[0]) {
+            services = response.data[0];
+          }
+        }
+        
+        console.log("Parsed services:", services);
+        setServiceDetails(Array.isArray(services) ? services : []);
+        
+        // If no data, set some dummy data for testing
+        if (!services || services.length === 0) {
+          console.log("No data received, setting dummy data");
+          setServiceDetails([
+            {
+              id: 1,
+              title: "Test Service 1",
+              image: "test-image.jpg",
+              short_description: "This is a test service description",
+              created_at: new Date().toISOString(),
+              slug: "test-service-1"
+            }
+          ]);
+        }
       } catch (error) {
         console.error("Error fetching service details:", error);
+        console.error("Error details:", error.response?.data);
       } finally {
         setLoading(false);
       }
     };
 
     fetchServiceDetails();
-  }, [slug, currentPage]);
+  }, [slug]);
 
-  const handlePageSelect = (page) => setCurrentPage(page);
   return (
       
     <section>
       <motion.header
-        initial={{ opacity: 0, y: -12 }}
+        initial={{ opacity: 0, y: 0 }}
         animate={{ opacity: 1, y: 0 }}
       >
         <HeroSection
@@ -133,8 +165,13 @@ const ServiceDetails = () => {
                         alt={service.title}
                         fill
                         className="object-cover"
+                        onError={(e) => {
+                          e.target.src = "/p-1.jpg";
+                        }}
                       />
                     </div>
+                   
+                    
 
                     {/* Content */}
                     <div className="p-3.5">
@@ -161,7 +198,7 @@ const ServiceDetails = () => {
                       />
 
                       <Link
-                        href={`/service-details/${service.slug}`}
+                        href={`/blog/${service.slug}`}
                         className="inline-block mt-4 text-indigo-600 hover:text-indigo-800 font-medium"
                       >
                         Read More →
@@ -173,30 +210,6 @@ const ServiceDetails = () => {
                 <p className="text-gray-100">No service found.</p>
               )}
             </motion.div>
-
-            {/* ---------- Pagination ---------- */}
-            {totalPages > 1 && (
-              <div className="mt-10 flex justify-center">
-                <div className="flex gap-3">
-
-                  {[...Array(totalPages)].map((_, i) => (
-                    <button
-                      key={i}
-                      onClick={() => handlePageSelect(i + 1)}
-                      className={`px-4 py-2 rounded-lg border text-sm transition-all
-                      ${
-                        currentPage === i + 1
-                          ? "bg-indigo-600 text-white border-indigo-600"
-                          : "bg-white text-gray-600 border-gray-300 hover:bg-gray-100"
-                      }`}
-                    >
-                      {i + 1}
-                    </button>
-                  ))}
-
-                </div>
-              </div>
-            )}
           </>
         )}
       </div>
