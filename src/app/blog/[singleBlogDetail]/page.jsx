@@ -8,6 +8,7 @@ import { formatImageUrl } from "../../Helper/imageUtils";
 import HeroSection from "@/app/components/hero/HeroSection";
 import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
+import BlogSidebar from "./BlogSidebar";
 
 export const metadata = {
   title: "Blog Detail - Crypto Frontend",
@@ -21,6 +22,20 @@ async function getBlogDetails(slug) {
   } catch (error) {
     console.error("Error fetching blog details:", error);
     return null;
+  }
+}
+
+async function getLatestPosts() {
+  try {
+    const response = await axiosInstance("/get-blogs?page=1");
+    if (response?.data?.status === "success") {
+      const posts = response.data[0] || [];
+      return posts.slice(0, 4);
+    }
+    return [];
+  } catch (error) {
+    console.error("Error fetching latest posts:", error);
+    return [];
   }
 }
 
@@ -85,6 +100,7 @@ const ContentSkeleton = () => (
 const SingleBlogDetail = async ({ params }) => {
   const slug = (await params).singleBlogDetail;
   const blogDetails = await getBlogDetails(slug);
+  const latestPosts = await getLatestPosts();
  console.log(blogDetails);
 
   if (!blogDetails) {
@@ -190,52 +206,7 @@ const SingleBlogDetail = async ({ params }) => {
             </div>
 
             {/* Right Column - Sidebar */}
-            <div className="lg:col-span-1">
-              {/* Author/Info Card */}
-              <div className="bg-white rounded-xl shadow-md p-6 mb-6">
-                <h3 className="text-lg font-bold mb-4">Blog Author</h3>
-                <div className="flex items-center gap-3 mb-4">
-                  <div className="w-12 h-12 bg-gradient-to-r from-purple-400 to-orange-400 rounded-full flex items-center justify-center text-white font-bold">
-                    A
-                  </div>
-                  <div>
-                    <p className="font-semibold text-gray-900">Admin</p>
-                    <p className="text-xs text-gray-600">Blog Writer</p>
-                  </div>
-                </div>
-                <p className="text-sm text-gray-600 mb-4">
-                  Share your insights and knowledge with our community of readers.
-                </p>
-                <button className="w-full bg-gradient-to-r from-purple-400 to-orange-400 text-white py-2 rounded-lg text-sm font-semibold hover:shadow-md transition">
-                  Follow Author
-                </button>
-              </div>
-
-              {/* Share Section */}
-              <div className="bg-white rounded-xl shadow-md p-6 mb-6">
-                <h3 className="text-lg font-bold mb-4">Share This Post</h3>
-                <div className="flex gap-3 flex-wrap">
-                  <a href="#" className="w-10 h-10 bg-blue-600 text-white rounded-full flex items-center justify-center hover:shadow-md transition text-lg">f</a>
-                  <a href="#" className="w-10 h-10 bg-pink-500 text-white rounded-full flex items-center justify-center hover:shadow-md transition text-lg">📷</a>
-                  <a href="#" className="w-10 h-10 bg-sky-500 text-white rounded-full flex items-center justify-center hover:shadow-md transition text-lg">𝕏</a>
-                  <a href="#" className="w-10 h-10 bg-red-500 text-white rounded-full flex items-center justify-center hover:shadow-md transition text-lg">▶</a>
-                </div>
-              </div>
-
-              {/* QR Code / Subscribe */}
-              <div className="bg-white rounded-xl shadow-md p-6 mb-6">
-                <h3 className="text-lg font-bold mb-4">Subscribe</h3>
-                <p className="text-sm text-gray-600 mb-4">
-                  Scan with your phone to subscribe to our blog updates.
-                </p>
-                <div className="bg-gray-100 p-4 rounded-lg flex items-center justify-center h-32 mb-4">
-                  <span className="text-gray-400 text-sm">QR Code Placeholder</span>
-                </div>
-                <button className="w-full bg-gradient-to-r from-purple-400 to-orange-400 text-white py-2 rounded-lg text-sm font-semibold hover:bg-orange-600 transition">
-                  Subscribe
-                </button>
-              </div>
-            </div>
+            <BlogSidebar latestPosts={latestPosts} />
           </div>
         </div>
       </div>
