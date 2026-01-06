@@ -198,7 +198,7 @@ const ServiceDetails = () => {
                       />
 
                       <Link
-                        href={`/blog/${service.slug}`}
+                        href={`/service-details/${service.slug}`}
                         className="inline-block mt-4 text-indigo-600 hover:text-indigo-800 font-medium"
                       >
                         Read More →
