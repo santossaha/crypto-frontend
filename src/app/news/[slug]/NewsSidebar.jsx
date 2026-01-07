@@ -29,9 +29,9 @@ const itemVariants = {
   },
 };
 
-const BlogSidebar = ({ latestPosts }) => {
+const NewsSidebar = ({ latestNews }) => {
 
-    
+
   const { appData, loading, error } = useAppData();
 
   if (loading) return null;
@@ -45,23 +45,23 @@ const BlogSidebar = ({ latestPosts }) => {
       animate="visible"
       className="lg:col-span-1"
     >
-      {/* Latest Posts */}
+      {/* Latest News */}
       <motion.div
         variants={itemVariants}
         whileHover={{ y: -4 }}
         transition={{ type: "tween", duration: 0.5 }}
         className="bg-white rounded-xl shadow-md p-6 mb-6"
       >
-        <h3 className="text-xl font-semibold text-gray-800 mb-4">Latest Post</h3>
+        <h3 className="text-xl font-semibold text-gray-800 mb-4">Latest News</h3>
         <motion.ul variants={containerVariants} className="space-y-4">
-          {latestPosts.map((post, idx) => (
-            <motion.li key={post.id || idx} variants={itemVariants}>
-              <Link href={`/blog/${post.slug}`} className="flex items-center gap-3 group">
+          {latestNews.map((news, idx) => (
+            <motion.li key={news.id || idx} variants={itemVariants}>
+              <Link href={`/news/${news.slug}`} className="flex items-center gap-3 group">
                 <div className="w-12 h-12 flex-shrink-0 rounded-md overflow-hidden bg-gray-100">
-                  {post.image ? (
+                  {news.image ? (
                     <Image
-                      src={formatImageUrl(post.image)}
-                      alt={post.title}
+                      src={formatImageUrl(news.image)}
+                      alt={news.title}
                       width={48}
                       height={48}
                       style={{ objectFit: "cover" }}
@@ -70,10 +70,10 @@ const BlogSidebar = ({ latestPosts }) => {
                 </div>
                 <div>
                   <h5 className="text-gray-800 font-medium text-sm group-hover:text-indigo-600 transition line-clamp-2">
-                    {post.title}
+                    {news.title}
                   </h5>
                   <p className="text-gray-500 text-xs">
-                    {formatDate(post.created_at)}
+                    {formatDate(news.created_at)}
                   </p>
                 </div>
               </Link>
@@ -81,11 +81,11 @@ const BlogSidebar = ({ latestPosts }) => {
           ))}
         </motion.ul>
       </motion.div>
-     
+
 
       {/* Share Section */}
       <motion.div variants={itemVariants} className="bg-white rounded-xl shadow-md p-6 mb-6">
-        <h3 className="text-lg font-bold mb-2">Share This Post</h3>
+        <h3 className="text-lg font-bold mb-2">Share This News</h3>
          <div className="flex gap-2 items-center">
                 <a
                   href={data.facebook}
@@ -156,8 +156,8 @@ const BlogSidebar = ({ latestPosts }) => {
   <svg
     xmlns="http://www.w3.org/2000/svg"
     className="w-4 h-4 text-white"
-    viewBox="0 0 24 24"
     fill="currentColor"
+    viewBox="0 0 24 24"
   >
     <path d="M23.498 6.186a2.997 2.997 0 0 0-2.112-2.12C19.505 3.5 12 3.5 12 3.5s-7.505 0-9.386.566a2.997 2.997 0 0 0-2.112 2.12C0 8.07 0 12 0 12s0 3.93.502 5.814a2.997 2.997 0 0 0 2.112 2.12C4.495 20.5 12 20.5 12 20.5s7.505 0 9.386-.566a2.997 2.997 0 0 0 2.112-2.12C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.75 15.568V8.432L15.818 12 9.75 15.568z"/>
   </svg>
@@ -169,4 +169,4 @@ const BlogSidebar = ({ latestPosts }) => {
   );
 };
 
-export default BlogSidebar;
+export default NewsSidebar;

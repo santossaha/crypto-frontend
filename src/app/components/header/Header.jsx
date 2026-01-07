@@ -165,7 +165,7 @@ const Header = () => {
                               {group.categories?.map((cat) => (
                                 <li key={cat.id}>
                                   <Link
-                                    href={`/service-details/${cat.slug}`}
+                                    href={`/services/${cat.slug}`}
                                     className="flex items-center justify-between gap-3 text-sm text-gray-700 
                                       hover:text-violet-950 hover:bg-gradient-to-r hover:from-[#9850ee]/10 hover:to-[#fdb748]/10 
                                       px-3 py-2 rounded-lg transition-all duration-200 group"

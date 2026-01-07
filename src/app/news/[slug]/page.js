@@ -8,33 +8,34 @@ import { formatImageUrl } from "../../Helper/imageUtils";
 import HeroSection from "@/app/components/hero/HeroSection";
 import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
-import BlogSidebar from "./BlogSidebar";
+import NewsSidebar from "./NewsSidebar";
 
 export const metadata = {
-  title: "Blog Detail - Crypto Frontend",
-  description: "Detailed view of a blog post covering topics in cryptocurrency and blockchain.",
+  title: "News Detail - Crypto Frontend",
+  description: "Detailed view of a news article in cryptocurrency and blockchain.",
 };
 
-async function getBlogDetails(slug) {
+async function getNewsDetails(slug) {
   try {
-    const response = await axiosInstance(`/blog-details/${slug}`);
-    return response.data[0];
+    const response = await axiosInstance(`/news-details/${slug}`);
+    return response.data[0] || response.data;
   } catch (error) {
-    console.error("Error fetching blog details:", error);
-    return null;
+    console.error("Error fetching news details:", error);
+    // Fallback to list API
+    const listResponse = await axiosInstance("/get-latest-data");
+    const news = listResponse.data.latest_news || [];
+    const newsItem = news.find(n => n.slug === slug);
+    return newsItem || null;
   }
 }
 
-async function getLatestPosts() {
+async function getLatestNews() {
   try {
-    const response = await axiosInstance("/get-blogs?page=1");
-    if (response?.data?.status === "success") {
-      const posts = response.data[0] || [];
-      return posts.slice(0, 4);
-    }
-    return [];
+    const response = await axiosInstance("/get-latest-data");
+    const news = response.data.latest_news || [];
+    return news.slice(0, 4);
   } catch (error) {
-    console.error("Error fetching latest posts:", error);
+    console.error("Error fetching latest news:", error);
     return [];
   }
 }
@@ -97,25 +98,24 @@ const ContentSkeleton = () => (
   </div>
 );
 
-const SingleServiceDetails = async ({ params }) => {
-  const slug = (await params).singleBlogDetail;
-  const blogDetails = await getBlogDetails(slug);
-  const latestPosts = await getLatestPosts();
- console.log(blogDetails);
+const SingleNewsDetail = async ({ params }) => {
+  const slug = (await params).slug;
+  const newsDetails = await getNewsDetails(slug);
+  const latestNews = await getLatestNews();
 
-  if (!blogDetails) {
+  if (!newsDetails) {
     return (
       <div className="min-h-screen flex items-center justify-center">
-        <p className="text-xl text-gray-500">Blog not found</p>
+        <p className="text-xl text-gray-500">News not found</p>
       </div>
     );
   }
 
-  const publishDate = new Date(blogDetails.created_at);
-  const formattedDate = publishDate.toLocaleDateString('en-US', {
-    year: 'numeric',
-    month: 'long',
-    day: 'numeric',
+  const publishDate = new Date(newsDetails.created_at);
+  const formattedDate = publishDate.toLocaleDateString("en-US", {
+    year: "numeric",
+    month: "long",
+    day: "numeric",
   });
 
   return (
@@ -124,15 +124,15 @@ const SingleServiceDetails = async ({ params }) => {
       <Suspense fallback={<HeroSkeleton />}>
         <HeroSection>
           <h1 className="text-3xl text-white font-bold mb-4 animate-fade-in max-w-3xl mx-auto">
-            {blogDetails.title}
+            {newsDetails.title}
           </h1>
           {/* Breadcrumb Navigation */}
           <nav className="flex items-center justify-center gap-2 text-gray-200">
             <Link href="/" className="text-violet-100 hover:text-violet-300 transition">Home</Link>
             <span>/</span>
-            <Link href="/blog" className="text-violet-100 hover:text-violet-300 transition">Blog</Link>
+            <Link href="/news" className="text-violet-100 hover:text-violet-300 transition">News</Link>
             <span>/</span>
-            <span className="text-white font-semibold">{blogDetails.title}</span>
+            <span className="text-white font-semibold">{newsDetails.title}</span>
           </nav>
         </HeroSection>
       </Suspense>
@@ -142,63 +142,57 @@ const SingleServiceDetails = async ({ params }) => {
       <div className=" py-12">
         <div className="container mx-auto px-4">
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-            {/* Left Column - Blog Content */}
+            {/* Left Column - News Content */}
             <div className="lg:col-span-2">
-             
+
               {/* Title Card */}
-              <div className="bg-white rounded-xl shadow-md p-8 mb-8">
-                 
+                <div className="bg-white rounded-xl shadow-md p-8 mb-8">
 
-              {/* Hero Image */}
-              <div className="relative">
-                <div className="relative w-full h-96 bg-gray-200 rounded-xl mb-4 overflow-hidden">
-                  <Image
-                    src={formatImageUrl(blogDetails.image)}
-                    alt={blogDetails.title}
-                    fill
-                    sizes="100vw"
-                    style={{ objectFit: "cover" }}
-                    priority
-                  />
-                  {/* Category Badge */}
-                  <div className="absolute top-6 left-6 bg-gradient-to-r from-purple-400 to-orange-400 text-white px-4 py-2 rounded-full text-sm font-semibold">
-                    {blogDetails.type || "Blog"}
-                  </div>
+
+                    {/* Hero Image */}
+                    <div className="relative">
+                        <div className="relative w-full h-96 bg-gray-200 rounded-xl mb-4 overflow-hidden">
+                        <Image
+                            src={formatImageUrl(newsDetails.image)}
+                            alt={newsDetails.title}
+                            fill
+                            sizes="100vw"
+                            style={{ objectFit: "cover" }}
+                            priority
+                        />
+                            {/* Category Badge */}
+                            <div className="absolute top-6 left-6 bg-gradient-to-r from-purple-400 to-orange-400 text-white px-4 py-2 rounded-full text-sm font-semibold">
+                                {newsDetails.category || "News"}
+                            </div>
+                    </div>
+                    <h2 className="text-3xl font-bold text-gray-900 mb-4">
+                    {newsDetails.title}
+                    </h2>
+
+                    {/* Meta Info */}
+                    <div className="flex flex-wrap gap-6 text-sm text-gray-600 mb-6 pb-6 border-b border-gray-200">
+                    <div className="flex items-center gap-2">
+                        <span>📅</span>
+                        <span>{formattedDate}</span>
+                    </div>
+                    <div className="flex items-center gap-2">
+                        <span>✍️</span>
+                        <span>By Admin</span>
+                    </div>
+                    <div className="flex items-center gap-2">
+                        <span>👁️</span>
+                        <span>{newsDetails.views || 0} views</span>
+                    </div>
+                    </div>
+
                 </div>
-              </div>
-                <h2 className="text-3xl font-bold text-gray-900 mb-4">
-                  {blogDetails.title}
-                </h2>
+            </div>
 
-                {/* Meta Info */}
-                <div className="flex flex-wrap gap-6 text-sm text-gray-600 mb-6 pb-6 border-b border-gray-200">
-                  <div className="flex items-center gap-2">
-                    <span>📅</span>
-                    <span>{formattedDate}</span>
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <span>✍️</span>
-                    <span>By Admin</span>
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <span>👁️</span>
-                    <span>250 views</span>
-                  </div>
-                </div>
-
-                {/* Short Description */}
-                {blogDetails.short_description && (
-                  <p className="text-lg text-gray-700 italic mb-6 p-4 bg-gray-50 rounded-lg border-l-4 border-purple-600">
-                    {blogDetails.short_description}
-                  </p>
-                )}
-              </div>
-
-              {/* Blog Content */}
+              {/* News Content */}
               <div className="bg-white rounded-xl shadow-md p-8">
                 <div className="prose prose-lg max-w-none">
-                  <div 
-                    dangerouslySetInnerHTML={{ __html: blogDetails.content }}
+                  <div
+                    dangerouslySetInnerHTML={{ __html: newsDetails.content || newsDetails.short_description || '' }}
                     className="text-gray-700 leading-relaxed"
                   />
                 </div>
@@ -206,13 +200,13 @@ const SingleServiceDetails = async ({ params }) => {
             </div>
 
             {/* Right Column - Sidebar */}
-            <BlogSidebar latestPosts={latestPosts} />
+            <NewsSidebar latestNews={latestNews} />
+          </div>
           </div>
         </div>
-      </div>
       </Suspense>
     </>
   );
 };
 
-export default SingleServiceDetails;
+export default SingleNewsDetail;

@@ -69,7 +69,7 @@ const AnimatedCard = ({ item, index }) => {
           />
         </div>
 
-        <div className="p-4">
+        <div className="px-4 py-3.5">
           <div className="text-xs text-gray-500 mb-2 flex items-center justify-between">
             <span>{formattedDate}</span>
             <span>{item.views ?? 0} views</span>
