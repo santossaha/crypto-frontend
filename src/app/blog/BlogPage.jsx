@@ -3,6 +3,7 @@
 import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import axiosInstance from "../Helper/Helper";
 import { formatImageUrl } from "../Helper/imageUtils";
@@ -11,7 +12,6 @@ import Categories from "../components/categories/page";
 
 import RecentView from "../components/recentView/page";
 import HeroSection from "../components/hero/HeroSection";
-import BannerSection from "../components/✅ BannerSection";
 
 // Animation Variants
 const containerVariants = {
@@ -53,7 +53,13 @@ const SkeletonCard = () => (
 );
 
 // CARD COMPONENT (UPDATED)
-const AnimatedCard = ({ item, index }) => {
+const AnimatedCard = ({ item, index, onView }) => {
+  const router = useRouter();
+
+   const handleClick = async () => {
+    await onView(item.id);     // ✅ API hit
+    router.push(`/blog/${item.slug}`); // ✅ redirect
+  };
   const formattedDate = item.created_at
     ? new Date(item.created_at).toLocaleDateString()
     : "June 25, 2025";
@@ -65,8 +71,9 @@ const AnimatedCard = ({ item, index }) => {
       whileHover={{ y: -6 }}
       transition={{ type: "tween", duration: 0.6, ease: "easeOut" }}
       className="bg-white rounded-xl shadow-md overflow-hidden cursor-pointer h-full hover:shadow-lg"
+      onClick={handleClick}
     >
-      <Link href={`/blog/${item.slug}`} className="block">
+      {/* <Link href={`/blog/${item.slug}`} className="block" onClick={() => onView(item.id)}> */}
         <div className="w-full h-40 relative bg-gray-100 overflow-hidden">
           <Image
             src={formatImageUrl(item.image)}
@@ -98,7 +105,7 @@ const AnimatedCard = ({ item, index }) => {
             Read More →
           </span>
         </div>
-      </Link>
+      {/* </Link> */}
     </motion.article>
   );
 };
@@ -133,6 +140,22 @@ const Blog = () => {
       setMoreLoading(false);
     }
   };
+  const increaseView = async (blogId) => {
+    try {
+      await axiosInstance.get(`/blog/${blogId}/view`);
+
+      setBlogs((prev) =>
+        prev.map((blog) =>
+          blog.id === blogId
+            ? { ...blog, views: (blog.views ?? 0) + 1 }
+            : blog
+        )
+      );
+    } catch (err) {
+      console.error("View API failed", err);
+    }
+  };
+
 
   useEffect(() => {
     loadBlogs(1);
@@ -199,7 +222,7 @@ const Blog = () => {
                 className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6"
               >
                 {blogs.map((item) => (
-                  <AnimatedCard key={item.id} item={item} />
+                  <AnimatedCard key={item.id} item={item} onView={increaseView} />
                 ))}
               </motion.div>
             )}

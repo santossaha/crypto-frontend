@@ -3,6 +3,7 @@
 import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import axiosInstance from "../Helper/Helper";
 import { formatImageUrl } from "../Helper/imageUtils";
@@ -52,7 +53,14 @@ const SkeletonCard = () => (
 );
 
 // CARD COMPONENT (UPDATED)
-const AnimatedCard = ({ item, index }) => {
+const AnimatedCard = ({ item, index, onView }) => {
+
+   const router = useRouter();
+  
+     const handleClick = async () => {
+      await onView(item.id);     // ✅ API hit
+      setTimeout(() => router.push(`/blog/${item.slug}`), 500); // ✅ redirect after 500ms to see update
+    };
    // Date formatting (use reusable helper)
    let formattedDate = formatDate(item.created_at);
   return (
@@ -62,8 +70,9 @@ const AnimatedCard = ({ item, index }) => {
       whileHover={{ y: -6 }}
       transition={{ type: "tween", duration: 0.6, ease: "easeOut" }}
       className="bg-white rounded-xl shadow-md overflow-hidden cursor-pointer h-full hover:shadow-lg"
-    >
-      <Link href={`/blog/${item.slug}`} className="block">
+       onClick={handleClick}
+   >
+      
         <div className="w-full h-40 relative bg-gray-100 overflow-hidden">
           <Image
             src={formatImageUrl(item.image)}
@@ -95,7 +104,6 @@ const AnimatedCard = ({ item, index }) => {
             Read More →
           </span>
         </div>
-      </Link>
     </motion.article>
   );
 };
@@ -111,6 +119,7 @@ const Blog = () => {
     try {
       setLoading(true);
       const res = await axiosInstance(`/get-blogs?page=${pageNo}`);
+      console.log('Get blogs response:', res.data);
 
       if (res.data.status === "success") {
         const list = res.data[0];
@@ -126,7 +135,20 @@ const Blog = () => {
       setLoading(false);
     }
   };
-
+  const increaseView = async (blogId) => {
+    try {
+      await axiosInstance.get(`/blog/${blogId}/view`);
+      setBlogs((prev) =>
+        prev.map((blog) =>
+          blog.id === blogId
+            ? { ...blog, views: (blog.views ?? 0) + 1 }
+            : blog
+        )
+      );
+    } catch (err) {
+      console.error("View API failed", err);
+    }
+  };
   useEffect(() => {
     loadBlogs(currentPage);
   }, [currentPage]);
@@ -182,7 +204,7 @@ const Blog = () => {
                 className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6"
               >
                 {blogs.map((item) => (
-                  <AnimatedCard key={item.id} item={item} />
+                  <AnimatedCard key={item.id} item={item} onView={increaseView} />
                 ))}
               </motion.div>
             )}

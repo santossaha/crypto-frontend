@@ -9,6 +9,9 @@ import HeroSection from "@/app/components/hero/HeroSection";
 import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
 import BlogSidebar from "./BlogSidebar";
+import ViewCounter from "../../components/ViewCounter";
+import LiveViews from "../../components/LiveViews";
+
 
 export const metadata = {
   title: "Blog Detail - Crypto Frontend",
@@ -101,7 +104,7 @@ const SingleBlogDetail = async ({ params }) => {
   const slug = (await params).singleBlogDetail;
   const blogDetails = await getBlogDetails(slug);
   const latestPosts = await getLatestPosts();
- console.log(blogDetails);
+ console.log(blogDetails.id);
 
   if (!blogDetails) {
     return (
@@ -112,14 +115,12 @@ const SingleBlogDetail = async ({ params }) => {
   }
 
   const publishDate = new Date(blogDetails.created_at);
-  const formattedDate = publishDate.toLocaleDateString('en-US', {
-    year: 'numeric',
-    month: 'long',
-    day: 'numeric',
-  });
+  const formattedDate = `${publishDate.getMonth() + 1}/${publishDate.getDate()}/${publishDate.getFullYear()}`;
 
   return (
     <>
+    <ViewCounter id={blogDetails.id} type="blog" />
+
       {/* Hero Section with Suspense */}
       <Suspense fallback={<HeroSkeleton />}>
         <HeroSection>
@@ -182,7 +183,9 @@ const SingleBlogDetail = async ({ params }) => {
                   </div>
                   <div className="flex items-center gap-2">
                     <span>👁️</span>
-                    <span>250 views</span>
+                    <LiveViews initialViews={blogDetails.view_count ?? 0} />
+
+                    
                   </div>
                 </div>
 

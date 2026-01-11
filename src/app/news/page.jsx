@@ -1,26 +1,58 @@
+"use client";
+
 import Link from 'next/link'
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import axiosInstance from "@/app/Helper/Helper";
 import { formatImageUrl } from "../Helper/imageUtils";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 
 export const metadata = {
   title: "News - Crypto Frontend",
   description: "Latest news and updates in cryptocurrency and blockchain.",
 };
 
-async function getNews() {
-  try {
-    const response = await axiosInstance("/get-latest-data");
-    return response.data.latest_news || [];
-  } catch (error) {
-    console.error("Error fetching news:", error);
-    return [];
-  }
-}
+const page = () => {
+  const [news, setNews] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const router = useRouter();
+  
+  const loadNews = async () => {
+    try {
+      setLoading(true);
+      const response = await axiosInstance("/get-latest-data");
+      const list = response.data.latest_news || [];
+      setNews(list);
+    } catch (error) {
+      console.error("Error fetching news:", error);
+    } finally {
+      setLoading(false);
+    }
+  };
 
-const page = async () => {
-  const news = await getNews();
+  const increaseView = async (newsId) => {
+    try {
+      await axiosInstance.get(`/news/${newsId}/view`);
+      setNews((prev) =>
+        prev.map((item) =>
+          item.id === newsId
+            ? { ...item, views: (item.views ?? 0) + 1 }
+            : item
+        )
+      );
+    } catch (err) {
+      console.error("View API failed", err);
+    }
+  };
+
+  useEffect(() => {
+    loadNews();
+  }, []);
+
+  const handleClick = async (item) => {
+    await increaseView(item.id);
+    setTimeout(() => router.push(`/news/${item.slug}`), 500);
+  };
 
   return (
     <div className="min-h-screen bg-gray-50 py-12">
@@ -31,9 +63,11 @@ const page = async () => {
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {news.length > 0 ? (
+          {loading ? (
+            <p className="text-gray-500 text-center col-span-full">Loading...</p>
+          ) : news.length > 0 ? (
             news.map((item) => (
-              <div key={item.id} className="bg-white rounded-xl shadow-md overflow-hidden hover:shadow-lg transition-shadow">
+              <div key={item.id} className="bg-white rounded-xl shadow-md overflow-hidden hover:shadow-lg transition-shadow cursor-pointer" onClick={() => handleClick(item)}>
                 <div className="relative h-48">
                   <Image
                     src={formatImageUrl(item.image)}
@@ -46,14 +80,14 @@ const page = async () => {
                   />
                 </div>
                 <div className="p-6">
+                  <div className="text-xs text-gray-500 mb-2">
+                    <span>{item.views ?? 0} views</span>
+                  </div>
                   <h3 className="text-xl font-semibold text-gray-900 mb-2">{item.title}</h3>
                   <p className="text-gray-600 mb-4 line-clamp-3" dangerouslySetInnerHTML={{ __html: item.short_description }} />
-                  <Link
-                    href={`/news/${item.slug}`}
-                    className="inline-block bg-indigo-600 text-white px-4 py-2 rounded-lg hover:bg-indigo-700 transition-colors"
-                  >
+                  <span className="inline-block bg-indigo-600 text-white px-4 py-2 rounded-lg hover:bg-indigo-700 transition-colors">
                     Read More →
-                  </Link>
+                  </span>
                 </div>
               </div>
             ))

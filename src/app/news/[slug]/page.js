@@ -1,7 +1,8 @@
+"use client";
+
 import React, { Suspense } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import Banner from "../../components/banner/page";
 import "./style.css";
 import axiosInstance from "@/app/Helper/Helper";
 import { formatImageUrl } from "../../Helper/imageUtils";
@@ -9,11 +10,8 @@ import HeroSection from "@/app/components/hero/HeroSection";
 import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
 import NewsSidebar from "./NewsSidebar";
-
-export const metadata = {
-  title: "News Detail - Crypto Frontend",
-  description: "Detailed view of a news article in cryptocurrency and blockchain.",
-};
+import ViewCounter from "../../components/ViewCounter";
+import LiveViews from "../../components/LiveViews";
 
 async function getNewsDetails(slug) {
   try {
@@ -112,14 +110,12 @@ const SingleNewsDetail = async ({ params }) => {
   }
 
   const publishDate = new Date(newsDetails.created_at);
-  const formattedDate = publishDate.toLocaleDateString("en-US", {
-    year: "numeric",
-    month: "long",
-    day: "numeric",
-  });
+  const formattedDate = `${publishDate.getMonth() + 1}/${publishDate.getDate()}/${publishDate.getFullYear()}`;
 
   return (
     <>
+    <ViewCounter id={newsDetails.id} type="news" />
+
       {/* Hero Section with Suspense */}
       <Suspense fallback={<HeroSkeleton />}>
         <HeroSection>
@@ -162,7 +158,7 @@ const SingleNewsDetail = async ({ params }) => {
                         />
                             {/* Category Badge */}
                             <div className="absolute top-6 left-6 bg-gradient-to-r from-purple-400 to-orange-400 text-white px-4 py-2 rounded-full text-sm font-semibold">
-                                {newsDetails.category || "News"}
+                                {newsDetails.type || "News"}
                             </div>
                     </div>
                     <h2 className="text-3xl font-bold text-gray-900 mb-4">
@@ -181,7 +177,7 @@ const SingleNewsDetail = async ({ params }) => {
                     </div>
                     <div className="flex items-center gap-2">
                         <span>👁️</span>
-                        <span>{newsDetails.views || 0} views</span>
+                        <LiveViews initialViews={newsDetails.views || 0} />
                     </div>
                     </div>
 
