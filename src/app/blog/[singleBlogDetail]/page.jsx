@@ -115,7 +115,11 @@ const SingleBlogDetail = async ({ params }) => {
   }
 
   const publishDate = new Date(blogDetails.created_at);
-  const formattedDate = `${publishDate.getMonth() + 1}/${publishDate.getDate()}/${publishDate.getFullYear()}`;
+  const formattedDate = publishDate.toLocaleDateString('en-US', {
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric',
+  });
 
   return (
     <>

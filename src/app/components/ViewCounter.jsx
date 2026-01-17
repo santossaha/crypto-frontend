@@ -9,7 +9,7 @@ const ViewCounter = ({ id, type = "blog" }) => {
     console.log(`Incrementing view for ${type} id:`, id);
     // direct fetch – no axiosInstance
     fetch(`https://admin.bitfynance.com/api/${type}/${id}/view`, {
-      method: "POST",
+      method: "GET",
       cache: "no-store",
     }).then(response => {
       console.log(`${type} view API status:`, response.status);
