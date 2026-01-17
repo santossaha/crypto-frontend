@@ -7,11 +7,6 @@ import { formatImageUrl } from "../Helper/imageUtils";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 
-export const metadata = {
-  title: "News - Crypto Frontend",
-  description: "Latest news and updates in cryptocurrency and blockchain.",
-};
-
 const page = () => {
   const [news, setNews] = useState([]);
   const [loading, setLoading] = useState(true);
