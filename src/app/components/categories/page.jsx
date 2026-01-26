@@ -9,6 +9,8 @@ import "react-loading-skeleton/dist/skeleton.css";
 import axiosInstance from "@/app/Helper/Helper";
 import { formatImageUrl } from "@/app/Helper/imageUtils";
 import formatDate from "@/app/Helper/helperUtils";
+import useAppData from "@/app/Hooks/useAppDetail";
+import SocialMediaIcons from "../common/SocialMediaIcons";
 
 // Parent container animation
 const containerVariants = {
@@ -74,6 +76,7 @@ const ImageWithSkeleton = ({ src, alt, width, height }) => {
 };
 
 const Categories = () => {
+  const { appData } = useAppData();
   const [categories, setCategories] = useState([]);
   const [loading, setLoading] = useState(true);
   const [latestPosts, setLatestPosts] = useState([]);
@@ -220,24 +223,7 @@ const Categories = () => {
         className="bg-white rounded-xl shadow-sm p-4 hover:shadow-md transition"
       >
         <h4 className="text-lg font-semibold mb-3">Social Media</h4>
-        <div className="flex items-center gap-3">
-          {[
-            { href: "#", bg: "bg-blue-600", label: "f" },
-            { href: "#", bg: "bg-pink-500", label: "ig" },
-            { href: "#", bg: "bg-sky-500", label: "in" },
-            { href: "#", bg: "bg-rose-500", label: "t" },
-          ].map((social, i) => (
-            <motion.a
-              key={i}
-              href={social.href}
-              className={`w-8 h-8 rounded-full ${social.bg} flex items-center justify-center text-white text-xs font-semibold`}
-              whileHover={{ scale: 1.1, y: -4 }}
-              transition={{ type: "tween", duration: 0.4 }}
-            >
-              {social.label}
-            </motion.a>
-          ))}
-        </div>
+        <SocialMediaIcons appData={appData} size="small" />
       </motion.div> 
     </motion.aside>
 

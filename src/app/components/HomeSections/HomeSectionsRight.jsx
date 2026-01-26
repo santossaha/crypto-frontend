@@ -5,6 +5,8 @@ import Image from "next/image";
 import { motion } from "framer-motion";
 import { formatImageUrl } from "../../Helper/imageUtils";
 import formatDate from "@/app/Helper/helperUtils";
+import useAppData from "@/app/Hooks/useAppDetail";
+import SocialMediaIcons from "../common/SocialMediaIcons";
 
 const SmallPost = ({ item }) => {
   const date = item?.created_at || item?.date || item?.publishedAt;
@@ -79,6 +81,7 @@ const HomeSectionsRight = ({
   blogs = [],
   events = [],
 }) => {
+  const { appData } = useAppData();
   const latest = blogs && blogs.length ? blogs.slice(0, 3) : [];
 
   // Flatten categories into a single array for the pills
@@ -163,7 +166,7 @@ const HomeSectionsRight = ({
                       className="px-3 py-1 bg-gray-100 text-sm rounded-full text-gray-700"
                     >
                       {cat.name}
-                    </Link> 
+                    </Link>
                   ))}
                 </div>
               </div>
@@ -212,30 +215,13 @@ const HomeSectionsRight = ({
         )}
       </motion.div>
 
-      {/* Social Media */}
+      {/* Link to Social Media Page */}
       <motion.div
         variants={itemVariants}
         className="bg-white rounded-xl shadow-sm p-4 hover:shadow-md transition"
       >
         <h4 className="text-lg font-semibold mb-3">Social Media</h4>
-        <div className="flex items-center gap-3">
-          {[
-            { href: "#", bg: "bg-blue-600", label: "f" },
-            { href: "#", bg: "bg-pink-500", label: "ig" },
-            { href: "#", bg: "bg-sky-500", label: "in" },
-            { href: "#", bg: "bg-rose-500", label: "t" },
-          ].map((social, i) => (
-            <motion.a
-              key={i}
-              href={social.href}
-              className={`w-8 h-8 rounded-full ${social.bg} flex items-center justify-center text-white text-xs font-semibold`}
-              whileHover={{ scale: 1.1, y: -4 }}
-              transition={{ type: "tween", duration: 0.4 }}
-            >
-              {social.label}
-            </motion.a>
-          ))}
-        </div>
+        <SocialMediaIcons appData={appData} size="small" />
       </motion.div>
     </motion.aside>
   );
