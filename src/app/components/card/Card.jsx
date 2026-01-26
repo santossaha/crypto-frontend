@@ -27,11 +27,30 @@ export const SkeletonCardLoading = ({ index }) => (
     variants={cardVariants}
     className="bg-white rounded-xl shadow-sm overflow-hidden"
   >
-    <div className="bg-gray-200 h-40 w-full animate-pulse" />
+    {/* Image Skeleton */}
+    <div className="bg-gray-300 h-40 w-full animate-pulse" />
+    
     <div className="p-4 space-y-3">
-      <div className="h-4 bg-gray-200 rounded w-3/4 animate-pulse" />
-      <div className="h-3 bg-gray-200 rounded w-1/2 animate-pulse" />
-      <div className="h-3 bg-gray-200 rounded w-full animate-pulse" style={{ height: 36 }} />
+      {/* Date & View Count Skeleton */}
+      <div className="flex items-center justify-between">
+        <div className="h-3 bg-gray-200 rounded w-20 animate-pulse" />
+        <div className="h-3 bg-gray-200 rounded w-16 animate-pulse" />
+      </div>
+
+      {/* Title Skeleton (2 lines) */}
+      <div className="space-y-2">
+        <div className="h-4 bg-gray-200 rounded w-full animate-pulse" />
+        <div className="h-4 bg-gray-200 rounded w-5/6 animate-pulse" />
+      </div>
+
+      {/* Description Skeleton (2 lines) */}
+      <div className="space-y-2">
+        <div className="h-3 bg-gray-200 rounded w-full animate-pulse" />
+        <div className="h-3 bg-gray-200 rounded w-4/5 animate-pulse" />
+      </div>
+
+      {/* Read More Button Skeleton */}
+      <div className="h-4 bg-gray-200 rounded w-24 animate-pulse mt-2" />
     </div>
   </motion.article>
 );
