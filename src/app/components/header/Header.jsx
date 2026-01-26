@@ -67,10 +67,10 @@ const Header = () => {
         setOpenMobile(false);
       }
     };
+    window.scrollTo(0, 0);
     window.addEventListener("keydown", onKey);
     return () => window.removeEventListener("keydown", onKey);
   }, []);
-
   return (
     <>
       <header

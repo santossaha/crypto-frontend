@@ -42,6 +42,7 @@ const page = () => {
 
   useEffect(() => {
     loadNews();
+    window.scrollTo(0, 0);
   }, []);
 
   const handleClick = async (item) => {

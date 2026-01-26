@@ -9,7 +9,7 @@ import formatDate from "../../Helper/helperUtils";
 
 // Animation Variants
 const cardVariants = {
-  hidden: { opacity: 0, y: 30 },
+  hidden: { opacity: 0, y: 10 },
   visible: {
     opacity: 1,
     y: 0,
@@ -87,6 +87,9 @@ const Card = ({ item, index = 0, onView, isLoading = false }) => {
           alt={item.title}
           fill
           style={{ objectFit: "cover" }}
+          onError={(e) => {
+            e.target.src = "/p-1.jpg";
+          }}
         />
       </div>
 

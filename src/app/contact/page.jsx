@@ -22,6 +22,7 @@ const Contact = () => {
 
   React.useEffect(() => {
     document.title = "Contact Us - Crypto Frontend";
+    window.scrollTo(0, 0);
   }, []);
 
   const validateForm = () => {

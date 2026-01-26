@@ -64,9 +64,7 @@ const Page = () => {
         </div>
       </div>
 
-      {/* <AboutSection /> */}
       <HomeSections />
-      {/* <NewsGroup /> */}
     </div>
   );
 };

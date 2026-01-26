@@ -43,6 +43,7 @@ const ServiceDetails = () => {
 
   useEffect(() => {
     document.title = "Service Details - Crypto Frontend";
+    window.scrollTo(0, 0);
   }, []);
 
   useEffect(() => {

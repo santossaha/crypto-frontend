@@ -27,7 +27,6 @@ const Blog = () => {
   const [blogs, setBlogs] = useState([]);
   const [loading, setLoading] = useState(true);
   const [currentPage, setCurrentPage] = useState(1);
-  const itemsPerPage = 6;
 
   const loadBlogs = async (pageNo = 1) => {
     try {
@@ -69,6 +68,7 @@ const Blog = () => {
 
   useEffect(() => {
     document.title = "Blog - Crypto Frontend";
+    window.scrollTo(0, 0);
   }, []);
 
   return (
