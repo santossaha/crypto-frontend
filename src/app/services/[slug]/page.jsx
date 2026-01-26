@@ -71,21 +71,6 @@ const ServiceDetails = () => {
         
         console.log("Parsed services:", services);
         setServiceDetails(Array.isArray(services) ? services : []);
-        
-        // If no data, set some dummy data for testing
-        if (!services || services.length === 0) {
-          console.log("No data received, setting dummy data");
-          setServiceDetails([
-            {
-              id: 1,
-              title: "Test Service 1",
-              image: "test-image.jpg",
-              short_description: "This is a test service description",
-              created_at: new Date().toISOString(),
-              slug: "test-service-1"
-            }
-          ]);
-        }
       } catch (error) {
         console.error("Error fetching service details:", error);
         console.error("Error details:", error.response?.data);
@@ -137,8 +122,8 @@ const ServiceDetails = () => {
 
         {/* ---------- Loading Skeleton ---------- */}
         {loading ? (
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            {Array.from({ length: 6 }).map((_, i) => (
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            {Array.from({ length: Math.max(serviceDetails.length || 4, 4) }).map((_, i) => (
               <SkeletonCardLoading key={i} index={i} />
             ))}
           </div>
@@ -149,7 +134,7 @@ const ServiceDetails = () => {
               initial="hidden"
               animate="visible"
               variants={containerVariants}
-              className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6"
+              className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6"
             >
               {serviceDetails.length > 0 ? (
                 serviceDetails.map((service, index) => (
@@ -161,7 +146,9 @@ const ServiceDetails = () => {
                   />
                 ))
               ) : (
-                <p className="text-gray-100">No service found.</p>
+                <div className="col-span-full text-center py-12">
+                  <p className="text-gray-400 text-lg">No services available!</p>
+                </div>
               )}
             </motion.div>
           </>
