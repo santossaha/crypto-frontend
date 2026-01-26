@@ -1,25 +1,21 @@
 "use client";
 
-import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { useParams } from "next/navigation";
 import axiosInstance from "@/app/Helper/Helper";
 import { motion } from "framer-motion";
-import SkeletonCard from "@/app/components/skeleton/SkeletonCard";
-import { formatImageUrl } from "../../Helper/imageUtils";
 import HeroSection from "@/app/components/hero/HeroSection";
-import formatDate from "@/app/Helper/helperUtils";
+import Card, { SkeletonCardLoading } from "@/app/components/card/Card";
 
 // Animation Variants
-const cardVariants = {
-  hidden: { opacity: 0, y: 30 },
+const containerVariants = {
+  hidden: { opacity: 0 },
   visible: {
     opacity: 1,
-    y: 0,
     transition: {
-      duration: 1.2,
-      ease: "easeOut",
+      staggerChildren: 0.2,
+      delayChildren: 0.15,
     },
   },
 };
@@ -29,6 +25,21 @@ const ServiceDetails = () => {
   console.log("ServiceDetails component rendered with slug:", slug);
   const [serviceDetails, setServiceDetails] = useState([]);
   const [loading, setLoading] = useState(true);
+
+  const increaseView = async (serviceId) => {
+    try {
+      await axiosInstance.get(`/blog/${serviceId}/view`);
+      setServiceDetails((prev) =>
+        prev.map((service) =>
+          service.id === serviceId
+            ? { ...service, view_count: (service.view_count ?? 0) + 1 }
+            : service
+        )
+      );
+    } catch (err) {
+      console.error("View API failed", err);
+    }
+  };
 
   useEffect(() => {
     document.title = "Service Details - Crypto Frontend";
@@ -128,7 +139,7 @@ const ServiceDetails = () => {
         {loading ? (
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {Array.from({ length: 6 }).map((_, i) => (
-              <SkeletonCard key={i} />
+              <SkeletonCardLoading key={i} index={i} />
             ))}
           </div>
         ) : (
@@ -137,74 +148,17 @@ const ServiceDetails = () => {
             <motion.div
               initial="hidden"
               animate="visible"
-              variants={{
-                hidden: { opacity: 0 },
-                visible: {
-                  opacity: 1,
-                  transition: {
-                    staggerChildren: 0.2,
-                    delayChildren: 0.15,
-                  },
-                },
-              }}
-              className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8"
+              variants={containerVariants}
+              className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6"
             >
               {serviceDetails.length > 0 ? (
                 serviceDetails.map((service, index) => (
-                  <motion.div
+                  <Card
                     key={service.id}
-                    variants={cardVariants}
-                    whileHover={{ y: -6 }}
-                    transition={{ type: "tween", duration: 0.6, ease: "easeOut" }}
-                    className="bg-white rounded-xl shadow-md overflow-hidden cursor-pointer h-full hover:shadow-lg"
-                  >
-                    {/* Image */}
-                    <div className="relative h-56 w-full">
-                      <Image
-                        src={formatImageUrl(service.image)}
-                        alt={service.title}
-                        fill
-                        className="object-cover"
-                        onError={(e) => {
-                          e.target.src = "/p-1.jpg";
-                        }}
-                      />
-                    </div>
-                   
-                    
-
-                    {/* Content */}
-                    <div className="p-3.5">
-                      <div className="flex items-center justify-between text-sm text-gray-500">
-                         <span>
-                          {formatDate(service.created_at)}
-                        </span>
-                        <span className="flex items-center gap-1">
-                         
-                          
-                          <span>0 views</span>
-                        </span>
-                      </div>
-
-                      <h3 className="mt-3 text-lg font-semibold text-gray-800 line-clamp-1">
-                        {service.title}
-                      </h3>
-
-                      <p
-                        className="text-gray-600 mt-2 line-clamp-3"
-                        dangerouslySetInnerHTML={{
-                          __html: service.short_description,
-                        }}
-                      />
-
-                      <Link
-                        href={`/blog/${service.slug}`}
-                        className="inline-block mt-4 text-indigo-600 hover:text-indigo-800 font-medium"
-                      >
-                        Read More →
-                      </Link>
-                    </div>
-                  </motion.div>
+                    item={service}
+                    index={index}
+                    onView={increaseView}
+                  />
                 ))
               ) : (
                 <p className="text-gray-100">No service found.</p>

@@ -1,7 +1,6 @@
 import React from "react";
 import NewsSection from "./NewsSection";
 import BlogSection from "./BlogSection";
-import EventSection from "./EventSection";
 
 const HomeSectionsLeft = ({ news, blogs, events, loading, categories }) => (
   <div className="space-y-8">
@@ -16,12 +15,7 @@ const HomeSectionsLeft = ({ news, blogs, events, loading, categories }) => (
       loading={loading} 
       categories={categories.news || []} 
     />
-    
-    {/* <EventSection 
-      events={events} 
-      loading={loading} 
-      categories={categories.event || []} 
-    /> */}
+   
   </div>
 );
 

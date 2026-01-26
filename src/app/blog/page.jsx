@@ -1,17 +1,14 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
-import Image from "next/image";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion } from "framer-motion";
 import axiosInstance from "../Helper/Helper";
-import { formatImageUrl } from "../Helper/imageUtils";
-import formatDate from "../Helper/helperUtils";
 
 import Categories from "../components/categories/page";
 import RecentView from "../components/recentView/page";
 import HeroSection from "../components/hero/HeroSection";
+import Card, { SkeletonCardLoading } from "../components/card/Card";
 
 // Animation Variants
 const containerVariants = {
@@ -23,89 +20,6 @@ const containerVariants = {
       delayChildren: 0.15,
     },
   },
-};
-
-const cardVariants = {
-  hidden: { opacity: 0, y: 30 },
-  visible: {
-    opacity: 1,
-    y: 0,
-    transition: {
-      duration: 1.2,
-      ease: "easeOut",
-    },
-  },
-};
-
-// Skeleton UI
-const SkeletonCard = () => (
-  <motion.article className="bg-white rounded-xl shadow-sm overflow-hidden">
-    <div className="bg-gray-200 h-40 w-full animate-pulse" />
-    <div className="p-4 space-y-3">
-      <div className="h-4 bg-gray-200 rounded w-3/4 animate-pulse" />
-      <div className="h-3 bg-gray-200 rounded w-1/2 animate-pulse" />
-      <div
-        className="h-3 bg-gray-200 rounded w-full animate-pulse"
-        style={{ height: 36 }}
-      />
-    </div>
-  </motion.article>
-);
-
-// CARD COMPONENT (UPDATED)
-const AnimatedCard = ({ item, index, onView }) => {
-
-   const router = useRouter();
-  
-     const handleClick = async () => {
-      await onView(item.id);     // ✅ API hit
-      setTimeout(() => router.push(`/blog/${item.slug}`), 500); // ✅ redirect after 500ms to see update
-    };
-   // Date formatting (use reusable helper)
-   let formattedDate = formatDate(item.created_at);
-  return (
-    <motion.article
-      custom={index}
-      variants={cardVariants}
-      whileHover={{ y: -6 }}
-      transition={{ type: "tween", duration: 0.6, ease: "easeOut" }}
-      className="bg-white rounded-xl shadow-md overflow-hidden cursor-pointer h-full hover:shadow-lg"
-       onClick={handleClick}
-   >
-      
-        <div className="w-full h-40 relative bg-gray-100 overflow-hidden">
-          <Image
-            src={formatImageUrl(item.image)}
-            alt={item.title}
-            fill
-            style={{ objectFit: "cover" }}
-          />
-        </div>
-
-        <div className="p-4">
-          <div className="text-xs text-gray-500 mb-2 flex items-center justify-between">
-            <span>{formattedDate}</span>
-            <span>{item.views ?? 0} views</span>
-          </div>
-
-          <h3 className="text-lg font-semibold text-gray-900 mb-2 line-clamp-2">
-            {item.title}
-          </h3>
-
-          <p className="text-sm text-gray-600 mb-3 line-clamp-2">
-            {(
-              item.short_description ||
-              item.description ||
-              item.content
-            )?.slice(0, 120)}
-          </p>
-
-          <span className="inline-block text-sm text-indigo-600 font-medium hover:text-indigo-700">
-            Read More →
-          </span>
-        </div>
-    </motion.article>
-  );
 };
 
 // MAIN PAGE
@@ -192,7 +106,7 @@ const Blog = () => {
             {loading ? (
               <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
                 {Array.from({ length: 6 }).map((_, i) => (
-                  <SkeletonCard key={i} />
+                  <SkeletonCardLoading key={i} index={i} />
                 ))}
               </div>
             ) : (
@@ -203,8 +117,13 @@ const Blog = () => {
                 viewport={{ once: false, amount: 0.05 }}
                 className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6"
               >
-                {blogs.map((item) => (
-                  <AnimatedCard key={item.id} item={item} onView={increaseView} />
+                {blogs.map((item, index) => (
+                  <Card 
+                    key={item.id} 
+                    item={item} 
+                    index={index}
+                    onView={increaseView} 
+                  />
                 ))}
               </motion.div>
             )}
