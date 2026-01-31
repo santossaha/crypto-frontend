@@ -542,10 +542,10 @@ const Page = () => {
         <div className="container mx-auto px-4">
 
           {/* Heading */}
-          <div className="mb-6 flex items-start justify-between gap-4">
+          <div className="mb-6 flex items-center justify-between gap-4 bg-white p-3 rounded-2xl shadow-lg border border-gray-200">
             <div>
-              <h3 className="text-2xl font-bold text-gray-100">Upcoming ICO / IDO</h3>
-              <p className="text-gray-300 mt-1">
+              <h3 className="text-2xl font-bold text-zinc-950">Upcoming ICO / IDO</h3>
+              <p className="text-gray-500 mt-1">
                 Explore high-potential projects and participate early in token launches.
               </p>
             </div>
@@ -646,13 +646,6 @@ const Page = () => {
               </button>
             </div>
 
-            {/* Results Info */}
-            <div className="mb-4 flex items-center justify-between flex-wrap gap-2">
-              <p className="text-sm text-gray-600">
-                <span className="font-semibold text-gray-800">{filteredIco.length}</span> results found
-              </p>
-            </div>
-
 
 
             {/* TABLE SECTION */}
@@ -674,7 +667,7 @@ const Page = () => {
               ) : (
                 <>
                   <table className="min-w-full border border-gray-200 rounded-lg overflow-hidden text-sm">
-                    <thead className="bg-gray-100 text-gray-700">
+                    <thead className="bg-gradient-to-r from-purple-600 to-orange-300 text-white">
                       <tr>
                         <th className="p-3 text-left font-semibold">Project</th>
                         <th className="p-3 text-center font-semibold">Stage</th>
@@ -698,13 +691,13 @@ const Page = () => {
                                 <img
                                   src={item.image}
                                   alt={item.name}
-                                  className="w-10 h-10 rounded-lg object-cover"
+                                  className="w-10 h-10 rounded-full object-cover"
                                   onError={(e) => {
                                     e.target.style.display = 'none';
                                   }}
                                 />
                               ) : (
-                                <div className="w-10 h-10 rounded-lg bg-gray-300 flex items-center justify-center text-gray-600">
+                                <div className="w-10 h-10 rounded-full bg-gray-300 flex items-center justify-center text-gray-600">
                                   <span className="text-xs font-bold">{item.name.charAt(0)}</span>
                                 </div>
                               )}
@@ -759,7 +752,7 @@ const Page = () => {
                           {/* Action */}
                           <td className="text-center">
                             <Link href={`/ico/${item.slug}`}>
-                              <button className="inline-block cursor-pointer bg-gradient-to-r from-purple-600 to-orange-500 text-white border-purple-600 p-2 rounded-lg hover:bg-purple-700 transition">
+                              <button className="inline-block cursor-pointer bg-gradient-to-r from-purple-600 to-orange-300 text-white border-purple-600 p-2 rounded-lg hover:bg-purple-700 transition">
                                 <svg xmlns="http://www.w3.org/2000/svg"
                                     className="w-4 h-4"
                                     fill="none" viewBox="0 0 24 24"
@@ -816,7 +809,7 @@ const Page = () => {
                             onClick={() => goToPage(pageNum)}
                             className={`px-3 py-2 border rounded-lg font-semibold transition ${
                               currentPage === pageNum
-                                ? "bg-gradient-to-r from-purple-600 to-orange-500 text-white border-purple-600"
+                                ? "bg-gradient-to-r from-purple-600 to-orange-300 text-white border-purple-600"
                                 : "text-gray-700 border-gray-300 hover:bg-gray-100"
                             }`}
                           >
