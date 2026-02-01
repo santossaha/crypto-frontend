@@ -87,15 +87,30 @@ const Page = () => {
     supply_percentage: "",
     ico_price: "",
     ico_price_currency: "",
+    ico_price_display: "",
+    one_usdt_value: "",
     fundraising_goal: "",
     project_category: "",
     blockchain_network: "",
     soft_cap: "",
     hard_cap: "",
+    personal_cap: "",
+    buy_link: "",
+    contract_address: "",
     start_date: "",
     end_date: "",
     ico_status: "Upcoming",
+    website_url: "",
+    whitepaper_url: "",
+    twitter_url: "",
+    telegram_url: "",
+    discord_url: "",
     short_description: "",
+    description: "",
+    meta_title: "",
+    meta_description: "",
+    meta_keyword: "",
+    canonical: "",
   };
   const [formData, setFormData] = useState(initialForm);
   const [submitting, setSubmitting] = useState(false);
@@ -403,7 +418,7 @@ const Page = () => {
 
             <form onSubmit={handleCreate} className="grid grid-cols-1 gap-3">
               <div className="grid grid-cols-2 gap-3">
-                <input name="name" value={formData.name} onChange={handleFormChange} placeholder="Project Name" className="border px-3 py-2 rounded" required />
+                <input name="name" value={formData.name} onChange={handleFormChange} placeholder="Project Name *" className="border px-3 py-2 rounded" required />
                 <input name="slug" value={formData.slug} onChange={handleFormChange} placeholder="Slug (url)" className="border px-3 py-2 rounded" />
               </div>
 
@@ -455,7 +470,12 @@ const Page = () => {
 
               <div className="grid grid-cols-2 gap-3">
                 <input name="ico_price" value={formData.ico_price} onChange={handleFormChange} placeholder="ICO Price" className="border px-3 py-2 rounded" />
-                <input name="ico_price_currency" value={formData.ico_price_currency} onChange={handleFormChange} placeholder="Currency" className="border px-3 py-2 rounded" />
+                <input name="ico_price_currency" value={formData.ico_price_currency} onChange={handleFormChange} placeholder="Currency (TBA)" className="border px-3 py-2 rounded" />
+              </div>
+
+              <div className="grid grid-cols-2 gap-3">
+                <input name="one_usdt_value" value={formData.one_usdt_value} onChange={handleFormChange} placeholder="1 USDT Value" className="border px-3 py-2 rounded text-sm" />
+                <input name="ico_price_display" value={formData.ico_price_display} onChange={handleFormChange} placeholder="Price Display (e.g. 0.030000 TBA)" className="border px-3 py-2 rounded text-sm" />
               </div>
 
               <div className="grid grid-cols-2 gap-3">
@@ -468,7 +488,43 @@ const Page = () => {
                 <input name="fundraising_goal" value={formData.fundraising_goal} onChange={handleFormChange} placeholder="Fundraising Goal" className="border px-3 py-2 rounded" />
               </div>
 
-              <textarea name="short_description" value={formData.short_description} onChange={handleFormChange} placeholder="Short Description" className="border px-3 py-2 rounded" rows={4} />
+              <div className="grid grid-cols-2 gap-3">
+                <input name="soft_cap" value={formData.soft_cap} onChange={handleFormChange} placeholder="Soft Cap (TBA)" className="border px-3 py-2 rounded text-sm" />
+                <input name="hard_cap" value={formData.hard_cap} onChange={handleFormChange} placeholder="Hard Cap (TBA)" className="border px-3 py-2 rounded text-sm" />
+              </div>
+
+              <div className="grid grid-cols-2 gap-3">
+                <input name="personal_cap" value={formData.personal_cap} onChange={handleFormChange} placeholder="Personal Cap (TBA)" className="border px-3 py-2 rounded text-sm" />
+                <input name="contract_address" value={formData.contract_address} onChange={handleFormChange} placeholder="Contract Address" className="border px-3 py-2 rounded text-sm" />
+              </div>
+
+              <div className="grid grid-cols-2 gap-3">
+                <input name="buy_link" value={formData.buy_link} onChange={handleFormChange} placeholder="Buy Link (URL)" className="border px-3 py-2 rounded text-sm" type="url" />
+                <input name="website_url" value={formData.website_url} onChange={handleFormChange} placeholder="Website URL" className="border px-3 py-2 rounded text-sm" type="url" />
+              </div>
+
+              <div className="grid grid-cols-2 gap-3">
+                <input name="whitepaper_url" value={formData.whitepaper_url} onChange={handleFormChange} placeholder="Whitepaper URL" className="border px-3 py-2 rounded text-sm" type="url" />
+                <input name="twitter_url" value={formData.twitter_url} onChange={handleFormChange} placeholder="Twitter URL" className="border px-3 py-2 rounded text-sm" type="url" />
+              </div>
+
+              <div className="grid grid-cols-2 gap-3">
+                <input name="telegram_url" value={formData.telegram_url} onChange={handleFormChange} placeholder="Telegram URL" className="border px-3 py-2 rounded text-sm" type="url" />
+                <input name="discord_url" value={formData.discord_url} onChange={handleFormChange} placeholder="Discord URL" className="border px-3 py-2 rounded text-sm" type="url" />
+              </div>
+
+              <textarea name="short_description" value={formData.short_description} onChange={handleFormChange} placeholder="Short Description" className="border px-3 py-2 rounded text-sm" rows={2} />
+
+              <textarea name="description" value={formData.description} onChange={handleFormChange} placeholder="Full Description (HTML)" className="border px-3 py-2 rounded text-sm" rows={3} />
+
+              <div className="grid grid-cols-2 gap-3">
+                <input name="meta_title" value={formData.meta_title} onChange={handleFormChange} placeholder="Meta Title (SEO)" className="border px-3 py-2 rounded text-sm" />
+                <input name="canonical" value={formData.canonical} onChange={handleFormChange} placeholder="Canonical URL" className="border px-3 py-2 rounded text-sm" type="url" />
+              </div>
+
+              <textarea name="meta_description" value={formData.meta_description} onChange={handleFormChange} placeholder="Meta Description (SEO)" className="border px-3 py-2 rounded text-sm" rows={2} />
+
+              <textarea name="meta_keyword" value={formData.meta_keyword} onChange={handleFormChange} placeholder="Meta Keywords (SEO, comma-separated)" className="border px-3 py-2 rounded text-sm" rows={2} />
 
               <div className="flex items-center justify-end gap-3 mt-2">
                 <button type="button" onClick={closeAdd} className="px-4 py-2 border rounded">Cancel</button>
@@ -629,23 +685,25 @@ const Page = () => {
                         <tr key={index} className="border-t hover:bg-gray-50 transition">
                           {/* Project Name with Image */}
                           <td className="p-3">
-                            <div className="flex items-center gap-3">
-                              {item.image ? (
-                                <img
-                                  src={item.image}
-                                  alt={item.name}
-                                  className="w-10 h-10 rounded-full object-cover"
-                                  onError={(e) => {
-                                    e.target.style.display = 'none';
-                                  }}
-                                />
-                              ) : (
-                                <div className="w-10 h-10 rounded-full bg-gray-300 flex items-center justify-center text-gray-600">
-                                  <span className="text-xs font-bold">{item.name.charAt(0)}</span>
-                                </div>
-                              )}
-                              <p className="text-gray-800 font-medium">{item.name}</p>
-                            </div>
+                            <Link href={`/ico/${item.slug}`}>
+                              <div className="flex items-center gap-3 cursor-pointer hover:opacity-80 transition">
+                                {item.image ? (
+                                  <img
+                                    src={item.image}
+                                    alt={item.name}
+                                    className="w-10 h-10 rounded-full object-cover"
+                                    onError={(e) => {
+                                      e.target.style.display = 'none';
+                                    }}
+                                  />
+                                ) : (
+                                  <div className="w-10 h-10 rounded-full bg-gray-300 flex items-center justify-center text-gray-600">
+                                    <span className="text-xs font-bold">{item.name.charAt(0)}</span>
+                                  </div>
+                                )}
+                                <p className="text-gray-800 font-medium">{item.name}</p>
+                              </div>
+                            </Link>
                           </td>
 
                           {/* Stage */}
