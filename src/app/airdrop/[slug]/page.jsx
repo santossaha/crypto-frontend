@@ -306,7 +306,7 @@ const AirdropDetailPage = () => {
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
                   {/* Left Column */}
                   <div className="space-y-2">
-                    {/* Symbol Row */}
+                    {/* Platform Row */}
                     <div className="flex items-center gap-4 border-b pb-1 border-gray-200">
                       <div className="flex-shrink-0 w-10 h-10 bg-purple-100 rounded-full flex items-center justify-center">
                         <svg
@@ -333,83 +333,15 @@ const AirdropDetailPage = () => {
                       </div>
                       <div className="flex justify-between w-full items-center">
                         <p className="text-gray-700 font-semibold mb-0">
-                          Symbol
+                          Platform
                         </p>
                         <p className="text-gray-900 font-bold text-sm mb-1">
-                          {airdropDetail.symbol || "N/A"}
+                          {airdropDetail.platform || "N/A"}
                         </p>
                       </div>
                     </div>
 
-                    {/* Type Row */}
-                    <div className="flex items-center gap-4 border-b border-gray-200 pb-1">
-                      <div className="flex-shrink-0 w-10 h-10 bg-purple-100 rounded-full flex items-center justify-center">
-                        <svg
-                          width="20"
-                          height="20"
-                          viewBox="0 0 24 24"
-                          fill="none"
-                          xmlns="http://www.w3.org/2000/svg"
-                          className="text-purple-600"
-                        >
-                          <path
-                            d="M3 12C3 7.02944 7.02944 3 12 3C16.9706 3 21 7.02944 21 12C21 16.9706 16.9706 21 12 21C7.02944 21 3 16.9706 3 12Z"
-                            stroke="currentColor"
-                            strokeWidth="2"
-                          />
-                          <path
-                            d="M12 7V17M7 12H17"
-                            stroke="currentColor"
-                            strokeWidth="2"
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                          />
-                        </svg>
-                      </div>
-                      <div className="flex justify-between w-full items-center">
-                        <p className="text-gray-700 font-semibold mb-0">
-                          Type
-                        </p>
-                        <p className="text-gray-900 font-bold text-sm mb-1">
-                          {airdropDetail.type || "Token"}
-                        </p>
-                      </div>
-                    </div>
-
-                    {/* Winners Row */}
-                    <div className="flex items-center gap-4 border-b border-gray-200 pb-1">
-                      <div className="flex-shrink-0 w-10 h-10 bg-purple-100 rounded-full flex items-center justify-center">
-                        <svg
-                          width="20"
-                          height="20"
-                          viewBox="0 0 24 24"
-                          fill="none"
-                          xmlns="http://www.w3.org/2000/svg"
-                          className="text-purple-600"
-                        >
-                          <path
-                            d="M12 12C14.21 12 16 10.21 16 8C16 5.79 14.21 4 12 4C9.79 4 8 5.79 8 8C8 10.21 9.79 12 12 12Z"
-                            stroke="currentColor"
-                            strokeWidth="2"
-                          />
-                          <path
-                            d="M12 14C8.67 14 3 15.34 3 18.5V20H21V18.5C21 15.34 15.33 14 12 14Z"
-                            stroke="currentColor"
-                            strokeWidth="2"
-                          />
-                        </svg>
-                      </div>
-                      <div className="flex justify-between w-full items-center">
-                        <p className="text-gray-700 font-semibold mb-0">
-                          Total Winners
-                        </p>
-                        <p className="text-gray-900 font-bold text-sm mb-1">
-                          {airdropDetail.winners || "0"}
-                        </p>
-                      </div>
-                    </div>
-
-                    {/* Quantity Row */}
+                    {/* Total Supply Row */}
                     <div className="flex items-center gap-4 border-b border-gray-200 pb-1">
                       <div className="flex-shrink-0 w-10 h-10 bg-purple-100 rounded-full flex items-center justify-center">
                         <svg
@@ -438,16 +370,16 @@ const AirdropDetailPage = () => {
                       </div>
                       <div className="flex justify-between w-full items-center">
                         <p className="text-gray-700 font-semibold mb-0">
-                          Token Quantity
+                          Total Supply
                         </p>
                         <p className="text-gray-900 font-bold text-sm mb-1">
-                          {airdropDetail.quantity || "N/A"}
+                          {airdropDetail.total_supply || "N/A"}
                         </p>
                       </div>
                     </div>
 
-                    {/* Number of Tasks Row */}
-                    <div className="flex items-center gap-4  pb-1">
+                    {/* Total Airdrop Quantity Row */}
+                    <div className="flex items-center gap-4 border-b border-gray-200 pb-1">
                       <div className="flex-shrink-0 w-10 h-10 bg-purple-100 rounded-full flex items-center justify-center">
                         <svg
                           width="20"
@@ -458,14 +390,45 @@ const AirdropDetailPage = () => {
                           className="text-purple-600"
                         >
                           <path
-                            d="M9 11L12 14L22 4"
+                            d="M12 12C14.21 12 16 10.21 16 8C16 5.79 14.21 4 12 4C9.79 4 8 5.79 8 8C8 10.21 9.79 12 12 12Z"
                             stroke="currentColor"
                             strokeWidth="2"
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
                           />
                           <path
-                            d="M20 12V19C20 20.1046 19.1046 21 18 21H4C2.89543 21 2 20.1046 2 19V5C2 3.89543 2.89543 3 4 3H15"
+                            d="M12 14C8.67 14 3 15.34 3 18.5V20H21V18.5C21 15.34 15.33 14 12 14Z"
+                            stroke="currentColor"
+                            strokeWidth="2"
+                          />
+                        </svg>
+                      </div>
+                      <div className="flex justify-between w-full items-center">
+                        <p className="text-gray-700 font-semibold mb-0">
+                          Total Airdrop Qty
+                        </p>
+                        <p className="text-gray-900 font-bold text-sm mb-1">
+                          {airdropDetail.total_airdrop_qty || "N/A"}
+                        </p>
+                      </div>
+                    </div>
+
+                    {/* Airdrop Value Row */}
+                    <div className="flex items-center gap-4 border-b border-gray-200 pb-1">
+                      <div className="flex-shrink-0 w-10 h-10 bg-purple-100 rounded-full flex items-center justify-center">
+                        <svg
+                          width="20"
+                          height="20"
+                          viewBox="0 0 24 24"
+                          fill="none"
+                          xmlns="http://www.w3.org/2000/svg"
+                          className="text-purple-600"
+                        >
+                          <path
+                            d="M12 2C6.48 2 2 6.48 2 12C2 17.52 6.48 22 12 22C17.52 22 22 17.52 22 12C22 6.48 17.52 2 12 2Z"
+                            stroke="currentColor"
+                            strokeWidth="2"
+                          />
+                          <path
+                            d="M12.5 7V17M9 10H15C15.55 10 16 10.45 16 11V13C16 13.55 15.55 14 15 14H9C8.45 14 8 13.55 8 13V11C8 10.45 8.45 10 9 10Z"
                             stroke="currentColor"
                             strokeWidth="2"
                             strokeLinecap="round"
@@ -475,10 +438,47 @@ const AirdropDetailPage = () => {
                       </div>
                       <div className="flex justify-between w-full items-center">
                         <p className="text-gray-700 font-semibold mb-0">
-                          Number of Tasks
+                          Airdrop Value
                         </p>
                         <p className="text-gray-900 font-bold text-sm mb-1">
-                          {airdropDetail.tasks || "0"}
+                          ${airdropDetail.airdrop_value || "N/A"}
+                        </p>
+                      </div>
+                    </div>
+
+                    {/* Supply Percentage Row */}
+                    <div className="flex items-center gap-4 border-b border-gray-200 pb-1">
+                      <div className="flex-shrink-0 w-10 h-10 bg-purple-100 rounded-full flex items-center justify-center">
+                        <svg
+                          width="20"
+                          height="20"
+                          viewBox="0 0 24 24"
+                          fill="none"
+                          xmlns="http://www.w3.org/2000/svg"
+                          className="text-purple-600"
+                        >
+                          <path
+                            d="M13 2H6C4.89543 2 4 2.89543 4 4V20C4 21.1046 4.89543 22 6 22H18C19.1046 22 20 21.1046 20 20V9L13 2Z"
+                            stroke="currentColor"
+                            strokeWidth="2"
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                          />
+                          <path
+                            d="M13 2V9H20"
+                            stroke="currentColor"
+                            strokeWidth="2"
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                          />
+                        </svg>
+                      </div>
+                      <div className="flex justify-between w-full items-center">
+                        <p className="text-gray-700 font-semibold mb-0">
+                          Supply Percentage
+                        </p>
+                        <p className="text-gray-900 font-bold text-sm mb-1">
+                          {airdropDetail.supply_percentage || "N/A"}
                         </p>
                       </div>
                     </div>
@@ -487,7 +487,37 @@ const AirdropDetailPage = () => {
 
                   {/* Right Column */}
                   <div className="space-y-2">
-                    {/* Category Row */}
+                    {/* Winner Count Row */}
+                    <div className="flex items-center gap-4 border-b border-gray-200 pb-1">
+                      <div className="flex-shrink-0 w-10 h-10 bg-purple-100 rounded-full flex items-center justify-center">
+                        <svg
+                          width="20"
+                          height="20"
+                          viewBox="0 0 24 24"
+                          fill="none"
+                          xmlns="http://www.w3.org/2000/svg"
+                          className="text-purple-600"
+                        >
+                          <path
+                            d="M12 2L15.09 8.26H22L17.46 12.74L19.54 19.26L12 14.77L4.46 19.26L6.54 12.74L2 8.26H8.91L12 2Z"
+                            stroke="currentColor"
+                            strokeWidth="2"
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                          />
+                        </svg>
+                      </div>
+                      <div className="flex justify-between w-full items-center">
+                        <p className="text-gray-700 font-semibold mb-0">
+                          Winner Count
+                        </p>
+                        <p className="text-gray-900 font-bold text-sm mb-1">
+                          {airdropDetail.winner_count || airdropDetail.winners || "0"}
+                        </p>
+                      </div>
+                    </div>
+
+                    {/* Project Category Row */}
                     <div className="flex items-center gap-4 border-b border-gray-200 pb-1">
                       <div className="flex-shrink-0 w-10 h-10 bg-purple-100 rounded-full flex items-center justify-center">
                         <svg
@@ -512,7 +542,7 @@ const AirdropDetailPage = () => {
                           Category
                         </p>
                         <p className="text-gray-900 font-bold text-sm mb-1">
-                          {airdropDetail.category || "N/A"}
+                          {airdropDetail.project_category || airdropDetail.category || "N/A"}
                         </p>
                       </div>
                     </div>
@@ -561,7 +591,7 @@ const AirdropDetailPage = () => {
                           Blockchain Network
                         </p>
                         <p className="text-gray-900 font-bold text-sm mb-1">
-                          {airdropDetail.network || "N/A"}
+                          {airdropDetail.blockchain_network || airdropDetail.network || "N/A"}
                         </p>
                       </div>
                     </div>
@@ -640,8 +670,8 @@ const AirdropDetailPage = () => {
                       </div>
                     </div>
 
-                    {/* Duration Row */}
-                    <div className="flex items-center gap-4 border-b border-gray-200 pb-1">
+                    {/* Status Row */}
+                    <div className="flex items-center gap-4 pb-1">
                       <div className="flex-shrink-0 w-10 h-10 bg-purple-100 rounded-full flex items-center justify-center">
                         <svg
                           width="20"
@@ -651,9 +681,13 @@ const AirdropDetailPage = () => {
                           xmlns="http://www.w3.org/2000/svg"
                           className="text-purple-600"
                         >
-                          <circle cx="12" cy="12" r="9" stroke="currentColor" strokeWidth="2" />
                           <path
-                            d="M12 6V12L16 16"
+                            d="M12 2C6.48 2 2 6.48 2 12C2 17.52 6.48 22 12 22C17.52 22 22 17.52 22 12C22 6.48 17.52 2 12 2Z"
+                            stroke="currentColor"
+                            strokeWidth="2"
+                          />
+                          <path
+                            d="M12 6V12L16 14"
                             stroke="currentColor"
                             strokeWidth="2"
                             strokeLinecap="round"
@@ -663,10 +697,20 @@ const AirdropDetailPage = () => {
                       </div>
                       <div className="flex justify-between w-full items-center">
                         <p className="text-gray-700 font-semibold mb-0">
-                          Duration
+                          Status
                         </p>
-                        <p className="text-gray-900 font-bold text-sm mb-1">
-                          {daysRemaining} days
+                        <p
+                          className={`px-3 py-1 rounded-full font-semibold text-[12px] ${
+                            (airdropDetail.airdrop_status || airdropDetail.status)?.toLowerCase() === "ongoing"
+                              ? "bg-green-100 text-green-800"
+                              : (airdropDetail.airdrop_status || airdropDetail.status)?.toLowerCase() === "upcoming"
+                              ? "bg-yellow-100 text-yellow-800"
+                              : (airdropDetail.airdrop_status || airdropDetail.status)?.toLowerCase() === "ended"
+                              ? "bg-red-100 text-red-800"
+                              : "bg-gray-100 text-gray-800"
+                          }`}
+                        >
+                          {airdropDetail.airdrop_status || airdropDetail.status || "Upcoming"}
                         </p>
                       </div>
                     </div>

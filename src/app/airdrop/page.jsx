@@ -611,7 +611,7 @@ const Airdrop = () => {
                     <thead className="bg-gradient-to-r from-purple-600 to-orange-300 text-white">
                       <tr>
                         <th className="p-3 text-left font-semibold">Project</th>
-                        <th className="p-3 text-center font-semibold">Symbol</th>
+                        <th className="p-3 text-center font-semibold">Platform</th>
                         <th className="p-3 text-center font-semibold">Status</th>
                         <th className="p-3 text-center font-semibold">Category</th>
                         <th className="p-3 text-center font-semibold">Network</th>
@@ -646,41 +646,41 @@ const Airdrop = () => {
                             </div>
                           </td>
 
-                          {/* Symbol */}
+                          {/* Platform */}
                           <td className="text-center">
-                            <span className="text-gray-700 font-semibold text-xs">{item.symbol || "N/A"}</span>
+                            <span className="text-gray-700 font-semibold text-xs">{item.platform || "N/A"}</span>
                           </td>
 
                           {/* Status */}
                           <td className="text-center">
                             <span className={`px-3 py-1 rounded-full text-xs font-semibold ${
-                              item.status?.toLowerCase() === 'ongoing' ? 'bg-green-100 text-green-800' :
-                              item.status?.toLowerCase() === 'upcoming' ? 'bg-yellow-100 text-yellow-800' :
-                              item.status?.toLowerCase() === 'ended' ? 'bg-red-100 text-red-800' :
+                              (item.airdrop_status || item.status)?.toLowerCase() === 'ongoing' ? 'bg-green-100 text-green-800' :
+                              (item.airdrop_status || item.status)?.toLowerCase() === 'upcoming' ? 'bg-yellow-100 text-yellow-800' :
+                              (item.airdrop_status || item.status)?.toLowerCase() === 'ended' ? 'bg-red-100 text-red-800' :
                               'bg-gray-100 text-gray-800'
                             }`}>
-                              {item.status || "Upcoming"}
+                              {item.airdrop_status || item.status || "Upcoming"}
                             </span>
                           </td>
 
                           {/* Category */}
                           <td className="text-center">
-                            <span className="px-2 py-1 bg-purple-100 text-purple-800 rounded text-xs">{item.category || "N/A"}</span>
+                            <span className="px-2 py-1 bg-purple-100 text-purple-800 rounded text-xs">{item.project_category || item.category || "N/A"}</span>
                           </td>
 
                           {/* Network */}
                           <td className="text-center">
-                            <span className="text-gray-700 text-xs">{item.network || "N/A"}</span>
+                            <span className="text-gray-700 text-xs">{item.blockchain_network || item.network || "N/A"}</span>
                           </td>
 
                           {/* Winners */}
                           <td className="text-center">
-                            <span className="text-gray-800 font-medium text-xs">{item.winners || "0"}</span>
+                            <span className="text-gray-800 font-medium text-xs">{item.winner_count || item.winners || "0"}</span>
                           </td>
 
-                          {/* Quantity */}
+                          {/* Amount */}
                           <td className="text-center">
-                            <span className="text-gray-800 font-medium text-xs">{item.quantity || "N/A"}</span>
+                            <span className="text-gray-800 font-medium text-xs">${item.airdrop_value || item.total_airdrop_qty || "N/A"}</span>
                           </td>
 
                           {/* Duration Days */}
