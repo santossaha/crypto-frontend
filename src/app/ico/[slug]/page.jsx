@@ -254,15 +254,15 @@ const IcoDetailPage = () => {
               {/* ICO Details Table */}
               <div className="bg-white rounded-xl border border-gray-200 overflow-hidden mb-8">
               {/* Header */}
-              <div className="bg-gradient-to-r from-purple-600 to-orange-300 px-4 py-2 flex justify-between items-center">
-                <h2 className="text-2xl mb-0 font-bold text-white">ICO Details</h2>
-                <div className="flex items-center gap-4 text-white">
-                  <span className="text-sm font-medium">
+              <div className="bg-gradient-to-r from-purple-600 to-orange-300 px-4 sm:px-6 md:px-4 py-2 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3">
+                <h2 className="text-xl sm:text-2xl mb-0 font-bold text-white">ICO Details</h2>
+                <div className="flex flex-col sm:flex-row items-start sm:items-center gap-2 sm:gap-4 text-white text-sm sm:text-base w-full sm:w-auto">
+                  <span className="text-xs sm:text-sm font-medium">
                     {icoDetail.start_date || "N/A"} to{" "}
                     {icoDetail.end_date || "N/A"}
                   </span>
                   <span
-                    className={`px-4 py-1 rounded-full font-bold text-sm ${
+                    className={`px-3 sm:px-4 py-1 rounded-full font-bold text-xs sm:text-sm whitespace-nowrap ${
                       icoDetail.ico_status?.toLowerCase() === "ongoing"
                         ? "bg-green-400 text-gray-900"
                         : icoDetail.ico_status?.toLowerCase() === "upcoming"
@@ -278,8 +278,8 @@ const IcoDetailPage = () => {
               </div>
 
               {/* Table Content */}
-              <div className="p-8">
-                <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+              <div className="p-4 sm:p-6 md:p-8 max-w-full overflow-x-auto">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
                   {/* Left Column */}
                   <div className="space-y-2">
                     {/* Launchpad Row */}
@@ -309,11 +309,11 @@ const IcoDetailPage = () => {
                           />
                         </svg>
                       </div>
-                      <div className="flex justify-between w-full items-center">
-                        <p className="text-gray-700 font-semibold mb-0">
+                      <div className="flex flex-col sm:flex-row sm:justify-between w-full items-start sm:items-center gap-2 gap-2">
+                        <p className="text-gray-700 font-semibold mb-0 text-sm sm:text-base">
                           Launchpad
                         </p>
-                        <p className="text-gray-900 font-bold text-sm mb-1">
+                        <p className="text-gray-900 font-bold text-xs sm:text-sm mb-1">
                           {icoDetail.launchpad || "On Website"}
                         </p>
                       </div>
@@ -344,11 +344,11 @@ const IcoDetailPage = () => {
                           />
                         </svg>
                       </div>
-                      <div className="flex justify-between w-full items-center">
-                        <p className="text-gray-700 font-semibold mb-0">
+                      <div className="flex flex-col sm:flex-row sm:justify-between w-full items-start sm:items-center gap-2 gap-2">
+                        <p className="text-gray-700 font-semibold mb-0 text-sm sm:text-base">
                           Stage
                         </p>
-                        <p className="text-gray-900 font-bold text-sm mb-1">
+                        <p className="text-gray-900 font-bold text-xs sm:text-sm mb-1 text-right">
                           {icoDetail.stage || "N/A"}
                         </p>
                       </div>
@@ -379,11 +379,11 @@ const IcoDetailPage = () => {
                           />
                         </svg>
                       </div>
-                      <div className="flex justify-between w-full items-center">
-                        <p className="text-gray-700 font-semibold mb-0">
+                      <div className="flex flex-col sm:flex-row sm:justify-between w-full items-start sm:items-center gap-2 gap-2">
+                        <p className="text-gray-700 font-semibold mb-0 text-sm sm:text-base">
                           Total Supply Qty.
                         </p>
-                        <p className="text-gray-900 font-bold text-sm mb-1">
+                        <p className="text-gray-900 font-bold text-xs sm:text-sm mb-1 text-right">
                           {icoDetail.total_supply_qty || "N/A"}
                         </p>
                       </div>
@@ -414,11 +414,11 @@ const IcoDetailPage = () => {
                           />
                         </svg>
                       </div>
-                      <div className="flex justify-between w-full items-center">
-                        <p className="text-gray-700 font-semibold mb-0">
+                      <div className="flex flex-col sm:flex-row sm:justify-between w-full items-start sm:items-center gap-2 gap-2">
+                        <p className="text-gray-700 font-semibold mb-0 text-sm sm:text-base">
                           Tokens for Sale
                         </p>
-                        <p className="text-gray-900 font-bold text-sm mb-1">
+                        <p className="text-gray-900 font-bold text-xs sm:text-sm mb-1 text-right">
                           {icoDetail.tokens_for_sale || "N/A"}
                         </p>
                       </div>
@@ -453,11 +453,11 @@ const IcoDetailPage = () => {
                           />
                         </svg>
                       </div>
-                      <div className="flex justify-between w-full items-center">
-                        <p className="text-gray-700 font-semibold mb-0">
+                      <div className="flex flex-col sm:flex-row sm:justify-between w-full items-start sm:items-center gap-2 gap-2">
+                        <p className="text-gray-700 font-semibold mb-0 text-sm sm:text-base">
                           % of Supply
                         </p>
-                        <p className="text-gray-900 font-bold text-sm mb-1">
+                        <p className="text-gray-900 font-bold text-xs sm:text-sm mb-1 text-right">
                           {icoDetail.supply_percentage || "N/A"}
                         </p>
                       </div>
@@ -487,11 +487,11 @@ const IcoDetailPage = () => {
                           />
                         </svg>
                       </div>
-                      <div className="flex justify-between w-full items-center">
-                        <p className="text-gray-700 font-semibold mb-0">
+                      <div className="flex flex-col sm:flex-row sm:justify-between w-full items-start sm:items-center gap-2 gap-2">
+                        <p className="text-gray-700 font-semibold mb-0 text-sm sm:text-base">
                           ICO Price
                         </p>
-                        <p className="text-gray-900 font-bold text-sm mb-1">
+                        <p className="text-gray-900 font-bold text-xs sm:text-sm mb-1 text-right">
                           {icoDetail.ico_price} {icoDetail.ico_price_currency}
                         </p>
                       </div>
@@ -526,11 +526,11 @@ const IcoDetailPage = () => {
                           />
                         </svg>
                       </div>
-                      <div className="flex justify-between w-full items-center">
-                        <p className="text-gray-700 font-semibold mb-0">
+                      <div className="flex flex-col sm:flex-row sm:justify-between w-full items-start sm:items-center gap-2 gap-2">
+                        <p className="text-gray-700 font-semibold mb-0 text-sm sm:text-base">
                           1 USDT
                         </p>
-                        <p className="text-gray-900 font-bold text-sm mb-1">
+                        <p className="text-gray-900 font-bold text-xs sm:text-sm mb-1 text-right">
                           {icoDetail.conversion_rate || "TBA"}
                         </p>
                       </div>
@@ -560,11 +560,11 @@ const IcoDetailPage = () => {
                           />
                         </svg>
                       </div>
-                      <div className="flex justify-between w-full items-center">
-                        <p className="text-gray-700 font-semibold mb-0">
+                      <div className="flex flex-col sm:flex-row sm:justify-between w-full items-start sm:items-center gap-2 gap-2">
+                        <p className="text-gray-700 font-semibold mb-0 text-sm sm:text-base">
                           Soft Cap
                         </p>
-                        <p className="text-gray-900 font-bold text-sm mb-1">
+                        <p className="text-gray-900 font-bold text-xs sm:text-sm mb-1 text-right">
                           {icoDetail.soft_cap || "TBA"}
                         </p>
                       </div>
@@ -594,11 +594,11 @@ const IcoDetailPage = () => {
                           />
                         </svg>
                       </div>
-                      <div className="flex justify-between w-full items-center">
-                        <p className="text-gray-700 font-semibold mb-0">
+                      <div className="flex flex-col sm:flex-row sm:justify-between w-full items-start sm:items-center gap-2 gap-2">
+                        <p className="text-gray-700 font-semibold mb-0 text-sm sm:text-base">
                           Category
                         </p>
-                        <p className="text-gray-900 font-bold text-sm mb-1">
+                        <p className="text-gray-900 font-bold text-xs sm:text-sm mb-1 text-right">
                           {icoDetail.project_category || "N/A"}
                         </p>
                       </div>
@@ -628,11 +628,11 @@ const IcoDetailPage = () => {
                           />
                         </svg>
                       </div>
-                      <div className="flex justify-between w-full items-center">
-                        <p className="text-gray-700 font-semibold mb-0">
+                      <div className="flex flex-col sm:flex-row sm:justify-between w-full items-start sm:items-center gap-2 gap-2">
+                        <p className="text-gray-700 font-semibold mb-0 text-sm sm:text-base">
                           Hard Cap
                         </p>
-                        <p className="text-gray-900 font-bold text-sm mb-1">
+                        <p className="text-gray-900 font-bold text-xs sm:text-sm mb-1 text-right">
                           {icoDetail.hard_cap || "TBA"}
                         </p>
                       </div>
@@ -665,11 +665,11 @@ const IcoDetailPage = () => {
                           />
                         </svg>
                       </div>
-                      <div className="flex justify-between w-full items-center">
-                        <p className="text-gray-700 font-semibold mb-0">
+                      <div className="flex flex-col sm:flex-row sm:justify-between w-full items-start sm:items-center gap-2">
+                        <p className="text-gray-700 font-semibold mb-0 text-sm sm:text-base">
                           Fundraising Goal
                         </p>
-                        <p className="text-gray-900 font-bold text-sm mb-1">
+                        <p className="text-gray-900 font-bold text-xs sm:text-sm mb-1 text-right">
                           {icoDetail.fundraising_goal || "N/A"}
                         </p>
                       </div>
@@ -713,11 +713,11 @@ const IcoDetailPage = () => {
                           />
                         </svg>
                       </div>
-                      <div className="flex justify-between w-full items-center">
-                        <p className="text-gray-700 font-semibold mb-0">
+                      <div className="flex flex-col sm:flex-row sm:justify-between w-full items-start sm:items-center gap-2 gap-2">
+                        <p className="text-gray-700 font-semibold mb-0 text-sm sm:text-base">
                           Blockchain Network
                         </p>
-                        <p className="text-gray-900 font-bold text-sm mb-1">
+                        <p className="text-gray-900 font-bold text-xs sm:text-sm mb-1 text-right">
                           {icoDetail.blockchain_network || "N/A"}
                         </p>
                       </div>
@@ -744,11 +744,11 @@ const IcoDetailPage = () => {
                           <circle cx="12" cy="12" r="1.5" fill="currentColor" />
                         </svg>
                       </div>
-                      <div className="flex justify-between w-full items-center">
-                        <p className="text-gray-700 font-semibold mb-0">
+                      <div className="flex flex-col sm:flex-row sm:justify-between w-full items-start sm:items-center gap-2 gap-2">
+                        <p className="text-gray-700 font-semibold mb-0 text-sm sm:text-base">
                           Price Currency
                         </p>
-                        <p className="text-gray-900 font-bold text-sm mb-1">
+                        <p className="text-gray-900 font-bold text-xs sm:text-sm mb-1 text-right">
                           {icoDetail.ico_price_currency || "TBA"}
                         </p>
                       </div>
@@ -779,11 +779,11 @@ const IcoDetailPage = () => {
                           />
                         </svg>
                       </div>
-                      <div className="flex justify-between w-full items-center">
-                        <p className="text-gray-700 font-semibold mb-0">
+                      <div className="flex flex-col sm:flex-row sm:justify-between w-full items-start sm:items-center gap-2 gap-2">
+                        <p className="text-gray-700 font-semibold mb-0 text-sm sm:text-base">
                           Personal Cap
                         </p>
-                        <p className="text-gray-900 font-bold text-sm mb-1">
+                        <p className="text-gray-900 font-bold text-xs sm:text-sm mb-1 text-right">
                           {icoDetail.personal_cap || "TBA"}
                         </p>
                       </div>
@@ -814,11 +814,11 @@ const IcoDetailPage = () => {
                             />
                           </svg>
                         </div>
-                        <div className="flex justify-between w-full items-center">
-                          <p className="text-gray-700 font-semibold mb-0">
+                        <div className="flex flex-col sm:flex-row sm:justify-between w-full items-start sm:items-center gap-2 gap-2">
+                          <p className="text-gray-700 font-semibold mb-0 text-sm sm:text-base">
                             Min Investment
                           </p>
-                          <p className="text-gray-900 font-bold text-sm mb-1">
+                          <p className="text-gray-900 font-bold text-xs sm:text-sm mb-1 text-right">
                             {icoDetail.min_investment}
                           </p>
                         </div>
@@ -850,11 +850,11 @@ const IcoDetailPage = () => {
                             />
                           </svg>
                         </div>
-                        <div className="flex justify-between w-full items-center">
-                          <p className="text-gray-700 font-semibold mb-0">
+                        <div className="flex flex-col sm:flex-row sm:justify-between w-full items-start sm:items-center gap-2 gap-2">
+                          <p className="text-gray-700 font-semibold mb-0 text-sm sm:text-base">
                             Max Investment
                           </p>
-                          <p className="text-gray-900 font-bold text-sm mb-1">
+                          <p className="text-gray-900 font-bold text-xs sm:text-sm mb-1 text-right">
                             {icoDetail.max_investment}
                           </p>
                         </div>
@@ -891,11 +891,11 @@ const IcoDetailPage = () => {
                             />
                           </svg>
                         </div>
-                        <div className="flex justify-between w-full items-center">
-                          <p className="text-gray-700 font-semibold mb-0">
+                        <div className="flex flex-col sm:flex-row sm:justify-between w-full items-start sm:items-center gap-2 gap-2">
+                          <p className="text-gray-700 font-semibold mb-0 text-sm sm:text-base">
                             Token Symbol
                           </p>
-                          <p className="text-gray-900 font-bold text-sm mb-1">
+                          <p className="text-gray-900 font-bold text-xs sm:text-sm mb-1 text-right">
                             {icoDetail.token_symbol}
                           </p>
                         </div>
@@ -922,11 +922,11 @@ const IcoDetailPage = () => {
                             />
                           </svg>
                         </div>
-                        <div className="flex justify-between w-full items-center">
-                          <p className="text-gray-700 font-semibold mb-0">
+                        <div className="flex flex-col sm:flex-row sm:justify-between w-full items-start sm:items-center gap-2 gap-2">
+                          <p className="text-gray-700 font-semibold mb-0 text-sm sm:text-base">
                             Token Decimals
                           </p>
-                          <p className="text-gray-900 font-bold text-sm mb-1">
+                          <p className="text-gray-900 font-bold text-xs sm:text-sm mb-1 text-right">
                             {icoDetail.token_decimals}
                           </p>
                         </div>
@@ -954,11 +954,11 @@ const IcoDetailPage = () => {
                             />
                           </svg>
                         </div>
-                        <div className="flex justify-between w-full items-center">
-                          <p className="text-gray-700 font-semibold mb-0">
+                        <div className="flex flex-col sm:flex-row sm:justify-between w-full items-start sm:items-center gap-2 gap-2">
+                          <p className="text-gray-700 font-semibold mb-0 text-sm sm:text-base">
                             Whitelist
                           </p>
-                          <p className="text-gray-900 font-bold text-sm mb-1">
+                          <p className="text-gray-900 font-bold text-xs sm:text-sm mb-1 text-right">
                             {icoDetail.whitelist_required
                               ? "Required"
                               : "Not Required"}
@@ -995,11 +995,11 @@ const IcoDetailPage = () => {
                             />
                           </svg>
                         </div>
-                        <div className="flex justify-between w-full items-center">
-                          <p className="text-gray-700 font-semibold mb-0">
+                        <div className="flex flex-col sm:flex-row sm:justify-between w-full items-start sm:items-center gap-2 gap-2">
+                          <p className="text-gray-700 font-semibold mb-0 text-sm sm:text-base">
                             KYC
                           </p>
-                          <p className="text-gray-900 font-bold text-sm mb-1">
+                          <p className="text-gray-900 font-bold text-xs sm:text-sm mb-1 text-right">
                             {icoDetail.kyc_required
                               ? "Required"
                               : "Not Required"}
@@ -1034,7 +1034,7 @@ const IcoDetailPage = () => {
                             />
                           </svg>
                         </div>
-                        <div className="flex justify-between w-full items-center">
+                        <div className="flex flex-col sm:flex-row sm:justify-between w-full items-start sm:items-center gap-2">
                           <p className="text-gray-700 font-semibold mb-0">
                             Website
                           </p>
@@ -1079,7 +1079,7 @@ const IcoDetailPage = () => {
                             />
                           </svg>
                         </div>
-                        <div className="flex justify-between w-full items-center">
+                        <div className="flex flex-col sm:flex-row sm:justify-between w-full items-start sm:items-center gap-2">
                           <p className="text-gray-700 font-semibold mb-0">
                             Listing Date
                           </p>
@@ -1119,7 +1119,7 @@ const IcoDetailPage = () => {
                             />
                           </svg>
                         </div>
-                        <div className="flex justify-between w-full items-center">
+                        <div className="flex flex-col sm:flex-row sm:justify-between w-full items-start sm:items-center gap-2">
                           <p className="text-gray-700 font-semibold mb-0">
                             Presale Date
                           </p>
@@ -1175,7 +1175,7 @@ const IcoDetailPage = () => {
                           />
                         </svg>
                       </div>
-                      <div className="flex justify-between w-full items-center">
+                      <div className="flex flex-col sm:flex-row sm:justify-between w-full items-start sm:items-center gap-2">
                         <p className="text-gray-700 font-semibold mb-0">
                           Category
                         </p>
@@ -1213,7 +1213,7 @@ const IcoDetailPage = () => {
                           />
                         </svg>
                       </div>
-                      <div className="flex justify-between w-full items-center">
+                      <div className="flex flex-col sm:flex-row sm:justify-between w-full items-start sm:items-center gap-2">
                         <p className="text-gray-700 font-semibold mb-0">
                           Price Currency
                         </p>

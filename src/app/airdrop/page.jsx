@@ -498,10 +498,10 @@ const Airdrop = () => {
         <div className="container mx-auto px-4">
 
           {/* Heading */}
-          <div className="mb-6 flex items-center justify-between gap-4 bg-white p-3 rounded-2xl shadow-lg border border-gray-200">
+          <div className="mb-6 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 bg-white p-3 rounded-2xl shadow-lg border border-gray-200">
             <div>
               <h3 className="text-2xl font-bold text-zinc-950">Crypto Ongoing Airdrop</h3>
-              <p className="text-gray-500 mt-1">
+              <p className="text-gray-500 mt-1 mb-0">
                 Participate in coin airdrops and earn free tokens from promising projects.
               </p>
             </div>
@@ -685,7 +685,7 @@ const Airdrop = () => {
 
                           {/* Duration Days */}
                           <td className="text-center">
-                            <span className="px-3 py-1 bg-indigo-100 text-indigo-800 rounded-full text-xs font-semibold">
+                            <span className="max-w-[100px] truncate px-3 py-1 bg-indigo-100 text-indigo-800 rounded-full text-xs font-semibold">
                               {calculateDays(item.start_date, item.end_date)} days
                             </span>
                           </td>
