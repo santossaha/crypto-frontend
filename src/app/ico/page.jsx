@@ -357,7 +357,6 @@ const Page = () => {
     }
   };
 
-  // Get today's date in YYYY-MM-DD format for date input min attribute
   const getTodayDate = () => {
     const today = new Date();
     const year = today.getFullYear();
@@ -366,7 +365,6 @@ const Page = () => {
     return `${year}-${month}-${day}`;
   };
 
-  // Normalize date strings to DD-MM-YYYY (API expects DD-MM-YYYY in examples)
   const toDDMMYYYY = (s) => {
     if (!s) return "";
     if (/^\d{2}-\d{2}-\d{4}$/.test(s)) return s;
