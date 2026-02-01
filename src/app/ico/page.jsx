@@ -45,11 +45,15 @@ const Page = () => {
     try {
       setLoading(true);
       console.log("📥 Fetching ICO list...");
-      const response = await axios.get(`https://admin.bitfynance.com/api/ico-list?_ts=${Date.now()}`);
-      const icoData = response.data.data.data || [];
-      const filtersData = response.data.filters || {};
+      const cacheParam = new Date().getTime();
+      const response = await axios.get(`https://admin.bitfynance.com/api/ico-list?_t=${cacheParam}`);
+      
+      // Handle different response structures
+      const icoData = response.data?.data?.data || response.data?.data || [];
+      const filtersData = response.data?.filters || {};
 
       console.log("📊 Fetched ICO count:", icoData.length);
+      console.log("📋 ICO Data sample:", icoData.slice(0, 2));
       
       setAllIco(icoData);
       setFilteredIco(icoData);
@@ -57,7 +61,7 @@ const Page = () => {
       setError(null);
       return icoData;
     } catch (err) {
-      console.error("API Error:", err);
+      console.error("❌ API Error:", err);
       setError("Failed to fetch ICO data. Please try again later.");
       setAllIco([]);
       return [];
@@ -157,160 +161,99 @@ const Page = () => {
 
       if (res.status === 201 || res.status === 200) {
         console.log("✓ ICO Created with status:", res.status);
+        console.log("✓ Response data:", res?.data);
+        
         setSubmitSuccess("✓ ICO created successfully!");
         setFormData(initialForm);
-        // show toast with server message (or default)
-        try {
-          const serverMsg = res?.data?.message || 'ICO created successfully';
-          showToast(serverMsg, 'success', 4000);
-        } catch (e) {
-          showToast('ICO created successfully', 'success', 4000);
+        
+        // Extract created item from response
+        const createdItem = res?.data?.data || null;
+        
+        if (createdItem && (createdItem.id || createdItem.slug)) {
+          console.log("✓ Created ICO details received:", createdItem);
+          
+          // Ensure all required fields are present
+          const enrichedItem = {
+            ...createdItem,
+            id: createdItem.id || createdItem.slug,
+            name: createdItem.name || formData.name,
+            slug: createdItem.slug || formData.slug,
+            ico_status: createdItem.ico_status || formData.ico_status || 'Upcoming',
+            status: createdItem.status || 'Inactive',
+          };
+          
+          // Add to local state immediately
+          setAllIco((prev) => {
+            const exists = prev.some((p) => p.id === enrichedItem.id || p.slug === enrichedItem.slug);
+            return exists ? prev : [enrichedItem, ...prev];
+          });
+          
+          setFilteredIco((prev) => {
+            const exists = prev.some((p) => p.id === enrichedItem.id || p.slug === enrichedItem.slug);
+            return exists ? prev : [enrichedItem, ...prev];
+          });
+          
+          setCurrentPage(1);
         }
-        // If server returned the created ICO object, add it to local list immediately
-        try {
-          const createdItem = res?.data?.data || res?.data;
-          if (createdItem && (createdItem.id || createdItem.slug)) {
-            // keep server-returned status or default to form value
-            try {
-              createdItem.ico_status = createdItem.ico_status || formData.ico_status || 'Upcoming';
-            } catch (e) {
-              // ignore
-            }
-            setAllIco((prev) => {
-              const exists = prev.some((p) => p.id === createdItem.id || p.slug === createdItem.slug);
-              if (exists) return prev;
-              return [createdItem, ...prev];
-            });
-            setFilteredIco((prev) => {
-              const exists = prev.some((p) => p.id === createdItem.id || p.slug === createdItem.slug);
-              if (exists) return prev;
-              return [createdItem, ...prev];
-            });
-            setCurrentPage(1);
-            // Also attempt an immediate refetch (cache-busted) to ensure backend data is returned
-            try {
-              await fetchIcoList();
-            } catch (e) {
-              console.warn('Immediate refetch failed:', e);
-            }
-
-            // Show success toast; created item already inserted into list (no polling)
-            try {
-              showToast(res?.data?.message || 'ICO created and shown in list', 'success', 3500);
-            } catch (e) {
-              // ignore
-            }
-          }
-        } catch (e) {
-          console.warn('Could not insert created item locally:', e);
-        }
-        // If API didn't return the created object in response, build a local placeholder
-        try {
-          const maybeCreated = res?.data?.data || res?.data;
-          if (!maybeCreated || !(maybeCreated.id || maybeCreated.slug)) {
-            const sd = toDDMMYYYY(formData.start_date);
-            const ed = toDDMMYYYY(formData.end_date);
-            const localItem = {
-              id: (res?.data?.id) || `tmp-${Date.now()}`,
-              name: formData.name,
-              slug: formData.slug || `tmp-${Date.now()}`,
-              image: res?.data?.data?.image || null,
-              launchpad: formData.launchpad || "N/A",
-              stage: formData.stage || "ICO",
-              total_supply_qty: formData.total_supply_qty || null,
-              tokens_for_sale: formData.tokens_for_sale || null,
-              supply_percentage: formData.supply_percentage || null,
-              ico_price: formData.ico_price || null,
-              ico_price_currency: formData.ico_price_currency || null,
-              fundraising_goal: formData.fundraising_goal || null,
-              project_category: formData.project_category || null,
-              blockchain_network: formData.blockchain_network || null,
-              soft_cap: formData.soft_cap || null,
-              hard_cap: formData.hard_cap || null,
-              start_date: sd || null,
-              end_date: ed || null,
-              date_range: sd && ed ? `${sd} to ${ed}` : null,
-              ico_status: formData.ico_status || "Upcoming",
-              short_description: formData.short_description || "",
-            };
-
-            setAllIco((prev) => {
-              const exists = prev.some((p) => p.id === localItem.id || p.slug === localItem.slug);
-              if (exists) return prev;
-              return [localItem, ...prev];
-            });
-            setFilteredIco((prev) => {
-              const exists = prev.some((p) => p.id === localItem.id || p.slug === localItem.slug);
-              if (exists) return prev;
-              return [localItem, ...prev];
-            });
-            setCurrentPage(1);
-
-            // show toast for pending placeholder
-            try {
-              const msg = res?.data?.message || 'ICO submitted and pending review';
-              showToast(msg, 'info', 4500);
-            } catch (e) {
-              showToast('ICO submitted and pending review', 'info', 4500);
-            }
-          }
-        } catch (ex) {
-          console.warn('Could not insert local placeholder item:', ex);
-        }
-        // Close modal, reset filters, and refresh list with delay for server processing
+        
+        // Show success toast
+        const successMsg = res?.data?.message || '✓ ICO created successfully!';
+        showToast(successMsg, 'success', 4000);
+        
+        // Close modal after short delay
         setTimeout(() => {
           closeAdd();
-          console.log("Modal closed, resetting filters...");
-          // Reset filters to show all items
           setSearchTerm("");
           setSelectedStatus("All");
           setSelectedStage("All");
           setSelectedCategory("All");
           setSelectedNetwork("All");
           setCurrentPage(1);
-        }, 500);
+        }, 600);
         
-        // Fetch fresh list after server processes (2 sec delay)
+        // Refresh list from server
         setTimeout(async () => {
-          console.log("Fetching updated ICO list...");
+          console.log("⟳ Refreshing ICO list from server...");
           await fetchIcoList();
-          console.log("List refreshed");
-        }, 2000);
+          console.log("✓ List refreshed");
+        }, 1000);
       }
     } catch (err) {
-      console.error("Create ICO Error:", err?.response?.data || err?.message);
-      console.log('Create error response raw:', err?.response);
-        setSubmitting(false);
+      console.error("❌ Create ICO Error:", err?.response?.data || err?.message);
+      setSubmitting(false);
         
-        const resp = err?.response?.data;
-        let errorMsg = "Failed to create ICO.";
+      const resp = err?.response?.data;
+      let errorMsg = "Failed to create ICO.";
         
-        try {
-          if (err?.response?.status === 422 && resp?.errors && typeof resp.errors === 'object') {
-            const msgs = [];
-            Object.entries(resp.errors).forEach(([field, errors]) => {
-              if (Array.isArray(errors)) {
-                msgs.push(`${field}: ${errors.join(', ')}`);
-              } else {
-                msgs.push(`${field}: ${String(errors)}`);
-              }
-            });
-            errorMsg = msgs.length > 0 ? msgs.join('\n') : JSON.stringify(resp);
-          } else if (resp?.message && typeof resp.message === 'string') {
-            errorMsg = resp.message;
-          } else if (err?.response?.status >= 500) {
-            errorMsg = `Server Error (${err.response.status}): ${resp?.error || 'Please try again later.'}`;
-          } else if (err?.message && typeof err.message === 'string') {
-            errorMsg = `Error: ${err.message}`;
-          } else if (resp && Object.keys(resp).length > 0) {
-            errorMsg = JSON.stringify(resp);
-          }
-        } catch (parseErr) {
-          console.error("Error parsing error response:", parseErr);
-          errorMsg = "Failed to create ICO. Check console for details.";
+      try {
+        if (err?.response?.status === 422 && resp?.errors && typeof resp.errors === 'object') {
+          const msgs = [];
+          Object.entries(resp.errors).forEach(([field, errors]) => {
+            if (Array.isArray(errors)) {
+              msgs.push(`${field}: ${errors.join(', ')}`);
+            } else {
+              msgs.push(`${field}: ${String(errors)}`);
+            }
+          });
+          errorMsg = msgs.length > 0 ? msgs.join('\n') : JSON.stringify(resp);
+        } else if (resp?.message && typeof resp.message === 'string') {
+          errorMsg = resp.message;
+        } else if (err?.response?.status >= 500) {
+          errorMsg = `Server Error (${err.response.status}): ${resp?.error || 'Please try again later.'}`;
+        } else if (err?.message && typeof err.message === 'string') {
+          errorMsg = `Error: ${err.message}`;
+        } else if (resp && Object.keys(resp).length > 0) {
+          errorMsg = JSON.stringify(resp);
         }
+      } catch (parseErr) {
+        console.error("Error parsing error response:", parseErr);
+        errorMsg = "Failed to create ICO. Check console for details.";
+      }
         
-        setSubmitError(errorMsg);
+      setSubmitError(errorMsg);
+      showToast(errorMsg, 'error', 5000);
+    } finally {
+      setSubmitting(false);
     }
   };
 
