@@ -379,7 +379,9 @@ const IcoDetailPage = () => {
                               Total Supply Qty.
                             </p>
                             <p className="text-gray-900 font-bold text-xs sm:text-sm mb-1 text-right">
-                              {icoDetail.total_supply_qty_formatted || icoDetail.total_supply_qty || "N/A"}
+                              {icoDetail.total_supply_qty_formatted ||
+                                icoDetail.total_supply_qty ||
+                                "N/A"}
                             </p>
                           </div>
                         </div>
@@ -414,7 +416,9 @@ const IcoDetailPage = () => {
                               Tokens for Sale
                             </p>
                             <p className="text-gray-900 font-bold text-xs sm:text-sm mb-1 text-right">
-                              {icoDetail.tokens_for_sale_formatted || icoDetail.tokens_for_sale || "N/A"}
+                              {icoDetail.tokens_for_sale_formatted ||
+                                icoDetail.tokens_for_sale ||
+                                "N/A"}
                             </p>
                           </div>
                         </div>
@@ -453,7 +457,9 @@ const IcoDetailPage = () => {
                               % of Supply
                             </p>
                             <p className="text-gray-900 font-bold text-xs sm:text-sm mb-1 text-right">
-                              {icoDetail.supply_percentage_formatted || icoDetail.supply_percentage || "N/A"}
+                              {icoDetail.supply_percentage_formatted ||
+                                icoDetail.supply_percentage ||
+                                "N/A"}
                             </p>
                           </div>
                         </div>
@@ -527,7 +533,9 @@ const IcoDetailPage = () => {
                               1 USDT
                             </p>
                             <p className="text-gray-900 font-bold text-xs sm:text-sm mb-1 text-right">
-                              {icoDetail.one_usdt_value || icoDetail.conversion_rate || "TBA"}
+                              {icoDetail.one_usdt_value ||
+                                icoDetail.conversion_rate ||
+                                "TBA"}
                             </p>
                           </div>
                         </div>
@@ -566,7 +574,6 @@ const IcoDetailPage = () => {
                           </div>
                         </div>
 
-                        
                         {/* Start Date Row */}
                         <div className="flex items-center gap-4 border-b border-gray-200 pb-1">
                           <div className="flex-shrink-0 w-10 h-10 bg-purple-100 rounded-full flex items-center justify-center">
@@ -640,10 +647,6 @@ const IcoDetailPage = () => {
                             </p>
                           </div>
                         </div>
-                      </div>
-
-                      {/* Right Column */}
-                      <div className="space-y-2">
                         {/* Category Row */}
                         <div className="flex items-center gap-4 border-b border-gray-200 pb-1">
                           <div className="flex-shrink-0 w-10 h-10 bg-purple-100 rounded-full flex items-center justify-center">
@@ -707,8 +710,11 @@ const IcoDetailPage = () => {
                             </p>
                           </div>
                         </div>
+                      </div>
 
-                         {/* Hard Cap Row */}
+                      {/* Right Column */}
+                      <div className="space-y-2">
+                        {/* Hard Cap Row */}
                         <div className="flex items-center gap-4 border-b border-gray-200 pb-1">
                           <div className="flex-shrink-0 w-10 h-10 bg-purple-100 rounded-full flex items-center justify-center">
                             <svg
@@ -741,54 +747,69 @@ const IcoDetailPage = () => {
                             </p>
                           </div>
                         </div>
-
-                        {/* buy_link Row */}
-                        <div className="flex items-center gap-4 border-b border-gray-200 pb-1">
-                          <div className="flex-shrink-0 w-10 h-10 bg-purple-100 rounded-full flex items-center justify-center">
-                            <svg
-                              width="20"
-                              height="20"
-                              viewBox="0 0 24 24"
-                              fill="none"
-                              xmlns="http://www.w3.org/2000/svg"
-                              className="text-purple-600"
-                            >
-                              <path
-                                d="M13 2H6C4.89543 2 4 2.89543 4 4V20C4 21.1046 4.89543 22 6 22H18C19.1046 22 20 21.1046 20 20V9L13 2Z"
-                                stroke="currentColor"
-                                strokeWidth="2"
-                                strokeLinecap="round"
-                                strokeLinejoin="round"
-                              />
-                              <path
-                                d="M13 2V9H20"
-                                stroke="currentColor"
-                                strokeWidth="2"
-                                strokeLinecap="round"
-                                strokeLinejoin="round"
-                              />
-                            </svg>
-                          </div>
-                          <div className="flex flex-col sm:flex-row sm:justify-between w-full items-start sm:items-center gap-2">
-                            <p className="text-gray-700 font-semibold mb-0 text-sm sm:text-base">
-                              Buy Link
-                            </p>
-                            {icoDetail.buy_link ? (
-                              <a
-                                href={icoDetail.buy_link}
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                className="text-purple-600 font-bold text-xs sm:text-sm mb-1 text-right hover:underline break-all inline-block"
+                        {/* By Now URL Row */}
+                        {icoDetail.buy_link && (
+                          <div className="flex items-center gap-4 border-b pb-1 border-gray-200">
+                            <div className="flex-shrink-0 w-10 h-10 bg-purple-100 rounded-full flex items-center justify-center">
+                              <svg
+                                width="20"
+                                height="20"
+                                viewBox="0 0 24 24"
+                                fill="none"
+                                xmlns="http://www.w3.org/2000/svg"
+                                className="text-purple-600"
                               >
-                                {icoDetail.buy_link}
-                              </a>
-                            ) : (
-                              <p className="text-gray-900 font-bold text-xs sm:text-sm mb-1 text-right">N/A</p>
-                            )}
+                                <path
+                                  d="M13 2H6C4.89543 2 4 2.89543 4 4V20C4 21.1046 4.89543 22 6 22H18C19.1046 22 20 21.1046 20 20V9L13 2Z"
+                                  stroke="currentColor"
+                                  strokeWidth="2"
+                                  strokeLinecap="round"
+                                  strokeLinejoin="round"
+                                />
+                                <path
+                                  d="M13 2V9H20"
+                                  stroke="currentColor"
+                                  strokeWidth="2"
+                                  strokeLinecap="round"
+                                  strokeLinejoin="round"
+                                />
+                              </svg>
+                            </div>
+                            <div className="flex flex-col sm:flex-row sm:justify-between w-full items-start sm:items-center gap-2">
+                              <p className="text-gray-700 font-semibold mb-0 text-sm sm:text-base">
+                                Buy Link
+                              </p>
+                              <p className="text-gray-900 font-bold text-xs sm:text-sm mb-1 sm:mb-0 sm:text-right">
+                                <Link
+                                  href={icoDetail.buy_link || "#"}
+                                  target="_blank"
+                                  rel="noopener noreferrer"
+                                  className="text-purple-600 hover:underline ml-2"
+                                >
+                                  <svg
+                                    width="20px"
+                                    height="20px"
+                                    viewBox="0 0 24 24"
+                                    fill="none"
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    className="text-purple-600"
+                                  >
+                                    <path
+                                      d="M15.7285 3.88396C17.1629 2.44407 19.2609 2.41383 20.4224 3.57981C21.586 4.74798 21.5547 6.85922 20.1194 8.30009L17.6956 10.7333C17.4033 11.0268 17.4042 11.5017 17.6976 11.794C17.9911 12.0863 18.466 12.0854 18.7583 11.7919L21.1821 9.35869C23.0934 7.43998 23.3334 4.37665 21.4851 2.5212C19.6346 0.663551 16.5781 0.905664 14.6658 2.82536L9.81817 7.69182C7.90688 9.61053 7.66692 12.6739 9.51519 14.5293C9.80751 14.8228 10.2824 14.8237 10.5758 14.5314C10.8693 14.2391 10.8702 13.7642 10.5779 13.4707C9.41425 12.3026 9.44559 10.1913 10.8809 8.75042L15.7285 3.88396Z"
+                                      fill="currentColor"
+                                    />
+                                    <path
+                                      d="M14.4851 9.47074C14.1928 9.17728 13.7179 9.17636 13.4244 9.46868C13.131 9.76101 13.1301 10.2359 13.4224 10.5293C14.586 11.6975 14.5547 13.8087 13.1194 15.2496L8.27178 20.1161C6.83745 21.556 4.73937 21.5863 3.57791 20.4203C2.41424 19.2521 2.44559 17.1408 3.88089 15.6999L6.30473 13.2667C6.59706 12.9732 6.59614 12.4984 6.30268 12.206C6.00922 11.9137 5.53434 11.9146 5.24202 12.2081L2.81818 14.6413C0.906876 16.5601 0.666916 19.6234 2.51519 21.4789C4.36567 23.3365 7.42221 23.0944 9.33449 21.1747L14.1821 16.3082C16.0934 14.3895 16.3334 11.3262 14.4851 9.47074Z"
+                                      fill="currentColor"
+                                    />
+                                  </svg>
+                                </Link>
+                              </p>
+                            </div>
                           </div>
-                        </div>
+                        )}
 
-                         {/* Fundraising Goal Row */}
+                        {/* Fundraising Goal Row */}
                         <div className="flex items-center gap-4 border-b border-gray-200 pb-1">
                           <div className="flex-shrink-0 w-10 h-10 bg-purple-100 rounded-full flex items-center justify-center">
                             <svg
@@ -820,7 +841,9 @@ const IcoDetailPage = () => {
                               Fundraising Goal
                             </p>
                             <p className="text-gray-900 font-bold text-xs sm:text-sm mb-1 text-right">
-                              {icoDetail.fundraising_goal_formatted || icoDetail.fundraising_goal || "N/A"}
+                              {icoDetail.fundraising_goal_formatted ||
+                                icoDetail.fundraising_goal ||
+                                "N/A"}
                             </p>
                           </div>
                         </div>
@@ -1160,45 +1183,122 @@ const IcoDetailPage = () => {
                             </div>
                           </div>
                         )}
-
                         {/* Website URL Row */}
                         {icoDetail.website_url && (
-                          <div className="flex items-center gap-4 border-b border-gray-200 pb-1">
+                          <div className="flex items-center gap-4 border-b pb-1 border-gray-200">
                             <div className="flex-shrink-0 w-10 h-10 bg-purple-100 rounded-full flex items-center justify-center">
+                              {/* Web / Globe Icon */}
                               <svg
-                                width="20"
-                                height="20"
+                                width="18"
+                                height="18"
                                 viewBox="0 0 24 24"
                                 fill="none"
                                 xmlns="http://www.w3.org/2000/svg"
                                 className="text-purple-600"
                               >
                                 <path
-                                  d="M10 13C10.4295 13.5741 11.0066 14.0291 11.6575 14.3249C12.3084 14.6208 13.0219 14.7496 13.7368 14.6995C14.4517 14.6495 15.1404 14.4218 15.7575 14.0347C16.3747 13.6476 16.8955 13.1158 17.2821 12.4856M13.5057 9.46629C13.0509 8.70998 12.3367 8.1737 11.4892 8.04791C10.6418 7.92213 9.7725 8.20801 9.1572 8.8233C8.5419 9.4386 8.2560 10.3079 8.3818 11.1553C8.5076 12.0027 9.0439 12.7169 9.8002 13.1717"
+                                  d="M12 2C6.477 2 2 6.477 2 12C2 17.523 6.477 22 12 22C17.523 22 22 17.523 22 12C22 6.477 17.523 2 12 2Z"
                                   stroke="currentColor"
-                                  strokeWidth="1.5"
-                                  strokeLinecap="round"
-                                  strokeLinejoin="round"
+                                  strokeWidth="2"
                                 />
                                 <path
-                                  d="M21 12C21 16.9706 16.9706 21 12 21C7.02944 21 3 16.9706 3 12C3 7.02944 7.02944 3 12 3C16.9706 3 21 7.02944 21 12Z"
+                                  d="M2 12H22M12 2C15 6 15 18 12 22M12 2C9 6 9 18 12 22"
                                   stroke="currentColor"
-                                  strokeWidth="1.5"
+                                  strokeWidth="2"
+                                  strokeLinecap="round"
                                 />
                               </svg>
                             </div>
                             <div className="flex flex-col sm:flex-row sm:justify-between w-full items-start sm:items-center gap-2">
-                              <p className="text-gray-700 font-semibold mb-0">
-                                Website
+                              <p className="text-gray-700 font-semibold mb-0 text-sm sm:text-base">
+                                Website Link
                               </p>
-                              <a
-                                href={icoDetail.website_url}
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                className="text-purple-600 font-bold text-sm mb-1 hover:underline break-all inline-block"
+                              <p className="text-gray-900 font-bold text-xs sm:text-sm mb-1 sm:mb-0 sm:text-right">
+                                <Link
+                                  href={icoDetail.website_url || "#"}
+                                  target="_blank"
+                                  rel="noopener noreferrer"
+                                  className="text-purple-600 hover:underline ml-2"
+                                >
+                                  <svg
+                                    width="20px"
+                                    height="20px"
+                                    viewBox="0 0 24 24"
+                                    fill="none"
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    className="text-purple-600"
+                                  >
+                                    <path
+                                      d="M15.7285 3.88396C17.1629 2.44407 19.2609 2.41383 20.4224 3.57981C21.586 4.74798 21.5547 6.85922 20.1194 8.30009L17.6956 10.7333C17.4033 11.0268 17.4042 11.5017 17.6976 11.794C17.9911 12.0863 18.466 12.0854 18.7583 11.7919L21.1821 9.35869C23.0934 7.43998 23.3334 4.37665 21.4851 2.5212C19.6346 0.663551 16.5781 0.905664 14.6658 2.82536L9.81817 7.69182C7.90688 9.61053 7.66692 12.6739 9.51519 14.5293C9.80751 14.8228 10.2824 14.8237 10.5758 14.5314C10.8693 14.2391 10.8702 13.7642 10.5779 13.4707C9.41425 12.3026 9.44559 10.1913 10.8809 8.75042L15.7285 3.88396Z"
+                                      fill="currentColor"
+                                    />
+                                    <path
+                                      d="M14.4851 9.47074C14.1928 9.17728 13.7179 9.17636 13.4244 9.46868C13.131 9.76101 13.1301 10.2359 13.4224 10.5293C14.586 11.6975 14.5547 13.8087 13.1194 15.2496L8.27178 20.1161C6.83745 21.556 4.73937 21.5863 3.57791 20.4203C2.41424 19.2521 2.44559 17.1408 3.88089 15.6999L6.30473 13.2667C6.59706 12.9732 6.59614 12.4984 6.30268 12.206C6.00922 11.9137 5.53434 11.9146 5.24202 12.2081L2.81818 14.6413C0.906876 16.5601 0.666916 19.6234 2.51519 21.4789C4.36567 23.3365 7.42221 23.0944 9.33449 21.1747L14.1821 16.3082C16.0934 14.3895 16.3334 11.3262 14.4851 9.47074Z"
+                                      fill="currentColor"
+                                    />
+                                  </svg>
+                                </Link>
+                              </p>
+                            </div>
+                          </div>
+                        )}
+
+                        {/* Whitepaper URL Row */}
+                        {icoDetail.whitepaper_url && (
+                          <div className="flex items-center gap-4 border-b pb-1 border-gray-200">
+                            <div className="flex-shrink-0 w-10 h-10 bg-purple-100 rounded-full flex items-center justify-center">
+                              {/* Web / Globe Icon */}
+                              <svg
+                                width="18"
+                                height="18"
+                                viewBox="0 0 24 24"
+                                fill="none"
+                                xmlns="http://www.w3.org/2000/svg"
+                                className="text-purple-600"
                               >
-                                {icoDetail.website_url}
-                              </a>
+                                <path
+                                  d="M12 2C6.477 2 2 6.477 2 12C2 17.523 6.477 22 12 22C17.523 22 22 17.523 22 12C22 6.477 17.523 2 12 2Z"
+                                  stroke="currentColor"
+                                  strokeWidth="2"
+                                />
+                                <path
+                                  d="M2 12H22M12 2C15 6 15 18 12 22M12 2C9 6 9 18 12 22"
+                                  stroke="currentColor"
+                                  strokeWidth="2"
+                                  strokeLinecap="round"
+                                />
+                              </svg>
+                            </div>
+                            <div className="flex flex-col sm:flex-row sm:justify-between w-full items-start sm:items-center gap-2">
+                              <p className="text-gray-700 font-semibold mb-0 text-sm sm:text-base">
+                                Whitepaper Link
+                              </p>
+                              <p className="text-gray-900 font-bold text-xs sm:text-sm mb-1 sm:mb-0 sm:text-right">
+                                <Link
+                                  href={icoDetail.whitepaper_url || "#"}
+                                  target="_blank"
+                                  rel="noopener noreferrer"
+                                  className="text-purple-600 hover:underline ml-2"
+                                >
+                                  <svg
+                                    width="20px"
+                                    height="20px"
+                                    viewBox="0 0 24 24"
+                                    fill="none"
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    className="text-purple-600"
+                                  >
+                                    <path
+                                      d="M15.7285 3.88396C17.1629 2.44407 19.2609 2.41383 20.4224 3.57981C21.586 4.74798 21.5547 6.85922 20.1194 8.30009L17.6956 10.7333C17.4033 11.0268 17.4042 11.5017 17.6976 11.794C17.9911 12.0863 18.466 12.0854 18.7583 11.7919L21.1821 9.35869C23.0934 7.43998 23.3334 4.37665 21.4851 2.5212C19.6346 0.663551 16.5781 0.905664 14.6658 2.82536L9.81817 7.69182C7.90688 9.61053 7.66692 12.6739 9.51519 14.5293C9.80751 14.8228 10.2824 14.8237 10.5758 14.5314C10.8693 14.2391 10.8702 13.7642 10.5779 13.4707C9.41425 12.3026 9.44559 10.1913 10.8809 8.75042L15.7285 3.88396Z"
+                                      fill="currentColor"
+                                    />
+                                    <path
+                                      d="M14.4851 9.47074C14.1928 9.17728 13.7179 9.17636 13.4244 9.46868C13.131 9.76101 13.1301 10.2359 13.4224 10.5293C14.586 11.6975 14.5547 13.8087 13.1194 15.2496L8.27178 20.1161C6.83745 21.556 4.73937 21.5863 3.57791 20.4203C2.41424 19.2521 2.44559 17.1408 3.88089 15.6999L6.30473 13.2667C6.59706 12.9732 6.59614 12.4984 6.30268 12.206C6.00922 11.9137 5.53434 11.9146 5.24202 12.2081L2.81818 14.6413C0.906876 16.5601 0.666916 19.6234 2.51519 21.4789C4.36567 23.3365 7.42221 23.0944 9.33449 21.1747L14.1821 16.3082C16.0934 14.3895 16.3334 11.3262 14.4851 9.47074Z"
+                                      fill="currentColor"
+                                    />
+                                  </svg>
+                                </Link>
+                              </p>
                             </div>
                           </div>
                         )}
@@ -1395,8 +1495,12 @@ const IcoDetailPage = () => {
                               </svg>
                             </div>
                             <div className="flex flex-col sm:flex-row sm:justify-between w-full items-start sm:items-center gap-2 break-all">
-                              <p className="text-gray-700 font-semibold mb-0 text-sm">Contract Address</p>
-                              <p className="text-gray-900 font-mono text-xs mb-1">{icoDetail.contract_address}</p>
+                              <p className="text-gray-700 font-semibold mb-0 text-sm">
+                                Contract Address
+                              </p>
+                              <p className="text-gray-900 font-mono text-xs mb-1">
+                                {icoDetail.contract_address}
+                              </p>
                             </div>
                           </div>
                         )}
@@ -1405,114 +1509,99 @@ const IcoDetailPage = () => {
                   </div>
                 </div>
 
-              
-
                 {/* Resources & Links */}
-                <div className="mt-8">
-                  <h3 className="text-2xl font-bold text-gray-800 mb-4">Resources & Links</h3>
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    {/* Buy Link */}
-                    {icoDetail.buy_link && (
-                      <a
-                        href={icoDetail.buy_link}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="flex items-center gap-3 p-4 bg-gradient-to-r from-purple-50 to-orange-50 border border-purple-200 rounded-lg hover:shadow-lg transition"
-                      >
-                        <div className="flex-shrink-0 w-10 h-10 bg-purple-100 rounded-full flex items-center justify-center">
-                          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" className="text-purple-600">
-                            <path d="M10 5H8C6.89543 5 6 5.89543 6 7V16C6 17.1046 6.89543 18 8 18H16C17.1046 18 18 17.1046 18 16V14M14 5H16C17.1046 5 18 5.89543 18 7V9M10 5C10 3.89543 10.8954 3 12 3C13.1046 3 14 3.89543 14 5" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-                          </svg>
-                        </div>
-                        <div>
-                          <p className="text-gray-700 font-semibold text-sm">Buy / Participate</p>
-                          <p className="text-gray-500 text-xs truncate">Join the ICO</p>
-                        </div>
-                      </a>
-                    )}
 
-                    {/* Website URL */}
-                    {icoDetail.website_url && (
-                      <a
-                        href={icoDetail.website_url}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="flex items-center gap-3 p-4 bg-gradient-to-r from-blue-50 to-cyan-50 border border-blue-200 rounded-lg hover:shadow-lg transition"
-                      >
-                        <div className="flex-shrink-0 w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center">
-                          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" className="text-blue-600">
-                            <path d="M12 2C6.48 2 2 6.48 2 12C2 17.52 6.48 22 12 22C17.52 22 22 17.52 22 12C22 6.48 17.52 2 12 2ZM12 20C7.59 20 4 16.41 4 12C4 7.59 7.59 4 12 4C16.41 4 20 7.59 20 12C20 16.41 16.41 20 12 20ZM13 7H11V13H13V7ZM13 15H11V17H13V15Z" fill="currentColor" />
-                          </svg>
-                        </div>
-                        <div>
-                          <p className="text-gray-700 font-semibold text-sm">Website</p>
-                          <p className="text-gray-500 text-xs truncate">Official website</p>
-                        </div>
-                      </a>
-                    )}
+                {(icoDetail.twitter_url ||
+                  icoDetail.telegram_url ||
+                  icoDetail.discord_url) && (
+                  <div className="mt-8">
+                    {/* Follow Us */}
+                    <div className="mt-6">
+                      <h4 className="text-lg font-semibold text-gray-800 mb-3">
+                        Follow Us
+                      </h4>
+                      <div className="flex flex-wrap gap-3">
+                        {icoDetail.twitter_url && (
+                          <a
+                            href={icoDetail.twitter_url}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center hover:bg-blue-200 transition"
+                            title="Twitter"
+                          >
+                            <svg
+                              width="24"
+                              height="24"
+                              viewBox="0 0 24 24"
+                              fill="currentColor"
+                              className="text-blue-600"
+                            >
+                              <path d="M23 3a10.9 10.9 0 01-3.14 1.53 4.48 4.48 0 00-7.86 3v1A10.66 10.66 0 013 4s-4 9 5 13a11.64 11.64 0 01-7 2s9 5 20 5a9.5 9.5 0 00-9-5.5c4.75 2.25 7-7 7-7" />
+                            </svg>
+                          </a>
+                        )}
 
-                    {/* Whitepaper */}
-                    {icoDetail.whitepaper_url && (
-                      <a
-                        href={icoDetail.whitepaper_url}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="flex items-center gap-3 p-4 bg-gradient-to-r from-gray-50 to-slate-50 border border-gray-300 rounded-lg hover:shadow-lg transition"
-                      >
-                        <div className="flex-shrink-0 w-10 h-10 bg-gray-200 rounded-full flex items-center justify-center">
-                          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" className="text-gray-600">
-                            <path d="M13 2H6C4.89543 2 4 2.89543 4 4V20C4 21.1046 4.89543 22 6 22H18C19.1046 22 20 21.1046 20 20V9L13 2Z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-                            <path d="M13 2V9H20" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-                          </svg>
-                        </div>
-                        <div>
-                          <p className="text-gray-700 font-semibold text-sm">Whitepaper</p>
-                          <p className="text-gray-500 text-xs truncate">Read whitepaper</p>
-                        </div>
-                      </a>
-                    )}
-                  </div>
+                        {icoDetail.telegram_url && (
+                          <a
+                            href={icoDetail.telegram_url}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="w-12 h-12 bg-blue-50 rounded-full flex items-center justify-center hover:bg-blue-100 transition"
+                            title="Telegram"
+                          >
+                            <svg
+                              width="24"
+                              height="24"
+                              viewBox="0 0 24 24"
+                              fill="currentColor"
+                              className="text-sky-500"
+                            >
+                              <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8c-.15 1.58-.8 5.42-1.13 7.19-.14.75-.42 1.01-.68 1.04-.58.05-1.02-.38-1.58-.75-.88-.58-1.38-.94-2.23-1.5-.99-.65-.35-1.01.22-1.59.15-.15 2.71-2.48 2.76-2.69.01-.03.02-.14-.07-.2-.08-.06-.2-.04-.28-.02-.12.02-1.96 1.25-5.54 3.69-.52.36-1.01.53-1.47.52-.48-.01-1.4-.27-2.08-.49-.84-.27-1.5-.42-1.44-.88.03-.2.27-.4.72-.6 2.84-1.24 4.73-2.06 5.68-2.45 2.71-1.16 3.28-1.36 3.65-1.41.08-.01.27 0 .39.12.10.08.13.2.15.32z" />
+                            </svg>
+                          </a>
+                        )}
 
-                  {/* Follow Us */}
-                  <div className="mt-6">
-                    <h4 className="text-lg font-semibold text-gray-800 mb-3">Follow Us</h4>
-                    <div className="flex flex-wrap gap-3">
-                      {icoDetail.twitter_url && (
-                        <a href={icoDetail.twitter_url} target="_blank" rel="noopener noreferrer" className="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center hover:bg-blue-200 transition" title="Twitter">
-                          <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor" className="text-blue-600">
-                            <path d="M23 3a10.9 10.9 0 01-3.14 1.53 4.48 4.48 0 00-7.86 3v1A10.66 10.66 0 013 4s-4 9 5 13a11.64 11.64 0 01-7 2s9 5 20 5a9.5 9.5 0 00-9-5.5c4.75 2.25 7-7 7-7" />
-                          </svg>
-                        </a>
-                      )}
-
-                      {icoDetail.telegram_url && (
-                        <a href={icoDetail.telegram_url} target="_blank" rel="noopener noreferrer" className="w-12 h-12 bg-blue-50 rounded-full flex items-center justify-center hover:bg-blue-100 transition" title="Telegram">
-                          <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor" className="text-sky-500">
-                            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8c-.15 1.58-.8 5.42-1.13 7.19-.14.75-.42 1.01-.68 1.04-.58.05-1.02-.38-1.58-.75-.88-.58-1.38-.94-2.23-1.5-.99-.65-.35-1.01.22-1.59.15-.15 2.71-2.48 2.76-2.69.01-.03.02-.14-.07-.2-.08-.06-.2-.04-.28-.02-.12.02-1.96 1.25-5.54 3.69-.52.36-1.01.53-1.47.52-.48-.01-1.4-.27-2.08-.49-.84-.27-1.5-.42-1.44-.88.03-.2.27-.4.72-.6 2.84-1.24 4.73-2.06 5.68-2.45 2.71-1.16 3.28-1.36 3.65-1.41.08-.01.27 0 .39.12.10.08.13.2.15.32z" />
-                          </svg>
-                        </a>
-                      )}
-
-                      {icoDetail.discord_url && (
-                        <a href={icoDetail.discord_url} target="_blank" rel="noopener noreferrer" className="w-12 h-12 bg-indigo-100 rounded-full flex items-center justify-center hover:bg-indigo-200 transition" title="Discord">
-                          <svg width="24" height="24" viewBox="0 0 127.14 96.36" fill="currentColor" className="text-indigo-600">
-                            <path d="M107.7,8.07A105.15,105.15,0,0,0,62.03,0h-.07a105.59,105.59,0,0,0-45.64,8.15A107.9,107.9,0,0,0,1.94,78.16Q0,83.66,0,89.21v6.27a8.26,8.26,0,0,0,8.26,8.26h0l5.98-1.98a104.38,104.38,0,0,0,8.95,1.45,106.55,106.55,0,0,0,13.62-.54,130.86,130.86,0,0,0,12.19-1.63,8.17,8.17,0,0,0,6.27-8v-5.33a20.55,20.55,0,0,0-.45-4.45A19.52,19.52,0,0,0,32.6,52.2a19.64,19.64,0,0,0,13.74-2.6,8.27,8.27,0,0,0,3-2.81A20.57,20.57,0,0,0,54,36.18a19.52,19.52,0,0,0,.2-4.35V20.71a8.2,8.2,0,0,0-6.27-8,106.55,106.55,0,0,0-13.62.54A130.86,130.86,0,0,0,22.12,14.58,8.17,8.17,0,0,0,16.85,22.6v5.33a20.55,20.55,0,0,0,.45,4.45A19.52,19.52,0,0,0,39,54.8a19.64,19.64,0,0,0-13.74,2.6A8.27,8.27,0,0,0,22.24,60.21a20.57,20.57,0,0,0-1.63,7.84A19.52,19.52,0,0,0,20.81,72.4Z" />
-                          </svg>
-                        </a>
-                      )}
+                        {icoDetail.discord_url && (
+                          <a
+                            href={icoDetail.discord_url}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="w-12 h-12 bg-indigo-100 rounded-full flex items-center justify-center hover:bg-indigo-200 transition"
+                            title="Discord"
+                          >
+                            <svg
+                              width="24"
+                              height="24"
+                              viewBox="0 0 127.14 96.36"
+                              fill="currentColor"
+                              className="text-indigo-600"
+                            >
+                              <path d="M107.7,8.07A105.15,105.15,0,0,0,62.03,0h-.07a105.59,105.59,0,0,0-45.64,8.15A107.9,107.9,0,0,0,1.94,78.16Q0,83.66,0,89.21v6.27a8.26,8.26,0,0,0,8.26,8.26h0l5.98-1.98a104.38,104.38,0,0,0,8.95,1.45,106.55,106.55,0,0,0,13.62-.54,130.86,130.86,0,0,0,12.19-1.63,8.17,8.17,0,0,0,6.27-8v-5.33a20.55,20.55,0,0,0-.45-4.45A19.52,19.52,0,0,0,32.6,52.2a19.64,19.64,0,0,0,13.74-2.6,8.27,8.27,0,0,0,3-2.81A20.57,20.57,0,0,0,54,36.18a19.52,19.52,0,0,0,.2-4.35V20.71a8.2,8.2,0,0,0-6.27-8,106.55,106.55,0,0,0-13.62.54A130.86,130.86,0,0,0,22.12,14.58,8.17,8.17,0,0,0,16.85,22.6v5.33a20.55,20.55,0,0,0,.45,4.45A19.52,19.52,0,0,0,39,54.8a19.64,19.64,0,0,0-13.74,2.6A8.27,8.27,0,0,0,22.24,60.21a20.57,20.57,0,0,0-1.63,7.84A19.52,19.52,0,0,0,20.81,72.4Z" />
+                            </svg>
+                          </a>
+                        )}
+                      </div>
                     </div>
                   </div>
-                </div>
+                )}
 
                 {/* About Section */}
                 <div className="bg-white rounded-xl  overflow-hidden">
                   {/* Content */}
                   <div className="py-4">
-                    <div className="mt-8">
-                        <h3 className="text-2xl font-bold text-gray-800 mb-4">
-                          About
-                        </h3>
+                    {icoDetail.short_description && (
+                      <div className="mt-8">
+                        <div
+                          className="bg-gray-50 p-6 rounded-lg border border-gray-200 text-gray-700 leading-relaxed"
+                          dangerouslySetInnerHTML={{
+                            __html: icoDetail.short_description,
+                          }}
+                        />
+                      </div>
+                    )}
 
+                    {icoDetail.description && (
+                      <div className="mt-8">
                         <div
                           className="bg-gray-50 p-6 rounded-lg border border-gray-200 text-gray-700 leading-relaxed"
                           dangerouslySetInnerHTML={{
@@ -1520,6 +1609,7 @@ const IcoDetailPage = () => {
                           }}
                         />
                       </div>
+                    )}
                   </div>
                 </div>
               </div>

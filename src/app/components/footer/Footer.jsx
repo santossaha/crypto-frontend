@@ -133,8 +133,8 @@ const page = () => {
                 <ul className="space-y-3 text-gray-300 footer-links">
                   <li><Link href="/">Home</Link></li>
                   <li><Link href="/">Exchange</Link></li>
-                  <li><Link href="/">Features</Link></li>
-                  <li><Link href="/">Contact Us</Link></li>
+                  <li><Link href="/privacy-policy">Privacy Policy</Link></li>
+                  <li><Link href="/terms-and-conditions">Terms & Conditions</Link></li>
                 </ul>
               </div>
 
