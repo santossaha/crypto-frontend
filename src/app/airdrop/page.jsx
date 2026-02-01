@@ -613,10 +613,11 @@ const Airdrop = () => {
                         <th className="p-3 text-left font-semibold">Project</th>
                         <th className="p-3 text-center font-semibold">Platform</th>
                         <th className="p-3 text-center font-semibold">Status</th>
-                        <th className="p-3 text-center font-semibold">Category</th>
-                        <th className="p-3 text-center font-semibold">Network</th>
+                        <th className="p-3 text-center font-semibold">Project Category</th>
+                        <th className="p-3 text-center font-semibold">Blockchain Network</th>
+                        <th className="p-3 text-center font-semibold">Airdrop Value</th>
+                        <th className="p-3 text-center font-semibold">Total Supply</th>
                         <th className="p-3 text-center font-semibold">Winners</th>
-                        <th className="p-3 text-center font-semibold">Amount</th>
                         <th className="p-3 text-center font-semibold">End In</th>
                         <th className="p-3 text-center font-semibold">Action</th>
                       </tr>
@@ -627,6 +628,7 @@ const Airdrop = () => {
                         <tr key={index} className="border-t hover:bg-gray-50 transition">
                           {/* Project Name with Image */}
                           <td className="p-3">
+                            <Link href={`/airdrop/${item.slug || item.id}`}>
                             <div className="flex items-center gap-3">
                               {item.image ? (
                                 <img
@@ -644,6 +646,7 @@ const Airdrop = () => {
                               )}
                               <p className="text-gray-800 font-medium">{item.name}</p>
                             </div>
+                            </Link>
                           </td>
 
                           {/* Platform */}
@@ -673,16 +676,21 @@ const Airdrop = () => {
                             <span className="text-gray-700 text-xs">{item.blockchain_network || item.network || "N/A"}</span>
                           </td>
 
-                          {/* Winners */}
-                          <td className="text-center">
-                            <span className="text-gray-800 font-medium text-xs">{item.winner_count || item.winners || "0"}</span>
-                          </td>
+                         
 
                           {/* Amount */}
                           <td className="text-center">
                             <span className="text-gray-800 font-medium text-xs">${item.airdrop_value || item.total_airdrop_qty || "N/A"}</span>
                           </td>
+                             {/* Total Supply */}
+                          <td className="text-center">
+                            <span className="text-gray-800 font-medium text-xs">${item.total_supply || item.total_supply || "N/A"}</span>
+                          </td>
 
+                           {/* Winners */}
+                          <td className="text-center">
+                            <span className="text-gray-800 font-medium text-xs">{item.winner_count || item.winners || "0"}</span>
+                          </td>
                           {/* Duration Days */}
                           <td className="text-center">
                             <span className="max-w-[100px] truncate px-3 py-1 bg-indigo-100 text-indigo-800 rounded-full text-xs font-semibold">
@@ -692,17 +700,31 @@ const Airdrop = () => {
 
                           {/* Action */}
                           <td className="text-center">
-                            <Link href={`/airdrop/${item.slug || item.id}`}>
-                              <button className="inline-block cursor-pointer bg-gradient-to-r from-purple-600 to-orange-300 text-white border-purple-600 p-2 rounded-lg hover:bg-purple-700 transition">
-                                <svg xmlns="http://www.w3.org/2000/svg"
-                                    className="w-4 h-4"
-                                    fill="none" viewBox="0 0 24 24"
-                                    stroke="currentColor" strokeWidth="2">
-                                    <path strokeLinecap="round" strokeLinejoin="round"
-                                      d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
-                                  </svg>
-                              </button>
-                            </Link>
+                            {item.participate_link ? (
+                              <a href={item.participate_link} target="_blank" rel="noopener noreferrer" className="inline-block">
+                                <button className="inline-block cursor-pointer bg-gradient-to-r from-purple-600 to-orange-300 text-white border-purple-600 p-2 rounded-lg hover:bg-purple-700 transition">
+                                  <svg xmlns="http://www.w3.org/2000/svg"
+                                      className="w-4 h-4"
+                                      fill="none" viewBox="0 0 24 24"
+                                      stroke="currentColor" strokeWidth="2">
+                                      <path strokeLinecap="round" strokeLinejoin="round"
+                                        d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                                    </svg>
+                                </button>
+                              </a>
+                            ) : (
+                              <Link href={`/airdrop/${item.slug || item.id}`}>
+                                <button className="inline-block cursor-pointer bg-gradient-to-r from-purple-600 to-orange-300 text-white border-purple-600 p-2 rounded-lg hover:bg-purple-700 transition">
+                                  <svg xmlns="http://www.w3.org/2000/svg"
+                                      className="w-4 h-4"
+                                      fill="none" viewBox="0 0 24 24"
+                                      stroke="currentColor" strokeWidth="2">
+                                      <path strokeLinecap="round" strokeLinejoin="round"
+                                        d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                                    </svg>
+                                </button>
+                              </Link>
+                            )}
                           </td>
                         </tr>
                       ))}

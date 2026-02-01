@@ -251,13 +251,7 @@ const AirdropDetailPage = () => {
 
                         <div className="flex flex-wrap items-center gap-2 text-sm sm:text-base">
                           <span className="font-bold text-gray-800">
-                            {airdropDetail.symbol || "Token"}
-                          </span>
-
-                          <span className="text-gray-800">-</span>
-
-                          <span className="font-bold text-gray-800">
-                            {airdropDetail.type || "Token"}
+                            {airdropDetail.date_range || "N/A"}
                           </span>
 
                           <span
@@ -294,6 +288,8 @@ const AirdropDetailPage = () => {
                 {/* Divider */}
                 <hr className="my-8" />
 
+                {/* Divider */}
+
                 {/* Airdrop Details Table */}
                 <div className="bg-white rounded-xl border border-gray-200 overflow-hidden mb-8">
                   {/* Header */}
@@ -303,8 +299,7 @@ const AirdropDetailPage = () => {
                     </h2>
                     <div className="flex flex-col sm:flex-row items-start sm:items-center gap-2 sm:gap-4 text-white text-sm sm:text-base w-full sm:w-auto">
                       <span className="text-xs sm:text-sm font-medium">
-                        {airdropDetail.start_date || "N/A"} to{" "}
-                        {airdropDetail.end_date || "N/A"}
+                        {airdropDetail.date_range || "N/A"}
                       </span>
                       <span
                         className={`px-3 sm:px-4 py-1 rounded-full font-bold text-xs sm:text-sm whitespace-nowrap ${
@@ -405,10 +400,11 @@ const AirdropDetailPage = () => {
                               Total Supply
                             </p>
                             <p className="text-gray-900 font-bold text-xs sm:text-sm mb-1 text-right">
-                              {airdropDetail.total_supply || "N/A"}
+                              {airdropDetail.total_supply_formatted || "N/A"}
                             </p>
                           </div>
                         </div>
+                        
 
                         {/* Total Airdrop Quantity Row */}
                         <div className="flex items-center gap-4 border-b border-gray-200 pb-1">
@@ -473,7 +469,7 @@ const AirdropDetailPage = () => {
                               Airdrop Value
                             </p>
                             <p className="text-gray-900 font-bold text-xs sm:text-sm mb-1 text-right">
-                              ${airdropDetail.airdrop_value || "N/A"}
+                              {airdropDetail.airdrop_value || "N/A"}
                             </p>
                           </div>
                         </div>
@@ -510,15 +506,11 @@ const AirdropDetailPage = () => {
                               Supply Percentage
                             </p>
                             <p className="text-gray-900 font-bold text-xs sm:text-sm mb-1 text-right">
-                              {airdropDetail.supply_percentage || "N/A"}
+                              {airdropDetail.supply_percentage_formatted || "N/A"}
                             </p>
                           </div>
                         </div>
-                      </div>
-
-                      {/* Right Column */}
-                      <div className="space-y-2">
-                        {/* Winner Count Row */}
+                           {/* Winner Count Row */}
                         <div className="flex items-center gap-4 border-b border-gray-200 pb-1">
                           <div className="flex-shrink-0 w-10 h-10 bg-purple-100 rounded-full flex items-center justify-center">
                             <svg
@@ -550,6 +542,49 @@ const AirdropDetailPage = () => {
                           </div>
                         </div>
 
+                        
+                      </div>
+
+                      {/* Right Column */}
+                      <div className="space-y-2">
+                          
+                         {/* winner_announcement_date Row */}
+                        <div className="flex items-center gap-4 border-b border-gray-200 pb-1">
+                          <div className="flex-shrink-0 w-10 h-10 bg-purple-100 rounded-full flex items-center justify-center">
+                            <svg
+                              width="20"
+                              height="20"
+                              viewBox="0 0 24 24"
+                              fill="none"
+                              xmlns="http://www.w3.org/2000/svg"
+                              className="text-purple-600"
+                            >
+                              <path
+                                d="M3 9C3 7.89543 3.89543 7 5 7H19C20.1046 7 21 7.89543 21 9V19C21 20.1046 20.1046 21 19 21H5C3.89543 21 3 20.1046 3 19V9Z"
+                                stroke="currentColor"
+                                strokeWidth="2"
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
+                              />
+                              <path
+                                d="M3 7V5C3 3.89543 3.89543 3 5 3H19C20.1046 3 21 3.89543 21 5V7"
+                                stroke="currentColor"
+                                strokeWidth="2"
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
+                              />
+                            </svg>
+                          </div>
+                          <div className="flex flex-col sm:flex-row sm:justify-between w-full items-start sm:items-center gap-2">
+                            <p className="text-gray-700 font-semibold mb-0">
+                              Winner Announcement
+                            </p>
+                            <p className="text-gray-900 font-bold text-sm mb-1">
+                              {airdropDetail.winner_announcement_date || "TBA"}
+                            </p>
+                          </div>
+                        </div>
+
                         {/* Project Category Row */}
                         <div className="flex items-center gap-4 border-b border-gray-200 pb-1">
                           <div className="flex-shrink-0 w-10 h-10 bg-purple-100 rounded-full flex items-center justify-center">
@@ -572,7 +607,7 @@ const AirdropDetailPage = () => {
                           </div>
                           <div className="flex flex-col sm:flex-row sm:justify-between w-full items-start sm:items-center gap-2">
                             <p className="text-gray-700 font-semibold mb-0 text-sm sm:text-base">
-                              Category
+                              Project Category
                             </p>
                             <p className="text-gray-900 font-bold text-xs sm:text-sm mb-1 text-right">
                               {airdropDetail.project_category ||
@@ -632,7 +667,7 @@ const AirdropDetailPage = () => {
                             </p>
                           </div>
                         </div>
-
+                        
                         {/* Start Date Row */}
                         <div className="flex items-center gap-4 border-b border-gray-200 pb-1">
                           <div className="flex-shrink-0 w-10 h-10 bg-purple-100 rounded-full flex items-center justify-center">
@@ -708,7 +743,7 @@ const AirdropDetailPage = () => {
                         </div>
 
                         {/* Status Row */}
-                        <div className="flex items-center gap-4 pb-1">
+                        <div className="flex items-center gap-4 border-b border-gray-200 pb-1">
                           <div className="flex-shrink-0 w-10 h-10 bg-purple-100 rounded-full flex items-center justify-center">
                             <svg
                               width="20"
@@ -732,12 +767,12 @@ const AirdropDetailPage = () => {
                               />
                             </svg>
                           </div>
-                          <div className="flex flex-col sm:flex-row sm:justify-between w-full items-start sm:items-center gap-2">
+                          <div className="flex flex-col sm:flex-row sm:justify-between w-full items-start sm:items-center gap-2 ">
                             <p className="text-gray-700 font-semibold mb-0">
                               Status
                             </p>
                             <p
-                              className={`px-3 py-1 rounded-full font-semibold text-[12px] ${
+                              className={`px-3 py-1  rounded-full font-semibold text-[12px] ${
                                 (
                                   airdropDetail.airdrop_status ||
                                   airdropDetail.status
@@ -766,20 +801,179 @@ const AirdropDetailPage = () => {
                     </div>
                   </div>
                 </div>
+                 {/* External Links Section */}
+                <div className="mt-8">
+                  <h3 className="text-2xl font-bold text-gray-800 mb-4">
+                    Resources & Links
+                  </h3>
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    {/* Participate Link */}
+                    {airdropDetail.participate_link && (
+                      <a
+                        href={airdropDetail.participate_link}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="flex items-center gap-3 p-4 bg-gradient-to-r from-purple-50 to-orange-50 border border-purple-200 rounded-lg hover:shadow-lg transition"
+                      >
+                        <div className="flex-shrink-0 w-10 h-10 bg-purple-100 rounded-full flex items-center justify-center">
+                          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" className="text-purple-600">
+                            <path d="M10 5H8C6.89543 5 6 5.89543 6 7V16C6 17.1046 6.89543 18 8 18H16C17.1046 18 18 17.1046 18 16V14M14 5H16C17.1046 5 18 5.89543 18 7V9M10 5C10 3.89543 10.8954 3 12 3C13.1046 3 14 3.89543 14 5" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                          </svg>
+                        </div>
+                        <div>
+                          <p className="text-gray-700 font-semibold text-sm">Participate</p>
+                          <p className="text-gray-500 text-xs truncate">Join the airdrop</p>
+                        </div>
+                      </a>
+                    )}
 
-                {/* Short Description Section */}
-                {airdropDetail.short_description && (
-                  <div className="mt-8">
-                    <h3 className="text-2xl font-bold text-gray-800 mb-4">
-                      About
-                    </h3>
-                    <div className="bg-gray-50 p-6 rounded-lg border border-gray-200">
-                      <p className="text-gray-700 leading-relaxed">
-                        {airdropDetail.short_description}
-                      </p>
+                    {/* Website URL */}
+                    {airdropDetail.website_url && (
+                      <a
+                        href={airdropDetail.website_url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="flex items-center gap-3 p-4 bg-gradient-to-r from-blue-50 to-cyan-50 border border-blue-200 rounded-lg hover:shadow-lg transition"
+                      >
+                        <div className="flex-shrink-0 w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center">
+                          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" className="text-blue-600">
+                            <path d="M12 2C6.48 2 2 6.48 2 12C2 17.52 6.48 22 12 22C17.52 22 22 17.52 22 12C22 6.48 17.52 2 12 2ZM12 20C7.59 20 4 16.41 4 12C4 7.59 7.59 4 12 4C16.41 4 20 7.59 20 12C20 16.41 16.41 20 12 20ZM13 7H11V13H13V7ZM13 15H11V17H13V15Z" fill="currentColor" />
+                          </svg>
+                        </div>
+                        <div>
+                          <p className="text-gray-700 font-semibold text-sm">Website</p>
+                          <p className="text-gray-500 text-xs truncate">Official website</p>
+                        </div>
+                      </a>
+                    )}
+
+                    {/* Whitepaper URL */}
+                    {airdropDetail.whitepaper_url && (
+                      <a
+                        href={airdropDetail.whitepaper_url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="flex items-center gap-3 p-4 bg-gradient-to-r from-gray-50 to-slate-50 border border-gray-300 rounded-lg hover:shadow-lg transition"
+                      >
+                        <div className="flex-shrink-0 w-10 h-10 bg-gray-200 rounded-full flex items-center justify-center">
+                          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" className="text-gray-600">
+                            <path d="M13 2H6C4.89543 2 4 2.89543 4 4V20C4 21.1046 4.89543 22 6 22H18C19.1046 22 20 21.1046 20 20V9L13 2Z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                            <path d="M13 2V9H20" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                          </svg>
+                        </div>
+                        <div>
+                          <p className="text-gray-700 font-semibold text-sm">Whitepaper</p>
+                          <p className="text-gray-500 text-xs truncate">Read whitepaper</p>
+                        </div>
+                      </a>
+                    )}
+                  </div>
+
+                  {/* Social Media Links */}
+                  <div className="mt-6">
+                    <h4 className="text-lg font-semibold text-gray-800 mb-3">Follow Us</h4>
+                    <div className="flex flex-wrap gap-3">
+                      {/* Twitter */}
+                      {airdropDetail.twitter_url && (
+                        <a
+                          href={airdropDetail.twitter_url}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center hover:bg-blue-200 transition"
+                          title="Twitter"
+                        >
+                          <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor" className="text-blue-600">
+                            <path d="M23 3a10.9 10.9 0 01-3.14 1.53 4.48 4.48 0 00-7.86 3v1A10.66 10.66 0 013 4s-4 9 5 13a11.64 11.64 0 01-7 2s9 5 20 5a9.5 9.5 0 00-9-5.5c4.75 2.25 7-7 7-7" />
+                          </svg>
+                        </a>
+                      )}
+
+                      {/* Telegram */}
+                      {airdropDetail.telegram_url && (
+                        <a
+                          href={airdropDetail.telegram_url}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="w-12 h-12 bg-blue-50 rounded-full flex items-center justify-center hover:bg-blue-100 transition"
+                          title="Telegram"
+                        >
+                          <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor" className="text-sky-500">
+                            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8c-.15 1.58-.8 5.42-1.13 7.19-.14.75-.42 1.01-.68 1.04-.58.05-1.02-.38-1.58-.75-.88-.58-1.38-.94-2.23-1.5-.99-.65-.35-1.01.22-1.59.15-.15 2.71-2.48 2.76-2.69.01-.03.02-.14-.07-.2-.08-.06-.2-.04-.28-.02-.12.02-1.96 1.25-5.54 3.69-.52.36-1.01.53-1.47.52-.48-.01-1.4-.27-2.08-.49-.84-.27-1.5-.42-1.44-.88.03-.2.27-.4.72-.6 2.84-1.24 4.73-2.06 5.68-2.45 2.71-1.16 3.28-1.36 3.65-1.41.08-.01.27 0 .39.12.1.08.13.2.15.32z" />
+                          </svg>
+                        </a>
+                      )}
+
+                      {/* Discord */}
+                      {airdropDetail.discord_url && (
+                        <a
+                          href={airdropDetail.discord_url}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="w-12 h-12 bg-indigo-100 rounded-full flex items-center justify-center hover:bg-indigo-200 transition"
+                          title="Discord"
+                        >
+                          <svg width="24" height="24" viewBox="0 0 127.14 96.36" fill="currentColor" className="text-indigo-600">
+                            <path d="M107.7,8.07A105.15,105.15,0,0,0,62.03,0h-.07a105.59,105.59,0,0,0-45.64,8.15A107.9,107.9,0,0,0,1.94,78.16Q0,83.66,0,89.21v6.27a8.26,8.26,0,0,0,8.26,8.26h0l5.98-1.98a104.38,104.38,0,0,0,8.95,1.45,106.55,106.55,0,0,0,13.62-.54,130.86,130.86,0,0,0,12.19-1.63,8.17,8.17,0,0,0,6.27-8v-5.33a20.55,20.55,0,0,0-.45-4.45A19.52,19.52,0,0,0,32.6,52.2a19.64,19.64,0,0,0,13.74-2.6,8.27,8.27,0,0,0,3-2.81A20.57,20.57,0,0,0,54,36.18a19.52,19.52,0,0,0,.2-4.35V20.71a8.2,8.2,0,0,0-6.27-8,106.55,106.55,0,0,0-13.62.54A130.86,130.86,0,0,0,22.12,14.58,8.17,8.17,0,0,0,16.85,22.6v5.33a20.55,20.55,0,0,0,.45,4.45A19.52,19.52,0,0,0,39,54.8a19.64,19.64,0,0,0-13.74,2.6A8.27,8.27,0,0,0,22.24,60.21a20.57,20.57,0,0,0-1.63,7.84A19.52,19.52,0,0,0,20.81,72.4Z" />
+                          </svg>
+                        </a>
+                      )}
                     </div>
                   </div>
-                )}
+
+                  {/* Other Links Section */}
+                  {airdropDetail.other && (
+                    <div className="mt-6">
+                      <h4 className="text-lg font-semibold text-gray-800 mb-3">Other Links</h4>
+                      <div className="space-y-2">
+                        {airdropDetail.other.participate_link && (
+                          <a href={airdropDetail.other.participate_link} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-purple-600 hover:text-purple-800 font-semibold">
+                            <span>🔗</span> Participate Link
+                          </a>
+                        )}
+                        {airdropDetail.other.website_url && (
+                          <a href={airdropDetail.other.website_url} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-blue-600 hover:text-blue-800 font-semibold">
+                            <span>🌐</span> Website
+                          </a>
+                        )}
+                        {airdropDetail.other.whitepaper_url && (
+                          <a href={airdropDetail.other.whitepaper_url} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-gray-600 hover:text-gray-800 font-semibold">
+                            <span>📄</span> Whitepaper
+                          </a>
+                        )}
+                        {airdropDetail.other.twitter_url && (
+                          <a href={airdropDetail.other.twitter_url} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-sky-600 hover:text-sky-800 font-semibold">
+                            <span>𝕏</span> Twitter
+                          </a>
+                        )}
+                        {airdropDetail.other.telegram_url && (
+                          <a href={airdropDetail.other.telegram_url} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-cyan-600 hover:text-cyan-800 font-semibold">
+                            <span>✈️</span> Telegram
+                          </a>
+                        )}
+                        {airdropDetail.other.discord_url && (
+                          <a href={airdropDetail.other.discord_url} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-indigo-600 hover:text-indigo-800 font-semibold">
+                            <span>💬</span> Discord
+                          </a>
+                        )}
+                      </div>
+                    </div>
+                  )}
+                </div>
+                {/* Short Description Section */}
+                {airdropDetail.description && (
+                      <div className="mt-8">
+                        <h3 className="text-2xl font-bold text-gray-800 mb-4">
+                          About
+                        </h3>
+
+                        <div
+                          className="bg-gray-50 p-6 rounded-lg border border-gray-200 text-gray-700 leading-relaxed"
+                          dangerouslySetInnerHTML={{
+                            __html: airdropDetail.description,
+                          }}
+                        />
+                      </div>
+                    )}
               </div>
             </div>
 

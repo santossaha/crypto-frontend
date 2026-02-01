@@ -1232,9 +1232,9 @@ const IcoDetailPage = () => {
                 {/* Content */}
                 <div className="py-4">
                   <div className="prose prose-lg max-w-none">
-                    <h2 className="text-2xl font-bold text-gray-800">{icoDetail?.name || ''}</h2>
+                    <h2 className="text-2xl font-bold text-gray-800">About</h2>
                     <p className="text-gray-700 leading-relaxed mb-4">
-                      {icoDetail?.short_description || "No description available for this project."}
+                      {icoDetail?.description || "No description available for this project."}
                     </p>
                   </div>
                 </div>
