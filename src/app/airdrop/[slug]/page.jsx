@@ -979,6 +979,19 @@ const AirdropDetailPage = () => {
 
             {/* Right Sidebar - 1/3 width */}
             <div className="lg:col-span-1">
+              {/* Action Button */}
+              {airdropDetail.participate_link ? (
+                <a
+                  href={airdropDetail.participate_link}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="w-full block mb-6"
+                >
+                  <button className="w-full px-6 py-3 bg-gradient-to-r from-purple-600 to-orange-400 text-white font-bold rounded-lg hover:shadow-lg transition">
+                    🎉 Participate Now
+                  </button>
+                </a>
+              ) : null}
               <AdSpace />
             </div>
           </div>

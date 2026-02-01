@@ -42,6 +42,7 @@ const Airdrop = () => {
   const [isAddOpen, setIsAddOpen] = useState(false);
   const initialForm = {
     name: "",
+    slug: "",
     platform: "",
     image: "",
     total_supply: "",
@@ -63,6 +64,10 @@ const Airdrop = () => {
     telegram_url: "",
     discord_url: "",
     airdrop_status: "",
+    meta_title: "",
+    meta_description: "",
+    meta_keyword: "",
+    canonical: "",
   };
   const [formData, setFormData] = useState(initialForm);
   const [submitting, setSubmitting] = useState(false);
@@ -225,10 +230,34 @@ const Airdrop = () => {
       const cacheParam = new Date().getTime();
       const response = await axios.get(`https://admin.bitfynance.com/api/airdrop-list?_t=${cacheParam}`);
       
-      const airdropData = response.data?.data?.data || response.data?.data || [];
+      let airdropData = response.data?.data?.data || response.data?.data || [];
 
       console.log("📊 Fetched Airdrop count:", airdropData.length);
       console.log("📋 Airdrop Data sample:", airdropData.slice(0, 2));
+      
+      // Fetch participate_link from detail endpoint for each airdrop
+      if (airdropData.length > 0) {
+        console.log("🔄 Fetching participate_link from detail endpoints...");
+        const enrichedData = await Promise.all(
+          airdropData.map(async (item) => {
+            try {
+              const detailResponse = await axios.get(
+                `https://admin.bitfynance.com/api/airdrop-detail/${item.slug || item.id}`
+              );
+              const detail = detailResponse.data?.data || detailResponse.data;
+              return {
+                ...item,
+                participate_link: detail?.participate_link || item.participate_link,
+              };
+            } catch (e) {
+              console.warn(`⚠️ Could not fetch detail for ${item.slug || item.id}:`, e.message);
+              return item;
+            }
+          })
+        );
+        airdropData = enrichedData;
+        console.log("✓ participate_link merged successfully");
+      }
       
       setAllAirdrop(airdropData);
       setFilteredAirdrop(airdropData);
@@ -338,6 +367,15 @@ const Airdrop = () => {
     }
   };
 
+  // Get today's date in YYYY-MM-DD format
+  const getTodayDate = () => {
+    const today = new Date();
+    const year = today.getFullYear();
+    const month = String(today.getMonth() + 1).padStart(2, '0');
+    const day = String(today.getDate()).padStart(2, '0');
+    return `${year}-${month}-${day}`;
+  };
+
   // Normalize date strings to DD-MM-YYYY
   const toDDMMYYYY = (s) => {
     if (!s) return "";
@@ -401,89 +439,176 @@ const Airdrop = () => {
             <form onSubmit={handleCreate} className="grid grid-cols-1 gap-3 pr-2">
               {/* Row 1: Basic Info */}
               <div className="grid grid-cols-2 gap-3">
-                <input name="name" value={formData.name} onChange={handleFormChange} placeholder="Airdrop Name" className="border px-3 py-2 rounded text-sm" required />
-                <input name="platform" value={formData.platform} onChange={handleFormChange} placeholder="Platform" className="border px-3 py-2 rounded text-sm" />
+                <div>
+                  <label className="text-xs text-gray-600 block mb-1">Airdrop Name *</label>
+                  <input name="name" value={formData.name} onChange={handleFormChange} placeholder="e.g., Nicholas Shepard" className="border px-3 py-2 rounded text-sm w-full" required />
+                </div>
+                <div>
+                  <label className="text-xs text-gray-600 block mb-1">Platform</label>
+                  <input name="platform" value={formData.platform} onChange={handleFormChange} placeholder="e.g., Dolores blanditiis a" className="border px-3 py-2 rounded text-sm w-full" />
+                </div>
               </div>
 
               {/* Row 2: Image Upload */}
               <div>
-                <label className="text-sm text-gray-600 block mb-1">Airdrop Image (JPEG/PNG/GIF/SVG)</label>
+                <label className="text-xs text-gray-600 block mb-1">Airdrop Image (JPEG/PNG/GIF/SVG)</label>
                 <input type="file" name="image" onChange={handleFormChange} accept="image/*" className="border px-3 py-2 rounded w-full text-sm" />
                 {formData.image && <p className="text-xs text-green-600 mt-1">✓ {formData.image.name}</p>}
               </div>
 
               {/* Row 3: Supply Info */}
               <div className="grid grid-cols-2 gap-3">
-                <input name="total_supply" value={formData.total_supply} onChange={handleFormChange} placeholder="Total Supply" className="border px-3 py-2 rounded text-sm" type="number" step="0.01" />
-                <input name="total_airdrop_qty" value={formData.total_airdrop_qty} onChange={handleFormChange} placeholder="Total Airdrop Qty" className="border px-3 py-2 rounded text-sm" type="number" step="0.01" />
+                <div>
+                  <label className="text-xs text-gray-600 block mb-1">Total Supply</label>
+                  <input name="total_supply" value={formData.total_supply} onChange={handleFormChange} placeholder="e.g., 13.00" className="border px-3 py-2 rounded text-sm w-full" type="number" step="0.01" />
+                </div>
+                <div>
+                  <label className="text-xs text-gray-600 block mb-1">Total Airdrop Qty</label>
+                  <input name="total_airdrop_qty" value={formData.total_airdrop_qty} onChange={handleFormChange} placeholder="e.g., 310.00" className="border px-3 py-2 rounded text-sm w-full" type="number" step="0.01" />
+                </div>
               </div>
 
-              {/* Row 4: Value Info */}
+              {/* Row 4: Value & Percentage */}
               <div className="grid grid-cols-2 gap-3">
-                <input name="airdrop_value" value={formData.airdrop_value} onChange={handleFormChange} placeholder="Airdrop Value" className="border px-3 py-2 rounded text-sm" type="number" step="0.01" />
-                <input name="supply_percentage" value={formData.supply_percentage} onChange={handleFormChange} placeholder="Supply Percentage (%)" className="border px-3 py-2 rounded text-sm" type="number" step="0.01" />
+                <div>
+                  <label className="text-xs text-gray-600 block mb-1">Airdrop Value</label>
+                  <input name="airdrop_value" value={formData.airdrop_value} onChange={handleFormChange} placeholder="e.g., 32.00" className="border px-3 py-2 rounded text-sm w-full" type="number" step="0.01" />
+                </div>
+                <div>
+                  <label className="text-xs text-gray-600 block mb-1">Supply Percentage (%)</label>
+                  <input name="supply_percentage" value={formData.supply_percentage} onChange={handleFormChange} placeholder="e.g., 999.99" className="border px-3 py-2 rounded text-sm w-full" type="number" step="0.01" />
+                </div>
               </div>
 
               {/* Row 5: Winners & Categories */}
               <div className="grid grid-cols-2 gap-3">
-                <input name="winner_count" value={formData.winner_count} onChange={handleFormChange} placeholder="Winner Count" className="border px-3 py-2 rounded text-sm" type="number" />
-                <select name="project_category" value={formData.project_category} onChange={handleFormChange} className="border px-3 py-2 rounded text-sm">
-                  <option value="">Select Category</option>
-                  {Object.entries(filters.categories || {}).map(([key, val]) => (
-                    <option key={key} value={key}>{val}</option>
-                  ))}
-                </select>
+                <div>
+                  <label className="text-xs text-gray-600 block mb-1">Winner Count</label>
+                  <input name="winner_count" value={formData.winner_count} onChange={handleFormChange} placeholder="e.g., 53" className="border px-3 py-2 rounded text-sm w-full" type="number" />
+                </div>
+                <div>
+                  <label className="text-xs text-gray-600 block mb-1">Project Category</label>
+                  <select name="project_category" value={formData.project_category} onChange={handleFormChange} className="border px-3 py-2 rounded text-sm w-full">
+                    <option value="">Select Category</option>
+                    {Object.entries(filters.categories || {}).map(([key, val]) => (
+                      <option key={key} value={key}>{val}</option>
+                    ))}
+                  </select>
+                </div>
               </div>
 
               {/* Row 6: Network & Status */}
               <div className="grid grid-cols-2 gap-3">
-                <select name="blockchain_network" value={formData.blockchain_network} onChange={handleFormChange} className="border px-3 py-2 rounded text-sm">
-                  <option value="">Select Network</option>
-                  {Object.entries(filters.networks || {}).map(([key, val]) => (
-                    <option key={key} value={key}>{val}</option>
-                  ))}
-                </select>
-                <select name="airdrop_status" value={formData.airdrop_status} onChange={handleFormChange} className="border px-3 py-2 rounded text-sm" required>
-                  <option value="">Select Status *</option>
-                  {Object.entries(filters.airdrop_statuses || {}).map(([key, val]) => (
-                    <option key={key} value={val}>{val}</option>
-                  ))}
-                </select>
+                <div>
+                  <label className="text-xs text-gray-600 block mb-1">Blockchain Network</label>
+                  <select name="blockchain_network" value={formData.blockchain_network} onChange={handleFormChange} className="border px-3 py-2 rounded text-sm w-full">
+                    <option value="">Select Network</option>
+                    {Object.entries(filters.networks || {}).map(([key, val]) => (
+                      <option key={key} value={key}>{val}</option>
+                    ))}
+                  </select>
+                </div>
+                <div>
+                  <label className="text-xs text-gray-600 block mb-1">Airdrop Status *</label>
+                  <select name="airdrop_status" value={formData.airdrop_status} onChange={handleFormChange} className="border px-3 py-2 rounded text-sm w-full" required>
+                    <option value="">Select Status</option>
+                    {Object.entries(filters.airdrop_statuses || {}).map(([key, val]) => (
+                      <option key={key} value={val}>{val}</option>
+                    ))}
+                  </select>
+                </div>
               </div>
 
               {/* Row 7: Dates */}
               <div className="grid grid-cols-3 gap-3">
-                <input type="date" name="start_date" value={formData.start_date} onChange={handleFormChange} placeholder="Start Date" className="border px-3 py-2 rounded text-sm" />
-                <input type="date" name="end_date" value={formData.end_date} onChange={handleFormChange} placeholder="End Date" className="border px-3 py-2 rounded text-sm" />
-                <input type="date" name="winner_announcement_date" value={formData.winner_announcement_date} onChange={handleFormChange} placeholder="Winner Announcement Date" className="border px-3 py-2 rounded text-sm" />
+                <div>
+                  <label className="text-xs text-gray-600 block mb-1">Start Date</label>
+                  <input type="date" name="start_date" value={formData.start_date} onChange={handleFormChange} min={getTodayDate()} className="border px-3 py-2 rounded text-sm w-full" />
+                </div>
+                <div>
+                  <label className="text-xs text-gray-600 block mb-1">End Date</label>
+                  <input type="date" name="end_date" value={formData.end_date} onChange={handleFormChange} min={getTodayDate()} className="border px-3 py-2 rounded text-sm w-full" />
+                </div>
+                <div>
+                  <label className="text-xs text-gray-600 block mb-1">Winner Announcement Date</label>
+                  <input type="date" name="winner_announcement_date" value={formData.winner_announcement_date} onChange={handleFormChange} min={getTodayDate()} className="border px-3 py-2 rounded text-sm w-full" />
+                </div>
               </div>
 
               {/* Row 8: Description */}
-              <textarea name="description" value={formData.description} onChange={handleFormChange} placeholder="Description" className="border px-3 py-2 rounded text-sm" rows={2} />
+              <div>
+                <label className="text-xs text-gray-600 block mb-1">Description</label>
+                <textarea name="description" value={formData.description} onChange={handleFormChange} placeholder="Detailed description of the airdrop..." className="border px-3 py-2 rounded text-sm w-full" rows={2} />
+              </div>
 
               {/* Row 9: How to Participate */}
-              <textarea name="how_to_participate" value={formData.how_to_participate} onChange={handleFormChange} placeholder="How to Participate" className="border px-3 py-2 rounded text-sm" rows={2} />
-
-              {/* Row 10: Links */}
-              <div className="grid grid-cols-2 gap-3">
-                <input name="participate_link" value={formData.participate_link} onChange={handleFormChange} placeholder="Participate Link" className="border px-3 py-2 rounded text-sm" type="url" />
-                <input name="website_url" value={formData.website_url} onChange={handleFormChange} placeholder="Website URL" className="border px-3 py-2 rounded text-sm" type="url" />
+              <div>
+                <label className="text-xs text-gray-600 block mb-1">How to Participate</label>
+                <textarea name="how_to_participate" value={formData.how_to_participate} onChange={handleFormChange} placeholder="Steps on how to participate..." className="border px-3 py-2 rounded text-sm w-full" rows={2} />
               </div>
 
-              {/* Row 11: More Links */}
+              {/* Row 10: Participate & Website Links */}
               <div className="grid grid-cols-2 gap-3">
-                <input name="whitepaper_url" value={formData.whitepaper_url} onChange={handleFormChange} placeholder="Whitepaper URL" className="border px-3 py-2 rounded text-sm" type="url" />
-                <input name="twitter_url" value={formData.twitter_url} onChange={handleFormChange} placeholder="Twitter URL" className="border px-3 py-2 rounded text-sm" type="url" />
+                <div>
+                  <label className="text-xs text-gray-600 block mb-1">Participate Link</label>
+                  <input name="participate_link" value={formData.participate_link} onChange={handleFormChange} placeholder="https://www.example.com" className="border px-3 py-2 rounded text-sm w-full" type="url" />
+                </div>
+                <div>
+                  <label className="text-xs text-gray-600 block mb-1">Website URL</label>
+                  <input name="website_url" value={formData.website_url} onChange={handleFormChange} placeholder="https://www.example.com" className="border px-3 py-2 rounded text-sm w-full" type="url" />
+                </div>
               </div>
 
-              {/* Row 12: Social Links */}
+              {/* Row 11: Whitepaper & Social Links */}
               <div className="grid grid-cols-2 gap-3">
-                <input name="telegram_url" value={formData.telegram_url} onChange={handleFormChange} placeholder="Telegram URL" className="border px-3 py-2 rounded text-sm" type="url" />
-                <input name="discord_url" value={formData.discord_url} onChange={handleFormChange} placeholder="Discord URL" className="border px-3 py-2 rounded text-sm" type="url" />
+                <div>
+                  <label className="text-xs text-gray-600 block mb-1">Whitepaper URL</label>
+                  <input name="whitepaper_url" value={formData.whitepaper_url} onChange={handleFormChange} placeholder="https://www.example.com" className="border px-3 py-2 rounded text-sm w-full" type="url" />
+                </div>
+                <div>
+                  <label className="text-xs text-gray-600 block mb-1">Twitter URL</label>
+                  <input name="twitter_url" value={formData.twitter_url} onChange={handleFormChange} placeholder="https://twitter.com/example" className="border px-3 py-2 rounded text-sm w-full" type="url" />
+                </div>
+              </div>
+
+              {/* Row 12: Telegram & Discord */}
+              <div className="grid grid-cols-2 gap-3">
+                <div>
+                  <label className="text-xs text-gray-600 block mb-1">Telegram URL</label>
+                  <input name="telegram_url" value={formData.telegram_url} onChange={handleFormChange} placeholder="https://t.me/example" className="border px-3 py-2 rounded text-sm w-full" type="url" />
+                </div>
+                <div>
+                  <label className="text-xs text-gray-600 block mb-1">Discord URL</label>
+                  <input name="discord_url" value={formData.discord_url} onChange={handleFormChange} placeholder="https://discord.gg/example" className="border px-3 py-2 rounded text-sm w-full" type="url" />
+                </div>
+              </div>
+
+              {/* Row 13: SEO Meta Tags */}
+              <div>
+                <label className="text-xs text-gray-600 block mb-1">Meta Title (SEO)</label>
+                <input name="meta_title" value={formData.meta_title} onChange={handleFormChange} placeholder="e.g., Excepturi id eos et exercitationem nihil eveniet ad." className="border px-3 py-2 rounded text-sm w-full" />
+              </div>
+
+              {/* Row 14: Meta Description */}
+              <div>
+                <label className="text-xs text-gray-600 block mb-1">Meta Description (SEO)</label>
+                <textarea name="meta_description" value={formData.meta_description} onChange={handleFormChange} placeholder="Brief description for search engines..." className="border px-3 py-2 rounded text-sm w-full" rows={2} />
+              </div>
+
+              {/* Row 15: Meta Keyword & Canonical */}
+              <div className="grid grid-cols-2 gap-3">
+                <div>
+                  <label className="text-xs text-gray-600 block mb-1">Meta Keyword (SEO)</label>
+                  <input name="meta_keyword" value={formData.meta_keyword} onChange={handleFormChange} placeholder="keyword1, keyword2, keyword3" className="border px-3 py-2 rounded text-sm w-full" />
+                </div>
+                <div>
+                  <label className="text-xs text-gray-600 block mb-1">Canonical URL</label>
+                  <input name="canonical" value={formData.canonical} onChange={handleFormChange} placeholder="https://www.example.com/page" className="border px-3 py-2 rounded text-sm w-full" type="url" />
+                </div>
               </div>
 
               {/* Action Buttons */}
-              <div className="flex items-center justify-end gap-3 mt-4 pt-3 border-t  bg-white">
+              <div className="flex items-center justify-end gap-3 mt-4 pt-3 border-t bg-white">
                 <button type="button" onClick={closeAdd} className="px-4 py-2 border rounded text-sm font-medium">Cancel</button>
                 <button type="submit" disabled={submitting} className="px-4 py-2 bg-gradient-to-r from-purple-600 to-orange-500 text-white rounded text-sm font-medium hover:opacity-90">
                   {submitting ? 'Creating...' : 'Create Airdrop'}

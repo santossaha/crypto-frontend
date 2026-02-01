@@ -357,6 +357,15 @@ const Page = () => {
     }
   };
 
+  // Get today's date in YYYY-MM-DD format for date input min attribute
+  const getTodayDate = () => {
+    const today = new Date();
+    const year = today.getFullYear();
+    const month = String(today.getMonth() + 1).padStart(2, '0');
+    const day = String(today.getDate()).padStart(2, '0');
+    return `${year}-${month}-${day}`;
+  };
+
   // Normalize date strings to DD-MM-YYYY (API expects DD-MM-YYYY in examples)
   const toDDMMYYYY = (s) => {
     if (!s) return "";
@@ -416,119 +425,238 @@ const Page = () => {
               </div>
             )}
 
-            <form onSubmit={handleCreate} className="grid grid-cols-1 gap-3">
-              <div className="grid grid-cols-2 gap-3">
-                <input name="name" value={formData.name} onChange={handleFormChange} placeholder="Project Name *" className="border px-3 py-2 rounded" required />
-                <input name="slug" value={formData.slug} onChange={handleFormChange} placeholder="Slug (url)" className="border px-3 py-2 rounded" />
-              </div>
-
+            <form onSubmit={handleCreate} className="grid grid-cols-1 gap-3 pr-2">
+              {/* Row 1: Name & Slug */}
               <div className="grid grid-cols-2 gap-3">
                 <div>
-                  <label className="text-sm text-gray-600">Image (JPEG/PNG/GIF/SVG)</label>
-                  <input type="file" name="image" onChange={handleFormChange} accept="image/*" className="border px-3 py-2 rounded w-full" />
+                  <label className="text-xs text-gray-600 block mb-1">Project Name *</label>
+                  <input name="name" value={formData.name} onChange={handleFormChange} placeholder="e.g., Bitcoin Protocol" className="border px-3 py-2 rounded text-sm w-full" required />
+                </div>
+                <div>
+                  <label className="text-xs text-gray-600 block mb-1">Slug (URL)</label>
+                  <input name="slug" value={formData.slug} onChange={handleFormChange} placeholder="e.g., bitcoin-protocol" className="border px-3 py-2 rounded text-sm w-full" />
+                </div>
+              </div>
+
+              {/* Row 2: Image & Launchpad */}
+              <div className="grid grid-cols-2 gap-3">
+                <div>
+                  <label className="text-xs text-gray-600 block mb-1">Image (JPEG/PNG/GIF/SVG)</label>
+                  <input type="file" name="image" onChange={handleFormChange} accept="image/*" className="border px-3 py-2 rounded w-full text-sm" />
                   {formData.image && <p className="text-xs text-green-600 mt-1">✓ {formData.image.name}</p>}
                 </div>
-                <input name="launchpad" value={formData.launchpad} onChange={handleFormChange} placeholder="Launchpad" className="border px-3 py-2 rounded" />
+                <div>
+                  <label className="text-xs text-gray-600 block mb-1">Launchpad</label>
+                  <input name="launchpad" value={formData.launchpad} onChange={handleFormChange} placeholder="e.g., Binance Launchpad" className="border px-3 py-2 rounded text-sm w-full" />
+                </div>
               </div>
 
+              {/* Row 3: Stage & Status */}
               <div className="grid grid-cols-2 gap-3">
-                <select name="stage" value={formData.stage} onChange={handleFormChange} className="border px-3 py-2 rounded">
-                  <option value="">Select Stage</option>
-                  {Object.entries(filters.stages || {}).map(([key, val]) => (
-                    <option key={key} value={key}>{val}</option>
-                  ))}
-                </select>
+                <div>
+                  <label className="text-xs text-gray-600 block mb-1">Stage</label>
+                  <select name="stage" value={formData.stage} onChange={handleFormChange} className="border px-3 py-2 rounded text-sm w-full">
+                    <option value="">Select Stage</option>
+                    {Object.entries(filters.stages || {}).map(([key, val]) => (
+                      <option key={key} value={key}>{val}</option>
+                    ))}
+                  </select>
+                </div>
 
-                <select name="ico_status" value={formData.ico_status} onChange={handleFormChange} className="border px-3 py-2 rounded">
-                  <option value="">Select Status</option>
-                  {Object.entries(filters.ico_statuses || {}).map(([key, val]) => (
-                    <option key={key} value={key}>{val}</option>
-                  ))}
-                </select>
+                <div>
+                  <label className="text-xs text-gray-600 block mb-1">ICO Status *</label>
+                  <select name="ico_status" value={formData.ico_status} onChange={handleFormChange} className="border px-3 py-2 rounded text-sm w-full" required>
+                    <option value="">Select Status</option>
+                    {Object.entries(filters.ico_statuses || {}).map(([key, val]) => (
+                      <option key={key} value={key}>{val}</option>
+                    ))}
+                  </select>
+                </div>
               </div>
 
+              {/* Row 4: Category & Network */}
               <div className="grid grid-cols-2 gap-3">
-                <select name="project_category" value={formData.project_category} onChange={handleFormChange} className="border px-3 py-2 rounded">
-                  <option value="">Select Category</option>
-                  {Object.entries(filters.categories || {}).map(([key, val]) => (
-                    <option key={key} value={key}>{val}</option>
-                  ))}
-                </select>
+                <div>
+                  <label className="text-xs text-gray-600 block mb-1">Project Category</label>
+                  <select name="project_category" value={formData.project_category} onChange={handleFormChange} className="border px-3 py-2 rounded text-sm w-full">
+                    <option value="">Select Category</option>
+                    {Object.entries(filters.categories || {}).map(([key, val]) => (
+                      <option key={key} value={key}>{val}</option>
+                    ))}
+                  </select>
+                </div>
 
-                <select name="blockchain_network" value={formData.blockchain_network} onChange={handleFormChange} className="border px-3 py-2 rounded">
-                  <option value="">Select Network</option>
-                  {Object.entries(filters.networks || {}).map(([key, val]) => (
-                    <option key={key} value={key}>{val}</option>
-                  ))}
-                </select>
+                <div>
+                  <label className="text-xs text-gray-600 block mb-1">Blockchain Network</label>
+                  <select name="blockchain_network" value={formData.blockchain_network} onChange={handleFormChange} className="border px-3 py-2 rounded text-sm w-full">
+                    <option value="">Select Network</option>
+                    {Object.entries(filters.networks || {}).map(([key, val]) => (
+                      <option key={key} value={key}>{val}</option>
+                    ))}
+                  </select>
+                </div>
               </div>
 
+              {/* Row 5: Dates */}
               <div className="grid grid-cols-2 gap-3">
-                <input type="date" name="start_date" value={formData.start_date} onChange={handleFormChange} placeholder="Start Date" className="border px-3 py-2 rounded" />
-                <input type="date" name="end_date" value={formData.end_date} onChange={handleFormChange} placeholder="End Date" className="border px-3 py-2 rounded" />
+                <div>
+                  <label className="text-xs text-gray-600 block mb-1">Start Date (dd-mm-yyyy)</label>
+                  <input type="date" name="start_date" value={formData.start_date} onChange={handleFormChange} min={getTodayDate()} className="border px-3 py-2 rounded text-sm w-full" />
+                </div>
+                <div>
+                  <label className="text-xs text-gray-600 block mb-1">End Date (dd-mm-yyyy)</label>
+                  <input type="date" name="end_date" value={formData.end_date} onChange={handleFormChange} min={getTodayDate()} className="border px-3 py-2 rounded text-sm w-full" />
+                </div>
               </div>
 
+              {/* Row 6: ICO Price */}
               <div className="grid grid-cols-2 gap-3">
-                <input name="ico_price" value={formData.ico_price} onChange={handleFormChange} placeholder="ICO Price" className="border px-3 py-2 rounded" />
-                <input name="ico_price_currency" value={formData.ico_price_currency} onChange={handleFormChange} placeholder="Currency (TBA)" className="border px-3 py-2 rounded" />
+                <div>
+                  <label className="text-xs text-gray-600 block mb-1">ICO Price</label>
+                  <input name="ico_price" value={formData.ico_price} onChange={handleFormChange} placeholder="e.g., 0.05" className="border px-3 py-2 rounded text-sm w-full" type="number" step="0.00000001" />
+                </div>
+                <div>
+                  <label className="text-xs text-gray-600 block mb-1">Price Currency</label>
+                  <input name="ico_price_currency" value={formData.ico_price_currency} onChange={handleFormChange} placeholder="e.g., USDT" className="border px-3 py-2 rounded text-sm w-full" />
+                </div>
               </div>
 
+              {/* Row 7: Price Display & 1 USDT */}
               <div className="grid grid-cols-2 gap-3">
-                <input name="one_usdt_value" value={formData.one_usdt_value} onChange={handleFormChange} placeholder="1 USDT Value" className="border px-3 py-2 rounded text-sm" />
-                <input name="ico_price_display" value={formData.ico_price_display} onChange={handleFormChange} placeholder="Price Display (e.g. 0.030000 TBA)" className="border px-3 py-2 rounded text-sm" />
+                <div>
+                  <label className="text-xs text-gray-600 block mb-1">ICO Price Display</label>
+                  <input name="ico_price_display" value={formData.ico_price_display} onChange={handleFormChange} placeholder="e.g., 0.030000 USDT" className="border px-3 py-2 rounded text-sm w-full" />
+                </div>
+                <div>
+                  <label className="text-xs text-gray-600 block mb-1">1 USDT = ? (Token)</label>
+                  <input name="one_usdt_value" value={formData.one_usdt_value} onChange={handleFormChange} placeholder="e.g., 33.33" className="border px-3 py-2 rounded text-sm w-full" type="number" step="0.01" />
+                </div>
               </div>
 
+              {/* Row 8: Supply */}
               <div className="grid grid-cols-2 gap-3">
-                <input name="tokens_for_sale" value={formData.tokens_for_sale} onChange={handleFormChange} placeholder="Tokens For Sale" className="border px-3 py-2 rounded" />
-                <input name="total_supply_qty" value={formData.total_supply_qty} onChange={handleFormChange} placeholder="Total Supply" className="border px-3 py-2 rounded" />
+                <div>
+                  <label className="text-xs text-gray-600 block mb-1">Tokens For Sale</label>
+                  <input name="tokens_for_sale" value={formData.tokens_for_sale} onChange={handleFormChange} placeholder="e.g., 1000000" className="border px-3 py-2 rounded text-sm w-full" type="number" step="0.01" />
+                </div>
+                <div>
+                  <label className="text-xs text-gray-600 block mb-1">Total Supply Qty</label>
+                  <input name="total_supply_qty" value={formData.total_supply_qty} onChange={handleFormChange} placeholder="e.g., 1000000000" className="border px-3 py-2 rounded text-sm w-full" type="number" step="0.01" />
+                </div>
               </div>
 
+              {/* Row 9: Supply % & Goal */}
               <div className="grid grid-cols-2 gap-3">
-                <input name="supply_percentage" value={formData.supply_percentage} onChange={handleFormChange} placeholder="Supply %" className="border px-3 py-2 rounded" />
-                <input name="fundraising_goal" value={formData.fundraising_goal} onChange={handleFormChange} placeholder="Fundraising Goal" className="border px-3 py-2 rounded" />
+                <div>
+                  <label className="text-xs text-gray-600 block mb-1">% of Supply</label>
+                  <input name="supply_percentage" value={formData.supply_percentage} onChange={handleFormChange} placeholder="e.g., 5.5" className="border px-3 py-2 rounded text-sm w-full" type="number" step="0.01" />
+                </div>
+                <div>
+                  <label className="text-xs text-gray-600 block mb-1">Fundraising Goal</label>
+                  <input name="fundraising_goal" value={formData.fundraising_goal} onChange={handleFormChange} placeholder="e.g., 5000000" className="border px-3 py-2 rounded text-sm w-full" type="number" step="0.01" />
+                </div>
               </div>
 
+              {/* Row 10: Soft Cap & Hard Cap */}
               <div className="grid grid-cols-2 gap-3">
-                <input name="soft_cap" value={formData.soft_cap} onChange={handleFormChange} placeholder="Soft Cap (TBA)" className="border px-3 py-2 rounded text-sm" />
-                <input name="hard_cap" value={formData.hard_cap} onChange={handleFormChange} placeholder="Hard Cap (TBA)" className="border px-3 py-2 rounded text-sm" />
+                <div>
+                  <label className="text-xs text-gray-600 block mb-1">Soft Cap</label>
+                  <input name="soft_cap" value={formData.soft_cap} onChange={handleFormChange} placeholder="e.g., 1000000" className="border px-3 py-2 rounded text-sm w-full" type="number" step="0.01" />
+                </div>
+                <div>
+                  <label className="text-xs text-gray-600 block mb-1">Hard Cap</label>
+                  <input name="hard_cap" value={formData.hard_cap} onChange={handleFormChange} placeholder="e.g., 5000000" className="border px-3 py-2 rounded text-sm w-full" type="number" step="0.01" />
+                </div>
               </div>
 
+              {/* Row 11: Personal Cap & Contract */}
               <div className="grid grid-cols-2 gap-3">
-                <input name="personal_cap" value={formData.personal_cap} onChange={handleFormChange} placeholder="Personal Cap (TBA)" className="border px-3 py-2 rounded text-sm" />
-                <input name="contract_address" value={formData.contract_address} onChange={handleFormChange} placeholder="Contract Address" className="border px-3 py-2 rounded text-sm" />
+                <div>
+                  <label className="text-xs text-gray-600 block mb-1">Personal Cap</label>
+                  <input name="personal_cap" value={formData.personal_cap} onChange={handleFormChange} placeholder="e.g., 10000" className="border px-3 py-2 rounded text-sm w-full" type="number" step="0.01" />
+                </div>
+                <div>
+                  <label className="text-xs text-gray-600 block mb-1">Contract Address</label>
+                  <input name="contract_address" value={formData.contract_address} onChange={handleFormChange} placeholder="0x..." className="border px-3 py-2 rounded text-sm w-full" />
+                </div>
               </div>
 
+              {/* Row 12: Buy Link & Website */}
               <div className="grid grid-cols-2 gap-3">
-                <input name="buy_link" value={formData.buy_link} onChange={handleFormChange} placeholder="Buy Link (URL)" className="border px-3 py-2 rounded text-sm" type="url" />
-                <input name="website_url" value={formData.website_url} onChange={handleFormChange} placeholder="Website URL" className="border px-3 py-2 rounded text-sm" type="url" />
+                <div>
+                  <label className="text-xs text-gray-600 block mb-1">Buy Link</label>
+                  <input name="buy_link" value={formData.buy_link} onChange={handleFormChange} placeholder="https://..." className="border px-3 py-2 rounded text-sm w-full" type="url" />
+                </div>
+                <div>
+                  <label className="text-xs text-gray-600 block mb-1">Website URL</label>
+                  <input name="website_url" value={formData.website_url} onChange={handleFormChange} placeholder="https://..." className="border px-3 py-2 rounded text-sm w-full" type="url" />
+                </div>
               </div>
 
+              {/* Row 13: Whitepaper & Twitter */}
               <div className="grid grid-cols-2 gap-3">
-                <input name="whitepaper_url" value={formData.whitepaper_url} onChange={handleFormChange} placeholder="Whitepaper URL" className="border px-3 py-2 rounded text-sm" type="url" />
-                <input name="twitter_url" value={formData.twitter_url} onChange={handleFormChange} placeholder="Twitter URL" className="border px-3 py-2 rounded text-sm" type="url" />
+                <div>
+                  <label className="text-xs text-gray-600 block mb-1">Whitepaper URL</label>
+                  <input name="whitepaper_url" value={formData.whitepaper_url} onChange={handleFormChange} placeholder="https://..." className="border px-3 py-2 rounded text-sm w-full" type="url" />
+                </div>
+                <div>
+                  <label className="text-xs text-gray-600 block mb-1">Twitter URL</label>
+                  <input name="twitter_url" value={formData.twitter_url} onChange={handleFormChange} placeholder="https://twitter.com/..." className="border px-3 py-2 rounded text-sm w-full" type="url" />
+                </div>
               </div>
 
+              {/* Row 14: Telegram & Discord */}
               <div className="grid grid-cols-2 gap-3">
-                <input name="telegram_url" value={formData.telegram_url} onChange={handleFormChange} placeholder="Telegram URL" className="border px-3 py-2 rounded text-sm" type="url" />
-                <input name="discord_url" value={formData.discord_url} onChange={handleFormChange} placeholder="Discord URL" className="border px-3 py-2 rounded text-sm" type="url" />
+                <div>
+                  <label className="text-xs text-gray-600 block mb-1">Telegram URL</label>
+                  <input name="telegram_url" value={formData.telegram_url} onChange={handleFormChange} placeholder="https://t.me/..." className="border px-3 py-2 rounded text-sm w-full" type="url" />
+                </div>
+                <div>
+                  <label className="text-xs text-gray-600 block mb-1">Discord URL</label>
+                  <input name="discord_url" value={formData.discord_url} onChange={handleFormChange} placeholder="https://discord.gg/..." className="border px-3 py-2 rounded text-sm w-full" type="url" />
+                </div>
               </div>
 
-              <textarea name="short_description" value={formData.short_description} onChange={handleFormChange} placeholder="Short Description" className="border px-3 py-2 rounded text-sm" rows={2} />
+              {/* Row 15: Short Description */}
+              <div>
+                <label className="text-xs text-gray-600 block mb-1">Short Description</label>
+                <textarea name="short_description" value={formData.short_description} onChange={handleFormChange} placeholder="Brief overview of the project..." className="border px-3 py-2 rounded text-sm w-full" rows={2} />
+              </div>
 
-              <textarea name="description" value={formData.description} onChange={handleFormChange} placeholder="Full Description (HTML)" className="border px-3 py-2 rounded text-sm" rows={3} />
+              {/* Row 16: Full Description */}
+              <div>
+                <label className="text-xs text-gray-600 block mb-1">Full Description (HTML)</label>
+                <textarea name="description" value={formData.description} onChange={handleFormChange} placeholder="Detailed description of the project..." className="border px-3 py-2 rounded text-sm w-full" rows={3} />
+              </div>
 
+              {/* Row 17: SEO - Meta Title */}
+              <div>
+                <label className="text-xs text-gray-600 block mb-1">Meta Title (SEO)</label>
+                <input name="meta_title" value={formData.meta_title} onChange={handleFormChange} placeholder="Title for search engines..." className="border px-3 py-2 rounded text-sm w-full" />
+              </div>
+
+              {/* Row 18: SEO - Meta Description */}
+              <div>
+                <label className="text-xs text-gray-600 block mb-1">Meta Description (SEO)</label>
+                <textarea name="meta_description" value={formData.meta_description} onChange={handleFormChange} placeholder="Description for search engines..." className="border px-3 py-2 rounded text-sm w-full" rows={2} />
+              </div>
+
+              {/* Row 19: SEO - Meta Keywords & Canonical */}
               <div className="grid grid-cols-2 gap-3">
-                <input name="meta_title" value={formData.meta_title} onChange={handleFormChange} placeholder="Meta Title (SEO)" className="border px-3 py-2 rounded text-sm" />
-                <input name="canonical" value={formData.canonical} onChange={handleFormChange} placeholder="Canonical URL" className="border px-3 py-2 rounded text-sm" type="url" />
+                <div>
+                  <label className="text-xs text-gray-600 block mb-1">Meta Keywords (SEO)</label>
+                  <textarea name="meta_keyword" value={formData.meta_keyword} onChange={handleFormChange} placeholder="keyword1, keyword2, keyword3" className="border px-3 py-2 rounded text-sm w-full" rows={2} />
+                </div>
+                <div>
+                  <label className="text-xs text-gray-600 block mb-1">Canonical URL</label>
+                  <input name="canonical" value={formData.canonical} onChange={handleFormChange} placeholder="https://..." className="border px-3 py-2 rounded text-sm w-full" type="url" />
+                </div>
               </div>
 
-              <textarea name="meta_description" value={formData.meta_description} onChange={handleFormChange} placeholder="Meta Description (SEO)" className="border px-3 py-2 rounded text-sm" rows={2} />
-
-              <textarea name="meta_keyword" value={formData.meta_keyword} onChange={handleFormChange} placeholder="Meta Keywords (SEO, comma-separated)" className="border px-3 py-2 rounded text-sm" rows={2} />
-
-              <div className="flex items-center justify-end gap-3 mt-2">
-                <button type="button" onClick={closeAdd} className="px-4 py-2 border rounded">Cancel</button>
-                <button type="submit" disabled={submitting} className="px-4 py-2 bg-gradient-to-r from-purple-600 to-orange-500 text-white rounded">
+              {/* Action Buttons */}
+              <div className="flex items-center justify-end gap-3 mt-4 pt-3 border-t bg-white">
+                <button type="button" onClick={closeAdd} className="px-4 py-2 border rounded text-sm font-medium">Cancel</button>
+                <button type="submit" disabled={submitting} className="px-4 py-2 bg-gradient-to-r from-purple-600 to-orange-500 text-white rounded text-sm font-medium hover:opacity-90">
                   {submitting ? 'Creating...' : 'Create ICO'}
                 </button>
               </div>
