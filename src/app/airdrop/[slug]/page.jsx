@@ -5,6 +5,7 @@ import Link from "next/link";
 import { useParams } from "next/navigation";
 import axios from "axios";
 import HeroSection from "../../components/hero/HeroSection";
+import AdSpace from "../../components/AdSpace";
 
 const AirdropDetailPage = () => {
   const params = useParams();
@@ -213,6 +214,11 @@ const AirdropDetailPage = () => {
             </button>
           </Link>
 
+          {/* Main Content with Sidebar */}
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+            {/* Left Content - 2/3 width */}
+            <div className="lg:col-span-2">
+
           {/* Project Header */}
           <div className="bg-white rounded-2xl shadow-lg border border-gray-200 p-8 mb-8">
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
@@ -256,16 +262,16 @@ const AirdropDetailPage = () => {
                       <span
                         className={`px-3 py-1 rounded-full font-semibold text-[12px]
                           ${
-                            airdropDetail.status?.toLowerCase() === "ongoing"
+                            (airdropDetail.airdrop_status || airdropDetail.status)?.toLowerCase() === "ongoing"
                               ? "bg-green-100 text-green-800"
-                              : airdropDetail.status?.toLowerCase() === "upcoming"
+                              : (airdropDetail.airdrop_status || airdropDetail.status)?.toLowerCase() === "upcoming"
                               ? "bg-yellow-100 text-yellow-800"
-                              : airdropDetail.status?.toLowerCase() === "ended"
+                              : (airdropDetail.airdrop_status || airdropDetail.status)?.toLowerCase() === "ended"
                               ? "bg-red-100 text-red-800"
                               : "bg-gray-100 text-gray-800"
                           }`}
                       >
-                        {airdropDetail.status || "Upcoming"}
+                        {airdropDetail.airdrop_status || airdropDetail.status || "Upcoming"}
                       </span>
                     </div>
                   </div>
@@ -289,14 +295,16 @@ const AirdropDetailPage = () => {
                   </span>
                   <span
                     className={`px-4 py-1 rounded-full font-bold text-sm ${
-                      airdropDetail.status?.toLowerCase() === "ongoing"
+                      (airdropDetail.airdrop_status || airdropDetail.status)?.toLowerCase() === "ongoing"
                         ? "bg-green-400 text-gray-900"
-                        : airdropDetail.status?.toLowerCase() === "upcoming"
+                        : (airdropDetail.airdrop_status || airdropDetail.status)?.toLowerCase() === "upcoming"
                           ? "bg-yellow-400 text-gray-900"
+                          : (airdropDetail.airdrop_status || airdropDetail.status)?.toLowerCase() === "ended"
+                          ? "bg-red-400 text-gray-900"
                           : "bg-gray-400 text-gray-900"
                     }`}
                   >
-                    {airdropDetail.status || "Upcoming"}
+                    {airdropDetail.airdrop_status || airdropDetail.status || "Upcoming"}
                   </span>
                 </div>
               </div>
@@ -732,6 +740,14 @@ const AirdropDetailPage = () => {
               </div>
             )}
 
+          </div>
+
+            </div>
+
+            {/* Right Sidebar - 1/3 width */}
+            <div className="lg:col-span-1">
+              <AdSpace />
+            </div>
           </div>
         </div>
       </div>

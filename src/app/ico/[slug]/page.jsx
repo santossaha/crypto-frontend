@@ -5,6 +5,7 @@ import Link from "next/link";
 import { useParams } from "next/navigation";
 import axios from "axios";
 import HeroSection from "../../components/hero/HeroSection";
+import AdSpace from "../../components/AdSpace";
 
 const IcoDetailPage = () => {
   const params = useParams();
@@ -185,8 +186,13 @@ const IcoDetailPage = () => {
             </button>
           </Link>
 
-          {/* Project Header */}
-          <div className="bg-white rounded-2xl shadow-lg border border-gray-200 p-8 mb-8">
+          {/* Main Content with Sidebar */}
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+            {/* Left Content - 2/3 width */}
+            <div className="lg:col-span-2">
+
+              {/* Project Header */}
+              <div className="bg-white rounded-2xl shadow-lg border border-gray-200 p-8 mb-8">
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
               {/* Project Info */}
               <div className="md:col-span-4 flex flex-col justify-center">
@@ -245,12 +251,8 @@ const IcoDetailPage = () => {
               </div>
             </div>
 
-
-            {/* Divider */}
-            <hr className="my-8" />
-
-            {/* ICO Details Table */}
-            <div className="bg-white rounded-xl border border-gray-200 overflow-hidden mb-8">
+              {/* ICO Details Table */}
+              <div className="bg-white rounded-xl border border-gray-200 overflow-hidden mb-8">
               {/* Header */}
               <div className="bg-gradient-to-r from-purple-600 to-orange-300 px-4 py-2 flex justify-between items-center">
                 <h2 className="text-2xl mb-0 font-bold text-white">ICO Details</h2>
@@ -265,6 +267,8 @@ const IcoDetailPage = () => {
                         ? "bg-green-400 text-gray-900"
                         : icoDetail.ico_status?.toLowerCase() === "upcoming"
                           ? "bg-yellow-400 text-gray-900"
+                          : icoDetail.ico_status?.toLowerCase() === "ended"
+                          ? "bg-red-400 text-gray-900"
                           : "bg-gray-400 text-gray-900"
                     }`}
                   >
@@ -1221,22 +1225,31 @@ const IcoDetailPage = () => {
                   </div>
                 </div>
               </div>
-            </div>
+              </div>
 
-            {/* About Section */}
-            <div className="bg-white rounded-xl  overflow-hidden">
-              {/* Content */}
-              <div className="py-4">
-                <div className="prose prose-lg max-w-none">
-                  <h2 className="text-2xl font-bold text-gray-800">{icoDetail?.name || ''}</h2>
-                  <p className="text-gray-700 leading-relaxed mb-4">
-                    {icoDetail?.short_description || "No description available for this project."}
-                  </p>
+              {/* About Section */}
+              <div className="bg-white rounded-xl  overflow-hidden">
+                {/* Content */}
+                <div className="py-4">
+                  <div className="prose prose-lg max-w-none">
+                    <h2 className="text-2xl font-bold text-gray-800">{icoDetail?.name || ''}</h2>
+                    <p className="text-gray-700 leading-relaxed mb-4">
+                      {icoDetail?.short_description || "No description available for this project."}
+                    </p>
+                  </div>
                 </div>
               </div>
+
             </div>
+
+           
           </div>
+           {/* Right Sidebar */}
+            <div className="md:col-span-1">
+              <AdSpace />
+            </div>
         </div>
+      </div>
       </div>
     </>
   );
