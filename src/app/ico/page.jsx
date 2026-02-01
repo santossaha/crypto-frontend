@@ -626,7 +626,7 @@ const Page = () => {
                 <label className="text-xs text-gray-600 block mb-1">Full Description</label>
                 <textarea name="description" value={formData.description} onChange={handleFormChange} placeholder="Detailed description of the project..." className="border px-3 py-2 rounded text-sm w-full" rows={3} />
               </div>
-
+ 
               {/* Row 17: SEO - Meta Title */}
               <div>
                 <label className="text-xs text-gray-600 block mb-1">Meta Title (SEO)</label>
