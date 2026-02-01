@@ -42,22 +42,27 @@ const Airdrop = () => {
   const [isAddOpen, setIsAddOpen] = useState(false);
   const initialForm = {
     name: "",
-    slug: "",
+    platform: "",
     image: "",
-    symbol: "",
-    type: "Token",
-    category: "",
-    network: "",
-    winners: "",
-    quantity: "",
-    total_supply_qty: "",
-    tokens_for_sale: "",
+    total_supply: "",
+    total_airdrop_qty: "",
+    airdrop_value: "",
     supply_percentage: "",
+    winner_count: "",
+    project_category: "",
+    blockchain_network: "",
     start_date: "",
     end_date: "",
-    status: "Upcoming",
-    tasks: "",
-    short_description: "",
+    winner_announcement_date: "",
+    description: "",
+    how_to_participate: "",
+    participate_link: "",
+    website_url: "",
+    whitepaper_url: "",
+    twitter_url: "",
+    telegram_url: "",
+    discord_url: "",
+    airdrop_status: "",
   };
   const [formData, setFormData] = useState(initialForm);
   const [submitting, setSubmitting] = useState(false);
@@ -94,7 +99,7 @@ const Airdrop = () => {
       const formDataPayload = new FormData();
       Object.keys(formData).forEach((key) => {
         const val = formData[key];
-        if (key === 'start_date' || key === 'end_date') {
+        if (key === 'start_date' || key === 'end_date' || key === 'winner_announcement_date') {
           formDataPayload.append(key, toDDMMYYYY(val));
         } else if (val instanceof File) {
           formDataPayload.append(key, val);
@@ -102,6 +107,12 @@ const Airdrop = () => {
           formDataPayload.append(key, val);
         }
       });
+
+      // Debug: Log what's being sent
+      console.log("📤 Sending form data:");
+      for (let pair of formDataPayload.entries()) {
+        console.log(pair[0], ":", pair[1]);
+      }
 
       try {
         if (!formDataPayload.get('status')) formDataPayload.append('status', 'Active');
@@ -387,72 +398,94 @@ const Airdrop = () => {
               </div>
             )}
 
-            <form onSubmit={handleCreate} className="grid grid-cols-1 gap-3">
+            <form onSubmit={handleCreate} className="grid grid-cols-1 gap-3 pr-2">
+              {/* Row 1: Basic Info */}
               <div className="grid grid-cols-2 gap-3">
-                <input name="name" value={formData.name} onChange={handleFormChange} placeholder="Project Name" className="border px-3 py-2 rounded" required />
-                <input name="slug" value={formData.slug} onChange={handleFormChange} placeholder="Slug (url)" className="border px-3 py-2 rounded" />
+                <input name="name" value={formData.name} onChange={handleFormChange} placeholder="Airdrop Name" className="border px-3 py-2 rounded text-sm" required />
+                <input name="platform" value={formData.platform} onChange={handleFormChange} placeholder="Platform" className="border px-3 py-2 rounded text-sm" />
               </div>
 
-              <div className="grid grid-cols-2 gap-3">
-                <div>
-                  <label className="text-sm text-gray-600">Image (JPEG/PNG/GIF/SVG)</label>
-                  <input type="file" name="image" onChange={handleFormChange} accept="image/*" className="border px-3 py-2 rounded w-full" />
-                  {formData.image && <p className="text-xs text-green-600 mt-1">✓ {formData.image.name}</p>}
-                </div>
-                <input name="symbol" value={formData.symbol} onChange={handleFormChange} placeholder="Symbol (e.g. $SOL)" className="border px-3 py-2 rounded" />
+              {/* Row 2: Image Upload */}
+              <div>
+                <label className="text-sm text-gray-600 block mb-1">Airdrop Image (JPEG/PNG/GIF/SVG)</label>
+                <input type="file" name="image" onChange={handleFormChange} accept="image/*" className="border px-3 py-2 rounded w-full text-sm" />
+                {formData.image && <p className="text-xs text-green-600 mt-1">✓ {formData.image.name}</p>}
               </div>
 
+              {/* Row 3: Supply Info */}
               <div className="grid grid-cols-2 gap-3">
-                <input name="type" value={formData.type} onChange={handleFormChange} placeholder="Type (e.g. Token)" className="border px-3 py-2 rounded" />
-                <select name="status" value={formData.status} onChange={handleFormChange} className="border px-3 py-2 rounded">
-                  <option value="">Select Status</option>
-                  {Object.entries(filters.airdrop_statuses || {}).map(([key, val]) => (
-                    <option key={key} value={key}>{val}</option>
-                  ))}
-                </select>
+                <input name="total_supply" value={formData.total_supply} onChange={handleFormChange} placeholder="Total Supply" className="border px-3 py-2 rounded text-sm" type="number" step="0.01" />
+                <input name="total_airdrop_qty" value={formData.total_airdrop_qty} onChange={handleFormChange} placeholder="Total Airdrop Qty" className="border px-3 py-2 rounded text-sm" type="number" step="0.01" />
               </div>
 
+              {/* Row 4: Value Info */}
               <div className="grid grid-cols-2 gap-3">
-                <select name="category" value={formData.category} onChange={handleFormChange} className="border px-3 py-2 rounded">
+                <input name="airdrop_value" value={formData.airdrop_value} onChange={handleFormChange} placeholder="Airdrop Value" className="border px-3 py-2 rounded text-sm" type="number" step="0.01" />
+                <input name="supply_percentage" value={formData.supply_percentage} onChange={handleFormChange} placeholder="Supply Percentage (%)" className="border px-3 py-2 rounded text-sm" type="number" step="0.01" />
+              </div>
+
+              {/* Row 5: Winners & Categories */}
+              <div className="grid grid-cols-2 gap-3">
+                <input name="winner_count" value={formData.winner_count} onChange={handleFormChange} placeholder="Winner Count" className="border px-3 py-2 rounded text-sm" type="number" />
+                <select name="project_category" value={formData.project_category} onChange={handleFormChange} className="border px-3 py-2 rounded text-sm">
                   <option value="">Select Category</option>
                   {Object.entries(filters.categories || {}).map(([key, val]) => (
                     <option key={key} value={key}>{val}</option>
                   ))}
                 </select>
+              </div>
 
-                <select name="network" value={formData.network} onChange={handleFormChange} className="border px-3 py-2 rounded">
+              {/* Row 6: Network & Status */}
+              <div className="grid grid-cols-2 gap-3">
+                <select name="blockchain_network" value={formData.blockchain_network} onChange={handleFormChange} className="border px-3 py-2 rounded text-sm">
                   <option value="">Select Network</option>
                   {Object.entries(filters.networks || {}).map(([key, val]) => (
                     <option key={key} value={key}>{val}</option>
                   ))}
                 </select>
+                <select name="airdrop_status" value={formData.airdrop_status} onChange={handleFormChange} className="border px-3 py-2 rounded text-sm" required>
+                  <option value="">Select Status *</option>
+                  {Object.entries(filters.airdrop_statuses || {}).map(([key, val]) => (
+                    <option key={key} value={val}>{val}</option>
+                  ))}
+                </select>
               </div>
 
+              {/* Row 7: Dates */}
+              <div className="grid grid-cols-3 gap-3">
+                <input type="date" name="start_date" value={formData.start_date} onChange={handleFormChange} placeholder="Start Date" className="border px-3 py-2 rounded text-sm" />
+                <input type="date" name="end_date" value={formData.end_date} onChange={handleFormChange} placeholder="End Date" className="border px-3 py-2 rounded text-sm" />
+                <input type="date" name="winner_announcement_date" value={formData.winner_announcement_date} onChange={handleFormChange} placeholder="Winner Announcement Date" className="border px-3 py-2 rounded text-sm" />
+              </div>
+
+              {/* Row 8: Description */}
+              <textarea name="description" value={formData.description} onChange={handleFormChange} placeholder="Description" className="border px-3 py-2 rounded text-sm" rows={2} />
+
+              {/* Row 9: How to Participate */}
+              <textarea name="how_to_participate" value={formData.how_to_participate} onChange={handleFormChange} placeholder="How to Participate" className="border px-3 py-2 rounded text-sm" rows={2} />
+
+              {/* Row 10: Links */}
               <div className="grid grid-cols-2 gap-3">
-                <input type="date" name="start_date" value={formData.start_date} onChange={handleFormChange} placeholder="Start Date" className="border px-3 py-2 rounded" />
-                <input type="date" name="end_date" value={formData.end_date} onChange={handleFormChange} placeholder="End Date" className="border px-3 py-2 rounded" />
+                <input name="participate_link" value={formData.participate_link} onChange={handleFormChange} placeholder="Participate Link" className="border px-3 py-2 rounded text-sm" type="url" />
+                <input name="website_url" value={formData.website_url} onChange={handleFormChange} placeholder="Website URL" className="border px-3 py-2 rounded text-sm" type="url" />
               </div>
 
+              {/* Row 11: More Links */}
               <div className="grid grid-cols-2 gap-3">
-                <input name="winners" value={formData.winners} onChange={handleFormChange} placeholder="Number of Winners" className="border px-3 py-2 rounded" type="number" />
-                <input name="quantity" value={formData.quantity} onChange={handleFormChange} placeholder="Token Quantity" className="border px-3 py-2 rounded" />
+                <input name="whitepaper_url" value={formData.whitepaper_url} onChange={handleFormChange} placeholder="Whitepaper URL" className="border px-3 py-2 rounded text-sm" type="url" />
+                <input name="twitter_url" value={formData.twitter_url} onChange={handleFormChange} placeholder="Twitter URL" className="border px-3 py-2 rounded text-sm" type="url" />
               </div>
 
+              {/* Row 12: Social Links */}
               <div className="grid grid-cols-2 gap-3">
-                <input name="total_supply_qty" value={formData.total_supply_qty} onChange={handleFormChange} placeholder="Total Supply Qty" className="border px-3 py-2 rounded" />
-                <input name="tokens_for_sale" value={formData.tokens_for_sale} onChange={handleFormChange} placeholder="Tokens for Sale" className="border px-3 py-2 rounded" />
+                <input name="telegram_url" value={formData.telegram_url} onChange={handleFormChange} placeholder="Telegram URL" className="border px-3 py-2 rounded text-sm" type="url" />
+                <input name="discord_url" value={formData.discord_url} onChange={handleFormChange} placeholder="Discord URL" className="border px-3 py-2 rounded text-sm" type="url" />
               </div>
 
-              <div className="grid grid-cols-2 gap-3">
-                <input name="supply_percentage" value={formData.supply_percentage} onChange={handleFormChange} placeholder="Supply Percentage (%)" className="border px-3 py-2 rounded" />
-                <input name="tasks" value={formData.tasks} onChange={handleFormChange} placeholder="Number of Tasks" className="border px-3 py-2 rounded" type="number" />
-              </div>
-
-              <textarea name="short_description" value={formData.short_description} onChange={handleFormChange} placeholder="Short Description" className="border px-3 py-2 rounded" rows={4} />
-
-              <div className="flex items-center justify-end gap-3 mt-2">
-                <button type="button" onClick={closeAdd} className="px-4 py-2 border rounded">Cancel</button>
-                <button type="submit" disabled={submitting} className="px-4 py-2 bg-gradient-to-r from-purple-600 to-orange-500 text-white rounded">
+              {/* Action Buttons */}
+              <div className="flex items-center justify-end gap-3 mt-4 pt-3 border-t  bg-white">
+                <button type="button" onClick={closeAdd} className="px-4 py-2 border rounded text-sm font-medium">Cancel</button>
+                <button type="submit" disabled={submitting} className="px-4 py-2 bg-gradient-to-r from-purple-600 to-orange-500 text-white rounded text-sm font-medium hover:opacity-90">
                   {submitting ? 'Creating...' : 'Create Airdrop'}
                 </button>
               </div>
